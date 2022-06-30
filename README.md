@@ -2,7 +2,10 @@
 
 인프런 자바 알고리즘 학습 기록을 위한 레포
 
-## 01 String Section
+<details>
+<summary>01 String Section</summary>
+<div markdown="1">
+
 ### 01-01
 문자열 안에서 특정 문자 찾는 문제 
 
@@ -33,7 +36,8 @@ String[] str_arr = str.split(" ");
         
 While(str.indexOf(" ") != -1) {
     //substring 을 통해 잘라나간다.
-};  
+};
 
-
+</div>
+</details>
 ```
