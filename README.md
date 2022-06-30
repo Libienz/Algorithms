@@ -60,6 +60,13 @@ Character.isAlphabetic(ch);//요거 통해서 알파벳인지 쉽게 알 수 있
 
 
 ```
+### 01-06
+중복된 캐릭터 제거 문제
+```java 
+indexOf()//요게 없으면 -1을 반환한다는 것을 이용해서
+//자기위치와 처음 발견된 indexof의 결과가 다르다? 제거
+str.indexOf(str.charAt(i)) == i
+```
 </div>
 </details>
 
