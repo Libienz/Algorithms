@@ -85,9 +85,18 @@ for (int i = 0; i <= ch_arr.length / 2; i++) {
 ```java 
 //나는 특수문자를 제거한 캐릭터 배열을 새로 만들어 특수문자가 제거된 문자열을 만듬
 //강좌에서는 replaceAll과 정규식을 이용했다.
-str = str.toUppercase().replaceAll("[^A-Z]", "")// 대문자 A-Z가 아니면 빈문자화 시켜라
+str = str.toUppercase().replaceAll("[^A-Z]", "");// 대문자 A-Z가 아니면 빈문자화 시켜라
 //replaceAll은 첫번째 인자를 두번째 인자로 바꾸는 메소드
-
+```
+### 01-09
+문자열 사이에서 숫자만 추출해서 '자연수로' 만들기
+```java 
+//정규식 이용해서 숫자가 아닌 것들 제거
+//나는 Integer.valueOf()메소드 사용했다. 정규식 꼭 익혀두자
+//강좌에서는 문자 0의 아스키 코드값이 48인것을 이용해서 *10을 해나가는 방식 사용
+answer = answer * 10 + (x-48);
+Character.isDigit(x);// 요거 사용할 수도 있다.
+Integer.parseInt(answer);// 파스인트 요거도 정수로 바꿔준다.
 ```
 </div>
 </details>
