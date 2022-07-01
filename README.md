@@ -67,6 +67,28 @@ indexOf()//요게 없으면 -1을 반환한다는 것을 이용해서
 //자기위치와 처음 발견된 indexof의 결과가 다르다? 제거
 str.indexOf(str.charAt(i)) == i
 ```
+### 01-07
+회문 문자열인지 검사하는 알고리즘 
+```java 
+//내가 푼거는 reverse 시켜서 String.equals 사용
+//강사의 풀이방식은 문자열의 length / 2 로 자르고 반대편과 비교해나가면서
+//틀린게 있다면 NO하도록 --> 요게 오버헤드가 더 라이트한듯.. 반성
+for (int i = 0; i <= ch_arr.length / 2; i++) {
+    if (ch_arr[i] != ch_arr[ch_arr.length - i]) {
+        return false;
+    }
+    continue;
+}
+```
+### 01-08
+회문 문자열인지 검사하는 알고리즘 but 특수문자 무시
+```java 
+//나는 특수문자를 제거한 캐릭터 배열을 새로 만들어 특수문자가 제거된 문자열을 만듬
+//강좌에서는 replaceAll과 정규식을 이용했다.
+str = str.toUppercase().replaceAll("[^A-Z]", "")// 대문자 A-Z가 아니면 빈문자화 시켜라
+//replaceAll은 첫번째 인자를 두번째 인자로 바꾸는 메소드
+
+```
 </div>
 </details>
 
