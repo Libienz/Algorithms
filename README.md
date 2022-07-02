@@ -122,6 +122,18 @@ Integer.parseInt(answer);// 파스인트 요거도 정수로 바꿔준다.
     할 수 있으면 노상관 */
     
 ```
+### 01-12
+암호 변환 문제
+```java 
+/*  10진수는 char로 캐스트 하면 바뀐다.
+    강사와 나의 커다란 아이디어 차이 없음
+    다만 나는 need_decrypt 변수 설정 while문의 조건으로 사용
+    강사는 replace로 2진수로 바꿨다. 
+    */
+    str.substring(0,7).replace('#','1').replace('*','0');
+    Integer.parseInt(str,2); // 두번째 인자가 진법
+    
+```
 </div>
 </details>
 
