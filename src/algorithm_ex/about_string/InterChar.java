@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class InterChar {
+
     public static int getAbsoluteVal(int num) {
         if(num<0) return -1*num;
         else return num;
