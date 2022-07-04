@@ -30,7 +30,8 @@ Character.isLowerCase(c);//와 같은 메소드로 대소문자 확인가능
         
 //첫번째 방법
         
-String[] str_arr = str.split(" ");
+String[] str_arr = str.split(" "); 
+
 
 //두번째 방법 indexOf는 못찾으면 -1 반환하기에
         
