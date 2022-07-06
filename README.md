@@ -219,12 +219,12 @@ public static boolean isPrime(int num) {
         return true;
 }
 //손코딩으로 풀라고 하면 숫자를 어떻게 뒤집어야 할까?
-public static void int reverseInt(int num) {
+public static int reverseInt(int num) {
     int tmp = num;
     int res = 0;
     while(tmp>0) {
-        res = res*10 + tmp%10
-        tmp = tmp/10
+        res = res*10 + tmp%10;
+        tmp = tmp/10;
     }
     return res;
 }
@@ -248,6 +248,15 @@ ox문제 가중치를 포함한 학생의 점수 계산하지
 
 강사의 방식 : 간단 이중포문 돌면 끝 자기보다 큰애들이 발견될때마다 등수 하나씩
 높인다.
+
+ */
+
+```
+### 02-09
+격자판의 sum 중 가장 큰 sum 구하기
+```java
+/*
+sum의 종류는 3가지 모두 구해서 최대를 찾는다 끝
 
  */
 ```

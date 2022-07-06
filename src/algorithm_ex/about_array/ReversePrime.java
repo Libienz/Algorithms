@@ -3,6 +3,15 @@ package algorithm_ex.about_array;
 import java.util.Scanner;
 
 public class ReversePrime {
+    public static int reverseInt(int num) {
+        int tmp = num;
+        int res = 0;
+        while(tmp>0) {
+            res = res*10 + tmp%10;
+            tmp = tmp/10;
+        }
+        return res;
+    }
     public static String stringReverse(String str) {
         char[] ch_arr = str.toCharArray();
         int lt = 0;
