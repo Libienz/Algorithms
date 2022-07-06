@@ -195,6 +195,47 @@ isPrime 메소드를 생성. 이 함수를 다시 루프에 사용하며 소수�
 소수로 남아있다는 것은 자기보다 작은 수가 자신의 약수가 되지 않았다는 뜻       
  */
 ```
+### 02-06
+주어진 숫자 뒤집은 숫자가 prime인지 확인하기
+```java
+/*
+뒤집는 방식은 StringBuilder.reverse 쓰든가 아니면 while(lt<rt) 쓰든가
+둘 중 하나 골라서 사용하자 나는 두가지 다 실습 해봄
+isPrime은 간단하게 구현해도 좋다
+ */
+public static boolean isPrime(int num) {
+        if (num == 0 || num == 1) {
+        return false;
+        }
+        if (num ==2 ) {
+        return true;
+        }
+        for(int i =2;i<num; i++){
+            if(num%i==0){
+            return false;
+            }
+        }
+        
+        return true;
+}
+//손코딩으로 풀라고 하면 숫자를 어떻게 뒤집어야 할까?
+public static void int reverseInt(int num) {
+    int tmp = num;
+    int res = 0;
+    while(tmp>0) {
+        res = res*10 + tmp%10
+        tmp = tmp/10
+    }
+    return res;
+}
+```
+### 02-07
+사이즈 크기만큼의 피보나치 수열 만들기
+```java
+/*
+가위바위보 if else로 나눈다.
+ */
+```
 
 </div>
 </details>
