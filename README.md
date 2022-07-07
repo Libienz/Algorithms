@@ -281,6 +281,19 @@ arr[0]; // 이거는 하나의 배열을 말한다.
 //1부터 사용할거면 그냥 넉넉히 만들자
 
 ```
+### 02-12
+멘토링 가능한 경우의 수
+```java
+//학생들의 모든 경우의 수를 돌며 멘토링이 가능한지 여부 메소드로 확인
+int count = 0;
+for (int i = 1; i<=num_of_student; i ++) { //i -> mento
+    for (int j = 1; j<=num_of_student; j++) { //j -> menti
+        if( i==j) continue;
+        if(ableToTeach(i,j,test_res)) count++;
+    }
+}
+
+```
 </div>
 </details>
 
