@@ -44,9 +44,5 @@ public class Mentor {
 
         System.out.println(count);
 
-
-
-
-
     }
 }
