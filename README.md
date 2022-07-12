@@ -301,5 +301,12 @@ for (int i = 1; i<=num_of_student; i ++) { //i -> mento
 <summary>03 Two pointers, Sliding window </summary>
 <div markdown="1">
 
+### 03-01
+두개의 배열 합병 과정에서 투포인터 사용해서 정렬하기
+```java
+//두개의 배열에서 lt를 하나씩
+//farr[f_lt] 와 sarr[s_lt] 비교 
+//while문 사용하자 딱봐도 사용하라고 만든 문제
+```
 </div>
 </details>
