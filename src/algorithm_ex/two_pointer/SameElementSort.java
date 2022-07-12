@@ -35,6 +35,7 @@ public class SameElementSort {
         if(end>part) quickSort(arr,part,end);
     }
 
+
     private static int partition(int[] arr,int start,int end) {
         int pivot=arr[(start+end)/2];
         while(start<=end) {

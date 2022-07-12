@@ -317,6 +317,7 @@ for (int i = 1; i<=num_of_student; i ++) { //i -> mento
 //간단한 정렬은 컬렉션 프레임워크로 Array.sort(a); 이런시긍로 사용하면 된다.
 //아래는 퀵소트
 //강사는 포인터중 아무쪽이나 한쪽이 끝나면 공통원소가 없다고 했는데 그렇지 않을 텐데?
+
 private static void quickSort(int[] arr,int start, int end) {
         int part=partition(arr,start,end);
         if(start<part-1) quickSort(arr,start,part-1);
