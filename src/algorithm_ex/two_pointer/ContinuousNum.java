@@ -5,27 +5,8 @@ import java.util.Scanner;
 public class ContinuousNum {
 
     public static int count(int size, int obj_num, int[] arr) {
-        int lt = 0;
-        int sum = 0;
-        int count = 0;
-        for (int rt = 0; rt<size; rt++) {
-            sum += arr[rt];
-            if (sum<obj_num) {
-                rt++;
-            }
-            else if (sum>obj_num) {
-                sum -= arr[lt];
-                lt++;
-            }
-            else {
-                count++;
-                sum = 0;
-                break;
-            }
-        }
-        return count;
-
-        /*//어디서 시작하는지를 경우의 수로 나누자...
+        //어디서 시작하는지를 경우의 수로 나누자...
+        //투포인터를 써서 rt를 증가시키고 lt를 쫓아오게 만들면 모든 케이스에 대한 검증이 가능 한지도 의문인데 ..?
         int sum = 0;
         int count= 0;
         for (int i = 0; i<size; i++) {
@@ -41,7 +22,7 @@ public class ContinuousNum {
             }
             sum = 0;
         }
-        return count;*/
+        return count;
     }
     public static void main(String[] args) {
 

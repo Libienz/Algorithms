@@ -368,6 +368,7 @@ private static void swap(int[] arr,int start,int end) {
 ```java
 //이것도 시작이 어디냐로 케이스 분류 했다. 연속된 두 수 이상의 합이기 때문에 
 //입력된 숫자 크기만큼 루프를 돌 필요 없이 절반까지만 돈다.
+//결국 lt rt가 시작지점에따른 부분수열 합이다.
 
 ```
 ### 03-06
@@ -381,5 +382,31 @@ private static void swap(int[] arr,int start,int end) {
 
 ```
 투포인터 개약하니까 다시한번 보자
+</div>
+</details>
+
+
+<details>
+<summary>04 HashMap, Tree, Set </summary>
+<div markdown="1">
+
+### 04-01
+해쉬맵을 이용한 학급회장 구하기
+```java
+map.get(key); // key값에 해당하는 value를 가져온다
+map.getOrDefault(key,0) // key값이 맵에 없다면 0을리턴해라
+for (char x : map.keySet()) {
+    System.out.println(x + map.get(x))
+    //이런식으로 모든 키를 찾아볼 수 있따.
+}
+map.containsKey(key) // 불타입 리턴 있는지 없는지
+map.size // 들어있는 개수
+map.remove(key) // key를 삭제함과 동시에 그 키가 가지고 있는 value를 팝한다
+
+
+
+
+```
+
 </div>
 </details>
