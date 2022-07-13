@@ -58,6 +58,9 @@ public class MaxLength {
                     how_many_one_arround.add(howManyOneAround(i,arr));
                 }
             }
+            if(index_of_zero.isEmpty()) {
+                break;
+            }
             arr[index_of_zero.get(getIndexOfMax(how_many_one_arround))] = 1; //후보 최우선 순위 1로 변경완료
             index_of_zero.clear();
             how_many_one_arround.clear();

@@ -5,7 +5,27 @@ import java.util.Scanner;
 public class ContinuousNum {
 
     public static int count(int size, int obj_num, int[] arr) {
-        //어디서 시작하는지를 경우의 수로 나누자...
+        int lt = 0;
+        int sum = 0;
+        int count = 0;
+        for (int rt = 0; rt<size; rt++) {
+            sum += arr[rt];
+            if (sum<obj_num) {
+                rt++;
+            }
+            else if (sum>obj_num) {
+                sum -= arr[lt];
+                lt++;
+            }
+            else {
+                count++;
+                sum = 0;
+                break;
+            }
+        }
+        return count;
+
+        /*//어디서 시작하는지를 경우의 수로 나누자...
         int sum = 0;
         int count= 0;
         for (int i = 0; i<size; i++) {
@@ -21,7 +41,7 @@ public class ContinuousNum {
             }
             sum = 0;
         }
-        return count;
+        return count;*/
     }
     public static void main(String[] args) {
 
