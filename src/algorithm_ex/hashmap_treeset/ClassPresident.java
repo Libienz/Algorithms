@@ -9,6 +9,7 @@ public class ClassPresident {
         for (char key : str.toCharArray()) {
             candidate.put(key,candidate.getOrDefault(key,0)+1);
         }
+
         int max = 0;
         char pres = ' ';
         for (char key : candidate.keySet()) { //모든 키에 대해서 순회 가능

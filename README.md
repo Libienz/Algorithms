@@ -420,5 +420,20 @@ map.remove(key) // key를 삭제함과 동시에 그 키가 가지고 있는 val
 //1차 반복으로 줄일 수 있다. 
 
 ```
+
+### 04-03
+부분수열에 대한 모든 아나그램
+```java
+//더 작은 문자열인 두번째 문자열의 맵을 목적맵으로, 첫번째 배열에서 루프를 돌며 윈도우를 잘라온 것을 그냥 맵으로 설정
+//루프마다 isSameMap() 메소드 활용 같은지 확인한다.
+    public static boolean isSameMap(Map<Character,Integer> map, Map<Character,Integer> obj_map) {
+        for (char key : obj_map.keySet()) {
+        if (!map.containsKey(key)) return false;
+        if (map.get(key) != obj_map.get(key)) return false;
+        }
+        return true;
+    }
+//슬라이딩 윈도우 고정이면 2중포문 아닌 하나의 반복문으로 가능하다는 것 이거 익숙해지자.
+```
 </div>
 </details>
