@@ -18,7 +18,7 @@ public class BraceCheck {
                 stack.pop();
             }
         }
-        if (stack.size() == 0) return true;
+        if (stack.size() == 0) return true; //or stack.isEmpty()
         else return false;
     }
 
