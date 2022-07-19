@@ -567,6 +567,16 @@ board[0].length();//이거는 열크기
 
 ```java
 // 배열 만들어서 해결.. 끝 특별하지 않은 쉬운 문제
+
+// but 강사왈 큐를 사용하는 문제!?
+// 큐의 사이즈가 1이 될 때 까지 머리에서 빼고 꽁지에서 넣는다.
+Queue<Integer> Q = new LinkedList<>(); // 큐선언은 이렇게
+Q.offer(x); // x를 큐에 넣는다. enqueue
+Q.poll(); // 나와야 될 것을 꺼낸다. dequeue
+Q.peek(); // 꺼내지 않고 젤 앞에 있는 거 확인 한다. 나와야 될 지점에서
+Q.size();
+Q.contains(x); // 불타입 리턴 
+
 ```
 
 </div>
