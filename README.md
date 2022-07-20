@@ -641,5 +641,29 @@ for (int i = 0; i<arr.length; i++) {
 }
 ```
 
+### 06-03
+선택 정렬
+```java
+//2번째 원소부터 시작하여 현재보고 있는 인덱스보다 왼쪽을 정렬시켜나간다는 개념
+//현재 보고 있는 인덱스보다 왼쪽을 살펴보며 자기가 들어갈 위치에 삽입 나머지는 한칸씩 밀어낸다.
+//개인적으로 어려웠던 알고리즘 gg 침.. 다시 철저히 공부하자
+//j를 밖에다 써야하는 이유는 곰곰히 생각해봤는데 저 조건에 걸리지 않고 j루프가 다끝날때까지 조건에 해당되지 않는 경우가 있기 때문일 것 같음
+
+public static void insertionSort(int[] arr) {
+    for (int i = 1; i<arr.length; i++) {
+        int tmp = arr[i],j;
+        for (j = i-1; j>=0; j--) {
+            if (arr[j] < tmp) {
+                break;
+            }
+            else {
+                arr[j+1] = arr[j];
+            }
+        }
+        arr[j+1] = tmp;
+    }
+}
+```
+
 </div>
 </details>
