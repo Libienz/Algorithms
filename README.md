@@ -624,5 +624,22 @@ public Person() {
 
 ```
 
+
+### 06-02
+버블 정렬
+```java
+//i for 문의 의미와 j for문의 의미 잘 기억해두자 헷갈린다.
+// i for 문에서 i번째 루프를 돌고 있다는 것은? -> 오른쪽에서 i번쨰 까지 정렬이 완료
+// j for 문은 오른쪽에서 i번째 까지 정렬이 완료 되었으니 그전까지만 버블 비교
+
+for (int i = 0; i<arr.length; i++) {
+        for (int j = 0; j<arr.length-i-1; j++) {
+            if (arr[j] > arr[j+1]) {
+            swap(arr,j,j+1);
+            }
+        }
+}
+```
+
 </div>
 </details>

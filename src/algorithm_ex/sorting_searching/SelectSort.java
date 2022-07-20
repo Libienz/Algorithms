@@ -27,6 +27,12 @@ public class SelectSort {
     //문제는 왜 스왑이 안먹힘? 스왑 왜안됨 이 tlqkf 거꾸로 하면 왜 됨?
     public static void selectSort(int[] arr) {
 
+  /*      for (int i = 0; i<arr.length; i++) {
+            int tmp = arr[getMinInd(arr,i)];
+            arr[getMinInd(arr,i)] = arr[i];
+            arr[i] = tmp;
+        }
+*/
         for (int i = 0; i<arr.length; i++) {
             int tmp = arr[i];
             arr[i] = arr[getMinInd(arr,i)];
