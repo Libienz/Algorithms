@@ -10,6 +10,7 @@ public class Posifix {
         Stack<Integer> stack = new Stack<>();
         int fnum, snum;
 
+
         for (char ch : str.toCharArray()) {
             if (Character.isDigit(ch)) {
                 stack.push(Character.getNumericValue(ch));
