@@ -34,6 +34,7 @@ public class SelectSort {
         }
 */
         for (int i = 0; i<arr.length; i++) {
+            System.out.println("min : " + getMinInd(arr,i) + "스왑대상 : " + arr[i]);
             int tmp = arr[i];
             arr[i] = arr[getMinInd(arr,i)];
             arr[getMinInd(arr,i)] = tmp;
