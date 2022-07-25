@@ -714,8 +714,25 @@ int tmp = arr.clone(); //깊은 복사 하는 방법
 좌표 정렬
 ```java
 // 클래스 하나 만들자 Coord
-// 제일 간단한 선택정렬 사용했다. (최솟값을 찾아 왼쪽부터 정렬)
+// 시간초과가 무서웠지만 제일 간단한 선택정렬 사용했다. (최솟값을 찾아 왼쪽부터 정렬)
 // 조건하나만 x값 같을 때 추가했을 뿐 
+
+//강사 코드
+class Point implements Comparable<Point> { //Comparable은 인터페이스
+    
+    public int x,y;
+    Point(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+    
+    @Override
+    public int compareTo(Point o) {
+        if (this.x == o.x) return this.y - o.y;
+        else this.x - o.x;
+    }
+}
+//이후 Collections.sort(arr);
 ```
 
 </div>
