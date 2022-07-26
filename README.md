@@ -740,6 +740,15 @@ class Point implements Comparable<Point> { //Comparable은 인터페이스
 ```java
 //난 재귀로 풀었당 
 
+//재귀가 아닌 방법
+
+while(lt<=rt) {
+    int mid = (lt + rt)/2;
+    if (arr[mid] == num) return mid;
+    else if (arr[mid] > num) rt = mid -1;
+    else lt = mid + 1;
+}
+
 ```
 
 </div>
