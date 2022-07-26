@@ -735,5 +735,12 @@ class Point implements Comparable<Point> { //Comparable은 인터페이스
 //이후 Collections.sort(arr);
 ```
 
+### 06-08
+이분 탐색 Binary Search
+```java
+//난 재귀로 풀었당 
+
+```
+
 </div>
 </details>
