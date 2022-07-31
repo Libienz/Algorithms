@@ -804,7 +804,22 @@ rt = stall_loc[num_of_stall - 1] - stall_loc[0];
 재귀 이용해서 숫자 출력하기
 ```java
 //종료 조건을 잘 설정해야 한다! if else로 구분하는 것이 제일 좋음
+
+public static void printAll(int num) {
+
+        if (num == 0) {
+            return;
+        }
+        printAll(num-1); //아랫문장과의 위치로 인해서 전혀 다른 결과가 나온다!!!
+        System.out.print(start+" ");
+
+}
 ```
+
+- 스택 프레임
+
+스택프레임 안에는 매개변수 정보와 지역변수정보, 그리고 함수가 끝났을 때 복귀주소가 들어있다.
+
 
 </div>
 </details>
