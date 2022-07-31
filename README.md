@@ -767,5 +767,31 @@ while(lt<=rt) {
 
 ```
 
+### 06-10
+마굿간 결정 알고리즘
+
+```java
+
+// 답의 범위
+lt = stall_loc[1] - stall_loc[0];
+rt = stall_loc[num_of_stall - 1] - stall_loc[0];
+
+//배치할 수 있는 말의 마리수 카운트
+    public static int count(int[] arr, int dist) {
+        int cnt = 1; //배치한 말의 마리수
+        int ep = arr[0]; //왜???
+        for(int i=1; i<arr.length; i++) {
+            if(arr[i]-ep >= dist) {
+                cnt++;
+                ep = arr[i];
+            }
+        }
+        return cnt;
+    }
+
+//왜 첫번째에 배치???
+//그리고 미드 값이 유효한지 안한지 모르는데 뭘믿고 나감???
+```
+
 </div>
 </details>

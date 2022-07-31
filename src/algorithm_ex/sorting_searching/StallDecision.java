@@ -4,9 +4,30 @@ import java.util.*;
 
 public class StallDecision {
 
-    public static int getMaxDistance(int num_of_stall, int num_of_horse, int[] valid_stall, Set<Integer> possible_answer) {
+
+    public static boolean isPossible(int stall1, int stall2,int[] valid_stall, int num_of_horse) {
+        int shortest = Math.abs(valid_stall[stall2] - valid_stall[stall1]);
+        System.out.println("shortest : " + shortest );
+        int count = num_of_horse;
+
+        for (int n : valid_stall) {
+            if (n != valid_stall[stall1] &&
+                    n != valid_stall[stall2] &&
+                    Math.abs(n-valid_stall[stall1]) > shortest &&
+                    Math.abs(n-valid_stall[stall2]) >shortest) {
+                count--;
+                System.out.println(num_of_horse);
+                if (count == 0) return true;
+
+            }
+
+        }
+        System.out.println("impossible");
+        return false;
 
     }
+
+
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -20,13 +41,22 @@ public class StallDecision {
         }
         Arrays.sort(valid_stall);
 
-        Set<Integer> possible_answer = new HashSet<>();
 
-        for (int i = 1; i<num_of_stall; i++) {
-            for (int j = i-1; j>=0; j--) {
-                possible_answer.add(valid_stall[i] - valid_stall[j]);
+        if (num_of_horse == 2) {
+            System.out.println(valid_stall[valid_stall.length-1]-valid_stall[0]);
+            return;
+        }
+        int max = 0;
+        for (int i = 0; i<num_of_stall-1; i++) {
+            for (int j = i+1; j<num_of_stall; j++) {
+                if(isPossible(j,i,valid_stall,num_of_horse-2)) {
+                    if(max < valid_stall[j]-valid_stall[i]) {
+                        max = valid_stall[j]-valid_stall[i];
+                    }
+                }
             }
         }
+        System.out.println(max);
 
 
     }
