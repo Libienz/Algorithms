@@ -795,3 +795,16 @@ rt = stall_loc[num_of_stall - 1] - stall_loc[0];
 
 </div>
 </details>
+
+<details>
+<summary>07 Recursive </summary>
+<div markdown="1">
+
+### 07-01 
+재귀 이용해서 숫자 출력하기
+```java
+//종료 조건을 잘 설정해야 한다! if else로 구분하는 것이 제일 좋음
+```
+
+</div>
+</details>
