@@ -820,6 +820,34 @@ public static void printAll(int num) {
 
 스택프레임 안에는 매개변수 정보와 지역변수정보, 그리고 함수가 끝났을 때 복귀주소가 들어있다.
 
+### 07-02
+재귀 이용해서 10진수 2진수로 변환하기
+- 이진수로 변환하는 방법
+
+![img.png](img.png)
+
+
+```java
+public static void convertToBinaryNum(int num) {
+
+        int q = num/2;
+        int r = num%2;
+        if (q<=1) {
+            System.out.print(q + "" + r);
+            return;
+        }
+        else {
+            convertToBinaryNum(q);
+            System.out.print(r);
+        }
+}
+
+```
+
+- 스택 프레임
+
+스택프레임 안에는 매개변수 정보와 지역변수정보, 그리고 함수가 끝났을 때 복귀주소가 들어있다.
+
 
 </div>
 </details>
