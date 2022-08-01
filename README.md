@@ -668,8 +668,7 @@ public static void insertionSort(int[] arr) {
 }
 ```
 
-</div>
-</details>
+
 
 
 ### 06-04
