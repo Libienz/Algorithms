@@ -845,9 +845,20 @@ public static void convertToBinaryNum(int num) {
 
 ```
 
-- 스택 프레임
+### 07-03
+팩토리얼 구하기 - 재귀
+```java
+public static int getFactorial(int num) {
 
-스택프레임 안에는 매개변수 정보와 지역변수정보, 그리고 함수가 끝났을 때 복귀주소가 들어있다.
+        if (num == 1) {
+            return 1;
+        }
+        else {
+            return num * getFactorial(num-1);
+        }
+}
+
+```
 
 
 </div>
