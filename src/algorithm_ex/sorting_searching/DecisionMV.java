@@ -20,6 +20,7 @@ public class DecisionMV {
         int vol = sum/dvd;
         int dvd_vol = 0;
 
+
         while(true) {
             System.out.println("vol : " + vol);
             for (int i = 0; i<num; i++) {
