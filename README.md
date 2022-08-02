@@ -859,6 +859,16 @@ public static int getFactorial(int num) {
 
 ```
 
+### 07-03
+피보나치 수열 구하기 - 재귀
+```java
+private static int getFib(int num) {
 
+        if (num == 1 || num == 2) return 1;
+        else return getFib(num - 1) + getFib(num - 2);
+}
+
+```
+메모이제이션은? 구한 걸 배열에 넣어놓는다 재귀로만 풀면 같은걸 정말 여러번 구함 스택프레임도 엄청 쌓임 
 </div>
 </details>
