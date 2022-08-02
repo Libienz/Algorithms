@@ -859,7 +859,7 @@ public static int getFactorial(int num) {
 
 ```
 
-### 07-03
+### 07-04
 피보나치 수열 구하기 - 재귀
 ```java
 private static int getFib(int num) {
