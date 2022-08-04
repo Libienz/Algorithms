@@ -26,9 +26,10 @@ class Tree {
             return;
         }
         else {
-            System.out.print(root.data + " ");
+            //System.out.print(root.data + " ");
             DFS(root.lt);
             DFS(root.rt);
+            System.out.print(root.data + " ");
         }
 
     }
@@ -72,7 +73,7 @@ public class TreeTravel {
 
         //tree.DFS(tree.root);
 
-        tree.BFS(tree.root);
+        tree.DFS(tree.root);
 
 
     }

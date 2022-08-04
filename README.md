@@ -889,7 +889,43 @@ private static int getFib(int num) {
 - root - 0레벨
 - 아래 - 1레벨
 - ...
-- 
+BFS는 Queue를 이용한다. 레벨당 탐색하기 위해 level 변수 필요.
+```java
+public void BFS(Node root) {
+
+        Queue<Node> Q = new LinkedList<>();
+        Q.offer(root);
+        int level = 0;
+
+        while (!Q.isEmpty()) {
+            int len = Q.size();
+            System.out.print(level + " : ");
+            for (int i = 0; i < len; i++) {
+                Node cur = Q.poll();
+                System.out.print(cur.data + " ");
+                if (cur.lt != null) {
+                    Q.add(cur.lt);
+                }
+                if (cur.rt != null) {
+                    Q.add(cur.rt);
+                }
+            }
+            level++;
+            System.out.println();
+
+        }
+}
+
+```
+
+### 07-08 
+송아지 찾기 by BFS
+- 레벨 = JumpCount로 생각해서 레벨이 1이라면 1번의 점프만에 갈 수 있는 곳으로 판단한다. 요 idea가 핵심
+- 자식 노드들은 자신이 뛸 수 있는 경우의 수인 3가지 -1, 1, 5 를 더한 것 이걸로 모든 경우를 커버한다.
+- 다만 방문했던 곳은 재방문한다면 이거는 원래 방문한 것보다 점프의 수가 클 수 밖에 없음으로 재외 
+- 별도의 배열을 따로 두어 방문했던 곳은 패스한다. 
+- BFS를 Q가 빌때까지 계속돈다. 
+- 우리가 방문하고자 하는 위치가 나온다면 해당 레벨을 출력하면 답이된다. 
 
 
 </div>
