@@ -18,14 +18,14 @@ class Tree {
     }
 
     //부 왼 오
-    public void preOrderTravel(Node root) {
+    public void DFS(Node root) {
         if (root == null) { // 말단노드 입니당
             return;
         }
         else {
             System.out.print(root.data + " ");
-            preOrderTravel(root.lt);
-            preOrderTravel(root.rt);
+            DFS(root.lt);
+            DFS(root.rt);
         }
 
     }
@@ -42,7 +42,7 @@ public class TreeTravel {
         tree.root.rt.lt = new Node(6);
         tree.root.rt.rt = new Node(7);
 
-        tree.preOrderTravel(tree.root);
+        tree.DFS(tree.root);
 
 
 
