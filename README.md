@@ -927,6 +927,20 @@ public void BFS(Node root) {
 - BFS를 Q가 빌때까지 계속돈다. 
 - 우리가 방문하고자 하는 위치가 나온다면 해당 레벨을 출력하면 답이된다. 
 
+### 07-09 
+루트노드에서 가장 가까운 리프노드 찾기
+```java 
+    public int DFS(int level, Node1 root) {
+
+        if (root.lt == null && root.rt == null) {
+            return level;
+        }
+        else {
+            return Math.min(DFS(level + 1, root.lt),DFS(level + 1, root.rt));
+
+        }
+    }
+```
 
 </div>
 </details>
