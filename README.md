@@ -1002,5 +1002,23 @@ public int BFS(Node1 root) {
 
     }
 ```
+
+### 07-12 
+경로 탐색 by 인접 리스트
+- sparse한 그래프인데다가 vertex가 엄청 많다? 인접 행렬은 굉장히 부담 -> 인접 리스트가 좋다
+- 자바에서 인접 리스트는 ArrayList의 중첩으로 사용 가능하다 각 인덱스가 배열이 되는 어레이 리스트를 만드는 것
+- 각 인덱스의 배열은 초기화가 필요하다 아래의 코드에서 확인
+```java
+    public static ArrayList<ArrayList<Integer>> graph;
+    
+    public static void main(String[]args){
+        graph = new ArrayList<>();
+        for (int i = 0; i < v_num + 1; i++) {
+            graph.add(new ArrayList<>());
+        }
+    }
+    
+
+```
 </div>
 </details>
