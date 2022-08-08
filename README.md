@@ -997,7 +997,7 @@ public int BFS(Node1 root) {
                 DFS(i);
                 visited[i] = false; //원복
                 }
-            }
+            } 
         }
 
     }
