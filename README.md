@@ -979,5 +979,28 @@ public int BFS(Node1 root) {
 ### 07-11
 - 그래프와 인접 행렬
 - graph[a][b] = 1 a에서 b로 
+
+### 07-12 
+경로 탐색
+- DFS는 사실상 모든 경우의 수에 대한 가지 뻗기
+
+```java
+    public static void DFS(int start) {
+        if (start == 5) {
+        count++;
+        }
+
+        else {
+            for (int i = 1; i < arr.length; i++) {
+            if (arr[start][i] == 1 && visited[i] == false) {
+                visited[i] = true;
+                DFS(i);
+                visited[i] = false; //원복
+                }
+            }
+        }
+
+    }
+```
 </div>
 </details>
