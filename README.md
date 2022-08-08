@@ -976,5 +976,8 @@ public int BFS(Node1 root) {
 // 참고 len으로 안하면 루프 적절하게 끝나지 않음
 ```
 
+### 07-11
+- 그래프와 인접 행렬
+- graph[a][b] = 1 a에서 b로 
 </div>
 </details>
