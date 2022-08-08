@@ -2,6 +2,8 @@ package recursive;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
+import java.util.Queue;
 
 class Node1 {
     int data;
@@ -31,8 +33,37 @@ class Tree1 {
         }
     }
 
+    public int BFS(Node1 root) {
+
+        Queue<Node1> Q = new LinkedList<>();
+        int level1 = 0;
+        Q.add(root);
+        //System.out.println("Q.size() = " + Q.size());
+
+        while(!Q.isEmpty()) {
+
+            int len = Q.size();
+            for (int i = 0; i < len; i++) {
+                Node1 cur = Q.poll();
+                //System.out.println("cur.data = " + cur.data);
+                //System.out.println("level = " + level1);
+                if (cur.lt == null && cur.rt == null) {
+                    return level1;
+                }
+                Q.add(cur.lt);
+                Q.add(cur.rt);
+
+            }
+            //System.out.println("loopdone");
+            level1 = level1+1;
+        }
+
+        return -999;
+
+    }
+
     public int getShortestLeaf() {
-        return DFS(0,root);
+        return BFS(root);
     }
 }
 public class ShortestPathToLeaf {

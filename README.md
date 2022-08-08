@@ -942,5 +942,39 @@ public void BFS(Node root) {
     }
 ```
 
+### 07-10
+루트노드에서 가장 가까운 리프노드 찾기 (BFS)
+```java
+public int BFS(Node1 root) {
+
+        Queue<Node1> Q = new LinkedList<>();
+        int level1 = 0;
+        Q.add(root);
+        //System.out.println("Q.size() = " + Q.size());
+
+        while(!Q.isEmpty()) {
+
+            int len = Q.size();
+            for (int i = 0; i < len; i++) {
+                Node1 cur = Q.poll();
+                //System.out.println("cur.data = " + cur.data);
+                //System.out.println("level = " + level1);
+                if (cur.lt == null && cur.rt == null) {
+                    return level1;
+                }
+                Q.add(cur.lt);
+                Q.add(cur.rt);
+
+            }
+            //System.out.println("loopdone");
+            level1 = level1+1;
+        }
+
+        return -999;
+
+}
+// 참고 len으로 안하면 루프 적절하게 끝나지 않음
+```
+
 </div>
 </details>
