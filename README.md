@@ -1069,7 +1069,33 @@ public static void main(String[]args){
   - 플래그 설정해서 두개의 부분집합이 같을 수 있음을 확인하면 이후의 DFS는 쭉쭉 패스하도록 설계
   - 지금까지 더한 합이 총 집합을 더한 것 나누기 2 보다 크다면 그것은 양분될 수 없는 부분집합을 보고 있는 것 과감히 끝낸다.
   
+### 08-02
+- 제한된 무게가 있을 때 최대로 차에 탑승시킬 수 있는 무게는?
+- 부분집합 문제와 똑같은 논리로 해결 가능
+- 태운다 안태운다를 나누어서 모든 경우를 DFS로 확인하면 끝
 
+```java
+    public static void dfs(int index) {
+        if (index == dog_num) {
+            int sum = 0;
+            for (int i = 0; i < dog_num; i++) {
+                if (on_board[i]) {
+                    sum += weight_arr[i];
+                }
+            }
+            if (sum > max_weight && sum < lim) {
+                max_weight = sum;
+            }
+        }
+        else {
+            on_board[index] = true;
+            dfs(index + 1);
+            on_board[index] = false;
+            dfs(index + 1);
+
+        }
+    }
+```
 
 </div>
 </details>
