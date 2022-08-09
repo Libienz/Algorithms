@@ -1028,3 +1028,52 @@ public static void main(String[]args){
 
 </div>
 </details>
+
+<details>
+<summary>08 DFS BFS </summary>
+<div markdown="1">
+
+### 08-01
+- 주어진 집합에서 합이 같은 부분집합 둘이 존재하는 지 찾는 문제
+- 굉장히 빨리 풀었는데 머릿속에 남아있는 이 찝찝함..
+- 스택 프레임과 상태트리를 머릿속으로 곱씹으며 알고리즘을 검토하자
+```java
+    public static void dfs(int index) {
+        //System.out.println("EqualSumSubset.dfs index : " + index);
+        if (index == size) {
+            int sum_subset1 = 0;
+            int sum_subset2 = 0;
+            for (int i = 0; i < size; i++) {
+                if (used[i]) {
+                    sum_subset1 += set[i];
+                } else {
+                    sum_subset2 += set[i];
+                }
+            }
+            if (sum_subset2 == sum_subset1) {
+                isSumEqualSubsetExist = true;
+
+            }
+        }
+        else {
+            used[index] = true; //사용한다
+            dfs(index + 1);
+            used[index] = false; //사용하지 않는다 
+            dfs(index + 1);
+
+        }
+    }
+```
+
+
+</div>
+</details>
+
+
+<details>
+<summary>09 </summary>
+<div markdown="1">
+
+
+</div>
+</details>
