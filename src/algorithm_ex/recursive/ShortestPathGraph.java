@@ -1,4 +1,4 @@
-package recursive;
+package algorithm_ex.recursive;
 
 import java.util.LinkedList;
 import java.util.Queue;

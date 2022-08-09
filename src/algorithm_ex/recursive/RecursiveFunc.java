@@ -1,6 +1,5 @@
-package recursive;
+package algorithm_ex.recursive;
 
-import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class RecursiveFunc {

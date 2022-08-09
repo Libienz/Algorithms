@@ -1,7 +1,5 @@
-package recursive;
+package algorithm_ex.recursive;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Queue;
 
