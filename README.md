@@ -1124,6 +1124,37 @@ public static void main(String[]args){
     }
 ```
 
+### 08-04
+- 거스름돈 가장 작은 수의 동전으로 거스르기 
+- DFS 이용 ... 동전 종류가 3개라면 각각을 사용하는 경우로 DFS 아래로 뻗게하기 
+- 시간초과!? 마지막 케이스는 3초가 넘게 걸리네
+- 그러면 순수 수학으로.. 몫과 나머지 이용한 그리디 알고리즘 적용..?
+- 오답! Greedy알고리즘으로는 3번째 케이스에 대해서 해결할 수 없음 
+- DFS를 이용하면서 shortcut을 극대화 시켜야 하는데 .. 
+- 작은 것들을 먼저 넣으면서 아래로 뻗치게 하는 것이 아니라 큰 것들 먼저 넣으면서 뻗치게 하면 조건을 잘타게 해서 몇번의 호출 없이 가능하게 할 수 있다! 
+
+```java 
+  public static void dfs(int remain) {
+        if (count > min || remain < 0) {
+            return;
+        }
+
+        else if (remain == 0) {
+            if (count < min) {
+                min = count;
+            }
+        }
+        else {
+            for (int i = type_arr.length-1; i>=0; i--) { //아하 알겠다!!
+                count++;
+                dfs(remain - type_arr[i]);
+                count--;
+            }
+
+        }
+    }
+```
+
 </div>
 </details>
 
