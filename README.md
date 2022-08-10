@@ -1097,6 +1097,33 @@ public static void main(String[]args){
     }
 ```
 
+
+### 08-03
+- 결국 이것도 푸냐 안푸냐 정하는 문제 
+- 문제를 인덱스로 구분
+- 해당 문제를 풀었을 때 소요되는 시간은 time[i]
+- 해당 문제를 풀었을 때 얻게 되는 점수는 score[i]
+- 원래 해쉬맵으로 풀려했는데 해쉬맵은 인덱스 접근이 까다로운듯..?
+- 그래서 time score 배열을 따로 만들어서 해결했다.
+```java
+    public static void dfs(int index, int s_sum, int time_used) {
+        if (time_used > lim) { //shortcut
+            return;
+        }
+        if (index == p_num) {
+            if (s_sum > max) {
+                max = s_sum;
+            }
+
+        }
+        else {
+
+            dfs(index+1,s_sum+score[index],time_used+time[index]);
+            dfs(index + 1, s_sum, time_used);
+        }
+    }
+```
+
 </div>
 </details>
 
