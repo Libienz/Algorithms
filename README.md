@@ -1123,8 +1123,37 @@ public static void main(String[]args){
         }
     }
 ```
-
 ### 08-04
+- 중복 순열 
+- 2갈래로 뻗어나가는 것이 아니라 여러 갈래로 dfs가 돌아간 다는 것이 이전 문제와의 차이점
+- 어쨋든 핵심은 같다. 모든 뿌리, 모든 경우의 수로 뻗어나가는 DFS
+```java
+    public static void dfs(String answer, int choiced) {
+
+        if (choiced == haveto_choice) {
+            /*for (int i = 1; i <= N; i++) {
+                if (checked[i]>0) {
+                    for (int j = 0; j < checked[i]; j++) {
+                        System.out.print(i + " ");
+                    }
+
+                }
+            }*/
+        System.out.println(answer);
+
+        }
+        else {
+        for (int i = 1; i < checked.length; i++) {
+        checked[i]++;
+        dfs(answer+i+" ",choiced + 1);
+        checked[i]--;
+        }
+        }
+
+
+        } 
+```
+### 08-05
 - 거스름돈 가장 작은 수의 동전으로 거스르기 
 - DFS 이용 ... 동전 종류가 3개라면 각각을 사용하는 경우로 DFS 아래로 뻗게하기 
 - 시간초과!? 마지막 케이스는 3초가 넘게 걸리네
