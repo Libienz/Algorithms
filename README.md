@@ -1143,15 +1143,13 @@ public static void main(String[]args){
 
         }
         else {
-        for (int i = 1; i < checked.length; i++) {
-        checked[i]++;
-        dfs(answer+i+" ",choiced + 1);
-        checked[i]--;
+            for (int i = 1; i < checked.length; i++) {
+                checked[i]++;
+                dfs(answer+i+" ",choiced + 1);
+                checked[i]--;
+            }
         }
-        }
-
-
-        } 
+    } 
 ```
 ### 08-05
 - 거스름돈 가장 작은 수의 동전으로 거스르기 
@@ -1182,6 +1180,27 @@ public static void main(String[]args){
 
         }
     }
+```
+
+### 08-06
+- 순열 (Permutation)
+- 머없는데? 2갈래 아닌 DFS 쭉쭉 뻗어나가게 하고 중복으로 뽑으면 안됨으로
+- 사용했는지 체크할 수 있는 불타입 배열 하나 만들자 
+```java
+    public static void dfs(int choice_count, String answer) {
+        if (choice_count == need_to_choice) {
+            System.out.println(answer);
+        }
+        else {
+            for (int i = 0; i < arr.length; i++) {
+                if (!used[i]) {
+                used[i] = true;
+                dfs(choice_count + 1, answer + " " + arr[i]);
+                used[i] = false;
+                }
+            }
+        }
+    } 
 ```
 
 </div>
