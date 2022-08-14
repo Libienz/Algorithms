@@ -1203,6 +1203,26 @@ public static void main(String[]args){
     } 
 ```
 
+### 08-07
+- 조합 경우의 수 재귀로 구하기
+
+![img_1.png](img_1.png)
+![img_2.png](img_2.png)
+
+```java
+public static int getCombination(int n, int r) {
+        if (n == r ) {
+            return 1;
+        } else if (n - r == 1 || r==1) {
+            return n;
+        } else {
+            //System.out.println("n = " + n);
+            //System.out.println("r = " + r);
+            return getCombination(n - 1, r - 1) + getCombination(n - 1, r);
+        }
+    }
+```
+
 </div>
 </details>
 
