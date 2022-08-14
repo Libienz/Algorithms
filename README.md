@@ -1222,6 +1222,45 @@ public static int getCombination(int n, int r) {
         }
     }
 ```
+- 성능 개선시킬수 있는 방법은? 
+  - nCr의 여러 공식을 이용한 숏컷 생성하기
+  - 메모이제이션 2차원 배열로 만들어서 쓰면 됨
+
+### 08-08
+- 파스칼 최상위 숫자를 보고 맨 아래 계층 숫자 마추기
+- 모든 가능한 경우의 수를 답이 가능한지 일일히 체크
+- 제일 먼저 발견한 답이 사전 순 제일 우선인 답임
+```java
+public static void dfs(int choiced,ArrayList<Integer> maybe_answer) {
+        if (choiced == N) {
+            //System.out.println("maybe_answer = " + maybe_answer);
+            if (isValidAnswer(maybe_answer)) {
+                succesed = true;
+                //System.out.println("PascalInfer.dfs");
+                for (int num : maybe_answer) {
+                    System.out.print(num + " ");
+                }
+            }
+        }
+        else {
+            if (succesed) {
+                return;
+            }
+            for (int i = 1; i <= N; i++) {
+                if (permutation_check[i]) {
+                    continue;
+                }
+            else {
+                permutation_check[i] = true;
+                maybe_answer.add(i);
+                dfs(choiced + 1, maybe_answer);
+                maybe_answer.remove((Integer) i);
+                permutation_check[i] = false;
+                }
+            }
+        }
+} 
+```
 
 </div>
 </details>
