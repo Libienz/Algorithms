@@ -1303,6 +1303,40 @@ private static void dfs(int index,int left_choice) {
     }
 ```
 
+### 08-10
+- 미로 탈출 경우의 수 세기
+```java
+    public static void dfs(int i,int j) {
+        if (i == 6 && j == 6) {
+            count++;
+        }
+
+        else {
+            if(isableToGo(i-1,j)) { //상
+                visited[i-1][j] = true;
+                dfs(i-1, j);
+                visited[i-1][j] = false;
+            }
+            if(isableToGo(i+1,j)) { //하
+                visited[i+1][j] = true;
+                dfs(i+1, j);
+                visited[i+1][j] = false;
+            }
+            if(isableToGo(i,j-1)) { //좌
+                visited[i][j-1] = true;
+                dfs(i, j-1);
+                visited[i][j-1] = false;
+            }
+            if(isableToGo(i,j+1)) { //우
+                visited[i][j+1] = true;
+                dfs(i, j+ 1);
+                visited[i][j+1] = false;
+            }
+
+        }
+    } 
+```
+
 </div>
 </details>
 
