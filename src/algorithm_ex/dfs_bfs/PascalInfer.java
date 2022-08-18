@@ -17,7 +17,7 @@ public class PascalInfer {
     public static boolean isValidAnswer(ArrayList<Integer> maybe_answer) {
         ArrayList<Integer> temp;
         temp = (ArrayList<Integer>) maybe_answer.clone(); //깊은 복사
-        //System.out.println("temp = " + temp);
+        System.out.println("temp = " + temp);
         while (temp.size() > 1) {
             int len = temp.size();
 
@@ -41,7 +41,7 @@ public class PascalInfer {
     }
     public static void dfs(int choiced,ArrayList<Integer> maybe_answer) {
         if (choiced == N) {
-            //System.out.println("maybe_answer = " + maybe_answer);
+            System.out.println("maybe_answer = " + maybe_answer);
             if (isValidAnswer(maybe_answer)) {
                 succesed = true;
                 //System.out.println("PascalInfer.dfs");

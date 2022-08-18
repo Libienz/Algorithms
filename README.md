@@ -1154,8 +1154,8 @@ public static void main(String[]args){
 ### 08-05
 - 거스름돈 가장 작은 수의 동전으로 거스르기 
 - DFS 이용 ... 동전 종류가 3개라면 각각을 사용하는 경우로 DFS 아래로 뻗게하기 
-- 시간초과!? 마지막 케이스는 3초가 넘게 걸리네
-- 그러면 순수 수학으로.. 몫과 나머지 이용한 그리디 알고리즘 적용..?
+- 시간초과!? _마지막 케이스는 3초가 넘게 걸리네
+- 그러면 순수 수학으로.. 몫과 나머지 이용한 그리디_ 알고리즘 적용..?
 - 오답! Greedy알고리즘으로는 3번째 케이스에 대해서 해결할 수 없음 
 - DFS를 이용하면서 shortcut을 극대화 시켜야 하는데 .. 
 - 작은 것들을 먼저 넣으면서 아래로 뻗치게 하는 것이 아니라 큰 것들 먼저 넣으면서 뻗치게 하면 조건을 잘타게 해서 몇번의 호출 없이 가능하게 할 수 있다! 
@@ -1229,7 +1229,7 @@ public static int getCombination(int n, int r) {
 ### 08-08
 - 파스칼 최상위 숫자를 보고 맨 아래 계층 숫자 마추기
 - 모든 가능한 경우의 수를 답이 가능한지 일일히 체크
-- 제일 먼저 발견한 답이 사전 순 제일 우선인 답임
+- 제일 먼저 발견한 답이 사전 순 제일 우선인 답임 success 플래그 사용 
 ```java
 public static void dfs(int choiced,ArrayList<Integer> maybe_answer) {
         if (choiced == N) {
@@ -1260,6 +1260,47 @@ public static void dfs(int choiced,ArrayList<Integer> maybe_answer) {
             }
         }
 } 
+```
+
+### 08-09
+- 조합 DFS로 구하기 
+```java
+private static void dfs(int index,int left_choice) {
+        if (index == N) {
+            if (left_choice == 0) {
+                for (int i = 0; i < checked.length; i++) {
+                    if (checked[i]) {
+                        System.out.print(i);
+                    }
+                }
+                System.out.println();
+                count++;
+            }
+            else {
+                return;
+            }
+        }
+        else if (left_choice == 0) {
+            for (int i = 0; i < checked.length; i++) {
+                if (checked[i]) {
+                    System.out.print(i);
+                }
+            }
+            System.out.println();
+            count++;
+        }
+        else {
+
+            checked[index] = true;
+            dfs(index+1,left_choice-1);
+            checked[index] = false;
+            dfs(index+1,left_choice);
+
+
+        }
+
+
+    }
 ```
 
 </div>
