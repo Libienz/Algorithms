@@ -1340,8 +1340,9 @@ private static void dfs(int index,int left_choice) {
 ### 08-11
 - 미로에서 가장 짧은 경로의 길이 찾기
 - BFS이용
-- equals 정리하자
+- equals 정리하자 -> equals는 오버라이드를 해야 의미가 있다 String 같은 경우에는 정의되어 있는 것 
 - bfs에서 visited 사용해야 하는 이유!? 한번 방문한 것은 이미 해당 경로에 대한 최단거리가 계산되었다는 뜻
+- 강사는 distance배열을 이용 모든 지점에 대한 최단 경로를 최신화 시켜나감 이 문제에서는 그닥 필요 없는 듯 하지만 익혀두어야 함 
 
 ```java
 public  static int findShortestPathInMaze(int[][] maze) {
