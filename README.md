@@ -1337,6 +1337,59 @@ private static void dfs(int index,int left_choice) {
     } 
 ```
 
+### 08-11
+- 미로에서 가장 짧은 경로의 길이 찾기
+- BFS이용
+- equals 정리하자
+- bfs에서 visited 사용해야 하는 이유!? 한번 방문한 것은 이미 해당 경로에 대한 최단거리가 계산되었다는 뜻
+
+```java
+public  static int findShortestPathInMaze(int[][] maze) {
+
+        int level = 0;
+        Queue<Coord> Q = new LinkedList<>();
+        Q.add(new Coord(0, 0)); //start
+
+        while (!Q.isEmpty()) {
+            //System.out.println("MazeShortestPath.findShortestPathInMaze");
+            //System.out.println("level = " + level);
+
+            int len = Q.size();
+            //System.out.println("len = " + len);
+            for (int i = 0; i < len; i++) {
+                Coord cur = Q.poll();
+                if (cur.row == destination.row && cur.col == destination.col) { // arrived 이거 equals 왜 안되지 까먹었다.. 다시 공부 ㄱㄱ
+                    return level;
+                }
+                if (isableToGo(cur.row-1,cur.col)) { //상
+                    Q.add(new Coord(cur.row-1,cur.col ));
+                    visited[cur.row - 1][cur.col] = true;
+                    //System.out.println(new Coord(cur.row-1,cur.col));
+                }
+                if (isableToGo(cur.row+1,cur.col )) { //하
+                    Q.add(new Coord(cur.row + 1,cur.col ));
+                    visited[cur.row + 1][cur.col] = true;
+                    //System.out.println(new Coord(cur.row + 1,cur.col ));
+                }
+                if (isableToGo(cur.row,cur.col-1)) { //좌
+                    Q.add(new Coord(cur.row,cur.col-1));
+                    visited[cur.row][cur.col - 1] = true;
+                    //System.out.println(new Coord(cur.row, cur.col - 1));
+                }
+                if (isableToGo(cur.row, cur.col+1)) { //우
+                    Q.add(new Coord(cur.row, cur.col+1));
+                    visited[cur.row][cur.col+1] = true;
+                    //System.out.println(new Coord(cur.row, cur.col+1));
+                }
+            }
+            level++;
+
+        }
+        return -1;
+
+    }
+```
+
 </div>
 </details>
 
