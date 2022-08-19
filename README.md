@@ -1391,6 +1391,70 @@ public  static int findShortestPathInMaze(int[][] maze) {
     }
 ```
 
+### 08-12
+- 익은 토마토 주변 상하좌우에 있는 익지 않은 토마토들이 하루 걸려 익어나갈 때 모든 토마토가 익기까지의 시간 
+
+```java
+public static int getLeastDayForAllTomatoDone(int[][] storage) {
+
+        int day = 0;
+        Queue<Coord> Q = new LinkedList<>();
+
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                if (storage[i][j] == 1) {
+                    if (isGoingToRipe(i + 1, j)) {
+                        Q.add(new Coord(i + 1, j));
+                    }
+                    if (isGoingToRipe(i - 1, j)) {
+                        Q.add(new Coord(i - 1, j));
+                    }
+                    if (isGoingToRipe(i, j + 1)) {
+                        Q.add(new Coord(i, j + 1));
+                    }
+                    if (isGoingToRipe(i, j - 1)) {
+                        Q.add(new Coord(i, j - 1));
+                    }
+                }
+            }
+        }
+        while (!Q.isEmpty()) {
+            int len = Q.size();
+            for (int i = 0; i < len; i++) {
+                Coord cur = Q.poll();
+                if (isGoingToRipe(cur.row+1, cur.col)) {
+                    Q.add(new Coord(cur.row + 1, cur.col));
+                    storage[cur.row + 1][cur.col] = 1;
+                }
+                if (isGoingToRipe(cur.row-1, cur.col)) {
+                    Q.add(new Coord(cur.row - 1, cur.col));
+                    storage[cur.row - 1][cur.col] = 1;
+                }
+                if (isGoingToRipe(cur.row, cur.col+1)) {
+                    Q.add(new Coord(cur.row, cur.col + 1));
+                    storage[cur.row][cur.col + 1] = 1;
+                }
+                if (isGoingToRipe(cur.row, cur.col-1)) {
+                    Q.add(new Coord(cur.row, cur.col - 1));
+                    storage[cur.row][cur.col - 1] = 1;
+                }
+
+            }
+            day++;
+        }
+
+        if (isAllTomatoDone(storage)) {
+            return day;
+        }
+        else {
+            return -1;
+        }
+
+
+
+    }
+```
+
 </div>
 </details>
 
