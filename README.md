@@ -1455,6 +1455,73 @@ public static int getLeastDayForAllTomatoDone(int[][] storage) {
     }
 ```
 
+### 08-13 
+- 지도에서 섬이 몇개인지 세는 프로그램
+- 이게 시간초과가 안나긴 하네 .. 반복문도 엄청 많고 코드도 길고 깔끔하지 못하다 
+- 상하좌우 대각선까지 쓰니까 배열 만들어서 반복문으로 처리해야 할 듯 .. 고민하고 적용해보자
+- 혼자 풀 때는 BFS로 풀었다. 
+- 1인 점 하나 찾고 그 주변으로 퍼지도록 한 것 
+- 1인 지점 하나를 찾기 위한 이중 포문을 한번에 탈출하기 위해서 라벨을 사용하기도 하지만 나는 break_flag 만들어서 해결 
+```java 
+while (!allZero(map)) {
+            //1인 지점 하나 잡아낸다
+            //이후 그 지점과 연결된 곳들을 하나의 섬으로 취급할 것
+            for (int i = 0; i < map.length; i++) {
+                for (int j = 0; j < map[0].length; j++) {
+                    if (map[i][j] == 1) {
+                        Q.add(new Coord(i, j));
+                        break_flag = true;
+                        break;
+                    }
+                }
+                if (break_flag) {
+                    break;
+                }
+            }
+            break_flag = false;
+            //System.out.println(allZero(map));
+            while (!Q.isEmpty()) {
+                int len = Q.size();
+                for (int i = 0; i < len; i++) {
+                    Coord cur = Q.poll();
+                    map[cur.row][cur.col] = 0;
+
+                    if (isAble(cur.row-1,cur.col) && map[cur.row-1][cur.col] == 1) { //상
+                        Q.add(new Coord(cur.row-1,cur.col));
+                    }
+                    if (isAble(cur.row+1,cur.col) &&map[cur.row+1][cur.col] == 1) { //하
+                        Q.add(new Coord(cur.row+1,cur.col));
+                    }
+                    if (isAble(cur.row,cur.col-1) &&map[cur.row][cur.col-1] == 1) { //좌
+                        Q.add(new Coord(cur.row,cur.col-1));
+                    }
+                    if (isAble(cur.row,cur.col+1) &&map[cur.row][cur.col+1] == 1) { //우
+                        Q.add(new Coord(cur.row,cur.col+1));
+                    }
+                    if (isAble(cur.row-1,cur.col-1) && map[cur.row-1][cur.col-1] == 1) { //좌상
+                        Q.add(new Coord(cur.row-1,cur.col-1));
+                    }
+                    if (isAble(cur.row+1,cur.col-1) && map[cur.row+1][cur.col-1] == 1) { //좌하
+                        Q.add(new Coord(cur.row+1,cur.col-1));
+                    }
+                    if (isAble(cur.row-1,cur.col+1) && map[cur.row-1][cur.col+1] == 1) { //우상
+                        Q.add(new Coord(cur.row-1,cur.col+1));
+                    }
+                    if (isAble(cur.row+1,cur.col+1) && map[cur.row+1][cur.col+1] == 1) { //우하
+                        Q.add(new Coord(cur.row+1,cur.col+1));
+                    }
+
+
+                }
+            }
+            level++;
+            //System.out.println("level = " + level);
+        }
+        return level;
+
+    } 
+```
+
 </div>
 </details>
 

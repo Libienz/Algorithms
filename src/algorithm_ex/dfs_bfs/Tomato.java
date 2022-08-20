@@ -63,7 +63,7 @@ public class Tomato {
                 Coord cur = Q.poll();
                 if (isGoingToRipe(cur.row+1, cur.col)) {
                     Q.add(new Coord(cur.row + 1, cur.col));
-                    storage[cur.row + 1][cur.col] = 1;
+                    storage[cur.row + 1][cur.col] = 1; //익은 토마토로 바꾼다.
                 }
                 if (isGoingToRipe(cur.row-1, cur.col)) {
                     Q.add(new Coord(cur.row - 1, cur.col));
@@ -79,6 +79,7 @@ public class Tomato {
                 }
 
             }
+
             day++;
         }
 

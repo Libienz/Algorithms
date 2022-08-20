@@ -45,6 +45,10 @@ public class MazeShortestPath {
 
             int len = Q.size();
             //System.out.println("len = " + len);
+
+
+
+
             for (int i = 0; i < len; i++) {
                 Coord cur = Q.poll();
                 if (cur.row == destination.row && cur.col == destination.col) { // arrived 이거 equals 왜 안되지 까먹었다.. 다시 공부 ㄱㄱ
