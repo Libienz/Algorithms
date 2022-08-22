@@ -1584,6 +1584,29 @@ public static int getMaxSelection(List<Spec> playerList,int num) {
     }
 ```
 
+### 09-02 
+- 회의시간 배정할 때 몇개의 회의를 최대로 설정할 수 있는가
+- 끝나는 시간 기준 greedy
+- 회의 배열을 끝나는 시간 기준 정렬(Comparable) 하고 진행하면 됨 
+
+```java
+    private static int getMaxCounsle(List<CTime> arr) {
+
+        int count = 0;
+
+        int end_time = arr.get(0).getFinish();
+        count++;
+        for (int i = 1; i < arr.size(); i++) {
+            if (end_time <= arr.get(i).getStart()) {
+                count++;
+                end_time = arr.get(i).getFinish();
+            }
+        }
+        return count;
+    }
+
+```
+
 </div>
 </details>
 
