@@ -54,7 +54,7 @@ public class Island {
             }
             break_flag = false;
             //System.out.println(allZero(map));
-            while (!Q.isEmpty()) {
+            while (!Q.isEmpty()) { //큐에 들어있는 것은 1인 지점
                 int len = Q.size();
                 for (int i = 0; i < len; i++) {
                     Coord cur = Q.poll();

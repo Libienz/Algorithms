@@ -1527,13 +1527,60 @@ while (!allZero(map)) {
 - 모든 조합에 대해서 계산하면 된다.
 - 근데 블로그에 이상한 글이 있던데 .. 집을 기준으로 피자집을 3개고르면 된다는 둥 ..? 스터디 할 때 얘기하자
 
+![img_3.png](img_3.png)
+
+- 요 조합 코드 눈독 들이자 내가 쓴 코드보다 훨씬 간결하면서 좋은듯 강사도 강조 
+
 
 </div>
 </details>
 
 
 <details>
-<summary>09 </summary>
+<summary>09 Greedy </summary>
+<div markdown="1">
+
+### 09-01 
+- 씨름선수 선발 키와 몸무게 둘 다 한 선수에 비해 딸리는 애가 있으면 제외
+- Map 당연히 못 쓰지 유일해야 하는 키값으로 키 몸무게 둘다 적합하지 않으니
+- 조합 방식으로 선택 DFS 사용한다는 것은 아니고 1,2 1,3 1,4 1,5 2,3 2,4 이런식으로 간다는 뜻
+- 갈때마다 더 작은쪽이 있으면 제외 시켜야함
+- 근데 제외되고 또 제외되는 경우 조심해야함 이거 만약에 채점결과 못보면 내가 맞출 수 있었을까 ..? 
+- 나름의 함정같은 느낌 
+```java
+public static int getMaxSelection(List<Spec> playerList,int num) {
+
+        int[] get_eli = new int[num];
+        int eli_count = 0;
+        //System.out.println("count = " + count);
+        for (int i = 0; i < playerList.size()-1; i++) { //i 선수와 j 선수의 비교
+            for (int j = i+1; j < playerList.size(); j++) {
+                if (playerList.get(i).getHeight() > playerList.get(j).getHeight() && playerList.get(i).getWeight() > playerList.get(j).getWeight()) {
+                    //count--;
+                    get_eli[j]= 1;
+                    //System.out.println(i+ " " +j); //여러번 빠지는 경우 어쩔꺼야 ..
+                }
+                else if (playerList.get(i).getHeight() < playerList.get(j).getHeight() && playerList.get(i).getWeight() < playerList.get(j).getWeight()) {
+                    get_eli[i] = 1;
+                    //count--;
+                }
+            }
+        }
+
+        for (int i : get_eli) {
+            if (i == 1) {
+                eli_count += 1;
+            }
+        }
+        return num - eli_count;
+    }
+```
+
+</div>
+</details>
+
+<details>
+<summary>10 </summary>
 <div markdown="1">
 
 

@@ -19,8 +19,7 @@ public class Pizza {
     static int min_dist_sum = 0;
 
     public static void getShortest() {
-        for (ArrayList<Coord> comb : choiced_ph_arr) {
-
+        for (ArrayList<Coord> comb : choiced_ph_arr) { //comb 조합 경우의 수 1번 [[1,2] [2,3] [3,4] [4,5]]
             for (Coord house : h_arr) {
                 for (Coord c : comb) {// c는 조합으로 나온 4개의 피잣집중 하나
                     int dist_h_to_p = Math.abs(c.row - house.row) + Math.abs(c.col - house.col);
@@ -28,6 +27,7 @@ public class Pizza {
                         min_dist = dist_h_to_p;
                     }
                 }
+
                 //집하나에서 가장 가까운 피자집의 거리 찾음 min_dist
                 min_dist_sum += min_dist;
                 min_dist = Integer.MAX_VALUE;
