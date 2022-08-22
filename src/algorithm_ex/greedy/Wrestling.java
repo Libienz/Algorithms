@@ -2,7 +2,15 @@ package algorithm_ex.greedy;
 
 import java.util.*;
 
-class Spec {
+class Spec implements Comparable<Spec>{
+    @Override
+    public String toString() {
+        return "Spec{" +
+                "height=" + height +
+                ", weight=" + weight +
+                '}';
+    }
+
     private int height;
     private int weight;
 
@@ -26,10 +34,16 @@ class Spec {
     public void setWeight(int weight) {
         this.weight = weight;
     }
+
+    @Override
+    public int compareTo(Spec o) {
+        return o.height-this.height;
+    }
 }
 public class Wrestling {
 
     public static int getMaxSelection(List<Spec> playerList,int num) {
+
 
         int[] get_eli = new int[num];
         int eli_count = 0;
