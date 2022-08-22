@@ -36,8 +36,11 @@ class Spec implements Comparable<Spec>{
     }
 
     @Override
-    public int compareTo(Spec o) {
-        return o.height-this.height;
+    public int compareTo(Spec o) { //매개변수 ???? 뭐가 넘어노는 건지
+        return o.height-this.height; // 내림차순
+        // 입력인자로 들어온 애가 메소드를 호출한 객체의 값보다 크면 양수
+        // 같으면 0
+        // 입력인자로 들어온 애가 메소드를 호출한 객체의 값보다 작으면 음수
     }
 }
 public class Wrestling {

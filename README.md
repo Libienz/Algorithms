@@ -1607,6 +1607,39 @@ public static int getMaxSelection(List<Spec> playerList,int num) {
 
 ```
 
+### 09-03 
+- 사람들이 머무는 시간이 주어졌을 때 동시에 최대 붐비는 인원의 수 
+- 3분컷함 
+- 배열 만들어서 사람들이 머무는 시간 전부 해당 인덱스 ++ 한다음에 그 배열의 최댓값 출력
+- 시간초과를 의도한 것일 까 나의 풀이가 맞는 것일까 ..? 
+
+```java 
+    private static int getSameTimeMaxNumOfPeople(List<StayTime> arr) {
+
+        int size = arr.get(arr.size() - 1).getFinish();
+        //System.out.println("size = " + size);
+        int[] same_time_num = new int[size + 1];
+        for (StayTime person : arr) {
+            int start = person.getStart();
+            int finish = person.getFinish();
+
+            for (int i = start; i < finish; i++) {
+                same_time_num[i]++;
+            }
+        }
+
+        int max = Integer.MIN_VALUE;
+
+        for (int n : same_time_num) {
+            if (n > max) {
+                max = n;
+            }
+        }
+        
+        return max; 
+    }
+```
+
 </div>
 </details>
 
