@@ -1611,7 +1611,8 @@ public static int getMaxSelection(List<Spec> playerList,int num) {
 - 사람들이 머무는 시간이 주어졌을 때 동시에 최대 붐비는 인원의 수 
 - 3분컷함 
 - 배열 만들어서 사람들이 머무는 시간 전부 해당 인덱스 ++ 한다음에 그 배열의 최댓값 출력
-- 시간초과를 의도한 것일 까 나의 풀이가 맞는 것일까 ..? 
+- 시간초과를 의도한 것일 까 나의 풀이가 맞는 것일까 ..? -> 맞다
+- 강사도 비슷 cnt 변수 만들어서 start만나면 +1 finish 만나면 -1 cnt의 값이 바뀔 때마다 max와 비교
 
 ```java 
     private static int getSameTimeMaxNumOfPeople(List<StayTime> arr) {
@@ -1640,6 +1641,46 @@ public static int getMaxSelection(List<Spec> playerList,int num) {
     }
 ```
 
+### 09-04 
+- 며칠안에 강의를 해주면 강연료 x를 준다고 했을 때 최대로 얻을 수 있는 강연료는?
+- 나의 풀이
+  - 강연료 기준 정렬
+  - 젤 많이 주는 애 부터 제일 늦게 배치할 수 있을 만큼 배치
+  - 오답 ... 이 로직이 틀렸다고 ..?
+- 강사의 풀이
+  - 우선순위 큐 사용해야 함
+  - 시간의 내림차순으로 강의정렬
+  - 가장 큰 날짜부터 해당 날짜에 강의 할 수 있는 것들중 가장 좋은 것 찾아 넣기
+
+```java
+public static int getMaxIncome(List<Request2> req_arr) {
+
+        int day = req_arr.get(0).getDline();
+        int fee_sum = 0;
+        PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder()); //내림차순 큰게 우선
+
+        for (int i = 0; i<req_arr.size(); i++) {
+            Request2 cur = req_arr.get(i);
+            if (cur.getDline() == day) {
+                pq.add(cur.getFee());
+                //System.out.println(r.getFee());
+            }
+            else {
+                if (!pq.isEmpty()) {
+                    fee_sum += pq.poll();
+                }
+                day--;
+                i--;
+            }
+        }
+        if (day>=1 && !pq.isEmpty()) {
+            fee_sum += pq.poll();
+        }
+
+        return fee_sum;
+
+    }
+```
 </div>
 </details>
 
