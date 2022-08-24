@@ -97,7 +97,7 @@ public class MaxIncome2 {
 
         }
 
-        Collections.sort(req_arr);
+        Collections.sort(req_arr); //시간순 내림차순 정렬
         System.out.println(getMaxIncome(req_arr));
 
 
