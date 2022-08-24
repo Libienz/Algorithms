@@ -6,7 +6,7 @@
 <summary>01 String Section</summary>
 <div markdown="1">
 
-### 01-01
+### 01-01 
 문자열 안에서 특정 문자 찾는 문제 
 
 ```java
