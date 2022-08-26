@@ -1690,6 +1690,51 @@ public static int getMaxIncome(List<Request2> req_arr) {
 
     }
 ```
+
+
+### 09-05
+- dijkstra
+  - 한 노드에서 모든 노드로의 최단 거리 구하기 가중치 있는 그래프
+  - 음수 간선 안됨 
+  - 출발지점에서 붙어있는 애들까지 거리 구해서 거기까지의 거리를 일단 고걸로 넣어놓는다.
+  - 방문안한 애들 중에서 가장 가까운 거리에 있는 거에서 갈 수 있는 애들 구한다. 거리 배열 갱신 
+  - 반복 
+  - 나는 pq 안쓰고 먼저 풀어봤는데 pq로 푸는 것이랑 무엇이 다를까..?
+
+```java
+    private static void dijkstra(int start) {
+
+        distance = new int[graph.size()];
+        visited = new boolean[graph.size()];
+        Arrays.fill(distance, Integer.MAX_VALUE);
+        distance[start] = 0;
+        visited[start] = true;
+
+        for (Edge e : graph.get(1)) {
+            distance[e.getFinish()] = e.getWeight();
+        }
+
+        while (anyLeftToGo()) {
+            int togo = getSmallestIndex();
+            System.out.println(togo);
+
+            visited[togo] = true;
+            int w_to_here = distance[togo];
+            for (Edge e : graph.get(togo)) {
+                if (distance[e.getFinish()] > w_to_here + e.getWeight()) {
+                    distance[e.getFinish()] = w_to_here + e.getWeight();
+                }
+            }
+            System.out.println();
+            for (int num : distance) {
+                System.out.println("num = " + num);
+            }
+        }
+
+    }
+```
+  
+  
 </div>
 </details>
 
