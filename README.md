@@ -1745,7 +1745,7 @@ public static int getMaxIncome(List<Request2> req_arr) {
 - 시간초과는 안나네 .. 다만 좋은 알고리즘은 아닌듯?
 
 ```java
-while (!allDisjoint(group)) { // 모든 그룹에 교집합이 하나라도 존재한다면
+    while (!allDisjoint(group)) { // 모든 그룹에 교집합이 하나라도 존재한다면
             for (int i = 0; i < group.size()-1; i++) {
                 for (int j = i + 1; j < group.size(); j++) {
                     if (!isDisjoint(group.get(i), group.get(j))) { //교집합 발견 합치고 없앤다
@@ -1758,6 +1758,13 @@ while (!allDisjoint(group)) { // 모든 그룹에 교집합이 하나라도 존�
             }
         }
 ```
+
+- Union-Find
+  - 여러 노드가 존재할 때 두 개의 노드를 선택해서 현재 두 노드가 서로 같은 그래프에 속하는지 판별하는 알고리즘
+  - 2가지 연산으로 이루어져 있다.
+    - FIND : x가 어떤 집합에 포함되어 있는 지 찾는 연산
+    - UNION : x와 y가 포함되어있는 집합을 합치는 연산
+  - 참고 : https://brenden.tistory.com/33
   
   
 </div>
