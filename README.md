@@ -1735,6 +1735,29 @@ public static int getMaxIncome(List<Request2> req_arr) {
 
     }
 ```
+### 09-06
+
+- 친구 맞니 문제
+- 친구의 친구는 모두 친구 
+- 정보가 주어졌을 때 친구가 맞는지 확인해 주는 알고리즘
+- 나는 꽤나 브루트포스하게 푼듯
+- 일단 일차원 적으로 친구 그룹을 나누고 그룹간 교집합이 없을 때 까지 교집합을 없애 나간다. 
+- 시간초과는 안나네 .. 다만 좋은 알고리즘은 아닌듯?
+
+```java
+while (!allDisjoint(group)) { // 모든 그룹에 교집합이 하나라도 존재한다면
+            for (int i = 0; i < group.size()-1; i++) {
+                for (int j = i + 1; j < group.size(); j++) {
+                    if (!isDisjoint(group.get(i), group.get(j))) { //교집합 발견 합치고 없앤다
+                        for (int num : group.get(j)) {
+                            group.get(i).add(num);
+                        }
+                        group.remove(j);
+                    }
+                }
+            }
+        }
+```
   
   
 </div>
