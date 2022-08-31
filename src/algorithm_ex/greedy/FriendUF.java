@@ -18,11 +18,11 @@ public class FriendUF {
 
     }
 
-    public static void union(int s1, int s2) { //s1이 더 작음
+    public static void union(int s1, int s2) {
         int fa = find(s1);
         int fb = find(s2);
         if (fa != fb) {
-            unf[Math.max(fa,fb)] = Math.min(fa,fb);
+            unf[fa] = fb;
         }
     }
     public static void main(String[] args) {
@@ -39,16 +39,14 @@ public class FriendUF {
         for (int i = 0; i < r_num; i++) {
             int s1 = sc.nextInt();
             int s2 = sc.nextInt();
-            int max = Math.max(s1, s2);
-            int min = Math.min(s1, s2);
             //s1과 s2는 친구
-            union(min, max); //s1과 s2가 한 집합이 되도록 만들어라
+            union(s1, s2); //s1과 s2가 한 집합이 되도록 만들어라
 
         }
         int s1 = sc.nextInt(); // 학생 1
         int s2 = sc.nextInt(); // 학생 2
 
-        if (unf[s1] == unf[s2]) {
+        if (find(s1) == find(s2)) {
             System.out.println("YES");
         } else {
             System.out.println("NO");

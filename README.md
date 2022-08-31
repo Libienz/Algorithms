@@ -1766,7 +1766,48 @@ public static int getMaxIncome(List<Request2> req_arr) {
     - UNION : x와 y가 포함되어있는 집합을 합치는 연산
   - 참고 : https://brenden.tistory.com/33
   
-  
+
+
+### 09-07
+- 유니온 파인드 활용한 크루스칼 알고리즘
+- 최소 신장트리를 찾아라
+  - 신장트리 : 모든 정점을 포함하고 정점간 서로 연결이 되며 싸이클이 존재하지 않는 그래프
+  - 최소 신장트리 : 가중치의 합이 최소
+  - 최소 신장트리를 찾는 크루스칼 알고리즘
+    - 간선들을 기준으로!
+    - 간선들 가중치의 오름차순으로 정렬
+    - 싸이클을 만들지 않는다면 넣고 만들면 넣지 않음
+    - 이렇게 했을 때 모든 정점을 포함할 수 밖에 없겠지? 반복문이 전부도니 
+    - 참고 : https://chanhuiseok.github.io/posts/algo-33/
+    - 싸이클을 만드는지 안만드는지 유니온 파인드로 체크한다!
+
+```java 
+    private static void union(int s, int f) {
+        int fa = find(s);
+        int fb = find(f);
+
+        if (fa != fb) {
+            unf[fa] = fb;
+        }
+    }
+
+    private static int find(int s) {
+        if (s == unf[s]) {
+            return unf[s];
+        }
+        else {
+            return find(unf[s]);
+        }
+    }
+    private static boolean isTriggerCycle(Edge1 e1) {
+        if (find(e1.getS()) == find(e1.getF())) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+```
 </div>
 </details>
 
