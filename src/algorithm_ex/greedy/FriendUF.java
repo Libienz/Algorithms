@@ -19,9 +19,9 @@ public class FriendUF {
     }
 
     public static void union(int s1, int s2) {
-        int fa = find(s1);
+        int fa = find(s1); // 속해 있는 그룹을 리턴하는게 find다
         int fb = find(s2);
-        if (fa != fb) {
+        if (fa != fb) { //그룹이 다르다면 한쪽으로 합침
             unf[fa] = fb;
         }
     }
