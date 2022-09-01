@@ -1771,7 +1771,8 @@ public static int getMaxIncome(List<Request2> req_arr) {
 ### 09-07
 - 유니온 파인드 활용한 크루스칼 알고리즘
 - 최소 신장트리를 찾아라
-  - 신장트리 : 모든 정점을 포함하고 정점간 서로 연결이 되며 싸이클이 존재하지 않는 그래프
+  - 신장트리 : 모든 정점을 포함하고 정점간 서로 연결이 되며 싸이클이 존재하지 않는 그래프 
+  - 사실 그래프와 트리의 차이점은 싸이클의 유무
   - 최소 신장트리 : 가중치의 합이 최소
   - 최소 신장트리를 찾는 크루스칼 알고리즘
     - 간선들을 기준으로!
@@ -1806,6 +1807,39 @@ public static int getMaxIncome(List<Request2> req_arr) {
         else {
             return false;
         }
+    }
+```
+
+
+### 09-08 
+- 최소 신장 트리 MST를 프림알고리즘으로..
+- 크루스칼이 간선기준이었다면 프림은 노드기준
+- 프림 알고리즘
+  - 임의의 시작점 고른다
+  - 그 시작점에서 부터 서브 그래프를 그려나간다.
+  - 서브 그래프와 서브그래프가 아닌 나머지 노드들 사이의 간선을 pq에 때려넣고
+  - pq중에서 간선이 최소가 되는 것들 골라와서 서브그래프에 포함시킨다.
+
+```java
+    public static int prim() {
+
+        PriorityQueue<Edge> pq = new PriorityQueue();
+        boolean[] checked = new boolean[v + 1];
+        pq.add(new Edge(1, 0));
+        int answer = 0;
+
+        while (!pq.isEmpty()) {
+            Edge cur = pq.poll();
+            if (!checked[cur.getFinish()]) { //우리가 만들고 있는 서브그래프에 포함되지 않은 노드일 때
+                checked[cur.getFinish()] = true;
+                answer += cur.getWeight();
+                //System.out.println("answer = " + answer);
+                for (Edge e : graph.get(cur.getFinish())) {
+                    pq.add(e);
+                }
+            }
+        }
+        return answer;
     }
 ```
 </div>

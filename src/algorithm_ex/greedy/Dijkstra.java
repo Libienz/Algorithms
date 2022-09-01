@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-class Edge {
+class Edge implements Comparable<Edge>{
     private int finish;
 
     @Override
@@ -36,6 +36,11 @@ class Edge {
     public Edge(int finish, int weight) {
         this.finish = finish;
         this.weight = weight;
+    }
+
+    @Override
+    public int compareTo(Edge o) {
+        return this.weight - o.weight;
     }
 }
 public class Dijkstra {
