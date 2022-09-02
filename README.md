@@ -1858,6 +1858,27 @@ public static int getMaxIncome(List<Request2> req_arr) {
   - 결국 분할 정복을 하는 문제이되 같은 문제를 다시풀지 않는다?
   - 메모이제이션이 다이나믹 프로그래밍의 예?
 
+- 나의 코드
+
+```java
+    public static void dfs(int left_num) {
+
+        if (left_num == 0) {
+            count++;
+        }
+        else if (left_num < 0) {
+            return;
+        }
+        else {
+            dfs(left_num -1);
+            dfs(left_num - 2);
+        }
+    }
+```
+
+
+### 10-02
+- 위의 10-01과 동일한 문제 아직 강의 안들었는데 말하고자 하는 바를 확실히 이해하고 기록하자
 
 
 </div>
