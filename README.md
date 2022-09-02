@@ -1846,8 +1846,18 @@ public static int getMaxIncome(List<Request2> req_arr) {
 </details>
 
 <details>
-<summary>10 </summary>
+<summary>10 DP(dynamic programming)</summary>
 <div markdown="1">
+
+### 10-01
+- 철수는 계단을 한칸 오르거나 두칸 오를 수 있음
+- 계단의 수가 주어졌을 때 철수가 계단을 올라갈 수 있는 가짓수는?
+- 나는 재귀의 형식으로 dfs스럽게 풀었다. 
+
+- DP란..?
+  - 결국 분할 정복을 하는 문제이되 같은 문제를 다시풀지 않는다?
+  - 메모이제이션이 다이나믹 프로그래밍의 예?
+
 
 
 </div>
