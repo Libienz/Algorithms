@@ -1,4 +1,4 @@
-package algorithm_ex.greedy;
+package algorithm_ex.dynamic_prog;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -22,6 +22,7 @@ public class LIS {
 
     }
 
+    //완전 탐색 dfs 구조 부분집합과 유사 ..
     public static void dfs(int index, int prev, int length) {
 
         if (index == seq.size()) {
