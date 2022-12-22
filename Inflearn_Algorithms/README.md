@@ -7,21 +7,26 @@
 <div markdown="1">
 
 ### 01-01 
-문자열 안에서 특정 문자 찾는 문제 
-
+- 문자열 안에서 특정 문자 찾는 문제
+- 자바는 String에 대해서 for each 지원 안함 String의 메소드를 사용하여 char Array로 바꿀 수 있음! 바꿔서 enumeration controll 하자
+- Character 클래스에 (Wrapper class) 여러 유용한 static method있다! 눈에 띌 때마다 정리하자 
 ```java
 c = sc.next().charAt(0); //캐릭터는 이렇게 입력받기
 String.toCharArray(); //문자열을 캐릭터의 배열로! 향상된 for문에 유용
 Character.toLowerCase(c); //캐릭터를 소문자로 
 ```
 ### 01-02
-문자열 내에서 대소문자 반전시키는 문제 
+- 문자열의 대소문자 반전시키는 문제 
+- char와 integer는 compatible 하다는 점을 이용하여 문제 풀 수도 있음
+  - 즉 아스키 코드로 가능하다는 말
+  - 대문자는 아스키코드 65 < c < 90
+  - 소문자는 아스키코드 97 < c < 122
 ```java
-//빈문자열에 바꾼걸 하나씩 붙여나간다는 아이디어 떠오르면 굿 
-Character.isLowerCase(c);//와 같은 메소드로 대소문자 확인가능
-//아스키 코드로도 가능 
-//대문자는 아스키코드 65 < c < 90
-//소문자는 아스키코드 97 < c < 122
+
+        //빈문자열에 붙여넣기 신공! 유용하게 쓰이는 편
+        //Stirng에서는 +연산자가 오버로딩 되니까.. 빈 문자열 만들어 놓고 정답을 붙여나갈 수 있다.
+        String answer = "";
+
 ```
 ### 01-03
 입력된 문장 속 가장 길이가 긴 단어 찾는 문제
