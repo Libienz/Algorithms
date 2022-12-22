@@ -1,5 +1,4 @@
-# Java_Algorithms
-Java_Algorithms
+# Algorithms
 
 
 ## 2022
