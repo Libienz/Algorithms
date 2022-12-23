@@ -3,34 +3,34 @@ package algorithm_ex.about_string;
 import java.util.Scanner;
 
 public class SpecificReverse {
-    public static String optionReverse(String str) {
 
-
-        char[] ch_arr = str.toCharArray();
-        int lt = 0;
-        int rt = ch_arr.length-1;
-        char tmp;
-
-
-        while(lt<rt) {
-            if (!((65 <= ch_arr[lt] && ch_arr[lt] <= 90) || (97 <= ch_arr[lt] && ch_arr[lt] <= 122))) {lt++;}
-            else if(!((65 <= ch_arr[rt] && ch_arr[rt] <= 90) || (97 <= ch_arr[rt] && ch_arr[rt] <= 122))) {rt--;}
-            else{
-                tmp = ch_arr[lt];
-                ch_arr[lt] = ch_arr[rt];
-                ch_arr[rt] = tmp;
-                lt++;
-                rt--;
-            }
-        }
-
-        return String.valueOf(ch_arr);
-    }
     public static void main(String[] args) {
+        int lt, rt;
+        char tmp;
         Scanner sc = new Scanner(System.in);
-        String str = sc.next();
 
-        System.out.println(SpecificReverse.optionReverse(str));
+        char[] str = sc.next().toCharArray(); //문자열 받아서 char의 배열로
+        lt = 0;
+        rt = str.length - 1;
+        while (lt < rt) {
+            //알파벳이 아니라면 스왑하지 않는다.
+            if (!Character.isAlphabetic(str[lt])) {
+                lt++;
+                continue;
+            } else if (!Character.isAlphabetic(str[rt])) {
+                rt--;
+                continue;
+            }
+            tmp = str[lt];
+            str[lt] = str[rt];
+            str[rt] = tmp;
+            lt++;
+            rt--;
+
+        }
+        String res = String.valueOf(str);
+        System.out.println(res);
 
     }
+
 }

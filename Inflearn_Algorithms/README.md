@@ -69,14 +69,24 @@ while (lt < rt) { //문자열의 길이가 홀수든 짝수든 상관없다
 String s = String.valueOf(str);
 ```
 ### 01-05
-문자열 배열 다 뒤집어서 보여주기
+- SpecificReverse
+- 특정 문자 뒤집기
 ```java
-while(lt<rt) {} //적극활용 둘다 알파벳을 가리킬때 스왑한다. lt와 rt가 따로 움직이도록
-Character.isAlphabetic(ch);//요거 통해서 알파벳인지 쉽게 알 수 있다.
-//뭐뭐인지 확인하는 is 메소드는 거의 스태틱인듯 --> 생각해보니 그럴 수 밖에
-//명확한 구조가 중요하다 설계 잘하고 들어가면 금방 푸는 문제
-
-
+while (lt < rt) {     
+        //알파벳이 아니라면 스왑하지 않는다.
+        if (!Character.isAlphabetic(str[lt])) {
+            lt++;
+            continue;
+        } else if (!Character.isAlphabetic(str[rt])) {
+            rt--;
+            continue;
+        }
+        tmp = str[lt];
+        str[lt] = str[rt];
+        str[rt] = tmp;
+        lt++;
+        rt--;
+}
 ```
 ### 01-06
 중복된 캐릭터 제거 문제
