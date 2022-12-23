@@ -245,6 +245,8 @@ for (int i = 1; i < str.length(); i++) {
 ### 01-12
 - Crypto
 - 암호 변환 문제
+- replaceAll을 사용하지 않아도 전부 바꿀 수 있다. 정규식 유무의 차이
+- subString(beg, end) 는 beg부터 end-1까지를 자른다. 
 ```java 
 
 //정규식으로 암호 이진수로 바꾸기 
