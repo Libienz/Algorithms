@@ -243,16 +243,20 @@ for (int i = 1; i < str.length(); i++) {
 }
 ```
 ### 01-12
-암호 변환 문제
+- Crypto
+- 암호 변환 문제
 ```java 
-/*  10진수는 char로 캐스트 하면 바뀐다.
-    강사와 나의 커다란 아이디어 차이 없음
-    다만 나는 need_decrypt 변수 설정 while문의 조건으로 사용
-    강사는 replace로 2진수로 바꿨다. 
-    */
-    str.substring(0,7).replace('#','1').replace('*','0');
-    Integer.parseInt(str,2); // 두번째 인자가 진법
-    
+
+//정규식으로 암호 이진수로 바꾸기 
+cryp = cryp.replace('*', '0').replace('#', '1');
+
+//char개수 만큼 substring으로 자르고 parseInt이용해서 2진수로 바꾸기 
+//후에 char로 캐스팅, res에 붙인다.
+for (int i = 0; i < cnt; i++) {
+    subCryp = cryp.substring(i * 7, i * 7 + 7); //substring의 end index는 두번째 인자 -1 까지
+    int ch = Integer.parseInt(subCryp, 2); //두번째 인자가 진법 
+    res += (char)ch;
+}
 ```
 </div>
 </details>
