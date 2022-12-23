@@ -159,14 +159,25 @@ str.toLowerCase().replaceAll("[^A-Z]", ""); //정규식 이용!
 
 ```
 ### 01-09
-문자열 사이에서 숫자만 추출해서 '자연수로' 만들기
+- NumericExtract
+- 문자열 사이에서 숫자만 추출해서 '자연수로' 만들기
+- 방법 1.
+  - 문자열 받고 정규식이용해서 숫자 아닌 것들 거르기
+  - Integer.parseInt 혹은 Integer.valueOf로 문자열 정수로 캐스트
+- 방법 2. 
+  - 문자열 char의 배열로 만들기
+  - Character.isDigit사용해서 숫자라면 10 곱해나가면서 더한다. 
 ```java 
-//정규식 이용해서 숫자가 아닌 것들 제거
-//나는 Integer.valueOf()메소드 사용했다. 정규식 꼭 익혀두자
-//강좌에서는 문자 0의 아스키 코드값이 48인것을 이용해서 *10을 해나가는 방식 사용
-answer = answer * 10 + (x-48);
-Character.isDigit(x);// 요거 사용할 수도 있다.
-Integer.parseInt(answer);// 파스인트 요거도 정수로 바꿔준다.
+//방법 1
+str = str.replaceAll("[^0-9]", "");
+System.out.println(Integer.valueOf(str));
+//방법 2
+for (char c : chars) {
+      if (Character.isDigit(c)) {
+          answer = (answer * 10) + (c - 48)
+      }
+}
+
 ```
 ### 01-10
 문자 거리

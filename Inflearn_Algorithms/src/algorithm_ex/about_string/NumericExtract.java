@@ -4,26 +4,23 @@ import java.util.Scanner;
 
 public class NumericExtract {
 
-    public static int extractNum(String str) {
-        String obj_str = str.replaceAll("[^0-9]", "");
-        System.out.println(obj_str);
-        //char[] ch_arr = str.toCharArray();
-        //return (Integer)obj_str;
-        //문자열을 .. 숫자로 ..
-/*        int res = 0;
-        char[] ch_arr = obj_str.toCharArray();
-        for (int i = ch_arr.length -1; i>=0; i--){
-            res *= 10;
-            res += ch_arr[i];
-        }*/
-        int res = Integer.valueOf(obj_str);
-        return res;
-
-    }
     public static void main(String[] args) {
+
         Scanner sc = new Scanner(System.in);
         String str = sc.next();
-        System.out.println(extractNum(str));
+        //0-9가 아닌 것들 전부 ""로 replace
+        //정규식 이용한 것임
+        //str = str.replaceAll("[^0-9]", "");
+        //System.out.println(Integer.valueOf(str));
+
+        int answer = 0;
+        char[] chars = str.toCharArray();
+        for (char c : chars) {
+            if (Character.isDigit(c)) {
+                answer = (answer * 10) + (c - 48);
+            }
+        }
+        System.out.println(answer);
 
     }
 }
