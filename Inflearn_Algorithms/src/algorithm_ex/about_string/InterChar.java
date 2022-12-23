@@ -5,42 +5,47 @@ import java.util.Scanner;
 
 public class InterChar {
 
-    public static int getAbsoluteVal(int num) {
-        if(num<0) return -1*num;
-        else return num;
-    }
-    public static int arr_min(ArrayList<Integer> arr) {
-        int min_val = 101;
-        for (int i=0; i<arr.size(); i++) {
-            if (arr.get(i)<min_val) min_val = arr.get(i);
-        }
-
-        return min_val;
-    }
-    public static ArrayList<Integer> getAllIndex(String str, char c) {
-        //일단 c의 위치 다딴다
-        ArrayList<Integer> index_c = new ArrayList<Integer>();
-        //boolean is_first = true;
-        int nested = 0;
-        while(str.indexOf(c) != -1) {
-            index_c.add(str.indexOf(c)+nested);
-            nested+=str.indexOf(c) + 1;
-            str = str.substring(str.indexOf(c)+1);
-        }
-        return index_c;
-    }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        String str = sc.next();
+        char[] str = sc.next().toCharArray();
         char c = sc.next().charAt(0);
-        ArrayList<Integer> all_index = getAllIndex(str, c);
-        ArrayList<Integer> distance_list = new ArrayList<Integer>();
-        for (int i =0; i<str.length(); i++) {
-            for(int j=0; j<all_index.size();j++) {
-                distance_list.add(getAbsoluteVal(i-all_index.get(j)));
+
+        int lt, rt;
+
+        //모든 인덱스에 대해 반복
+        for (int i = 0; i < str.length; i++) {
+            int cnt = 0;
+            lt = i;
+            rt = i;
+            //그 자리에 찾는게 있다면 거리는 0
+            if (str[i] == c) {
+                System.out.printf("%d ", cnt);
+                continue;
             }
-            System.out.printf("%d ",arr_min(distance_list));
-            distance_list.clear();
+            //그렇지 않다면 반복문 진입
+            //먼저 왼쪽 오른쪽으로 한칸씩 옮겨서 찾는 문자가 있는지 확인해본다.
+            //왼쪽이든 오른쪽이든 먼저 발견하면 그게 최솟값 출력하고 다음 루프로!
+            while (true) {
+                cnt++;
+                //인덱스가 유효하다면 왼쪽으로 한칸 옮겨서 우리가 찾는 문자가 있는지 확인해본다.
+                if (lt-cnt >= 0 && lt-cnt < str.length) {
+                    if (str[lt-cnt] == c) {
+                        System.out.printf("%d ",cnt);
+                        break;
+                    }
+                }
+
+                //인덱스가 유효하다면 오른쪽으로 한칸 옮겨서 우리가 찾는 문자가 있는지 확인해본다.
+                if (rt + cnt >= 0 && rt + cnt < str.length) {
+                    if (str[rt + cnt] == c) {
+                        System.out.printf("%d ", cnt);
+                        break;
+
+                    }
+                }
+
+            }
         }
+
     }
 }

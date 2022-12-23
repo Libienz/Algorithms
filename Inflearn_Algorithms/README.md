@@ -180,18 +180,43 @@ for (char c : chars) {
 
 ```
 ### 01-10
-문자 거리
-```java 
-/* 내가 푼 방식
-    c가 있는 위치 모든 인덱스 뽑아와서 리스트로 nest 변수를 사용했어야 되었음..
-    각 문자의 위치와 c와의 거리비교 최솟값 가져와서 출력 요게 루프가 좀 지저분함 c의 모든 인덱스와 비교해야 해서
-   
-*/
+- InterChar
+- 문자열과 char가 입력되면 문자열의 각 인덱스에서 문자까지 최소로 떨어진 거리가 얼마인지 찾기
 
-/* 강사의 방식
-    오른쪽으로 갔다가 왼쪽으로 한번 더가면서 '갱신' 방식 ㄷㄷ 개깔끔
-    str.charAt() 요거 좀 쓰셈 간편함 
-*/
+```java
+for (int i = 0; i < str.length; i++) {
+        int cnt = 0;
+        lt = i;
+        rt = i;
+        //그 자리에 찾는게 있다면 거리는 0
+        if (str[i] == c) {
+            System.out.printf("%d ", cnt);
+            continue;
+        }
+        //그렇지 않다면 반복문 진입
+        //먼저 왼쪽 오른쪽으로 한칸씩 옮겨서 찾는 문자가 있는지 확인해본다. 
+        //왼쪽이든 오른쪽이든 먼저 발견하면 그게 최솟값 출력하고 다음 루프로! 
+        while (true) {
+            cnt++;
+            //인덱스가 유효하다면 왼쪽으로 한칸 옮겨서 우리가 찾는 문자가 있는지 확인해본다.
+            if (lt-cnt >= 0 && lt-cnt < str.length) {
+                if (str[lt-cnt] == c) {
+                System.out.printf("%d ",cnt);
+                break;
+                }
+            }
+
+            //인덱스가 유효하다면 오른쪽으로 한칸 옮겨서 우리가 찾는 문자가 있는지 확인해본다.
+            if (rt + cnt >= 0 && rt + cnt < str.length) {
+                if (str[rt + cnt] == c) {
+                System.out.printf("%d ", cnt);
+                break;
+
+                }
+            }
+
+        }
+}
     
 ```
 ### 01-11
