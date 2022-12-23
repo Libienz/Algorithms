@@ -6,32 +6,19 @@ import java.util.Scanner;
 public class SpecificPalindrome {
 
     public static void main(String[] args) {
+
         Scanner sc = new Scanner(System.in);
         String str = sc.nextLine();
-        String es = "";
-        char[] chars = str.toCharArray();
-
-        //String parsing
-        //es는 특수문자를 제외한 문자열을 가지게 된다.
-        for (int i = 0; i < str.length(); i++) {
-            if (!Character.isAlphabetic(chars[i])) {
-                continue;
-            }
-            es += chars[i];
-        }
-
-        //System.out.println(es);
-
-        //es 전부 소문자로 만들고
-        es = es.toLowerCase();
+        str = str.toLowerCase().replaceAll("[^a-z]", ""); //정규식 이용!
+        //System.out.println(str);
 
         int lt, rt;
         lt = 0;
-        rt = es.length() - 1;
+        rt = str.length() - 1;
 
         //palindrome인지 체크한다.
         while (lt < rt) {
-            if (es.charAt(lt) != es.charAt(rt)) {
+            if (str.charAt(lt) != str.charAt(rt)) {
                 System.out.println("NO");
                 return;
             }

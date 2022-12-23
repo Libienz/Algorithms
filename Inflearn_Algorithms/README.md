@@ -155,6 +155,7 @@ for (int i = 0; i < str.length(); i++) {
     es += chars[i];
 }
 //특수문자 제거 방법 2
+str.toLowerCase().replaceAll("[^A-Z]", ""); //정규식 이용! 
 
 ```
 ### 01-09
