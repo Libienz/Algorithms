@@ -7,6 +7,7 @@
 <div markdown="1">
 
 ### 01-01 
+- FindChar
 - 문자열 안에서 특정 문자 찾는 문제
 - 자바는 String에 대해서 for each 지원 안함 String의 메소드를 사용하여 char Array로 바꿀 수 있음! 바꿔서 enumeration controll 하자
 - Character 클래스에 (Wrapper class) 여러 유용한 static method있다! 눈에 띌 때마다 정리하자 
@@ -16,7 +17,8 @@ String.toCharArray(); //문자열을 캐릭터의 배열로! 향상된 for문에
 Character.toLowerCase(c); //캐릭터를 소문자로 
 ```
 ### 01-02
-- 문자열의 대소문자 반전시키는 문제 
+- UpperLowerTrans
+- 문자열의 대소문자 반전시키는 문제  
 - char와 integer는 compatible 하다는 점을 이용하여 문제 풀 수도 있음
   - 즉 아스키 코드로 가능하다는 말
   - 대문자는 아스키코드 65 < c < 90
@@ -27,7 +29,8 @@ Character.toLowerCase(c); //캐릭터를 소문자로
 String answer = "";
 ```
 ### 01-03
-- 입력된 문장 속 가장 길이가 긴 단어 찾는 문제
+- LongestWord
+- 입력된 문장 속 가장 길이가 긴 단어 찾는 문제 
 - 최댓값 알고리즘 -> max를 갱신해나가는 방식으로 풀 수 있다. 
 - 문자열을 받아서 그 안의 단어들을 어떻게 tokenize해나갈 것인가? 
   1. str.split(" ") String[] 를 반환한다. 다만 스플릿 하는 문자가 여러개 이어져 있을 경우 배열에 빈문자열로써 포함 시킨다
@@ -42,16 +45,28 @@ while(str.indexOf(" ") != -1) {
 }
 ```
 ### 01-04 
-문자열 배열 다 뒤집어서 보여주기
+- ReverseWord
+- 문자열 뒤집기
+- 자바에서 스트링에 대한 연산을 한다면 객체가 수정되는 것이 아니라 새로운 객체가 계속해서 만들어짐
+- 프로그래밍 언어론 관점에서 자바는 primitive 타입이 아닌 클래스 타입에 대해서는 referential value model을 사용하기 때문
+- String Builder는 인자로 받은 문자열에 대해 여러가지 연산을 제공하며 객체를 효율적인 방법으로 사용한다
+- 마구 만들어내지 않음
+
 ```java
-//자바에서 스트링에 대한 연산을 한다면 객체가 수정되는 것이 아니라 새로운 객체가 계속해서 만들어짐
-//이런 것 때문에 나온게 String Builder. 여러가지 연산을 제공하며 객체를 마구 만들어내지 않음
-
-String tmp = new StringBuilder(x).reverse().toString();
-
-//좀 더 직접적인 방법도 알아두자
-while(lt<rt) {} //요거는 문자의 개수가 홀수건 짝수건 딱 맞게 바꿔줄 수 밖에 없다는점 
-String.valueOf(s)//요거는 문자배열을 문자열로 바꿔줄 수 있는 메소드!
+//1. StringBuilder 클래스 사용
+//StringBuilder 생성하고 인자로 넘긴 String에 대해 reverse메소드 적용 toString으로 찍어본다.
+StringBuilder stbd = new StringBuilder(s);
+stbd.reverse().toString();
+//2. char단위 스왑하며 reverse하기
+while (lt < rt) { //문자열의 길이가 홀수든 짝수든 상관없다
+    tmp = str[lt];
+    str[lt] = str[rt];
+    str[rt] = tmp;
+    lt++;
+    rt--;
+}
+//다양한 primitve타입을 String으로 캐스트해주는 valueOf메소드 
+String s = String.valueOf(str);
 ```
 ### 01-05
 문자열 배열 다 뒤집어서 보여주기

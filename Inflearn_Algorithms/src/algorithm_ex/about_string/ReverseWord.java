@@ -1,31 +1,33 @@
 package algorithm_ex.about_string;
 
-import jdk.jshell.Snippet;
 
 import java.util.Scanner;
 
 
 public class ReverseWord {
 
-    public static String reverseWord(String str) {
-        //String Builder를 만들면서 str을 인자로 넘김
-        //String Builder의 메소드를 사용하여 문자열을 요리조리 조작할 수 있다.
-        StringBuilder stbd = new StringBuilder(str);
-        return stbd.reverse().toString();
+    public static void main(String[] args) {
 
-    }
-
-    public static void main (String[] args) {
+        int lt, rt;
+        char tmp;// tmp는 스왑에 사용될 캐릭터
         Scanner sc = new Scanner(System.in);
-        int num_of_words = sc.nextInt();
-        String[] str_arr = new String[num_of_words];
-        String str;
+        int cnt = sc.nextInt();
 
-        for (int i = 0; i<num_of_words; i++) {
-            str_arr[i] = sc.next();
-        }
-        for (int i = 0; i<num_of_words; i++) {
-            System.out.println(ReverseWord.reverseWord(str_arr[i]));
+        for (int i = 0; i < cnt; i++) {
+            char[] str = sc.next().toCharArray();
+            lt = 0;
+            rt = str.length - 1;
+
+            while (lt < rt) { //문자열의 길이가 홀수든 짝수든 상관없다.
+                tmp = str[lt];
+                str[lt] = str[rt];
+                str[rt] = tmp;
+                lt++;
+                rt--;
+            }
+            String s = String.valueOf(str);
+            System.out.println(s);
+
         }
 
     }
