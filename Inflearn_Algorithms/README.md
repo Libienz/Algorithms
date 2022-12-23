@@ -95,10 +95,8 @@ while (lt < rt) {
   - Set은 중복이 없다는 점을 이용 (나의 방법)
   - Set.Contians를 통해 지금까지 나왔던 적이 있는 지 확인한다.
 - 방법 2
-  - indexOf()를 이용 
-  - 없으면 -1을 반환한다는 것을 이용해서 
-  - 자기위치와 처음 발견된 indexof의 결과가 다르다? 제거 
-  - str.indexOf(str.charAt(i)) == i
+  - indexOf()를 이용
+  - 지금 살펴보는 위치의 char가 indexOf로 검색한 위치와 다르다면 처음 나온것이 아님을 이용
 ```java 
         //방법 1
         Set<Character> charSet = new HashSet<>();
@@ -122,16 +120,21 @@ while (lt < rt) {
         }
 ```
 ### 01-07
-회문 문자열인지 검사하는 알고리즘 
-```java 
-//내가 푼거는 reverse 시켜서 String.equals 사용
-//강사의 풀이방식은 문자열의 length / 2 로 자르고 반대편과 비교해나가면서
-//틀린게 있다면 NO하도록 --> 요게 오버헤드가 더 라이트한듯.. 반성
-for (int i = 0; i <= ch_arr.length / 2; i++) {
-    if (ch_arr[i] != ch_arr[ch_arr.length - i]) {
-        return false;
-    }
-    continue;
+- PalindromeCheck
+- 회문 문자열인지 검사
+- 방법 1
+  - reverse시키고 String.equals 메소드 사용
+- 방법 2 
+  - 대칭되는 인덱스 자리끼리 같은지 확인 
+```java
+while (lt < rt) {
+    //인덱스의 대칭되는 자리에 같지 않은게 있으면 palindrom 아님
+        if (str.charAt(lt) != str.charAt(rt)) {
+            System.out.println("NO");
+            return;
+        }
+        lt++;
+        rt--;
 }
 ```
 ### 01-08

@@ -1,42 +1,28 @@
 package algorithm_ex.about_string;
 
-import java.util.Locale;
 import java.util.Scanner;
 
 public class PalindromeCheck {
-    public static boolean isPalindrome(String str) {
-        String org_str = str.toLowerCase(Locale.ROOT);
-        String reverse_word = reverse(str).toLowerCase(Locale.ROOT);
-        if(org_str.equals(reverse_word)) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-    public static String reverse(String str) {
-        int lt = 0;
-        int rt = str.length()-1;
-        char temp;
-        char[] ch_arr = str.toCharArray();
-        while(lt<rt) {
-           temp = ch_arr[lt];
-           ch_arr[lt] = ch_arr[rt];
-           ch_arr[rt] = temp;
-           lt++;
-           rt--;
-        }
-        return String.valueOf(ch_arr);
-    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        String original_str = sc.next();
-        if (PalindromeCheck.isPalindrome(original_str)) {
-            System.out.println("YES");
+        String str = sc.next();
+        str = str.toLowerCase();
+
+        int lt, rt;
+        lt = 0;
+        rt = str.length()-1;
+        while (lt < rt) {
+            //인덱스의 대칭되는 자리에 같지 않은게 있으면 palindrom 아님
+            if (str.charAt(lt) != str.charAt(rt)) {
+                System.out.println("NO");
+                return;
+            }
+            lt++;
+            rt--;
+
         }
-        else {
-            System.out.println("NO");
-        }
+        System.out.println("YES");
 
     }
 }
