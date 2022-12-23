@@ -27,6 +27,7 @@ public class UpperLowerTrans {
             }
         }
 
+
         System.out.println(answer);
     }
 }

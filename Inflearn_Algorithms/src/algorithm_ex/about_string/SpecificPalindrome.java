@@ -4,44 +4,40 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class SpecificPalindrome {
-    public static String ignoreNoneAlpha(String str) {
-        char[] ch_arr = str.toCharArray();
-        ArrayList<Character> obj_arr = new ArrayList<Character>();
-        for (char c : ch_arr) {
-            if (Character.isAlphabetic(c)) {
-                obj_arr.add(c);
-            }
-        }
-        char[] fin_arr = new char[obj_arr.size()];
-        for (int i = 0; i<obj_arr.size(); i++) {
-            fin_arr[i] = obj_arr.get(i);
-        }
-        return String.valueOf(fin_arr);
-    }
-    public static String reverse(String str) {
 
-        StringBuilder strbd = new StringBuilder(str);
-        return strbd.reverse().toString();
-
-    }
-
-    public static boolean isPalindrome(String str) {
-        String rev_str = reverse(str);
-        if (str.equals(rev_str)) {
-            return true;
-        }
-        return false;
-    }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String str = sc.nextLine();
-        String obj_str = ignoreNoneAlpha(str).toLowerCase();
-        if(isPalindrome(obj_str)) {
-            System.out.println("YES");
-        }
-        else {
-            System.out.println("NO");
+        String es = "";
+        char[] chars = str.toCharArray();
+
+        //String parsing
+        //es는 특수문자를 제외한 문자열을 가지게 된다.
+        for (int i = 0; i < str.length(); i++) {
+            if (!Character.isAlphabetic(chars[i])) {
+                continue;
+            }
+            es += chars[i];
         }
 
+        //System.out.println(es);
+
+        //es 전부 소문자로 만들고
+        es = es.toLowerCase();
+
+        int lt, rt;
+        lt = 0;
+        rt = es.length() - 1;
+
+        //palindrome인지 체크한다.
+        while (lt < rt) {
+            if (es.charAt(lt) != es.charAt(rt)) {
+                System.out.println("NO");
+                return;
+            }
+            lt++;
+            rt--;
+        }
+        System.out.println("YES");
     }
 }

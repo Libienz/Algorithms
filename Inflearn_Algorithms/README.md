@@ -138,12 +138,24 @@ while (lt < rt) {
 }
 ```
 ### 01-08
-회문 문자열인지 검사하는 알고리즘 but 특수문자 무시
+- SpecificPalindrome
+- 회문 문자열인지 검사하는 알고리즘 but 특수문자 무시
+- 특수문자 제거 방법 1
+  - 빈문자열에다가 하나씩 검사하면서 붙여넣기
+- 특수문자 제거 방법 2
+  - String.replaceAll메소드 이용 정규식으로 해결
 ```java 
-//나는 특수문자를 제거한 캐릭터 배열을 새로 만들어 특수문자가 제거된 문자열을 만듬
-//강좌에서는 replaceAll과 정규식을 이용했다.
-str = str.toUppercase().replaceAll("[^A-Z]", "");// 대문자 A-Z가 아니면 빈문자화 시켜라
-//replaceAll은 첫번째 인자를 두번째 인자로 바꾸는 메소드
+//특수문자 제거 방법 1
+//String parsing 
+//es는 특수문자를 제외한 문자열을 가지게 된다.
+for (int i = 0; i < str.length(); i++) {
+    if (!Character.isAlphabetic(chars[i])) {
+        continue;
+    }
+    es += chars[i];
+}
+//특수문자 제거 방법 2
+
 ```
 ### 01-09
 문자열 사이에서 숫자만 추출해서 '자연수로' 만들기
