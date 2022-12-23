@@ -89,11 +89,37 @@ while (lt < rt) {
 }
 ```
 ### 01-06
-중복된 캐릭터 제거 문제
+- RepeatedDelete
+- 문자열에서 중복된 캐릭터 제거하고 출력 (기존의 순서 유지)
+- 방법 1
+  - Set은 중복이 없다는 점을 이용 (나의 방법)
+  - Set.Contians를 통해 지금까지 나왔던 적이 있는 지 확인한다.
+- 방법 2
+  - indexOf()를 이용 
+  - 없으면 -1을 반환한다는 것을 이용해서 
+  - 자기위치와 처음 발견된 indexof의 결과가 다르다? 제거 
+  - str.indexOf(str.charAt(i)) == i
 ```java 
-indexOf()//요게 없으면 -1을 반환한다는 것을 이용해서
-//자기위치와 처음 발견된 indexof의 결과가 다르다? 제거
-str.indexOf(str.charAt(i)) == i
+        //방법 1
+        Set<Character> charSet = new HashSet<>();
+        for (char c : str) {
+            //set에 들어있다면 패스
+            if (charSet.contains(Character.valueOf(c))) {
+                continue;
+            }
+            //set에 들어있지 않으면 char하나 출력 
+            System.out.printf("%c", c);
+            charSet.add(c);
+
+        }
+        //방법 2
+        for (int i = 0; i < str.length; i++) {
+            //현재 보고 있는 인덱스와 indexOf를 이용하여 확인한 인덱스가 같다면 처음 나온 것
+            //다르다면 처음 나온 것이 아님
+            if (i == s.indexOf(s.charAt(i))) {
+                System.out.printf("%c", s.charAt(i));
+            }
+        }
 ```
 ### 01-07
 회문 문자열인지 검사하는 알고리즘 
