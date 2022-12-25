@@ -250,15 +250,15 @@ for (int i = 1; i < str.length(); i++) {
 ```java 
 
 //정규식으로 암호 이진수로 바꾸기 
-cryp = cryp.replace('*', '0').replace('#', '1');
+cryp = cryp.replace('*', '0').replace('#', '1'); 
 
-//char개수 만큼 substring으로 자르고 parseInt이용해서 2진수로 바꾸기 
+//char개수 만큼 substring으로 자르고 parseInt이용해서 2진수로 바꾸기
 //후에 char로 캐스팅, res에 붙인다.
 for (int i = 0; i < cnt; i++) {
     subCryp = cryp.substring(i * 7, i * 7 + 7); //substring의 end index는 두번째 인자 -1 까지
     int ch = Integer.parseInt(subCryp, 2); //두번째 인자가 진법 
     res += (char)ch;
-}
+} 
 ```
 </div>
 </details>
@@ -268,12 +268,22 @@ for (int i = 0; i < cnt; i++) {
 <div markdown="1">
 
 ### 02-01
-
+- PrintMax
+- N개의 정수를 입력받아 자신의 앞수보다 큰 수만 출력하는 프로그램
+- 자바는 primitive type에 대해서는 value model of variables를 사용 
+- Reference model에 대해서는 reference model of variables를 사용
+- 요러한 차이 때문에 Wrapper 클래스 라는 것이 나왔다.
+  - primitive 타입은 null 처럼 값이 없다는 것을 표현할 수 없음 또한 컬렉션에서 generic에 primitive type을 사용할 수 없음
+  - 이에 wrappe class 등장
+- 자바는 shortcut evaluation 지원
 ```java
-/*
-배열에서 앞의 수보다 크면 출력하는 문제
-그냥 탐색 돌면서 전 인덱스와 비교하면 된다 끝.
-*/
+int cnt = sc.nextInt();
+for (int i = 0; i < cnt; i++) {
+    arr.add(sc.nextInt()); //primitive type이 자동으로 boxing되어서 arrayList에 들어간다.
+    if (i == 0 || arr.get(i - 1) < arr.get(i)) { //Short cut eval
+        System.out.printf("%d ", arr.get(i));
+    }
+}
 ```
 ### 02-02
 ```java
