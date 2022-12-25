@@ -98,26 +98,26 @@ while (lt < rt) {
   - indexOf()를 이용
   - 지금 살펴보는 위치의 char가 indexOf로 검색한 위치와 다르다면 처음 나온것이 아님을 이용
 ```java 
-        //방법 1
-        Set<Character> charSet = new HashSet<>();
-        for (char c : str) {
-            //set에 들어있다면 패스
-            if (charSet.contains(Character.valueOf(c))) {
-                continue;
-            }
-            //set에 들어있지 않으면 char하나 출력 
-            System.out.printf("%c", c);
-            charSet.add(c);
+//방법 1
+Set<Character> charSet = new HashSet<>();
+for (char c : str) {
+    //set에 들어있다면 패스
+    if (charSet.contains(Character.valueOf(c))) {
+        continue;
+    }
+    //set에 들어있지 않으면 char하나 출력 
+    System.out.printf("%c", c);
+    charSet.add(c);
 
-        }
-        //방법 2
-        for (int i = 0; i < str.length; i++) {
-            //현재 보고 있는 인덱스와 indexOf를 이용하여 확인한 인덱스가 같다면 처음 나온 것
-            //다르다면 처음 나온 것이 아님
-            if (i == s.indexOf(s.charAt(i))) {
-                System.out.printf("%c", s.charAt(i));
-            }
-        }
+}
+//방법 2
+for (int i = 0; i < str.length; i++) {
+    //현재 보고 있는 인덱스와 indexOf를 이용하여 확인한 인덱스가 같다면 처음 나온 것
+    //다르다면 처음 나온 것이 아님
+    if (i == s.indexOf(s.charAt(i))) {
+        System.out.printf("%c", s.charAt(i));
+    }
+}
 ```
 ### 01-07
 - PalindromeCheck
@@ -308,12 +308,13 @@ System.out.println(res);
 
 ```
 ### 02-03
-가위바위보 누가 이겼는지 
-```java
-/*
-가위바위보 if else로 나눈다.
- */
-```
+- Rcs
+- 횟수만큼 가위바위보 각 set마다 누가 이겼는지 찾기
+- switch문 사용해서 해결
+- 프로그래밍 언어론적 생각
+  - 왜 switch가 더 유용한가?
+  - compiler가 점프할 테이블을 만들어놓고 빠르게 처리할 수 있기 때문
+  - 즉 효율적인 타겟코드를 만들어낼 수 있기 때문이다. 일일히 비교하는 것 보다 효율적임 
 ### 02-04
 사이즈 크기만큼의 피보나치 수열 만들기
 ```java
