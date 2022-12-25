@@ -286,14 +286,26 @@ for (int i = 0; i < cnt; i++) {
 }
 ```
 ### 02-02
+- VisibleStudent
+- 학생들의 키를 담은 배열이 주어졌을 때 맨 앞에서 몇명이 보이는지 찾는다.
+- O(n)으로 해결할 수 있다! subMax를 갱신 시켜나간다! 
+  - 사실 요게 핵심 안그러면 시간초과 남 
+- subMax는 현재 보고 있는 인덱스의 전 학생들 중 가장 큰 키값
+  - subMax보다 커야지만 현재 인덱스의 학생이 보인다. 
 ```java
-/*
-    학생들의 키 리스트가 주어질 떄 보이는 학생의 수를 찾는 문제
-    나는 탐색해나가면서 현재 인덱스 시점의 최댓값을 갱신 시켜나감
-    또한 처음에 다안보인다고 설정해놓고 순회하면서 이전 인덱스가 이후 인덱스보다 값이 
-    더 큰게 있으면 안보이니까 하나씩 더해 나갔음
-    강사랑 똑같음.
-*/
+ArrayList<Integer> arr = new ArrayList<>();
+arr.add(sc.nextInt());
+subMax = arr.get(0); //맨 앞은 항상 보임 subMax 갱신
+res++; //맨 앞은 항상 보임 
+for (int i = 1; i < cnt; i++) {
+    arr.add(sc.nextInt());
+    if (subMax < arr.get(i)) { //현재 보는 학생이 subMax보다 크다면
+        subMax = arr.get(i); //subMax갱신
+        res++; //보이는 학생 ++
+    }
+}
+System.out.println(res);
+
 ```
 ### 02-03
 가위바위보 누가 이겼는지 
