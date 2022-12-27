@@ -1,41 +1,25 @@
 package algorithm_ex.about_array;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ReversePrime {
+
     public static int reverseInt(int num) {
-        int tmp = num;
-        int res = 0;
-        while(tmp>0) {
-            res = res*10 + tmp%10;
-            tmp = tmp/10;
-        }
+        int res;
+        String snum = String.valueOf(num);
+        StringBuilder stbd = new StringBuilder(snum);
+        String sres = stbd.reverse().toString();
+        res = Integer.parseInt(sres);
         return res;
     }
-    public static String stringReverse(String str) {
-        char[] ch_arr = str.toCharArray();
-        int lt = 0;
-        int rt = ch_arr.length-1;
-        char tmp;
 
-        while(lt<rt) {
-            tmp = ch_arr[lt];
-            ch_arr[lt] = ch_arr[rt];
-            ch_arr[rt] = tmp;
-            lt++;
-            rt--;
-        }
-        return String.valueOf(ch_arr);
-    }
     public static boolean isPrime(int num) {
         if (num == 0 || num == 1) {
             return false;
         }
-        if (num ==2 ) {
-            return true;
-        }
-        for(int i =2;i<num; i++) {
-            if(num % i == 0) {
+        for (int i = 2; i <= Math.sqrt(num); i++) {
+            if (num % i == 0) {
                 return false;
             }
         }
@@ -43,18 +27,14 @@ public class ReversePrime {
     }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int num_of_int = sc.nextInt();
-        String num;
+        int cnt = sc.nextInt();
 
-        for(int i = 0; i<num_of_int; i++) {
-            num = sc.next();
-            //StringBuilder stbdr = new StringBuilder(num);
-            //num = stbdr.reverse().toString();
-            num = stringReverse(num);
-            if (isPrime(Integer.valueOf(num))) {
-                System.out.print(Integer.valueOf(num)+" ");
+        for (int i = 0; i < cnt; i++) {
+            int num = reverseInt(sc.nextInt());
+            if (isPrime(num)) {
+                System.out.print(num + " ");
+
             }
-
         }
 
     }

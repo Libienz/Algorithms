@@ -394,7 +394,8 @@ public class PrimeNumber {
 }
 ```
 ### 02-06
-주어진 숫자 뒤집은 숫자가 prime인지 확인하기
+- ReversePrime
+- 주어진 숫자를 뒤집은 숫자가 prime인지 확인하기
 ```java
 /*
 뒤집는 방식은 StringBuilder.reverse 쓰든가 아니면 while(lt<rt) 쓰든가
@@ -403,18 +404,16 @@ isPrime은 간단하게 구현해도 좋다
  */
 public static boolean isPrime(int num) {
         if (num == 0 || num == 1) {
-        return false;
+            return false;
         }
         if (num ==2 ) {
-        return true;
+            return true;
         }
         for(int i =2;i<num; i++){
             if(num%i==0){
             return false;
-            }
         }
-        
-        return true;
+    return true;
 }
 //손코딩으로 풀라고 하면 숫자를 어떻게 뒤집어야 할까?
 public static int reverseInt(int num) {
