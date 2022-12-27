@@ -6,11 +6,18 @@ import java.util.Scanner;
 public class ReversePrime {
 
     public static int reverseInt(int num) {
-        int res;
+/*        int res;
         String snum = String.valueOf(num);
         StringBuilder stbd = new StringBuilder(snum);
         String sres = stbd.reverse().toString();
         res = Integer.parseInt(sres);
+        return res;*/
+        int res = 0;
+        int tmp = num;
+        while (tmp > 0) {
+            res = res * 10 + tmp % 10;
+            tmp = tmp / 10;
+        }
         return res;
     }
 
