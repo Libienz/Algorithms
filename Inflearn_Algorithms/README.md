@@ -318,7 +318,8 @@ System.out.println(res);
 ### 02-04
 - Fibonachi
 - 재귀적인 방법과 반복문으로 해결하는 방법이 있다는 거 일단 remind하자
-- 현재는 배열로 O(n)으로 해결한 것 
+- 아래는 배열로 O(n)으로 해결한 것 
+- recursion 하더라도 tail recursion 형태이기는 하지만 부담이 되기는 함 
 ```java
 package algorithm_ex.about_array;
 
@@ -345,25 +346,52 @@ public class Fibonachi {
 
 ```
 ### 02-05
-주어진 숫자 보다 작은 수 중 소수의 개수 구하기
+- PrimeNumber
+- 에라토스테네스의 채 
+- 주어진 숫자 보다 작은 수 중 소수의 개수 구하기
+- bruteforce하게 소수인지 따지면 시간 초과 나온다
+- 소수로 확정된 수의 배수는 소수가 아님을 이용하는 것이 에라토스테네스의 채 
+  - 작은 소수의 배수들부터 지워나가면 찐 소수만 남는다. 왜? 자기보다 작은 소수의 배수를 지웠는데 소수로 남아있다는 것은 자기보다 작은 수가 자신의 약수가 되지 않았다는 뜻
 ```java
-/*
-자세히 보자 어려웠다 나는..
-첫번째 시도 : 소수는 약수를 1과 자신만을 가지는 수
-수가 주어지면 1부터 자기자신까지 루프를 돌며 약수의 개수를 카운팅하는
-isPrime 메소드를 생성. 이 함수를 다시 루프에 사용하며 소수의 개수 세는 naive 방식 
--> 시간초과
-두번째 시도 : 절반 떼어내기 방법
-어차피 1부터 자기자신까지 나머지를 확인하며 약수를 세는 과정에서
-절반보다 큰수는 다 자기자신의 약수가 될 수 없으니 루프의 크기를 절반으로 줄인다
--> 시간초과
-세번째 시도 : 짝수까지 걸러내기 짝수는 2를 제외하고는 소수가 될 수 없다.
-짝수는 조건문으로 거른다 
--> 시간초과 
-결국 2부터 배수들을 지워나간다.
-작은 소수의 배수들부터 지워나가면 찐 소수만 남는다. 왜? 자기보다 작은 소수의 배수를 지웠는데 
-소수로 남아있다는 것은 자기보다 작은 수가 자신의 약수가 되지 않았다는 뜻       
- */
+package algorithm_ex.about_array;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class PrimeNumber {
+
+  public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    int num = sc.nextInt();
+    int cnt = 0;
+    ArrayList<Boolean> eras = new ArrayList<>();
+
+    //에라토스테네스 채 초기화
+    eras.add(false);
+    eras.add(false);
+    for (int i = 2; i <= num; i++) {
+      eras.add(true);
+    }
+
+    for (int i = 0; i < eras.size(); i++) {
+      if (eras.get(i)) {
+        //소수의 배수들은 소수가 아님 걸러낸다!
+        for (int j = i*2; j <= eras.size(); j += i) {
+          eras.set(j, false);
+        }
+      }
+    }
+
+    for (int i = 0; i < eras.size(); i++) {
+      if (eras.get(i)) {
+        cnt++;
+      }
+    }
+    System.out.println(cnt);
+
+  }
+
+}
 ```
 ### 02-06
 주어진 숫자 뒤집은 숫자가 prime인지 확인하기
