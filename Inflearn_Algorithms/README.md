@@ -427,12 +427,17 @@ public static int reverseInt(int num) {
 }
 ```
 ### 02-07
-ox문제 가중치를 포함한 학생의 점수 계산하지
+- CalcScore
+- ox문제의 채점을 가중치를 포함해서 (연속 득점은 추가점수가 있다) 계산하기
 ```java
-/*
-연속득점에 점수 가중치가 있는 문제 생각한대로 어렵지 않게 풀면된다
-
- */
+for (int i = 0; i < cnt; i++) {
+    if (sc.nextInt() == 1) {
+        score += (++point);
+    } else {
+        point = 0;
+    }
+}
+System.out.println(score);
 ```
 ### 02-08
 학생 등수 계산하기 .. 난 왜 이게 어렵지
