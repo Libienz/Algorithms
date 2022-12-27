@@ -316,11 +316,33 @@ System.out.println(res);
   - compiler가 점프할 테이블을 만들어놓고 빠르게 처리할 수 있기 때문
   - 즉 효율적인 타겟코드를 만들어낼 수 있기 때문이다. 일일히 비교하는 것 보다 효율적임 
 ### 02-04
-사이즈 크기만큼의 피보나치 수열 만들기
+- Fibonachi
+- 재귀적인 방법과 반복문으로 해결하는 방법이 있다는 거 일단 remind하자
+- 현재는 배열로 O(n)으로 해결한 것 
 ```java
-/*
-가위바위보 if else로 나눈다.
- */
+package algorithm_ex.about_array;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Fibonachi {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int cnt = sc.nextInt();
+        ArrayList<Integer> fib = new ArrayList<>();
+        fib.add(1);
+        fib.add(1);
+        for (int i = 2; i < cnt; i++) {
+            fib.add(fib.get(i - 1) + fib.get(i - 2));
+        }
+
+        for (int n : fib) {
+            System.out.printf("%d ", n);
+        }
+    }
+}
+
 ```
 ### 02-05
 주어진 숫자 보다 작은 수 중 소수의 개수 구하기
