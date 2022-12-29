@@ -4,45 +4,65 @@ import java.util.Scanner;
 
 public class Mentor {
 
-    public static int indexOf(int[] arr, int num) {
-        for (int i = 0; i< arr.length; i++) {
-            if (arr[i]==num) return i;
-        }
-        return -1;
-    }
-    public static boolean ableToTeach(int mentor, int menti, int[][] test_res) {
-        for (int i = 0; i<test_res.length; i++) {
-            if (indexOf(test_res[i],mentor) > indexOf(test_res[i],menti)) {
+    //i가 j를 가르칠 수 있는가?
+    public static boolean canTeach(int mentor, int menti, int testCnt, int[][] arr) {
+        //i번째 테스트에서 mentor의 등수가 menti보다 높다면 가르칠 수 없음
+        int mentorRank = 0;
+        int mentiRank = 0;
+
+        for (int i = 0; i < testCnt; i++) {
+            for (int j = 0; j < arr[0].length; j++) {
+                if (arr[i][j] == mentor+1) {
+                    mentorRank = j;
+                }
+                if (arr[i][j] == menti+1) {
+                    mentiRank = j;
+                }
+            }
+            if (mentorRank > mentiRank) {
                 return false;
             }
+            mentorRank = 0;
+            mentiRank = 0;
         }
         return true;
     }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        int size = sc.nextInt();
+        int testCnt = sc.nextInt();
+        int res = 0;
 
-        int num_of_student = sc.nextInt();
-        int num_of_test = sc.nextInt();
-        int[][] test_res = new int[num_of_test][num_of_student];
-        boolean[][] can_teach = new boolean[num_of_student][num_of_student];
-        for (int i = 0; i<num_of_test; i ++) {
-            for (int j = 0; j<num_of_student; j++) {
-                test_res[i][j] = sc.nextInt();
+
+        //i학생은 j를 멘토링 할 수 있는지 확인할 수 있는 배열 생성 및 초기화 enbMent
+        boolean[][] enbMent = new boolean[size][size];
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                enbMent[i][j] = true;
             }
         }
 
-        //어떤 두수를 찾고 싶은데 그 두수는 3개의 테스트 결과에서 모두 순서가 같아야함
-        //12가지 경우의 수 중에서 가능한 것을 찾는다.
-
-        int count = 0;
-        for (int i = 1; i<=num_of_student; i ++) { //i -> mento
-            for (int j = 1; j<=num_of_student; j++) { //j -> menti
-                if( i==j) continue;
-                if(ableToTeach(i,j,test_res)) count++;
+        //테스트 결과 입력으로부터 가져와서 세팅 하기 arr
+        int[][] arr = new int[testCnt][size];
+        for (int i = 0; i < testCnt; i++) {
+            for (int j = 0; j < size; j++) {
+                arr[i][j] = sc.nextInt();
             }
         }
 
-        System.out.println(count);
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if (i == j) {
+                    continue;
+                }
+                if (canTeach(i, j, testCnt, arr)) {
+                    res++;
+
+                }
+            }
+        }
+
+        System.out.println(res);
 
     }
 }
