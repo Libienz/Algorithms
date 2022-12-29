@@ -530,6 +530,7 @@ for (int i = 1; i<=num_of_student; i ++) { //i -> mento
 }
 
 ```
+
 </div>
 </details>
 
