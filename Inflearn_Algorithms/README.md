@@ -471,12 +471,18 @@ System.out.println(res);
 
 
 ### 02-10
-2차원 배열에서 봉우리 개수 구하기
+- Ridge
+- 2차원 배열에서 봉우리 개수 구하기 (상하좌우보다 크다면 봉우리)
+- 조건문 잘세우면 끝
 ```java
-/*
-2차원 배열 선언하고 조건문 잘세우면 끝
-조건문 잘세우면 아닐 때 quit 하게 할 수도 있다.
-*/
+for (int i = 1; i < size-1; i++) {
+    for (int j = 1; j < size-1; j++) {
+        if (map[i][j] > map[i - 1][j] && map[i][j] > map[i][j - 1] && map[i][j] > map[i + 1][j] && map[i][j] > map[i][j + 1]) {
+            cnt++;
+        }
+    }
+}
+System.out.println(cnt);
 ```
 
 ### 02-11

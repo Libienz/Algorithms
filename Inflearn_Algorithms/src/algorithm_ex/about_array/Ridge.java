@@ -4,38 +4,31 @@ import java.util.Scanner;
 
 public class Ridge {
 
-    public static int countRidge(int[][] arr, int length) {
-        int count = 0;
-        for (int i = 1; i<=length; i++) {
-            for (int j = 1; j <= length; j++) {
-                if (arr[i][j]> arr[i-1][j] &&  arr[i][j]> arr[i][j-1]
-                    && arr[i][j] > arr[i+1][j] && arr[i][j] >arr[i][j+1]) {
-                    count++;
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int size = sc.nextInt()+2;
+        int[][] map = new int[size][size];
+        int cnt = 0;
+
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if (i == 0 || j == 0 || i == size - 1 || j == size - 1) {
+                    map[i][j] = 0;
+                    continue;
+                }
+                map[i][j] = sc.nextInt();
+            }
+        }
+        for (int i = 1; i < size-1; i++) {
+            for (int j = 1; j < size-1; j++) {
+                if (map[i][j] > map[i - 1][j] && map[i][j] > map[i][j - 1] && map[i][j] > map[i + 1][j] && map[i][j] > map[i][j + 1]) {
+                    cnt++;
                 }
             }
         }
-        return count;
-    }
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int length = sc.nextInt();
-        int[][] grid = new int[length+2][length+2];
-        for (int i = 1; i<=length; i++) {
-            for (int j = 1; j <= length; j++) {
-                grid[i][j] = sc.nextInt();
-            }
-        }
-        System.out.println(countRidge(grid, length));
-/*
 
-        for (int i = 0; i<length+2; i++) {
-            for (int j = 0; j < length+2; j++) {
-                System.out.print(grid[i][j] + " ");
-            }
-            System.out.println("");
-        }
+        System.out.println(cnt);
 
-*/
 
 
     }
