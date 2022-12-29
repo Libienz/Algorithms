@@ -486,14 +486,32 @@ System.out.println(cnt);
 ```
 
 ### 02-11
-임시반장 정하기 은근 쉬운데?
+- TempPres
+- 임시반장 정하기
+- 다른 학생과 한번이라도 같은 반이었던 학생이 가장 많은 학생이 임시 반장으로 선정
 ```java
-int[][] arr = new int[5][5]; //이런게 있다고 칠 때  
-arr[0]; // 이거는 하나의 배열을 말한다.
-//이거 이용 1번학생의 몇반이었는지 배열과 다른 학생들의 몇반이었는지의 배열을
-//everSame메소드에 전달해서 카운트하는 방식으로 풀었다.
-//1부터 사용할거면 그냥 넉넉히 만들자
 
+//i학생과 j학생은 한번이라도 같은 반이었던 적이 있는가?
+for (int i = 0; i < size; i++) {
+    int cnt = 0;
+    for (int j = 0; j < size; j++) {
+        if (i == j) {
+            continue;
+        }
+        for (int k = 0; k < 5; k++) {
+            if (arr[i][k] == arr[j][k]) {
+                cnt++;
+                break;
+            }
+        }
+    }
+    if (cnt > cmax) {
+        cmax = cnt;
+        pres = i+1;
+    }
+
+}
+System.out.println(pres);
 ```
 ### 02-12
 멘토링 가능한 경우의 수
