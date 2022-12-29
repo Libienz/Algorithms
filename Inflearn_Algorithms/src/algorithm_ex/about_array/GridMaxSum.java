@@ -4,52 +4,53 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class GridMaxSum {
+
     public static void main(String[] args) {
-
         Scanner sc = new Scanner(System.in);
-        int length = sc.nextInt();
-        int[][] grid = new int[length][length];
-        for (int i = 0; i<length; i++) {
-            for (int j = 0; j<length; j++) {
-                grid[i][j] = sc.nextInt();
+        int size = sc.nextInt();
+        int[][] arr = new int[size][size];
+        int rMaxSum = 0;
+        int rSum = 0;
+        int cMaxSum = 0;
+        int cSum = 0;
+        int dMaxSum = 0;
+        int dSum = 0;
+
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                arr[i][j] = sc.nextInt();
+                rSum+=arr[i][j];
             }
-        }
-
-        ArrayList<Integer> grid_summation = new ArrayList<>();
-        int row_sum = 0;
-        int col_sum = 0;
-        for (int i = 0; i<length; i++) {
-            for (int j = 0; j<length; j++) {
-                row_sum +=grid[i][j];
-                col_sum +=grid[j][i];
+            if (rSum > rMaxSum) {
+                rMaxSum = rSum;
             }
-            grid_summation.add(row_sum);
-            grid_summation.add(col_sum);
-            row_sum = 0;
-            col_sum = 0;
+            rSum = 0;
         }
-        int diagnol_sum = 0;
-        for(int i = 0; i<length; i++) {
-            diagnol_sum += grid[i][i];
-        }
-        grid_summation.add(diagnol_sum);
-        diagnol_sum = 0;
-        for (int i = 0; i<length; i++) {
-
-            diagnol_sum += grid[i][length-i-1];
-
-        }
-        grid_summation.add(diagnol_sum);
-        int max = Integer.MIN_VALUE;
-        for (int i = 0; i<grid_summation.size(); i++) {
-            if (grid_summation.get(i)>max) {
-                max = grid_summation.get(i);
+        for (int j = 0; j < size; j++) {
+            for (int i = 0; i < size; i++) {
+                cSum += arr[i][j];
             }
+            if (cSum > cMaxSum) {
+                cMaxSum = cSum;
+            }
+            cSum = 0;
+        }
+        for (int i = 0; i < size; i++) {
+            dSum += arr[i][i];
+        }
+        if (dSum > dMaxSum) {
+            dMaxSum = dSum;
+        }
+        dSum = 0;
+        for (int i = 0; i < size; i++) {
+            dSum += arr[i][size - i - 1];
+        }
+        if (dSum > dMaxSum) {
+            dMaxSum = dSum;
         }
 
-
-        System.out.print(max);
-
+        int subMax = Math.max(dMaxSum, rMaxSum);
+        int res = Math.max(subMax, cMaxSum);
+        System.out.println(res);
     }
-
 }

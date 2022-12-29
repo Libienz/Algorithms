@@ -460,12 +460,13 @@ for (int i = 0; i < cnt; i++) {
 
 ```
 ### 02-09
-격자판의 sum 중 가장 큰 sum 구하기
+- GridMaxSum
+- 격자판의 sum 중 가장 큰 sum 구하기
+- rowSum과 columnSum, 그리고 diagnolSum을 모두 구하고 그 중 최대를 찾는다.
 ```java
-/*
-sum의 종류는 3가지 모두 구해서 최대를 찾는다 끝
-
- */
+int subMax = Math.max(dMaxSum, rMaxSum);
+int res = Math.max(subMax, cMaxSum);
+System.out.println(res);
 ```
 
 
