@@ -539,11 +539,30 @@ for (int i = 1; i<=num_of_student; i ++) { //i -> mento
 <div markdown="1">
 
 ### 03-01
-두개의 배열 합병 과정에서 투포인터 사용해서 정렬하기
+- TwoPointSort
+- 두개의 배열 합병 과정에서 투포인터 사용해서 정렬하기
 ```java
-//두개의 배열에서 lt를 하나씩
-//farr[f_lt] 와 sarr[s_lt] 비교 
-//while문 사용하자 딱봐도 사용하라고 만든 문제
+//한쪽이 끝까지 갈 때 까지
+ while (index1 < arr1.size() && index2 < arr2.size()) {
+      if (arr1.get(index1) > arr2.get(index2)) {
+          res.add(arr2.get(index2));
+          index2++;
+      } else {
+          res.add(arr1.get(index1));
+          index1++;
+      }
+  }
+ //한쪽이 끝까지 갔다면 짜투리 이어 붙이기 
+  if (index1 == size1) {
+      for (int i = index2; i < size2; i++) {
+          res.add(arr2.get(i));
+      }
+  } else if (index2 == size2){
+      for (int i = index1; i < size1; i++) {
+          res.add(arr1.get(i));
+      }
+  }
+
 ```
 
 ### 03-02
