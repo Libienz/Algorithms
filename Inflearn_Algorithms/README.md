@@ -566,40 +566,25 @@ for (int i = 1; i<=num_of_student; i ++) { //i -> mento
 ```
 
 ### 03-02
-공통원소 구하기
+- SameElementSort
+- 공통원소 구하기
+- Arrays.sort, Collections.sort
+- 손코딩으로 코딩 구현하는 것도 .. 연습하자
+- index1과 index2로 이루어지는 투포인터 알고리즘이 핵심이다.
 ```java
-//한쪽 배열 고정하고 contains 함수 쓰니까 시간 초과 나오네.. 더 효율적인 방법 필요
-//퀵소트 쓰고 투포인터쓰니까 정답이 나왔다.
-//간단한 정렬은 컬렉션 프레임워크로 Array.sort(a); 이런시긍로 사용하면 된다.
-//아래는 퀵소트
-//강사는 포인터중 아무쪽이나 한쪽이 끝나면 공통원소가 없다고 했는데 그렇지 않을 텐데?
+ArrayList<Integer> res = new ArrayList<>();
+while (index1 < arr1.length && index2 < arr2.length) {
+    if (arr1[index1] == arr2[index2]) {
+        res.add(arr1[index1]);
+        index2++;
+        index1++;
+    } else if (arr1[index1] < arr2[index2]) {
+        index1++;
+    } else {
+        index2++;
+    }
+}
 
-private static void quickSort(int[] arr,int start, int end) {
-        int part=partition(arr,start,end);
-        if(start<part-1) quickSort(arr,start,part-1);
-        if(end>part) quickSort(arr,part,end);
-        }
-
-private static int partition(int[] arr,int start,int end) {
-        int pivot=arr[(start+end)/2];
-        while(start<=end) {
-        while(arr[start]<pivot) start++;
-        while(arr[end]>pivot) end--;
-        if(start<=end) {
-        swap(arr,start,end);
-        start++;
-        end--;
-        }
-        }
-        return start;
-        }
-
-private static void swap(int[] arr,int start,int end) {
-        int tmp=arr[start];
-        arr[start]=arr[end];
-        arr[end]=tmp;
-        return;
-        }
 ```
 ### 03-03
 주어진 윈도우 범위내에서 최대 매출 찾기
