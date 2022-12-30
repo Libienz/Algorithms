@@ -627,11 +627,25 @@ for (int i = 0; i < size; i++) {
 
 ```
 ### 03-05
-연속 부분 수열
+- ContinuousNumSum
+- 연속 부분 수열의 합이 특정 수가 되는 경우의 수 구하기
+- 이것도 시작이 어디냐로 케이스 분류
+- 절반까지만 돌면 된다.
 ```java
-//이것도 시작이 어디냐로 케이스 분류 했다. 연속된 두 수 이상의 합이기 때문에 
-//입력된 숫자 크기만큼 루프를 돌 필요 없이 절반까지만 돈다.
-//결국 lt rt가 시작지점에따른 부분수열 합이다.
+
+for (int i = 1; i <= objNum / 2; i++) {
+    int subSum = 0;
+        for (int j = i; j < objNum; j++) {
+            subSum += j;
+            if (subSum == objNum) {
+                cnt++;
+                break;
+            }
+            if (subSum > objNum) {
+                break;
+            }
+        }
+}
 
 ```
 ### 03-06
