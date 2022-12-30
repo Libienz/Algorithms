@@ -587,11 +587,20 @@ while (index1 < arr1.length && index2 < arr2.length) {
 
 ```
 ### 03-03
-주어진 윈도우 범위내에서 최대 매출 찾기
+- MaximumSales
+- 주어진 윈도우 범위내에서 최대 매출 찾기
+- 이중 반복이 아닌 단일 반복으로 가능
+- 첫번째를 빼고 끝에를 더함으로써
+- 인덱스가 헷갈릴때는 특정 수를 생각해서 해결하자
 ```java
-//이중 포문 사용해서 모두 비교했더니 타임 리밋 ??
-// 근데 어차피 다 비교해야 하는거 이중포문 안돌고 풀 수가 있나..??
-// 반복문 중첩 없앨 수 있다 -1번째를 빼고 window + 1번째를 더함으로써 .. 코드 참조
+for (int i = winSize; i < daySize; i++) {
+    winSum -= arr.get(i-winSize);
+    winSum += arr.get(i);
+    if (winSum > maxSale) {
+        maxSale = winSum;
+    }
+}
+
 ```
 ### 03-04
 연속 부분 수열
