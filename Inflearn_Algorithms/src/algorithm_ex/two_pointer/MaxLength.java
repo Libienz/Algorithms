@@ -4,6 +4,35 @@ import java.util.*;
 //애초에 그리디 알고리즘으로 푸는 문제가 아닌가 ..? -> 거의 확신 이거인듯 .. 그러면 ... 모든 경우의 수 대입 비교 ..? 찬스에 따라서 조합으로 뽑을 수 있는 모든 경우의 수 넣나 ..?  말이 안되는 데..
 public class MaxLength {
 
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int size = sc.nextInt();
+        int chance = sc.nextInt();
+        ArrayList<Integer> arr = new ArrayList<>();
+        ArrayList<Boolean> used = new ArrayList<>();
+
+        for (int i = 0; i < size; i++) {
+            arr.add(sc.nextInt());
+            used.add(false);
+        }
+
+        for (int i = 0; i < chance; i++) {
+            for (int j = 0; j < size; j++) {
+                if (used.get(j)) {
+
+                }
+            }
+        }
+    }
+}
+
+/*
+package algorithm_ex.two_pointer;
+
+import java.util.*;
+//애초에 그리디 알고리즘으로 푸는 문제가 아닌가 ..? -> 거의 확신 이거인듯 .. 그러면 ... 모든 경우의 수 대입 비교 ..? 찬스에 따라서 조합으로 뽑을 수 있는 모든 경우의 수 넣나 ..?  말이 안되는 데..
+public class MaxLength {
+
     public static int countLengthOfOne(int[] arr) { //여기 잘못 ... 아닌데.. -> ㄴㄴ 여기가 잘못임 0이 나와서 끝나는 경우만 생각하고 끝까지 가서 끝나는 경우 놓침 -> 고쳤는데도 오답,,
         int count = 0;
         int max = 0;
@@ -69,18 +98,21 @@ public class MaxLength {
             System.out.print(arr[i]+ " ");
         }
         System.out.println("");*/
+/*
         return countLengthOfOne(arr);
 
 
-    }
-    public static void main(String[] args) {
+                }
+public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int length = sc.nextInt();
         int chance = sc.nextInt();
         int[] arr = new int[length];
         for (int i = 0; i<length; i++) {
-            arr[i] = sc.nextInt();
+        arr[i] = sc.nextInt();
         }
         System.out.println(getMaxLengthOfOne(length,chance,arr));
-    }
-}
+        }
+        }
+
+        */
