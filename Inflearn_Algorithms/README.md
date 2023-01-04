@@ -712,12 +712,26 @@ map.remove(key) // key를 삭제함과 동시에 그 키가 가지고 있는 val
 
 ```
 ### 04-02
-두 문자열이 아나그램인지 판별하기
+- Anagram
+- 두 문자열이 아나그램인지 판별하기
+- 맵하나 만들고 하나의 문자열에 대한 정보 넣는다 <Character, Integer>
+- 다른 문자열에 대해 map의 value 줄여나가 본다
+- 0이면 아나그램 아니면 아나그램 아님
 ```java
-//나는 해쉬맵 두개 만들어서 둘이 비교했다.
-//강사는 해쉬맵 하나만 만들고 두번째 문자열을 처리하는 과정에서는
-//해쉬맵의 값을 감소시켜나감 완벽이 0들이 나오면 아나그램
+for (int i = 0; i < s1.length(); i++) {
+    map.put(s1.charAt(i), map.getOrDefault(s1.charAt(i), 0) + 1);
+}
+for (int i = 0; i < s2.length(); i++) {
+    map.put(s2.charAt(i), map.getOrDefault(s2.charAt(i),0) - 1);
+}
 
+for (Character c : map.keySet()) {
+    if (map.get(c) != 0) {
+        System.out.println("NO");
+        return;
+    }
+}
+System.out.println("YES");
 ```
 ### 04-03
 매출액의 종류
