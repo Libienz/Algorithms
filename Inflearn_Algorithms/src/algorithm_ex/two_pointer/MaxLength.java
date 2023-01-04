@@ -1,30 +1,50 @@
 package algorithm_ex.two_pointer;
 
 import java.util.*;
-//애초에 그리디 알고리즘으로 푸는 문제가 아닌가 ..? -> 거의 확신 이거인듯 .. 그러면 ... 모든 경우의 수 대입 비교 ..? 찬스에 따라서 조합으로 뽑을 수 있는 모든 경우의 수 넣나 ..?  말이 안되는 데..
+
 public class MaxLength {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int size = sc.nextInt();
         int chance = sc.nextInt();
+        int uChance = 0;
+        int res = 0;
         ArrayList<Integer> arr = new ArrayList<>();
-        ArrayList<Boolean> used = new ArrayList<>();
 
         for (int i = 0; i < size; i++) {
-            arr.add(sc.nextInt());
-            used.add(false);
+            int num = sc.nextInt();
+            arr.add(num);
         }
-
-        for (int i = 0; i < chance; i++) {
-            for (int j = 0; j < size; j++) {
-                if (used.get(j)) {
-
+        //어디에서 시작하는 1이 가장 긴 1이 나올 수 있을까
+        //lt로부터 시작해서 찬스를 소모하여 rt까지 만든 1의 길이를 확인해 보자
+        for (int lt = 0; lt < size; lt++) {
+            int rt=lt;
+            while (uChance < chance && rt<size) { //아직 찬스가 남아있다면 계속
+                if (arr.get(rt) == 0) {
+                    uChance++;
+                }
+                rt++;
+            }
+            while (rt < size) { //찬스는 다썻고 뒤에 이어지는 1의 개수까지 세보자
+                if (arr.get(rt) == 0) {
+                    rt--;
+                    break;
+                } else {
+                    rt++;
                 }
             }
+            //길이는 rt-lt + 1
+            res = Math.max(res, rt - lt + 1);
+            uChance = 0;
         }
+
+
+        System.out.println(res);
+
     }
 }
+
 
 /*
 package algorithm_ex.two_pointer;
