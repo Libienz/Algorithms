@@ -734,11 +734,32 @@ for (Character c : map.keySet()) {
 System.out.println("YES");
 ```
 ### 04-03
-매출액의 종류
+- TypeOfSales
+- 매출액의 종류
+- Window Size가 주어졌을 때 해당 윈도우 안에 매출액의 종류가 몇개인지를 체크
+- 윈도우를 한칸씩 옮기며 출력하는 문제
+- 이중 포문으로 하면 시간초과
+- 단일 for문으로 양 끝값을 건드리며 해결할 수 있다!!! 
+- 이중 포문을 단일 포문으로 줄일 수 있다 -> 이걸 알아야 함 
+- 뭔말인지 모르겠으면 코드 한번 보라 미래의 나여
 ```java
-//이중포문 시도 -> 시간초과
-//윈도우 고정이고 첫번째 것 빼고 두번째 것 더하기만 하면 되니까
-//1차 반복으로 줄일 수 있다. 
+for (int i = 0; i < K; i++) {
+    int num = arr.get(i);
+    map.put(num, map.getOrDefault(num,0) + 1);
+}
+System.out.print(map.size() + " ");
+for (int i = K; i < arr.size(); i++) {
+    int num = arr.get(i);
+    map.put(num, map.getOrDefault(num, 0) + 1);
+    num = arr.get(i - K);
+    if (map.get(num) == 1) {
+        map.remove(num);
+    }
+    else {
+        map.put(num, map.get(num)-1);
+    }
+    System.out.print(map.size() + " ");
+}
 
 ```
 
