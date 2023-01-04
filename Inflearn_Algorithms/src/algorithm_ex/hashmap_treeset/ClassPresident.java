@@ -4,27 +4,34 @@ import java.util.*;
 
 public class ClassPresident {
 
-    public static char getPresident(int num, String str) {
-        Map<Character,Integer> candidate = new HashMap<>();
-        for (char key : str.toCharArray()) {
-            candidate.put(key,candidate.getOrDefault(key,0)+1);
-        }
+    public static void main(String[] args) {
 
+        Scanner sc = new Scanner(System.in);
+        int size = sc.nextInt();
+        char res =' ';
         int max = 0;
-        char pres = ' ';
-        for (char key : candidate.keySet()) { //모든 키에 대해서 순회 가능
-            if (candidate.get(key) > max) {
-                max = candidate.get(key);
-                pres = key;
+
+        Map<Character, Integer> map = new HashMap<>();
+        map.put('A', 0);
+        map.put('B', 0);
+        map.put('C', 0);
+        map.put('D', 0);
+        map.put('E', 0);
+        String voted = sc.next();
+        char[] votes = voted.toCharArray();
+        //System.out.println(voted);
+        for (int i = 0; i < size; i++) {
+            map.put(votes[i], map.get(votes[i])+1);
+        }
+        for (Character c : map.keySet()) {
+            if (map.get(c) > max) {
+                res = c;
+                max = map.get(c);
             }
         }
-        return pres;
+        System.out.println(res);
+
+
     }
 
-    public static void main (String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int num = sc.nextInt(); //학생 수
-        String str = sc.next(); //투표용지 모음
-        System.out.println(getPresident(num, str));
-    }
 }
