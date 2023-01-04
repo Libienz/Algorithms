@@ -13,55 +13,55 @@ import java.util.Scanner;
 */
 public class AllAnagram {
 
-    public static boolean isSameMap(Map<Character,Integer> map, Map<Character,Integer> obj_map) {
-        /*for (char key : obj_map.keySet()) {
-            if (!map.containsKey(key)) return false;
-            if (map.get(key) != obj_map.get(key)) return false;
+    public static boolean isAnagram(String s1, String s2) {
+        Map<Character, Integer> map = new HashMap<>();
+        for (int i = 0; i < s1.length(); i++) {
+            char key = s1.charAt(i);
+            int val = map.getOrDefault(key, 0);
+            map.put(key, val + 1);
         }
-        return true;*/
-        return map.equals(obj_map);
-    }
-
-    public static int findAllAnagram(String str1, String str2) {
-
-        Map<Character,Integer> obj_map = new HashMap<>();
-        Map<Character,Integer> map = new HashMap<>();
-
-
-        int count = 0;
-        //목적 맵 설정
-        char[] str1_arr = str1.toCharArray();
-        for (char key : str2.toCharArray()) {
-            obj_map.put(key,obj_map.getOrDefault(key,0) + 1);
+        for (int i = 0; i < s2.length(); i++) {
+            char key = s2.charAt(i);
+            int val = map.getOrDefault(key, 0);
+            map.put(key, val - 1);
         }
-
-        //첫번째 슬라이드
-        for (int i = 0; i < str2.length(); i++) {
-            map.put(str1_arr[i],map.getOrDefault(str1_arr[i],0) + 1);
-        }
-        if (isSameMap(map,obj_map)) count++;
-
-        for (int i = 1; i <= str1_arr.length-str2.length(); i++) {
-            int lt = i - 1;
-            int rt = lt + str2.length();
-            map.put(str1_arr[lt], map.get(str1_arr[lt])-1); // 빼야할 것 빼고
-            if (map.get(str1_arr[lt]) == 0) {
-                map.remove(str1_arr[lt]);
+        for (char c : map.keySet()) {
+            int val = map.get(c);
+            if (val != 0) {
+                return false;
             }
-            map.put(str1_arr[rt], map.getOrDefault(str1_arr[rt],0)+1); //더해야할 것 더하면 새로운 슬라이드에 대한 맵 완성
-
-            if (isSameMap(map,obj_map)) count++;
         }
-
-        return count;
+        return true;
     }
-
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        String str1 = sc.next();
-        String str2 = sc.next();
+        String s1 = sc.next();
+        String s2 = sc.next();
+        String subString = "";
 
-        System.out.println(findAllAnagram(str1, str2));
+        int cnt = 0;
+
+        //첫번째 subString
+        for (int i = 0; i < s2.length(); i++) {
+            subString += s1.charAt(i);
+        }
+        if (isAnagram(subString, s2)) {
+            cnt++;
+        }
+        //이후의 subString
+        int maxIdx = s1.length();
+        int startIdx = s2.length();
+        for (int i = startIdx; i < maxIdx; i++) {
+            subString = subString.substring(1) + s1.charAt(i);
+            //System.out.println("subString = " + subString);
+            if (isAnagram(subString, s2)) {
+                cnt++;
+            }
+        }
+        System.out.println(cnt);
+
+
+
 
     }
 }

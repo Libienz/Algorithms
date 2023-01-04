@@ -764,23 +764,44 @@ for (int i = K; i < arr.size(); i++) {
 ```
 
 ### 04-04
-부분수열에 대한 모든 아나그램
+- AllAnagram
+- Window size만큼의 부분문자열을 모두 구하여 대상 문자열과 아나그램인지 비교
+- 아나그램이 몇개인지 세어보자
+- 이번에도 '앞을 자르고 뒤를 붙인다'는 개념으로 이중 반복문을 하나의 반복문으로 줄일 수 있음을 배울 수 있었다.
+  - window size가 고정이 되면 단일 반복문이 가능하다는 것! 
 ```java
-//더 작은 문자열인 두번째 문자열의 맵을 목적맵으로, 첫번째 배열에서 루프를 돌며 윈도우를 잘라온 것을 그냥 맵으로 설정
-//루프마다 isSameMap() 메소드 활용 같은지 확인한다.
-    public static boolean isSameMap(Map<Character,Integer> map, Map<Character,Integer> obj_map) {
-        for (char key : obj_map.keySet()) {
-        if (!map.containsKey(key)) return false;
-        if (map.get(key) != obj_map.get(key)) return false;
-        }
-        return true;
+//이전 문제에서도 활용했었던 알고리즘, 아나그램인지 확인하는 메소드
+public static boolean isAnagram(String s1, String s2) {
+    Map<Character, Integer> map = new HashMap<>();
+    for (int i = 0; i < s1.length(); i++) {
+        char key = s1.charAt(i);
+        int val = map.getOrDefault(key, 0);
+        map.put(key, val + 1);
     }
-//슬라이딩 윈도우 고정이면 2중포문 아닌 하나의 반복문으로 가능하다는 것 이거 익숙해지자.
-//맵 하나만 쓰고 하는 것도 해봤는데 걍 두개로 하는게 가독성도 좋지 않은가 싶다.
-
-        return map.equals(obj_map);
-//맵이 같은지 따질 때 요로코롬 따져도 됨
-
+    for (int i = 0; i < s2.length(); i++) {
+        char key = s2.charAt(i);
+        int val = map.getOrDefault(key, 0);
+        map.put(key, val - 1);
+    }
+    for (char c : map.keySet()) {
+        int val = map.get(c);
+        if (val != 0) {
+            return false;
+        }
+    }
+    return true;
+}
+//부분 문자열과 대상 문자열이 아나그램인지 하나씩 확인해나가는 부분
+int maxIdx = s1.length();
+int startIdx = s2.length();
+for (int i = startIdx; i < maxIdx; i++) {
+    subString = subString.substring(1) + s1.charAt(i);
+    //System.out.println("subString = " + subString);
+    if (isAnagram(subString, s2)) {
+        cnt++;
+    }
+}
+System.out.println(cnt);
 
 ```
 
