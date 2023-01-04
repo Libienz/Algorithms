@@ -696,7 +696,9 @@ for (int lt = 0; lt < size; lt++) {
 <div markdown="1">
 
 ### 04-01
-해쉬맵을 이용한 학급회장 구하기
+- ClassPresident
+- 해쉬맵을 이용한 학급회장 구하기
+- HashMap 사용법을 익히자 
 ```java
 map.get(key); // key값에 해당하는 value를 가져온다
 map.getOrDefault(key,0) // key값이 맵에 없다면 0을리턴해라
