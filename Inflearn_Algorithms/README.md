@@ -806,25 +806,29 @@ System.out.println(cnt);
 ```
 
 ### 04-05
-K번째 큰 수 
+- KMax
+- 주어진 숫자 중 3개의 숫자를 뽑아 나올 수 있는 모든 경우의 수 중 그 합이 K번째로 큰 수를 찾아라
+- 삼중 루프로 모든 경우의 수를 구하면 된다.
+- TreeSet을 사용하면 중복이 제거되고 자동으로 정렬 된다 (RedBlackTree)
 ```java
 
-//제일 큰 수 하나씩 고르는 그리디가 안먹힌다.. 그리디는 언제 써야한다는 기준이 있을려나..?
-//맘편하게 모든 것 중에서 따자 3중 포문으로 해결했다. -> 정답
-//Set중 TreeSet을 사용하면 중복도 제거하고 정렬도 된다. RedBlackTree
-//TreeMap도 마찬가지로 정렬시켜줌 트리맵으로 Tree 붙으면 정렬 시켜주는듯
-TreeSet<Integer> Tset = new TreeSet<>(Collections.reverseOrder)); // 내림차순 디폴트는 오름차순 
-Tset.first();// 첫번째에 있는 값 오름차순으로 되어 있냐 반대냐에 따라 다른 값 나옴
-Tset.last();// 마지막에 있는 값 마찬가지        
-//3중 포문 꿀팁
-for (int i = 0; i<n; i++) {
-    for (int j = 0; j<n; j++) {
-        for (int l =0; l<n; l++) {
+Set<Integer> sums = new TreeSet<>();
+for (int i = 0; i < arr.size(); i++) {
+    for (int j = i + 1; j < arr.size(); j++) {
+        for (int k = j + 1; k < arr.size(); k++) {
+            int sum = arr.get(i) + arr.get(j) + arr.get(k);
+            sums.add(sum);
         }
     }
 }
-//이렇게 반복 조건을 모두 n보다 작도록 설정해도 상관없다 
-//어차피 걸리게 되어있음
+if (sums.isEmpty()||sums.size() < K) {
+    System.out.println("-1");
+    return;
+}
+Object[] objects = sums.toArray();
+int maxIdx = sums.size() - 1;//제일 큰 수
+Object object = objects[maxIdx - K + 1];
+System.out.println(object);
 
 ```
 </div>

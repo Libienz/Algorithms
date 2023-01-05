@@ -2,50 +2,40 @@ package algorithm_ex.hashmap_treeset;
 
 import java.util.*;
 
-/*
-1. 첫번째 큰값 그리디하게 뽑아낸다.
-2. 해당 값들 pop
-3. 두번째 큰값 그리디하게 뽑아낸다.
-4. 해당 값 pop .... 요거 3번까지
-*/
 public class KMax {
 
-    public static int getKth(int num, int k, int[] arr) {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int N = sc.nextInt(); //N장의 카드 : 1~100의 자연수가 적혀 있음 (중복가능)
+        int K = sc.nextInt(); //나올 수 있는 3장의 카드의 합 중 K번째로 큰 숫자를 찾아볼 것임
 
-        if(num<k) return -1;
+        ArrayList<Integer> arr = new ArrayList<>();
+        for (int i = 0; i < N; i++) {
+            arr.add(sc.nextInt());
+        }
 
-        Set<Integer> set = new HashSet<>();
-
-        for (int i = 0; i<=num-3; i++) {
-            for (int j = i+1; j<= num-2; j++) {
-                for (int t = j+1; t<=num-1; t++) {
-                    int sum = arr[i] + arr[j] + arr[t];
-                    set.add(sum);
+        //arr.get(i)
+        //arr.get(j)
+        //arr.get(k)
+        //3개를 뽑아보자
+        Set<Integer> sums = new TreeSet<>();
+        for (int i = 0; i < arr.size(); i++) {
+            for (int j = i + 1; j < arr.size(); j++) {
+                for (int k = j + 1; k < arr.size(); k++) {
+                    int sum = arr.get(i) + arr.get(j) + arr.get(k);
+                    sums.add(sum);
                 }
             }
         }
-        int answer = 0;
-        if (set.size()<3) return -1;
-        for (int i = 0; i<k; i++) {
-            //i+1번째
-            answer = Collections.max(set);
-            set.remove(answer);
+        if (sums.isEmpty()||sums.size() < K) {
+            System.out.println("-1");
+            return;
         }
-        return answer;
-    }
+        Object[] objects = sums.toArray();
+        int maxIdx = sums.size() - 1;//제일 큰 수
+        Object object = objects[maxIdx - K + 1];
+        System.out.println(object);
 
-    public static void main(String[] args) {
-
-
-        Scanner sc = new Scanner(System.in);
-
-        int num = sc.nextInt();
-        int k = sc.nextInt();
-        int[] arr = new int[num];
-        for (int i = 0; i<num; i++) {
-            arr[i] = sc.nextInt();
-        }
-
-        System.out.println(getKth(num, k, arr));
+        //System.out.println(sums.get(maxIdx - K + 1));
     }
 }
