@@ -857,24 +857,22 @@ stack.isEmpty(); //boolean 반환
 ```
 
 ### 05-02
-괄호 속 문자 제거
+- IgnoreBrace
+- 괄호 속 문자 제거
+- 주구장창 스택에 넣다가 ')'가 들어왔을 경우 stack에 '('가 있는지 확인
+  - 있다면 '(' 꺼낼때까지 팝
+  - 없다면 걍 stack에 넣는다.
 
 ```java
-/*
- '(' 가 들어오면 스택에 넣는다.
- ')' 가 들어오면 스택에서 팝한다 괄호하나 닫힌 것 
- 다른 문자가 들어왔을 때 스택에 남아있는게 있다면 아직 괄호 속임을 의미 continue;
- 스택에 남은 것이 없다면 괄호 밖임을 의미 
- */
-
-//즉 나는 괄호 속인지 밖인지만 판별함
-//강사는 모든 char를 스택에 때려 넣고 닫는 괄호를 만나면 여는 괄호를 만날 때 까지 팝
-
-//스택에 남아있는 거 출력 해보고 싶으면? pop 할 수도 있지만
-//애초에 스택도 배열이라 반복문으로 인덱스 접근이 가능하다
-
-for (int i = 0; i<stack.size(); i++) {
-    System.out.print(stack.get(i) + " ");
+for (int i = 0; i < str.length(); i++) {
+        char c = str.charAt(i);
+        if (c == ')') {
+            if (stack.contains('(')) {
+                while (stack.pop() != '(');
+                continue;
+            }
+        }
+        stack.push(c);
 }
 ```
 
