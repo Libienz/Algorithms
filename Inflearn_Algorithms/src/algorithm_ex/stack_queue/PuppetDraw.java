@@ -1,90 +1,69 @@
 package algorithm_ex.stack_queue;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.Stack;
 
 public class PuppetDraw {
 
-    public static int game(int num_of_stacks, int size_of_stacks, int[][] board, int []moves) {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int size = sc.nextInt();
+        int[][] board = new int[size][size];
+        int cnt = 0;
 
-        Stack<Integer> res_stack = new Stack<>();
+        //보드 초기화
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                board[i][j] = sc.nextInt();
+            }
+        }
 
-        int count = 0;
-        for (int i=0; i<moves.length; i++) {
-            for (int j = 0; j<num_of_stacks; j++) {
-                if (board[j][moves[i]-1] == 0) {
+        //moves 배열 초기화
+        int mvSize = sc.nextInt();
+        int[] moves = new int[mvSize];
+        for (int i = 0; i < mvSize; i++) {
+            moves[i] = sc.nextInt() - 1;
+        }
+
+        //바구니
+        Stack<Integer> bucket = new Stack<>();
+
+        //move 배열의 내용에 따라 하나씩 바구니에 옮긴다.
+        for (int move : moves) {
+
+            //크레인이 0이 아닌 인형을 발견할 때까지 내려간다.
+            for (int i = 0; i < size; i++) {
+                if (board[i][move] == 0) {
                     continue;
                 }
-                else{
-                    if (res_stack.isEmpty()) {
-                        res_stack.push(board[j][moves[i]-1]);
-                        board[j][moves[i]-1] = 0;
-                        break;
-                    }
-                    if (res_stack.get(res_stack.size()-1) == board[j][moves[i]-1]) {
-                        count = count +2;
-                        res_stack.pop();
-                        board[j][moves[i]-1] = 0;
-                        break;
-                    }
-                    res_stack.push(board[j][moves[i]-1]);
-                    board[j][moves[i]-1] = 0;
+                //여기로 왔다는 것은 0이 아닌 것을 발견하였다는 것 버켓에 넣을 것임
+                //버켓에 들어가게 될 인형의 종류: type
+                int type = board[i][move];
+                board[i][move] = 0;
+
+                //버켓이 비어있거나 버켓에 맨 위에 담겨있는 인형의 종류가 내가 넣으려는 인형의 종류와 다르다면
+                //그냥 넣으면 된다.
+                if (bucket.empty() || bucket.peek() != type) {
+                    bucket.push(type);
+                    //break해야 된다.. 반복문 돌지 않도록! 이런 부분 빠릿하게 생각해낼 수 있어야..
+                    break;
+                } else if (bucket.peek() == type) {
+                    //넣으려는 인형이 꼭대기에 있는 인형과 일치한다면
+                    //pop하고 두개가 없어졌음을 명시
+                    bucket.pop();
+                    cnt = cnt + 2;
                     break;
                 }
 
             }
         }
-        /*for (int i = 0; i<res_stack.size(); i++) {
-            System.out.print(res_stack.get(i) + " ");
-        }*/
+        System.out.println(cnt);
 
-        /*int prev =0;
-        boolean is_counting =false;
-        int curr = 0;
-        int count = 0;
-        while(!res_stack.isEmpty()) {
-            curr = res_stack.pop();
-            if (prev ==  curr) {
-                if (is_counting)  {
-                    prev = curr;
-                    count = count+1;
-                }
-                else {
-                    count = count+2;
-                    prev = curr;
-                    is_counting = true;
-                }
 
-            }
-            else {
-                prev = curr;
-                is_counting = false;
-            }
-        }*/
 
-    return count;
-    }
 
-    public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
-
-        int num_of_stacks = sc.nextInt();
-        int size_of_stacks = num_of_stacks;
-        int[][] board = new int[size_of_stacks][num_of_stacks];
-        for (int i = 0; i<size_of_stacks; i++) {
-            for (int j = 0; j<num_of_stacks; j++) {
-                board[i][j] = sc.nextInt();
-            }
-        }
-
-        int size_of_moves = sc.nextInt();
-        int[] moves = new int[size_of_moves];
-        for (int i = 0; i<size_of_moves; i++) {
-            moves[i] = sc.nextInt();
-        }
-
-        int deleted_puppet_num = game(num_of_stacks,size_of_stacks,board,moves);
-        System.out.println(deleted_puppet_num);
     }
 }
