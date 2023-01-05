@@ -5,29 +5,29 @@ import java.util.Stack;
 
 public class BraceCheck {
 
-    public static boolean isProperBraces(String str) {
-
-        Stack<Character> stack = new Stack<>();
-
-        for (char ch : str.toCharArray()) {
-            if (ch == '(') {
-                stack.push(ch);
-            }
-            else {
-                if(stack.size() ==0 ) return false;
-                stack.pop();
-            }
-        }
-        if (stack.size() == 0) return true; //or stack.isEmpty()
-        else return false;
-    }
-
     public static void main(String[] args) {
-
         Scanner sc = new Scanner(System.in);
         String braces = sc.next();
 
-        if (isProperBraces(braces)) System.out.println("YES");
-        else System.out.println("NO");
+        Stack<Character> stack = new Stack<>();
+        for (int i = 0; i < braces.length(); i++) {
+            if (braces.charAt(i) == '(') {
+                stack.push('(');
+            }
+            else {
+                if (stack.empty()) {
+                    System.out.println("NO");
+                    return;
+                } else {
+                    stack.pop();
+                }
+            }
+        }
+        if (stack.empty()) {
+            System.out.println("YES");
+        } else {
+            System.out.println("NO");
+        }
+
     }
 }
