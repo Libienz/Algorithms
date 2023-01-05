@@ -913,13 +913,42 @@ for (int move : moves) {
 ```
 
 ### 05-04
-후위 연산 계산기 만들기
+- Postfix
+- 후위 연산 계산기 만들기
+- 캐릭터를 문자로 바꿀 때 48을 빼자 
 
 ```java
-// 캐릭터를 숫자로 바꾸는 부분과 후위 연산의 로직만 이해해놓자 
-// 어렵지 않은 문제
-
-//캐릭터를 문자로 바꿀때 계속 아스키 값이 넘어가는데 강사는 아스키넘버를 빼는 것을 선택
+for (int i = 0; i < calc.length(); i++) {
+        int c = calc.charAt(i);
+        //숫자가 들어왔을 경우
+        if (Character.isDigit(c)) {
+            stack.push(c-48);
+        }
+        //계산식이 들어왔을 경우
+        else {
+            int sec = stack.pop();
+            int first = stack.pop();
+            switch (c) {
+                case '+':
+                    //System.out.println("first = " + first);
+                    //System.out.println("sec = " + sec);
+                    stack.push(first + sec);
+                    break;
+                case '-':
+                    stack.push(first - sec);
+                    break;
+                case '*':
+                    stack.push(first * sec);
+                    break;
+                case '/':
+                    stack.push(first / sec);
+                    break;
+                default:
+                    System.out.println("NoSuch Operator");
+                    break;
+            }
+        }
+}
 
 ```
 
