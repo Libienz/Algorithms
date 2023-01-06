@@ -7,60 +7,58 @@ import java.util.Scanner;
 
 public class Emergency {
 
-    public static int getOrder(int num, int m, Queue<Integer> queue) {
-
-
-        int count = 1;
-        int m_tracer = m;
-
-        while (true) {
-
-            //System.out.println("현재 m_tracer : " + m_tracer+ "큐사이즈 : " + queue.size());
-
-            int curr = queue.poll();
-
-            //System.out.println(m_tracer);
-
-            if (m_tracer == 0) {
-                if (curr < Collections.max(queue)) { //m의 차례이지만 큐에 위험도가 더 큰 환자가 있다면
-                    queue.offer(curr);
-                    m_tracer = queue.size() -1; //m은 맨뒤로
-                }
-                else { //m의 차례이면서 자기보다 큰 환자가 없어서 당선
-
-                    return count;
-                }
-            }
-
-            else if (curr < Collections.max(queue)) { //현재 환자보다 더 위험도가 큰 환자가 있을 때
-                m_tracer--;
-                queue.offer(curr);
-            }
-            else {
-                m_tracer--;
-                count++;
-            }
-
-
-
-
-        }
-    }
-
-
     public static void main(String[] args) {
-
-        Queue<Integer> queue = new LinkedList<>();
-
         Scanner sc = new Scanner(System.in);
-        int num = sc.nextInt();
-        int m = sc.nextInt();
+        int N = sc.nextInt();
+        int M = sc.nextInt();
+        int cnt = 1;
+        boolean mCured = false;
+        Queue<Integer> q = new LinkedList<>();
 
-        for (int i = 0; i<num; i++) {
-            queue.offer(sc.nextInt());
+        for (int i = 0; i < N; i++) {
+            q.add(sc.nextInt());
         }
 
-        System.out.println(getOrder(num, m, queue));
+        //m이 치료될 때까지 반복
+        while (!mCured) {
+            //현재 보고 있는 환자의 위험도
+            Integer cur = q.poll();
 
+            //대기 순번 중 최대 위험도 환자 구하기
+            int listMax = getMax(q);
+
+            //치료 못함
+            if (cur < listMax) {
+                q.offer(cur);
+                if (M == 0) {
+                    M = q.size() - 1;
+                    continue;
+                }
+                M--;
+                continue;
+            }
+            //치료 함
+            else {
+                //치료 한게 M이라면
+                if (M == 0) {
+                    System.out.println(cnt);
+                    return;
+                } else {
+                    cnt++;
+                    M--;
+                }
+            }
+        }
     }
+
+    private static int getMax(Queue<Integer> q) {
+        int max = 0;
+        for (Integer num : q) {
+            if (num > max) {
+                max = num;
+            }
+        }
+        return max;
+    }
+
 }
