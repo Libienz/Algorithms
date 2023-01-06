@@ -998,17 +998,23 @@ Q.contains(x); // 불타입 리턴
 ```
 
 ### 05-07
-순서가 유지되는가? 교육과정 설계
+- Course
+- 교육과정 설계
+- 큐를 써야 할 필요는 없어 보임
+- indexOf로 순서가 맞추어 졌는지 확인
 
 ```java
-// 큐를 써야 되는지 잘 모르겠음 ..
-// 짜여진 스케줄 반복문으로 읽으면서 must에 있는 것이라면
-// 가져와야되는 순서의 must를 가져왔는지 체크 
-// 모두 돈 다음에는 must를 몽땅썻는지 확인 
-// try catch 까지 사용하면서 조금 조잡하게 푼듯한 느낌..?
-  
-// 강사도 따지는 방식은 나랑 같은데 MustQueue를 만든거야 그냥 ..
-
+for (char c : essentialArr) {
+    int curIdx = schedule.indexOf(c);
+    if (preIdx >= curIdx || curIdx == -1) {
+        System.out.println("NO");
+        return;
+    }
+//System.out.println("preIdx = " + preIdx);
+//System.out.println("curIdx = " + curIdx);
+    preIdx = curIdx;
+}
+System.out.println("YES");
 ```
 
 ### 05-08
