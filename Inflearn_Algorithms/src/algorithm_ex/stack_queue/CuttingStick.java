@@ -14,45 +14,43 @@ import java.util.Stack;
 
 public class CuttingStick {
 
-    public static int cutStick(String str) {
+    public static int countStick(Stack<Character> stack) {
+        int cnt = 0;
 
-        Stack<Character> stack = new Stack<>();
-        //초기에 peek하기 위해서 첫번째는 그냥 집어넣기
-        char[] ch_arr = str.toCharArray();
-        stack.push(ch_arr[0]);
-
-        int curr_ever_cutted_count = 0;
-        int all_stick = 1;
-        int res_count = 0;
-
-        for (int i = 1; i<ch_arr.length; i++) {
-            if (ch_arr[i] == ')' && stack.peek() == '(') { //레이저 입갤
-                stack.push(ch_arr[i]);
-                all_stick--;
-                res_count += curr_ever_cutted_count;
-                res_count += (all_stick-curr_ever_cutted_count) * 2;
-                curr_ever_cutted_count += all_stick-curr_ever_cutted_count;
-            }
-            else if (ch_arr[i] == ')') { //막대 하나 끝
-                //한번도 안짤린게 끝난 건지 어케 알지 .. 문제조건봐라조건
-                //여기가 문제 팝해서 빼면 이전게 ( 일수도 ...
-                stack.push(ch_arr[i]);
-                curr_ever_cutted_count--;
-                all_stick--;
-
-            }
-            else {
-                all_stick++;
-                stack.push(ch_arr[i]);
+        for (Character character : stack) {
+            if (character == '(') {
+                cnt++;
             }
         }
-        return res_count;
+        return cnt;
     }
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
-        String str = sc.next();
+        String placeInfo = sc.next();
+        Stack<Character> stack = new Stack<>();
+        int res = 0;
+        for (int i = 0; i < placeInfo.length(); i++) {
+            //System.out.println(stack);
+            char c = placeInfo.charAt(i);
+            //System.out.println("res = " + res);
+            if (c == '(') {
+                stack.push(c);
+                res++;
+            } else {
+                if (stack.peek() == '(') {
+                    res--;
+                    stack.pop();
+                    stack.push('*');
+                    res += countStick(stack);
+                } else {
+                    while (stack.pop() != '(');
+                    stack.push('*');
+                }
+            }
+        }
+        //System.out.println(stack);
+        System.out.println(res);
 
-        System.out.println(cutStick(str));
     }
 }
