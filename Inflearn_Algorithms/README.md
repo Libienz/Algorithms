@@ -1161,27 +1161,55 @@ public class BubbleSort {
 ```
 
 ### 06-03
-삽입 정렬
+- InsertionSort
+- 삽입 정렬
+- 2번째 원소부터 시작 현재 보고 있는 인덱스 보다 왼쪽은 정렬된 상태로 유지
+- 현재 보고 있는 부분이 왼쪽 중에 어디에 들어가야 할 지 인덱스를 감소 시켜나가며 따진다.
 ```java
-//2번째 원소부터 시작하여 현재보고 있는 인덱스보다 왼쪽을 정렬시켜나간다는 개념
-//현재 보고 있는 인덱스보다 왼쪽을 살펴보며 자기가 들어갈 위치에 삽입 나머지는 한칸씩 밀어낸다.
-//개인적으로 어려웠던 알고리즘 gg 침.. 다시 철저히 공부하자
-//j를 밖에다 써야하는 이유는 곰곰히 생각해봤는데 저 조건에 걸리지 않고 j루프가 다끝날때까지 조건에 해당되지 않는 경우가 있기 때문일 것 같음
 
-public static void insertionSort(int[] arr) {
-    for (int i = 1; i<arr.length; i++) {
-        int tmp = arr[i],j;
-        for (j = i-1; j>=0; j--) {
-            if (arr[j] < tmp) {
-                break;
-            }
-            else {
-                arr[j+1] = arr[j];
-            }
-        }
-        arr[j+1] = tmp;
+package algorithm_ex.sorting_searching;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class InsertionSort {
+
+  public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    int size = sc.nextInt();
+    ArrayList<Integer> arr = new ArrayList<>();
+
+    for (int i = 0; i < size; i++) {
+      arr.add(sc.nextInt());
     }
+
+    //i번째 원소를 i번째 이전의 정렬된 배열 중 어디에 꽂아 넣어야 하나를 찾는다.
+    for (int i = 1; i < size; i++) {
+      //System.out.println("arr = " + arr);
+      //cur가 자기보다 왼쪽에 정렬된 애들 중에서 방을 찾는다.
+      int cur = arr.get(i);
+      //System.out.println("cur = " + cur);
+      //들어갈 수 있는 위치는 0부터 i중 하나
+      //왼쪽 중에서 자기가 들어갈 인덱스를 찾는다.
+      int idx = i;
+      while (idx > 0) {
+        if (cur > arr.get(idx - 1)) {
+          break; //idx에 들어갈 수 있다.
+        } else {
+          arr.set(idx, arr.get(idx - 1));
+          idx--;
+        }
+      }
+      arr.set(idx, cur);
+
+    }
+
+    for (Integer integer : arr) {
+      System.out.print(integer + " ");
+    }
+  }
 }
+
 ```
 
 
