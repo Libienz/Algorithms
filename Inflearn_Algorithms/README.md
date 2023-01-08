@@ -1219,6 +1219,7 @@ public class InsertionSort {
 - LRU
 - 캐쉬 상태 확인하기
 - 배열 미루기 기술 기억하자 
+- 반복문 인덱스 실수 조심할 것 int i = idx로 해놓고 반복문 body안에서 idx 사용하지 말라는 뜻.. 
 ```java
 package algorithm_ex.sorting_searching;
 
