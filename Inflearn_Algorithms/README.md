@@ -1216,13 +1216,90 @@ public class InsertionSort {
 
 
 ### 06-04
-LRU를 거치고 캐쉬의 stat 찍기
+- LRU
+- 캐쉬 상태 확인하기
+- 배열 미루기 기술 기억하자 
 ```java
-//삽입정렬에서 사용되었던 배열 미루기 기술 기억하자! 
-//옮겨야 하는 애를 템프로 두고 쭉쭉 미루고 tmp에 담긴애는 0번째 인덱스로! 
-//hit와 miss를 if else로 구분!
+package algorithm_ex.sorting_searching;
 
-//ArrayList에서 list.set(2,5)이런식으로 하면 알아서 밀어준다!? 몰랐음 요거 이용하면 쉽게 풀 수 있지만 알고리즘 자체에 집중하기 위해서 손코딩 해라 
+import java.lang.reflect.Array;
+import java.util.*;
+
+
+class Cache {
+  int size;
+  int[] cache;
+
+  public Cache(int size) {
+    this.size = size;
+    cache = new int[size];
+    for (int i = 0; i < size; i++) {
+      cache[i] = 0;
+    }
+  }
+
+  public int cacheHit(int work) {
+    for (int i = 0; i < size; i++) {
+      if (cache[i] == work) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
+  public void add(int work) {
+
+    int idx = cacheHit(work);
+
+    //cache miss
+    if (idx == -1) {
+
+      for (int i = size-1; i>=1; i--) {
+        cache[i] = cache[i - 1];
+      }
+      cache[0] = work;
+
+    }
+    //cache hit
+    else {
+
+      for (int i = idx; i >= 1; i--) {
+        cache[i] = cache[i - 1];
+      }
+      cache[0] = work;
+
+    }
+
+
+  }
+
+  @Override
+  public String toString() {
+    String str = "";
+    for (int i : cache) {
+      str += (i+" ");
+    }
+    return str;
+  }
+}
+public class LRU {
+
+  public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    int S = sc.nextInt(); //캐시 크기
+    int N = sc.nextInt(); //작업 개수
+    Cache cache = new Cache(S);
+
+    for (int i = 0; i < N; i++) {
+      cache.add(sc.nextInt());
+    }
+
+    System.out.println(cache);
+
+
+  }
+}
+
 ```
 
 ### 06-05

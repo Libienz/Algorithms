@@ -1,59 +1,79 @@
 package algorithm_ex.sorting_searching;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.lang.reflect.Array;
+import java.util.*;
 
-public class LRU {
 
-    public static void getCacheStat(int cache_size,List<Integer> cache, int sch_size, List<Integer> schedule) {
+class Cache {
+    int size;
+    int[] cache;
 
-        for (int i = 0; i<sch_size; i++) {
+    public Cache(int size) {
+        this.size = size;
+        cache = new int[size];
+        for (int i = 0; i < size; i++) {
+            cache[i] = 0;
+        }
+    }
 
-            if (cache.contains(schedule.get(i))) { // hit
-
-                int ind = cache.indexOf(schedule.get(i));
-                int tmp = cache.get(ind);
-                //System.out.println("ind " + ind + " tmp " + tmp);
-
-                for (int j = ind-1; j>=0; j--) {
-                    cache.set(j+1,cache.get(j));
-                }
-                cache.set(0,tmp);
-                //System.out.println("hit " + schedule.get(i));
-
-            }
-            else { // miss
-                for (int j = cache_size -1; j>0; j--) {
-                    cache.set(j,cache.get(j-1));
-                }
-                //System.out.println("miss " + schedule.get(i));
-                cache.set(0,schedule.get(i));
+    public int cacheHit(int work) {
+        for (int i = 0; i < size; i++) {
+            if (cache[i] == work) {
+                return i;
             }
         }
+        return -1;
+    }
 
+    public void add(int work) {
 
-        for (int i = 0; i<cache_size; i++) {
-            System.out.print(cache.get(i) + " ");
+        int idx = cacheHit(work);
+
+        //cache miss
+        if (idx == -1) {
+
+            for (int i = size-1; i>=1; i--) {
+                cache[i] = cache[i - 1];
+            }
+            cache[0] = work;
+
         }
+        //cache hit
+        else {
+
+            for (int i = idx; i >= 1; i--) {
+                cache[i] = cache[i - 1];
+            }
+            cache[0] = work;
+
+        }
+
 
     }
+
+    @Override
+    public String toString() {
+        String str = "";
+        for (int i : cache) {
+            str += (i+" ");
+        }
+        return str;
+    }
+}
+public class LRU {
+
     public static void main(String[] args) {
-
         Scanner sc = new Scanner(System.in);
-        int cache_size = sc.nextInt();
-        int schedule_size = sc.nextInt();
-        List<Integer> cache = new ArrayList<>();
-        List<Integer> schedule = new ArrayList<>();
+        int S = sc.nextInt(); //캐시 크기
+        int N = sc.nextInt(); //작업 개수
+        Cache cache = new Cache(S);
 
-        for (int i = 0; i<schedule_size; i++) {
-            schedule.add(sc.nextInt());
-
-        }
-        for (int i = 0; i<cache_size; i++) {
-            cache.add(0);
+        for (int i = 0; i < N; i++) {
+            cache.add(sc.nextInt());
         }
 
-        getCacheStat(cache_size,cache,schedule_size,schedule);
+        System.out.println(cache);
+
+
     }
 }
