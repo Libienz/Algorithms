@@ -1428,7 +1428,8 @@ while(lt<=rt) {
 ```
 
 ### 06-09
-뮤직비디오 결정 알고리즘
+- DecisionMV
+- 뮤직비디오 결정 알고리즘
 - 결정 알고리즘 : 좁혀 나가서 최고의 답을 찾는다.
 
 우리가 생각하는 범위내에 답이 반드시 있다. -> 결정 알고리즘 
@@ -1438,9 +1439,51 @@ while(lt<=rt) {
 답이 될 수 없다면 큰쪽에서 찾는다.
 ```java
 
-//* 1. 용량을 전체 길이 나누기 dvd개수로 설정해두고 가능한지 확인 (이게 최소로 가능한 시나리오)
-//* 2. 가능한지 확인은 차근차근 담으면서 용량 초과하면 다음 dvd로 넘기기 dvd를 다썻는데 인덱스가 남아있다면 실패
-//* 3. 가능하지 않다면 용량 1만큼 늘리기
+package algorithm_ex.sorting_searching;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class DecisionMV {
+
+  public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    int numOfSongs = sc.nextInt();
+    int numOfDvds = sc.nextInt();
+    ArrayList<Integer> songLengths = new ArrayList<>();
+    int totalLength = 0;
+    for (int i = 0; i < numOfSongs; i++) {
+      int length = sc.nextInt();
+      songLengths.add(length);
+      totalLength += length;
+    }
+
+    int vol = totalLength / numOfDvds;
+//        System.out.println("vol = " + vol);
+
+    for (int i = vol; i < 10000; i++) {
+      //dvd 하나에 i만큼의 용량을 가지고 있을 때
+      int dvdVol = i;
+      int used = 1;
+      for (Integer sl : songLengths) {
+        if ((dvdVol - sl) < 0) {
+          used++;
+          dvdVol = i;
+        }
+        dvdVol -= sl;
+      }
+
+//            System.out.println("used = " + used);
+      if (used <= numOfDvds) {
+        System.out.println(i);
+        return;
+      }
+    }
+
+
+  }
+
+}
 
 ```
 
