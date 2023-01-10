@@ -1,72 +1,48 @@
 package algorithm_ex.sorting_searching;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class Stall {
 
-    public static boolean isPossibleDistance(int dist, int[] stall_loc) {
-
-        for (int i = 0; i<stall_loc.length-1; i++) {
-            for (int j = i+1; j< stall_loc.length; j++) {
-                if (stall_loc[j] - stall_loc[i] == dist ) return true;
-                else if (stall_loc[j] - stall_loc[i] > dist) break;
-                else continue;
-            }
-        }
-        return false;
-    }
-
-    public static int count(int[] arr, int dist) {
-
-        int cnt = 1; //배치한 말의 마리수
-        int ep = arr[0]; //왜???
-        for(int i=1; i<arr.length; i++) {
-            if(arr[i]-ep >= dist) {
+    public static int count(int C, int distance, ArrayList<Integer> arr) {
+        int ep = arr.get(0);
+        int cnt = 1;
+        for (int i = 1; i < arr.size(); i++) {
+            if (arr.get(i) - ep >= distance) {
                 cnt++;
-                ep = arr[i];
+                ep = arr.get(i);
             }
         }
         return cnt;
 
     }
-
-    public static int getMaxDistanceBetweenShortest(int num_of_stall, int num_of_horse, int[] stall_loc) {
-
-        int lt;
-        int rt;
-        int answer = -1;
-
-        lt = stall_loc[1] - stall_loc[0];
-        rt = stall_loc[num_of_stall - 1] - stall_loc[0];
-
-        while(lt<=rt) {
-            int mid = (lt + rt)/2;
-            //System.out.println("dist : " + dist + " " +  isPossibleDistance(dist,stall_loc));
-            if(count(stall_loc,mid) >= num_of_horse) { //배치할 수 있는 마리수가 우리가 넣어야 하는 말의 마리수보다 많거나 같다면
-                answer = mid;
-                lt = mid+1;
-            }
-            else {
-                rt = mid-1;
-            }
-        }
-        //우리가 구하고자 하는 답의 범위
-
-        return answer;
-
-    }
     public static void main(String[] args) {
-
         Scanner sc = new Scanner(System.in);
-        int num_of_stall = sc.nextInt();
-        int num_of_horse = sc.nextInt();
-        int[] stall_loc = new int[num_of_stall];
-        for (int i = 0; i<num_of_stall; i++) {
-            stall_loc[i] = sc.nextInt();
+        int N = sc.nextInt(); //마구간의 개수
+        int C = sc.nextInt(); //말의 마리수
+        ArrayList<Integer> arr = new ArrayList<>();
+        for (int i = 0; i < N; i++) {
+            arr.add(sc.nextInt());
         }
-        Arrays.sort(stall_loc);
 
-        System.out.println(getMaxDistanceBetweenShortest(num_of_stall,num_of_horse,stall_loc));
+        Collections.sort(arr);
+        //두 말의 거리가 가질 수 있는 최댓 값
+        //우리가 구하고자 하는 해는 lt부터 rt사이에!
+        int lt = 1;
+        int rt = arr.get(arr.size() - 1) - arr.get(0);
+        int answer = 0;
+        while (lt <= rt) {
+            int mid = (lt + rt) / 2;
+            //System.out.println("mid = " + mid);
+            if (C <= count(C, mid, arr)) {
+                answer = mid;
+                lt = mid + 1;
+            } else {
+                rt = mid -1;
+            }
+        }
+        System.out.println(answer);
     }
 }

@@ -7,7 +7,7 @@ public class StallDecision {
 
     public static boolean isPossible(int stall1, int stall2,int[] valid_stall, int num_of_horse) {
         int shortest = Math.abs(valid_stall[stall2] - valid_stall[stall1]);
-        System.out.println("shortest : " + shortest );
+        //System.out.println("shortest : " + shortest );
         int count = num_of_horse;
 
         for (int n : valid_stall) {
@@ -16,13 +16,13 @@ public class StallDecision {
                     Math.abs(n-valid_stall[stall1]) > shortest &&
                     Math.abs(n-valid_stall[stall2]) >shortest) {
                 count--;
-                System.out.println(num_of_horse);
+                //System.out.println(num_of_horse);
                 if (count == 0) return true;
 
             }
 
         }
-        System.out.println("impossible");
+        //System.out.println("impossible");
         return false;
 
     }
