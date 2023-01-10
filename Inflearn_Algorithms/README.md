@@ -1412,11 +1412,11 @@ class Point implements Comparable<Point> { //Comparable은 인터페이스
 ```
 
 ### 06-08
-이분 탐색 Binary Search
+- BinarySearch
+- 이분 탐색
+- 정렬된 상태에서 중간 넘버와 비교 lt와 rt수정해나가며 찾는 탐색
 ```java
-//난 재귀로 풀었당 
 
-//재귀가 아닌 방법
 
 while(lt<=rt) {
     int mid = (lt + rt)/2;

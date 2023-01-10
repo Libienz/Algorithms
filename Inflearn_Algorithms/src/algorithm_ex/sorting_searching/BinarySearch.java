@@ -1,45 +1,43 @@
 package algorithm_ex.sorting_searching;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class BinarySearch {
 
-    public static int binarySearch(int[] arr,int num,int start,int end) {
-
-
-
-        /*
-        for (int n : arr) {
-            System.out.println(n);
-        }
-        */
-        int mid_idx = (start + end) / 2;
-        if (arr[mid_idx] == num) return mid_idx + 1;
-        else if (arr[mid_idx] > num) { // mid보다 왼쪽에 num이 있을 때
-            end = mid_idx;
-            return binarySearch(arr,num,start,end);
-        }
-        else {
-            start = mid_idx;
-            return binarySearch(arr,num,start,end);
-        }
-
-    }
     public static void main(String[] args) {
-
         Scanner sc = new Scanner(System.in);
         int size = sc.nextInt();
-        int num = sc.nextInt();
-        int[] arr = new int[size];
+        int target = sc.nextInt();
+        ArrayList<Integer> arr = new ArrayList<>();
 
-        for (int i=0; i<size; i++) {
-            arr[i] = sc.nextInt();
+        for (int i = 0; i < size; i++) {
+            arr.add(sc.nextInt());
         }
-        int start = 0;
-        int end = arr.length;
 
-        Arrays.sort(arr);
-        System.out.println(binarySearch(arr,num,start,end));
+        Collections.sort(arr);
+
+        //정렬된 상태에서 이분 검색 binary search
+        int lt = 0;
+        int rt = size - 1;
+
+        while (lt <= rt) {
+            int midIdx = (lt + rt) / 2;
+            int midNum = arr.get(midIdx);
+
+            if (midNum == target) {
+                System.out.println(midIdx+1);
+                break;
+            } else if (midNum < target) {
+                lt = midIdx + 1;
+                continue;
+            } else {
+                rt = midIdx - 1;
+                continue;
+            }
+        }
     }
+
 }
