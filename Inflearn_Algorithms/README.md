@@ -1385,13 +1385,15 @@ public class Tricker {
 ```
 
 ### 06-07
-좌표 정렬
+- CoordSort
+- 좌표 정렬
+- 객체를 비교할 수 있도록 Comparable 인터페이스를 구현
+- compareTo메소드를 구현한다. 
+  - compareTo메소드는 인자로 넘어온 객체와 내 객체를 비교한다.
+  - 여기에 비교하는 로직을 써주면 됨
+  - 내 자신 객체에서 입력인자로 넘어온 것을 빼면 오름차순 
 ```java
-// 클래스 하나 만들자 Coord
-// 시간초과가 무서웠지만 제일 간단한 선택정렬 사용했다. (최솟값을 찾아 왼쪽부터 정렬)
-// 조건하나만 x값 같을 때 추가했을 뿐 
 
-//강사 코드
 class Point implements Comparable<Point> { //Comparable은 인터페이스
     
     public int x,y;

@@ -1,18 +1,15 @@
 package algorithm_ex.sorting_searching;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
-class Coord {
+class Coord implements Comparable<Coord> {
+    private int x;
+    private int y;
 
     public Coord(int x, int y) {
         this.x = x;
         this.y = y;
     }
-
-    private int x;
-    private int y;
 
     public int getX() {
         return x;
@@ -32,63 +29,41 @@ class Coord {
 
     @Override
     public String toString() {
-        return "Coord{" +
-                "x=" + x +
-                ", y=" + y +
-                '}';
+        return x + " " + y;
+    }
+
+
+    @Override
+    public int compareTo(Coord c2) {
+        Coord c1 = this;
+        //c1과 c2를 비교하는 방법을 알려준다.
+        //c1과 c2의 x값이 같다면 Y값으로 비교하라
+        if (c1.getX() == c2.getX()) {
+            return c1.getY() - c2.getY();
+        }
+        //x값이 같지 않다면 x값으로 비교하라
+        return c1.getX() - c2.getX();
     }
 }
-
 public class CoordSort {
 
-    public static void coordSort(List<Coord> arr) {
-
-        Coord min = new Coord(Integer.MAX_VALUE,Integer.MAX_VALUE);
-        for (int j = 0; j<arr.size(); j++) {
-            int min_index = -1;
-
-            for (int i = j; i<arr.size(); i++) {
-                if (arr.get(i).getX() < min.getX()) {
-                    min = arr.get(i);
-                    min_index = i;
-                }
-                else if (arr.get(i).getX() == min.getX()) {
-                    if (arr.get(i).getY() < min.getY()) {
-                        min = arr.get(i);
-                        min_index = i;
-                    }
-                }
-            }
-            //System.out.println(min);
-            Coord tmp = arr.get(j);
-            arr.set(j,min);
-            arr.set(min_index,tmp);
-            min = new Coord(Integer.MAX_VALUE,Integer.MAX_VALUE);
-            min_index = -1;
-        }
-
-    }
     public static void main(String[] args) {
-
         Scanner sc = new Scanner(System.in);
-        int num = sc.nextInt();
+        int size = sc.nextInt();
+        ArrayList<Coord> arr = new ArrayList<>();
 
-        List<Coord> coord_arr = new ArrayList<>();
-
-        for (int i = 0; i<num; i++) {
-
-            int x = sc.nextInt();
-            int y = sc.nextInt();
-            Coord coord = new Coord(x,y);
-            coord_arr.add(coord);
+        //좌표들을 담은 배열 설정
+        for (int i = 0; i < size; i++) {
+            arr.add(new Coord(sc.nextInt(), sc.nextInt()));
         }
 
-        coordSort(coord_arr);
+        Collections.sort(arr);
 
-        for (Coord c : coord_arr) {
-            System.out.print(c.getX() + " " + c.getY() + "\n");
+        for (Coord coord : arr) {
+            System.out.println(coord);
         }
-
 
     }
+
+
 }
