@@ -1304,15 +1304,38 @@ public class LRU {
 ```
 
 ### 06-05
-중복확인
+- DupCheck
+- 중복확인
+- HashMap 혹은 contains method로 해결
 ```java
-//해쉬맵을 사용하니까 시간초과 단박에 해결!?
-//어쨋든 O(n)으로 바꾸는 게 중요 set으로 받은 다음에 size를 재봐서 원래 개수인지 비교하는 방식도 가능할 듯 
-//근데 신기하긴 하네 해쉬맵도 결국에는 key가 있는지 없는지 확인해야 할텐데 우째서 빠를까
+package algorithm_ex.sorting_searching;
 
-//정렬로도 풀수 있다는 걸 보여주기 위한 문제 
-//정렬하고 이웃한 숫자와 같은게 있는지 확인 
-Arrays.sort(arr); // 배열 정렬해준다. 오름차순
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Scanner;
+
+public class DupCheck {
+
+  public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    int size = sc.nextInt();
+    ArrayList<Integer> arr = new ArrayList<>();
+    for (int i = 0; i < size; i++) {
+      int num = sc.nextInt();
+      if (arr.contains(num)) {
+        System.out.println("D");
+        return;
+      }
+      arr.add(num);
+    }
+    System.out.println("U");
+
+    //배열 정렬
+
+  }
+}
+
 
 ```
 
