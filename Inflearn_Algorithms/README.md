@@ -1340,18 +1340,48 @@ public class DupCheck {
 ```
 
 ### 06-06
-장난꾸러기 속인 애들을 찾아라
+- Tricker
+- 장난꾸러기 속인 애들을 찾아라
+- 키순으로 정렬된 배열 속에 키를 속이고 자리를 바꾼 두명의 아이가 있다
+- 정렬한다음 정렬 전의 배열과 비교, 다르게 나타나는 놈이 속인 아이
+- 깊은 복사하는 방법은 arr.clone();
 ```java
-//문제 진짜 맘에 안듬
-//여튼 어거지로 풀기는 함 첫번째 속이는 아이는 반드시 등장하게 되어있음 
-//두번째 속이는 아이는 찾을 수도 못찾을 수도 있음 count한다.
-//속이는 아이가 두명 모두 발견되었다면 상황 종료
-//속이는 아이가 한명만 발견되었다면 나머지는 오름차순을 어기지 않고 서있음 적절히 찾아주어야 함
+package algorithm_ex.sorting_searching;
 
-//강사왈 정렬을 하면 쉽게 풀린다?
-//arr을 깊은 복사한 tmp배열 만든다.
-//tmp는 정렬하고 arr[i]와 tmp[i]를 비교 다르다면 속인놈
-int tmp = arr.clone(); //깊은 복사 하는 방법
+import java.util.*;
+
+public class Tricker {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        int size = sc.nextInt();
+        ArrayList<Integer> arr = new ArrayList<>();
+        ArrayList<Integer> tArr = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            int num = sc.nextInt();
+            arr.add(num);
+            tArr.add(num);
+        }
+
+        Collections.sort(arr);
+
+        for (int i = 0; i < size; i++) {
+            int arrIdx = arr.get(i);
+            int tArrIdx = tArr.get(i);
+            if (arrIdx != tArrIdx) {
+                System.out.print(i+1 +" ");
+//                System.out.println("arr: " + arr.get(i));
+//                System.out.println("tArr: " + tArr.get(i));
+            }
+        }
+//        System.out.println();
+//
+//        System.out.println(arr);
+//        System.out.println(tArr);
+    }
+}
+
 ```
 
 ### 06-07
