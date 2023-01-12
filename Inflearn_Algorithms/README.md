@@ -1775,10 +1775,74 @@ public void BFS(Node root) {
 송아지 찾기 by BFS
 - 레벨 = JumpCount로 생각해서 레벨이 1이라면 1번의 점프만에 갈 수 있는 곳으로 판단한다. 요 idea가 핵심
 - 자식 노드들은 자신이 뛸 수 있는 경우의 수인 3가지 -1, 1, 5 를 더한 것 이걸로 모든 경우를 커버한다.
-- 다만 방문했던 곳은 재방문한다면 이거는 원래 방문한 것보다 점프의 수가 클 수 밖에 없음으로 재외 
+- 다만 방문했던 곳은 재방문한다면 이거는 원래 방문한 것보다 점프의 수가 클 수 밖에 없음으로 제외 
 - 별도의 배열을 따로 두어 방문했던 곳은 패스한다. 
 - BFS를 Q가 빌때까지 계속돈다. 
 - 우리가 방문하고자 하는 위치가 나온다면 해당 레벨을 출력하면 답이된다. 
+
+```java
+package algorithm_ex.recursive;
+
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+
+public class FindCow {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int pPoint = sc.nextInt(); //수직선 상 사람 위치
+        int cPoint = sc.nextInt(); //수직선 상 송아지 위치
+
+        int res = BFS(pPoint, cPoint);
+        System.out.println(res);
+
+    }
+
+    private static int BFS(int pPoint, int cPoint) {
+        Queue<Integer> q = new LinkedList<>();
+        int level = 0;
+        q.offer(pPoint);
+        boolean[] visited = new boolean[10001];
+        int[] mv = new int[3];
+        mv[0] = 1;
+        mv[1] = -1;
+        mv[2] = 5;
+
+        for (int i = 0; i < visited.length; i++) {
+            visited[i] = false;
+        }
+        visited[pPoint] = true;
+
+
+        while (!q.isEmpty()) {
+            int len = q.size();
+            for (int i = 0; i < len; i++) {
+                int cur = q.poll();
+                if (cur == cPoint) {
+                    return level;
+                }
+                for (int move : mv) {
+                    int dest = cur + move;
+                    if (1 > dest || dest > 10000) {
+                        continue;
+                    }
+                    if (visited[dest]) {
+                        continue;
+                    }
+                    q.offer(dest);
+                    visited[dest] = true; //아직 방문하지는 않았지만 큐에 들어있으니까 중복적으로 방문하지 않도록 하는 것
+                }
+
+            }
+            level++;
+        }
+
+        return -999;
+    }
+}
+
+```
 
 ### 07-09 
 루트노드에서 가장 가까운 리프노드 찾기
