@@ -1,43 +1,30 @@
 package algorithm_ex.recursive;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Subset {
+    static int n;
+    static ArrayList<Integer> arr = new ArrayList<>();
 
-    static int num;
-    static int[] check;
+    public static void DFS(int num) {
+        if (num > n) {
+            System.out.println(arr);
+        } else {
+            //쓴다.
+            arr.add(num);
+            DFS(num + 1);
+            //안쓴다.
+            arr.remove(arr.size() - 1);
+            DFS(num + 1);
 
-    public static void main(String[] args) {
-
-        Scanner sc = new Scanner(System.in);
-        num = sc.nextInt();
-        check = new int[num + 1];
-
-        DFS(1); //1을 쓸지 말지
+        }
     }
 
-    private static void DFS(int n) {
-        if (n == num+1) {
-            String tmp = "";
-            for (int i = 1; i <= num; i++) {
-                if(check[i] == 1) {
-                    tmp = tmp +" "+ i;
-                }
-            }
-            if (tmp.length() == 0) {
-                return;
-            }
-            else {
-                System.out.println(tmp);
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        n = sc.nextInt();
+        DFS(1);
 
-            }
-
-        }
-        else {
-            check[n] = 1;
-            DFS(n + 1);
-            check[n] = 0;
-            DFS(n + 1);
-        }
     }
 }

@@ -1691,7 +1691,8 @@ public class FibRecursive {
 메모이제이션은? 구한 걸 배열에 넣어놓는다 재귀로만 풀면 같은걸 정말 여러번 구함 스택프레임도 엄청 쌓임 
 
 ### 07-05
-깊이 우선 탐색 - 전위 순회, 중위 순회, 후위 순회
+- TreeTravel
+- 깊이 우선 탐색 - 전위 순회, 중위 순회, 후위 순회
 - 깊이 우선 탐색 : alike 미로 길 찾을 때 갈 수 있을 만큼 가고 막히면 백트래킹, 재귀의 형식을 가짐
 - 전위 순회 : 부 왼 오
 - 중위 순회 : 왼 부 오
@@ -1699,10 +1700,43 @@ public class FibRecursive {
 - 부모가 기준 
 
 ### 07-06
-모든 부분 집합 DFS로 구하기
+- SubSet
+- 모든 부분 집합 DFS로 구하기
 - 지금 내가 보고 있는 숫자를 쓴다 안쓴다로 나누고 그 다음 숫자 쓴다 안쓴다로 나누고 ......
 - 이걸 반복 끝까지 가면 백트래킹 하면서 자연스럽게 모든 경우의 수를 커버하게 된다.
+```java
+package algorithm_ex.recursive;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Subset {
+  static int n;
+  static ArrayList<Integer> arr = new ArrayList<>();
+
+  public static void DFS(int num) {
+    if (num > n) {
+      System.out.println(arr);
+    } else {
+      //쓴다.
+      arr.add(num);
+      DFS(num + 1);
+      //안쓴다.
+      arr.remove(arr.size() - 1);
+      DFS(num + 1);
+
+    }
+  }
+
+  public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    n = sc.nextInt();
+    DFS(1);
+
+  }
+}
+ 
+```
 ### 07-07
 - BFS 레벨 탐색
 - root - 0레벨
