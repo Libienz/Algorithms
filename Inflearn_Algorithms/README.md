@@ -1556,19 +1556,35 @@ public class Stall {
 <div markdown="1">
 
 ### 07-01 
-재귀 이용해서 숫자 출력하기
+- RecursiveFunc
+- 재귀 이용해서 숫자 출력하기
+- 종료 조건을 잘 설정해야 한다. if else로 구분하자
+- 재귀문장이 위에 위치하냐 아래에 위치하느냐에 따라 전혀 다른 결과 나온다.
 ```java
-//종료 조건을 잘 설정해야 한다! if else로 구분하는 것이 제일 좋음
+package algorithm_ex.recursive;
 
-public static void printAll(int num) {
+import java.util.Scanner;
+/*
+자연수 N이 입력되면 재귀함수를 이용하여 1부터 N까지 출력하는 프로그램을 작성
+ */
+public class RecursiveFunc {
 
-        if (num == 0) {
-            return;
-        }
-        printAll(num-1); //아랫문장과의 위치로 인해서 전혀 다른 결과가 나온다!!!
-        System.out.print(start+" ");
+  public static void printRecursive(int num) {
+    if (num == 1) {
+      System.out.print(num + " ");
+    } else {
+      printRecursive(num - 1); //얘가 여기 위치하기 때문에 1 2 3 이렇게 출력되는 것!
+      System.out.print(num + " ");
+    }
+  }
+  public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    int num = sc.nextInt();
+    printRecursive(num);
 
+  }
 }
+
 ```
 
 - 스택 프레임
