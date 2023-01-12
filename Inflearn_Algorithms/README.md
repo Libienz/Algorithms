@@ -1631,16 +1631,28 @@ public class RecursiveBin {
 ```
 
 ### 07-03
-팩토리얼 구하기 - 재귀
+- RecursiveFactorial
+- 팩토리얼 구하기 - 재귀
 ```java
-public static int getFactorial(int num) {
+package algorithm_ex.recursive;
 
-        if (num == 1) {
-            return 1;
-        }
-        else {
-            return num * getFactorial(num-1);
-        }
+import java.util.Scanner;
+
+public class RecursiveFactorial {
+
+  public static int getFactorial(int num) {
+    if (num == 1) {
+      return 1;
+    } else {
+      return num * getFactorial(num-1);
+    }
+  }
+  public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    int num = sc.nextInt();
+    int res = getFactorial(num);
+    System.out.println(res);
+  }
 }
 
 ```
