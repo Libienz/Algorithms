@@ -4,28 +4,25 @@ import java.util.Scanner;
 
 public class RecursiveBin {
 
-    public static void convertToBinaryNum(int num) {
-
-        int q = num/2;
-        int r = num%2;
-        if (q<=1) {
-            System.out.print(q + "" + r);
+    public static void decToBin(int num) {
+        //System.out.println("몫 : " + num);
+        if (num == 1) {
+            System.out.print(num);
             return;
         }
-        else {
-            convertToBinaryNum(q);
-            System.out.print(r);
+        if (num == 0) {
+            return;
         }
+        decToBin(num / 2);
+        System.out.print(num % 2);
 
     }
+
 
     public static void main(String[] args) {
-
         Scanner sc = new Scanner(System.in);
         int num = sc.nextInt();
+        decToBin(num);
 
-        convertToBinaryNum(num);
     }
-
-
 }

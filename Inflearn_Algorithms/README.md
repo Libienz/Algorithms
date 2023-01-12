@@ -1592,27 +1592,42 @@ public class RecursiveFunc {
 스택프레임 안에는 매개변수 정보와 지역변수정보, 그리고 함수가 끝났을 때 복귀주소가 들어있다.
 
 ### 07-02
-재귀 이용해서 10진수 2진수로 변환하기
+- RecursiveBin
+- 재귀 이용해서 10진수 2진수로 변환하기
 - 이진수로 변환하는 방법
 
 ![img.png](img.png)
 
 
 ```java
-public static void convertToBinaryNum(int num) {
+package algorithm_ex.recursive;
 
-        int q = num/2;
-        int r = num%2;
-        if (q<=1) {
-            System.out.print(q + "" + r);
-            return;
-        }
-        else {
-            convertToBinaryNum(q);
-            System.out.print(r);
-        }
+import java.util.Scanner;
+
+public class RecursiveBin {
+
+  public static void decToBin(int num) {
+    //System.out.println("몫 : " + num);
+    if (num == 1) {
+      System.out.print(num);
+      return;
+    }
+    if (num == 0) {
+      return;
+    }
+    decToBin(num / 2);
+    System.out.print(num % 2);
+
+  }
+
+
+  public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    int num = sc.nextInt();
+    decToBin(num);
+
+  }
 }
-
 ```
 
 ### 07-03
