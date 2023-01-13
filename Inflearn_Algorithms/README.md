@@ -2207,14 +2207,84 @@ public class PermutationWithRepeat {
 
 ```
 ### 08-05
-- 거스름돈 가장 작은 수의 동전으로 거스르기 
-- DFS 이용 ... 동전 종류가 3개라면 각각을 사용하는 경우로 DFS 아래로 뻗게하기 
-- 시간초과!? _마지막 케이스는 3초가 넘게 걸리네
-- 그러면 순수 수학으로.. 몫과 나머지 이용한 그리디_ 알고리즘 적용..?
-- 오답! Greedy알고리즘으로는 3번째 케이스에 대해서 해결할 수 없음 
-- DFS를 이용하면서 shortcut을 극대화 시켜야 하는데 .. 
-- 작은 것들을 먼저 넣으면서 아래로 뻗치게 하는 것이 아니라 큰 것들 먼저 넣으면서 뻗치게 하면 조건을 잘타게 해서 몇번의 호출 없이 가능하게 할 수 있다! 
+- CoinExchange
+- 거스름돈 가장 작은 수의 동전으로 거스르기
+- 순수 수학으로.. 몫과 나머지 이용한 그리디_ 알고리즘 적용..
+```java
+package algorithm_ex.dfs_bfs;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class CoinExchange {
+
+  public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    int n = sc.nextInt(); //동전 종류 개수
+    ArrayList<Integer> type = new ArrayList<>();
+    for (int i = 0; i < n; i++) {
+      type.add(sc.nextInt());
+    }
+    int m = sc.nextInt();
+    int res = 0;
+    for (int i = n - 1; i >= 0; i--) {
+      int coin = type.get(i); //지금 보는 동전의 종류
+      int num = m / coin; //사용된 동전 개수
+      m -= coin * num;
+      res += num;
+    }
+
+    System.out.println(res);
+  }
+} 
+```
+- 오답! Greedy알고리즘으로는 3번째 케이스에 대해서 해결할 수 없음 
+  - 더 많은 개수의 1원으로 메꿔야 하는 경우가 있을 수 있음 
+- 최단 이라는 키워드에 집중하자 bfs로 푸니깐 한방에 풀린다
+
+```java
+package algorithm_ex.dfs_bfs;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+
+public class CoinExchange {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt(); //동전 종류 개수
+        ArrayList<Integer> types = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            types.add(sc.nextInt());
+        }
+        int m = sc.nextInt();
+
+        Queue<Integer> q = new LinkedList<>();
+        q.add(m); //거슬러줘야 하는 금액이 q에 들어가게 된다.
+        int level = 0;
+        while (!q.isEmpty()) {
+//            System.out.println("level = " + level);
+            int len = q.size();
+            for (int i = 0; i < len; i++) {
+                Integer ch = q.poll();
+                if (ch == 0) {
+                    System.out.println(level);
+                    return;
+                } else {
+                    for (Integer type : types) {
+                        q.add(ch - type);
+                    }
+                }
+            }
+            level++;
+        }
+    }
+}
+
+```
+- dfs로도 풀 수는 있다 CoinExchange2 참조
 ```java 
   public static void dfs(int remain) {
         if (count > min || remain < 0) {

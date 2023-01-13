@@ -1,45 +1,39 @@
 package algorithm_ex.dfs_bfs;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
 
 public class CoinExchange {
 
-    static int type_num,count;
-    static int min = Integer.MAX_VALUE;
-    static int[] type_arr;
-    public static void dfs(int remain) {
-        if (count > min || remain < 0) {
-            return;
-        }
-
-        else if (remain == 0) {
-            if (count < min) {
-                min = count;
-            }
-        }
-        else {
-            for (int i = type_arr.length-1; i>=0; i--) { //아하 알겠다!!
-                count++;
-                dfs(remain - type_arr[i]);
-                count--;
-            }
-
-        }
-    }
     public static void main(String[] args) {
-
         Scanner sc = new Scanner(System.in);
-        type_num = sc.nextInt();
-        type_arr = new int[type_num];
-        //type_count = new int[type_num];
-
-        for (int i = 0; i < type_num; i++) {
-            type_arr[i] = sc.nextInt();
+        int n = sc.nextInt(); //동전 종류 개수
+        ArrayList<Integer> types = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            types.add(sc.nextInt());
         }
-        int need_to_exchange = sc.nextInt();
+        int m = sc.nextInt();
 
-        dfs(need_to_exchange);
-
-        System.out.println(min);
+        Queue<Integer> q = new LinkedList<>();
+        q.add(m); //거슬러줘야 하는 금액이 q에 들어가게 된다.
+        int level = 0;
+        while (!q.isEmpty()) {
+//            System.out.println("level = " + level);
+            int len = q.size();
+            for (int i = 0; i < len; i++) {
+                Integer ch = q.poll();
+                if (ch == 0) {
+                    System.out.println(level);
+                    return;
+                } else {
+                    for (Integer type : types) {
+                        q.add(ch - type);
+                    }
+                }
+            }
+            level++;
+        }
     }
 }

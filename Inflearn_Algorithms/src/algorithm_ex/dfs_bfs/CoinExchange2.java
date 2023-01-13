@@ -4,19 +4,27 @@ import java.util.Scanner;
 
 public class CoinExchange2 {
 
+    static int type_num,count;
+    static int min = Integer.MAX_VALUE;
     static int[] type_arr;
-    static int type_num;
-
-    //그리디로 안되네...
-    public static int getMinCountOfCoin(int exchange) {
-        int count = 0;
-        for (int i = type_arr.length - 1; i >= 0; i--) {
-            int num = exchange/(type_arr[i]);
-            count += num;
-            exchange = exchange - num*type_arr[i];
+    public static void dfs(int remain) {
+        if (count > min || remain < 0) {
+            return;
         }
 
-        return count;
+        else if (remain == 0) {
+            if (count < min) {
+                min = count;
+            }
+        }
+        else {
+            for (int i = type_arr.length-1; i>=0; i--) { //아하 알겠다!!
+                count++;
+                dfs(remain - type_arr[i]);
+                count--;
+            }
+
+        }
     }
     public static void main(String[] args) {
 
@@ -30,8 +38,8 @@ public class CoinExchange2 {
         }
         int need_to_exchange = sc.nextInt();
 
-        System.out.println(getMinCountOfCoin(need_to_exchange));
+        dfs(need_to_exchange);
 
-
+        System.out.println(min);
     }
 }
