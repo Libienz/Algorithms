@@ -2031,6 +2031,7 @@ public class EqualSumSubset {
   - 지금까지 더한 합이 총 집합을 더한 것 나누기 2 보다 크다면 그것은 양분될 수 없는 부분집합을 보고 있는 것 과감히 끝낸다.
   
 ### 08-02
+- LimitWeight
 - 제한된 무게가 있을 때 최대로 차에 탑승시킬 수 있는 무게는?
 - 부분집합 문제와 똑같은 논리로 해결 가능
 - 태운다 안태운다를 나누어서 모든 경우를 DFS로 확인하면 끝
@@ -2083,29 +2084,77 @@ public class LimitWeight {
 
 
 ### 08-03
+- MaxScore
 - 결국 이것도 푸냐 안푸냐 정하는 문제 
 - 문제를 인덱스로 구분
-- 해당 문제를 풀었을 때 소요되는 시간은 time[i]
-- 해당 문제를 풀었을 때 얻게 되는 점수는 score[i]
-- 원래 해쉬맵으로 풀려했는데 해쉬맵은 인덱스 접근이 까다로운듯..?
-- 그래서 time score 배열을 따로 만들어서 해결했다.
+- Problem이라는 클래스 하나 만듦
+- 8챕터의 1, 2, 3모두 템플릿이 정해진 dfs 문제 같다. 
+- dfs로 하면 백트래킹 과정을 거치며 모든 경우를 커버할 수 있다는 점 다시 한번 생각하자
 ```java
-    public static void dfs(int index, int s_sum, int time_used) {
-        if (time_used > lim) { //shortcut
-            return;
-        }
-        if (index == p_num) {
-            if (s_sum > max) {
-                max = s_sum;
-            }
+package algorithm_ex.dfs_bfs;
 
-        }
-        else {
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 
-            dfs(index+1,s_sum+score[index],time_used+time[index]);
-            dfs(index + 1, s_sum, time_used);
+class Problem {
+  int solTime;
+  int score;
+  public Problem(int solTime, int score) {
+    this.solTime = solTime;
+    this.score = score;
+  }
+}
+public class MaxScore {
+
+  static int n, m;
+  static ArrayList<Problem> pbs;
+  static int totalTime;
+  static int totalScore;
+  static int maxScore = Integer.MIN_VALUE;
+  public static void dfs(int idx) {
+    //끝까지 돌았음
+    if (idx >= n) {
+      //총 시간이 주어진 제한시간을 넘지 않았을 때
+      if (totalTime <= m) {
+        //지금까지 계산한 최대 점수와 비교
+        if (maxScore < totalScore) {
+          maxScore = totalScore;
         }
+      }
+
+    } else {
+      //푼다.
+      Problem cur = pbs.get(idx);
+      totalTime += cur.solTime;
+      totalScore += cur.score;
+      dfs(idx + 1);
+      //풀지 않는다.
+      totalTime -= cur.solTime;
+      totalScore -= cur.score;
+      dfs(idx + 1);
     }
+  }
+  public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    n = sc.nextInt(); //문제 개수
+    m = sc.nextInt(); //제한 시간
+
+    pbs = new ArrayList<>();
+
+    for (int i = 0; i < n; i++) {
+      int score = sc.nextInt();
+      int solTime = sc.nextInt();
+      pbs.add(new Problem(solTime, score));
+    }
+
+    dfs(0);
+    System.out.println(maxScore);
+
+  }
+}
+
 ```
 ### 08-04
 - 중복 순열 
