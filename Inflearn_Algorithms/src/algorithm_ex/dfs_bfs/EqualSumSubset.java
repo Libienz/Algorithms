@@ -1,57 +1,68 @@
 package algorithm_ex.dfs_bfs;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class EqualSumSubset {
 
-    static int[] set;
     static int size;
-    static boolean isSumEqualSubsetExist = false;
-    static boolean[] used;
+    static boolean isSameSum = false;
+    static ArrayList<Integer> arr = new ArrayList<>();
+    static ArrayList<Integer> sums = new ArrayList<>();
+    static ArrayList<Integer> subSet1 = new ArrayList<>();
+    static ArrayList<Integer> subSet2 = new ArrayList<>();
 
 
-    public static void dfs(int index) {
-        //System.out.println("EqualSumSubset.dfs index : " + index);
-        if (index == size) {
-            int sum_subset1 = 0;
-            int sum_subset2 = 0;
-            for (int i = 0; i < size; i++) {
-                if (used[i]) {
-                    sum_subset1 += set[i];
-                } else {
-                    sum_subset2 += set[i];
+    public static void dfs(int idx) {
+        if (idx >= size) {
+
+            for (Integer num : arr) {
+                if (!subSet1.contains(num)) {
+                    subSet2.add(num);
                 }
             }
-            if (sum_subset2 == sum_subset1) {
-                isSumEqualSubsetExist = true;
-
+//            System.out.println("subSet1 = " + subSet1);
+//            System.out.println("subSet2 = " + subSet2);
+            int sum1 = 0;
+            int sum2 = 0;
+            for (Integer num : subSet1) {
+                sum1 += num;
             }
+            for (Integer num : subSet2) {
+                sum2 += num;
+            }
+            if (sum1 == sum2) {
+                isSameSum = true;
+            }
+            subSet2.clear();
+            return;
         }
-        else {
-            used[index] = true;
-            dfs(index + 1);
-            used[index] = false;
-            dfs(index + 1);
-
-        }
+        //쓴다
+        subSet1.add(arr.get(idx));
+        dfs(idx + 1);
+        //쓰지 않는다.
+        subSet1.remove((Object) arr.get(idx));
+        dfs(idx + 1);
     }
 
     public static void main(String[] args) {
-
         Scanner sc = new Scanner(System.in);
         size = sc.nextInt();
-        set = new int[size];
-        used = new boolean[size];
         for (int i = 0; i < size; i++) {
-            set[i] = sc.nextInt();
+            arr.add(sc.nextInt());
         }
+
         dfs(0);
-        if (isSumEqualSubsetExist) {
+        if (isSameSum) {
             System.out.println("YES");
         } else {
             System.out.println("NO");
         }
+
+//        System.out.println("sums = " + sums);
+
+//        System.out.println("sums = " + sums.size());
+//        System.out.println("sums = " + sums);
+
     }
-
-
 }

@@ -1950,35 +1950,80 @@ public static void main(String[]args){
 <div markdown="1">
 
 ### 08-01
+- EqualSumSubset
 - 주어진 집합에서 합이 같은 부분집합 둘이 존재하는 지 찾는 문제
-- 굉장히 빨리 풀었는데 머릿속에 남아있는 이 찝찝함..
-- 스택 프레임과 상태트리를 머릿속으로 곱씹으며 알고리즘을 검토하자
+- 문제 꼼꼼히 읽자 서로소인 부분집합끼리여야 하며 두 부분집합을 합쳤을 때 원래의 집합이 나와야 함 
+- 부분 집합을 구할 때 마다 상대되는 부분집합을 즉석에서 만들어내면 된다.
 ```java
-    public static void dfs(int index) {
-        //System.out.println("EqualSumSubset.dfs index : " + index);
-        if (index == size) {
-            int sum_subset1 = 0;
-            int sum_subset2 = 0;
-            for (int i = 0; i < size; i++) {
-                if (used[i]) {
-                    sum_subset1 += set[i];
-                } else {
-                    sum_subset2 += set[i];
-                }
-            }
-            if (sum_subset2 == sum_subset1) {
-                isSumEqualSubsetExist = true;
+package algorithm_ex.dfs_bfs;
 
-            }
-        }
-        else {
-            used[index] = true; //사용한다
-            dfs(index + 1);
-            used[index] = false; //사용하지 않는다 
-            dfs(index + 1);
+import java.util.ArrayList;
+import java.util.Scanner;
 
+public class EqualSumSubset {
+
+  static int size;
+  static boolean isSameSum = false;
+  static ArrayList<Integer> arr = new ArrayList<>();
+  static ArrayList<Integer> sums = new ArrayList<>();
+  static ArrayList<Integer> subSet1 = new ArrayList<>();
+  static ArrayList<Integer> subSet2 = new ArrayList<>();
+
+
+  public static void dfs(int idx) {
+    if (idx >= size) {
+
+      for (Integer num : arr) {
+        if (!subSet1.contains(num)) {
+          subSet2.add(num);
         }
+      }
+//            System.out.println("subSet1 = " + subSet1);
+//            System.out.println("subSet2 = " + subSet2);
+      int sum1 = 0;
+      int sum2 = 0;
+      for (Integer num : subSet1) {
+        sum1 += num;
+      }
+      for (Integer num : subSet2) {
+        sum2 += num;
+      }
+      if (sum1 == sum2) {
+        isSameSum = true;
+      }
+      subSet2.clear();
+      return;
     }
+    //쓴다
+    subSet1.add(arr.get(idx));
+    dfs(idx + 1);
+    //쓰지 않는다.
+    subSet1.remove((Object) arr.get(idx));
+    dfs(idx + 1);
+  }
+
+  public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    size = sc.nextInt();
+    for (int i = 0; i < size; i++) {
+      arr.add(sc.nextInt());
+    }
+
+    dfs(0);
+    if (isSameSum) {
+      System.out.println("YES");
+    } else {
+      System.out.println("NO");
+    }
+
+//        System.out.println("sums = " + sums);
+
+//        System.out.println("sums = " + sums.size());
+//        System.out.println("sums = " + sums);
+
+  }
+}
+
 ```
 
 - 강사의 성능을 높이는 아이디어
