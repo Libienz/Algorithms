@@ -2036,26 +2036,49 @@ public class EqualSumSubset {
 - 태운다 안태운다를 나누어서 모든 경우를 DFS로 확인하면 끝
 
 ```java
-    public static void dfs(int index) {
-        if (index == dog_num) {
-            int sum = 0;
-            for (int i = 0; i < dog_num; i++) {
-                if (on_board[i]) {
-                    sum += weight_arr[i];
-                }
-            }
-            if (sum > max_weight && sum < lim) {
-                max_weight = sum;
-            }
-        }
-        else {
-            on_board[index] = true;
-            dfs(index + 1);
-            on_board[index] = false;
-            dfs(index + 1);
+package algorithm_ex.dfs_bfs;
 
-        }
+import java.util.*;
+
+public class LimitWeight {
+
+  static int size, cp;
+  static int max = Integer.MIN_VALUE;
+
+  static ArrayList<Integer> arr = new ArrayList<>();
+
+  public static void dfs(int idx, int sum) {
+    if (idx >= size) {
+      if (sum > cp) {
+        return;
+      }
+      if (max < sum) {
+        max = sum;
+      }
+      return;
     }
+    //idx 강아지를 태운다
+    Integer dw = arr.get(idx);
+    dfs(idx + 1, sum + dw);
+    //태우지 않는다.
+    dfs(idx + 1, sum);
+  }
+  public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    cp = sc.nextInt(); //capacity
+    size = sc.nextInt();
+
+    for (int i = 0; i < size; i++) {
+      arr.add(sc.nextInt());
+    }
+
+    dfs(0, 0);
+    System.out.println(max);
+
+  }
+
+}
+
 ```
 
 
