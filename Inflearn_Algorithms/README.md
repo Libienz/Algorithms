@@ -2157,32 +2157,54 @@ public class MaxScore {
 
 ```
 ### 08-04
+- PermutationWithRepeat
 - 중복 순열 
 - 2갈래로 뻗어나가는 것이 아니라 여러 갈래로 dfs가 돌아간 다는 것이 이전 문제와의 차이점
+- for문 안에서 dfs가 돈다!
 - 어쨋든 핵심은 같다. 모든 뿌리, 모든 경우의 수로 뻗어나가는 DFS
 ```java
-    public static void dfs(String answer, int choiced) {
+package algorithm_ex.dfs_bfs;
 
-        if (choiced == haveto_choice) {
-            /*for (int i = 1; i <= N; i++) {
-                if (checked[i]>0) {
-                    for (int j = 0; j < checked[i]; j++) {
-                        System.out.print(i + " ");
-                    }
+import java.util.ArrayList;
+import java.util.Scanner;
 
-                }
-            }*/
-        System.out.println(answer);
+public class PermutationWithRepeat {
 
-        }
-        else {
-            for (int i = 1; i < checked.length; i++) {
-                checked[i]++;
-                dfs(answer+i+" ",choiced + 1);
-                checked[i]--;
+    static int n;
+    static int m;
+    static ArrayList<Integer> arr = new ArrayList<>();
+    static ArrayList<Integer> choiced = new ArrayList<>();
+
+    public static void dfs(int c) {
+        //뽑아야 할 만큼 뽑았을 경우
+        if (c == m) {
+            System.out.println("choiced = " + choiced);
+            return;
+        } else {
+            for (int i = 1; i <= n; i++) {
+                //i를 뽑는다.
+                choiced.add(i);
+                dfs(c + 1);
+                //i를 뽑지 않는다.
+                choiced.remove((Object) i);
+                
             }
+
         }
-    } 
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        n = sc.nextInt();
+        m = sc.nextInt();
+        for (int i = 1; i <= n; i++) {
+            arr.add(i);
+        }
+        dfs(0);
+
+
+    }
+}
+
 ```
 ### 08-05
 - 거스름돈 가장 작은 수의 동전으로 거스르기 
