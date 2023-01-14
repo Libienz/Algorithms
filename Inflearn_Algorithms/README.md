@@ -2308,24 +2308,61 @@ public class CoinExchange {
 ```
 
 ### 08-06
-- 순열 (Permutation)
-- 머없는데? 2갈래 아닌 DFS 쭉쭉 뻗어나가게 하고 중복으로 뽑으면 안됨으로
-- 사용했는지 체크할 수 있는 불타입 배열 하나 만들자 
+- Permutation
+- 주어진 배열에서 m개의 수를 뽑을 때 경우의 수 모두 구하기
+- 익숙한 두갈래 dfs가 아니다. 중복 순열도 그렇고 
+- for문안에 하나의 dfs 들어가는 형태.. (꼭 이럴 필요는 없겠지만) 
+- 핵심을 이해하자 
 ```java
-    public static void dfs(int choice_count, String answer) {
-        if (choice_count == need_to_choice) {
-            System.out.println(answer);
+package algorithm_ex.dfs_bfs;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Permutaion {
+
+  static int n, m;
+  static ArrayList<Integer> arr;
+  static ArrayList<Integer> res;
+  public static void dfs(int num) {
+//        System.out.println("res = " + res[0]);
+    if (num == m) {
+      for (int n : res) {
+        System.out.print(n + " ");
+      }
+      System.out.println();
+    } else {
+      for (Integer n : arr) {
+//                System.out.println("num = " + num);
+        if (res.contains(n)) {
+          continue;
+        } else {
+          res.add(n);
+          dfs(num + 1);
+          res.remove((Object) n);
         }
-        else {
-            for (int i = 0; i < arr.length; i++) {
-                if (!used[i]) {
-                used[i] = true;
-                dfs(choice_count + 1, answer + " " + arr[i]);
-                used[i] = false;
-                }
-            }
-        }
-    } 
+
+      }
+    }
+  }
+  public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+
+    n = sc.nextInt();
+    m = sc.nextInt();
+
+    arr = new ArrayList<>();
+    for (int i = 0; i < n; i++) {
+      arr.add(sc.nextInt());
+    }
+    res = new ArrayList<Integer>();
+
+    dfs(0);
+
+
+  }
+}
+
 ```
 
 ### 08-07
