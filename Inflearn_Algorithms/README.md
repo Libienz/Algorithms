@@ -2411,39 +2411,90 @@ public class Combination {
   - 메모이제이션 2차원 배열로 만들어서 쓰면 됨
 
 ### 08-08
+- PascalInfer
 - 파스칼 최상위 숫자를 보고 맨 아래 계층 숫자 마추기
 - 모든 가능한 경우의 수를 답이 가능한지 일일히 체크
-- 제일 먼저 발견한 답이 사전 순 제일 우선인 답임 success 플래그 사용 
+- 제일 먼저 발견한 답이 사전 순 제일 우선인 답임 플래그 사용해서 여러 스택이 실행되지 않도록 했음
+  - 이 플래그 하나로 시간초과 나던것이 시간 초과 안난다! 
 ```java
-public static void dfs(int choiced,ArrayList<Integer> maybe_answer) {
-        if (choiced == N) {
-            //System.out.println("maybe_answer = " + maybe_answer);
-            if (isValidAnswer(maybe_answer)) {
-                succesed = true;
-                //System.out.println("PascalInfer.dfs");
-                for (int num : maybe_answer) {
-                    System.out.print(num + " ");
-                }
-            }
+package algorithm_ex.dfs_bfs;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class PascalInfer {
+
+  static int n, top;
+  static ArrayList<Integer> arr;
+  static ArrayList<ArrayList<Integer>> pl;
+  static boolean gotAnswer = false;
+
+  public static void dfs(int ch) {
+//        System.out.println("PascalInfer.dfs");
+    if (gotAnswer) {
+      return;
+    }
+    if (ch == n) {
+//            System.out.println("arr = " + arr);
+      if (isPossible(arr)) {
+//                System.out.println("arr = " + arr);
+        pl.add((ArrayList<Integer>) arr.clone());
+        gotAnswer = true;
+        return;
+      }
+      return;
+    } else {
+      for (int i = 1; i <= n; i++) {
+        if (arr.contains(i)) {
+          continue;
+        } else {
+          arr.add(i);
+          dfs(ch + 1);
+          arr.remove((Object) i);
         }
-        else {
-            if (succesed) {
-                return;
-            }
-            for (int i = 1; i <= N; i++) {
-                if (permutation_check[i]) {
-                    continue;
-                }
-            else {
-                permutation_check[i] = true;
-                maybe_answer.add(i);
-                dfs(choiced + 1, maybe_answer);
-                maybe_answer.remove((Integer) i);
-                permutation_check[i] = false;
-                }
-            }
-        }
-} 
+      }
+    }
+  }
+
+  public static boolean isPossible(ArrayList<Integer> arr) {
+//        System.out.println("PascalInfer.isPossible");
+    ArrayList<Integer> tArr;
+    tArr = (ArrayList<Integer>) arr.clone();
+
+    while (tArr.size() != 1) {
+      for (int i = 0; i < tArr.size() - 1; i++) {
+        int num = tArr.get(0) + tArr.get(1);
+        tArr.add(num);
+        tArr.remove(0);
+      }
+      tArr.remove(0);
+    }
+    Integer res = tArr.get(0);
+    if (res == top) {
+      return true;
+    } else {
+      return false;
+    }
+
+  }
+
+  public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    n = sc.nextInt();
+    top = sc.nextInt();
+    arr = new ArrayList<>();
+    pl = new ArrayList<>();
+    dfs(0);
+    ArrayList<Integer> res = pl.get(0);
+    for (Integer num : res) {
+      System.out.print(num + " ");
+    }
+
+  }
+}
+
+
+
 ```
 
 ### 08-09
