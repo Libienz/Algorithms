@@ -1596,7 +1596,7 @@ public class RecursiveFunc {
 - 재귀 이용해서 10진수 2진수로 변환하기
 - 이진수로 변환하는 방법
 
-![img.png](img.png)
+![img.png](screenshots/img.png)
 
 
 ```java
@@ -2366,23 +2366,45 @@ public class Permutaion {
 ```
 
 ### 08-07
+- Combination
 - 조합 경우의 수 재귀로 구하기
 
-![img_1.png](img_1.png)
-![img_2.png](img_2.png)
+![img_1.png](screenshots/img_1.png)
+![img_2.png](screenshots/img_2.png)
 
 ```java
-public static int getCombination(int n, int r) {
-        if (n == r ) {
-            return 1;
-        } else if (n - r == 1 || r==1) {
-            return n;
-        } else {
-            //System.out.println("n = " + n);
-            //System.out.println("r = " + r);
-            return getCombination(n - 1, r - 1) + getCombination(n - 1, r);
-        }
+package algorithm_ex.dfs_bfs;
+
+import java.util.Scanner;
+
+public class Combination {
+
+  static int n, r;
+  static int[][] mem;
+  public static int combination(int n, int r) {
+    //nCr = n-1Cr-1 + n-1Cr
+    if (mem[n][r] != 0) {
+      return mem[n][r];
     }
+    if (r == 1) {
+      return n;
+    } else if (n == r) {
+      return 1;
+    }
+
+    int res = combination(n - 1, r - 1) + combination(n - 1, r);
+    mem[n][r] = res;
+    return res;
+  }
+  public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    n = sc.nextInt();
+    r = sc.nextInt();
+    mem = new int[n + 1][r + 1];
+    System.out.println(combination(n, r));
+  }
+}
+
 ```
 - 성능 개선시킬수 있는 방법은? 
   - nCr의 여러 공식을 이용한 숏컷 생성하기
@@ -2689,7 +2711,7 @@ while (!allZero(map)) {
 - 모든 조합에 대해서 계산하면 된다.
 - 근데 블로그에 이상한 글이 있던데 .. 집을 기준으로 피자집을 3개고르면 된다는 둥 ..? 스터디 할 때 얘기하자
 
-![img_3.png](img_3.png)
+![img_3.png](screenshots/img_3.png)
 
 - 요 조합 코드 눈독 들이자 내가 쓴 코드보다 훨씬 간결하면서 좋은듯 강사도 강조 
 

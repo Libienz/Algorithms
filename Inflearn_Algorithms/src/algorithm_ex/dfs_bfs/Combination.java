@@ -4,31 +4,28 @@ import java.util.Scanner;
 
 public class Combination {
 
-    static int[][] memoi;
-
-    public static int getCombination(int n, int r) {
-        if (memoi[n][r] != 0) {
-            return memoi[n][r];
+    static int n, r;
+    static int[][] mem;
+    public static int combination(int n, int r) {
+        //nCr = n-1Cr-1 + n-1Cr
+        if (mem[n][r] != 0) {
+            return mem[n][r];
         }
-        if (n == r ) {
-            memoi[n][r] = 1;
-            return 1;
-
-        } else if (n - r == 1 || r==1) {
-            memoi[n][r] = n;
+        if (r == 1) {
             return n;
-        } else {
-            //System.out.println("n = " + n);
-            //System.out.println("r = " + r);
-            return getCombination(n - 1, r - 1) + getCombination(n - 1, r);
+        } else if (n == r) {
+            return 1;
         }
+
+        int res = combination(n - 1, r - 1) + combination(n - 1, r);
+        mem[n][r] = res;
+        return res;
     }
     public static void main(String[] args) {
-
         Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        int r = sc.nextInt();
-        memoi = new int[n+1][r+1];
-        System.out.println(getCombination(n, r));//nCr
+        n = sc.nextInt();
+        r = sc.nextInt();
+        mem = new int[n + 1][r + 1];
+        System.out.println(combination(n, r));
     }
 }
