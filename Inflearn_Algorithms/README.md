@@ -2498,7 +2498,7 @@ public class PascalInfer {
 ```
 
 ### 08-09
-- 조합 DFS로 구하기 
+- 조합 DFS로 구하기  
 ```java
 private static void dfs(int index,int left_choice) {
         if (index == N) {
