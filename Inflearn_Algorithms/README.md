@@ -2498,44 +2498,52 @@ public class PascalInfer {
 ```
 
 ### 08-09
+- Combination
 - 조합 DFS로 구하기  
+- 중복 순열과 다르게 같은 것을 뽑지 않는다. 
+- 순서를 고려하지 않기에 dfs에 파라미터 하나 더 넘겨서 뒤의 숫자들만 단계적으로 정복하도록 해야 함
+- 순열, 중복 순열, 조합 모두 비슷한 양상이지만 결이 조금씩 다르다 
 ```java
-private static void dfs(int index,int left_choice) {
-        if (index == N) {
-            if (left_choice == 0) {
-                for (int i = 0; i < checked.length; i++) {
-                    if (checked[i]) {
-                        System.out.print(i);
-                    }
-                }
-                System.out.println();
-                count++;
-            }
-            else {
-                return;
-            }
+package algorithm_ex.dfs_bfs;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Combination {
+
+  static int n, m;
+  static ArrayList<Integer> comb;
+  //num -> 하나를 뽑고 그 이후에 뽑는 것들은 1부터 다시 단계를 거치지 않는다.
+  //조합은 순서를 고려하지 않음 즉, 1,2 와 2,1은 하나의 조합임
+  //따라서 하나를 뽑았으면 그 이전에 것들은 돌아볼 필요가 음슴
+  public static void dfs(int ch, int num) {
+    if (ch == m) {
+      System.out.println(comb);
+      return;
+    } else {
+      for (int i = num; i <= n; i++) {
+        //i를 뽑는다.
+        if (comb.contains(i)) {
+          continue;
         }
-        else if (left_choice == 0) {
-            for (int i = 0; i < checked.length; i++) {
-                if (checked[i]) {
-                    System.out.print(i);
-                }
-            }
-            System.out.println();
-            count++;
-        }
-        else {
-
-            checked[index] = true;
-            dfs(index+1,left_choice-1);
-            checked[index] = false;
-            dfs(index+1,left_choice);
-
-
-        }
-
-
+        comb.add(i);
+        dfs(ch + 1,i+1);
+        //i를 뽑지 않는다.
+        comb.remove((Object) i);
+//                dfs(ch);
+      }
     }
+  }
+  public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    n = sc.nextInt(); //n개중에
+    m = sc.nextInt(); //m개를 뽑는 경우의 수 구하기
+    comb = new ArrayList<>();
+    dfs(0,1);
+    //nCm
+
+  }
+}
 ```
 
 ### 08-10
