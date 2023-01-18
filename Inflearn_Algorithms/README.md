@@ -2773,67 +2773,123 @@ public  static int findShortestPathInMaze(int[][] maze) {
 ```
 
 ### 08-12
+- Tomato
 - 익은 토마토 주변 상하좌우에 있는 익지 않은 토마토들이 하루 걸려 익어나갈 때 모든 토마토가 익기까지의 시간 
+- BFS로 해결. level이 day라고 생각하면 됨 
 
 ```java
-public static int getLeastDayForAllTomatoDone(int[][] storage) {
+package algorithm_ex.dfs_bfs;
 
-        int day = 0;
-        Queue<Coord> Q = new LinkedList<>();
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
 
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < col; j++) {
-                if (storage[i][j] == 1) {
-                    if (isGoingToRipe(i + 1, j)) {
-                        Q.add(new Coord(i + 1, j));
-                    }
-                    if (isGoingToRipe(i - 1, j)) {
-                        Q.add(new Coord(i - 1, j));
-                    }
-                    if (isGoingToRipe(i, j + 1)) {
-                        Q.add(new Coord(i, j + 1));
-                    }
-                    if (isGoingToRipe(i, j - 1)) {
-                        Q.add(new Coord(i, j - 1));
-                    }
-                }
-            }
+public class Tomato {
+  static int n, m;
+  public static int bfs(int[][] arr) {
+    int level = 0;
+    Queue<Point> q = new LinkedList<>();
+    //익은 토마토의 위치를 큐에 넣는다.
+    for (int i = 0; i < arr.length; i++) {
+      for (int j = 0; j < arr[0].length; j++) {
+        if (arr[i][j] == 1) {
+          q.offer(new Point(i, j));
         }
-        while (!Q.isEmpty()) {
-            int len = Q.size();
-            for (int i = 0; i < len; i++) {
-                Coord cur = Q.poll();
-                if (isGoingToRipe(cur.row+1, cur.col)) {
-                    Q.add(new Coord(cur.row + 1, cur.col));
-                    storage[cur.row + 1][cur.col] = 1;
-                }
-                if (isGoingToRipe(cur.row-1, cur.col)) {
-                    Q.add(new Coord(cur.row - 1, cur.col));
-                    storage[cur.row - 1][cur.col] = 1;
-                }
-                if (isGoingToRipe(cur.row, cur.col+1)) {
-                    Q.add(new Coord(cur.row, cur.col + 1));
-                    storage[cur.row][cur.col + 1] = 1;
-                }
-                if (isGoingToRipe(cur.row, cur.col-1)) {
-                    Q.add(new Coord(cur.row, cur.col - 1));
-                    storage[cur.row][cur.col - 1] = 1;
-                }
-
-            }
-            day++;
-        }
-
-        if (isAllTomatoDone(storage)) {
-            return day;
-        }
-        else {
-            return -1;
-        }
-
-
-
+      }
     }
+
+    while (!q.isEmpty()) {
+      int len = q.size();
+//            System.out.println("q = " + q);
+      for (int i = 0; i < len; i++) {
+        Point cur = q.poll();
+
+        //현재 위치의 상
+        if (cur.uPoint().isInBoundary() && arr[cur.uPoint().r][cur.uPoint().c] == 0) {
+          Point point = cur.uPoint();
+          q.add(point);
+          arr[point.r][point.c] = 1;
+        }
+        if (cur.dPoint().isInBoundary() && arr[cur.dPoint().r][cur.dPoint().c] == 0) {
+          Point point = cur.dPoint();
+          q.add(point);
+          arr[point.r][point.c] = 1;
+        }
+        if (cur.lPoint().isInBoundary() && arr[cur.lPoint().r][cur.lPoint().c] == 0) {
+          Point point = cur.lPoint();
+          q.add(point);
+          arr[point.r][point.c] = 1;
+        }
+        if (cur.rPoint().isInBoundary() && arr[cur.rPoint().r][cur.rPoint().c] == 0) {
+          Point point = cur.rPoint();
+          q.add(point);
+          arr[point.r][point.c] = 1;
+        }
+
+      }
+      level++;
+    }
+    for (int i = 0; i < arr.length; i++) {
+      for (int j = 0; j < arr[0].length; j++) {
+        if (arr[i][j] == 0) {
+          return -1;
+        }
+      }
+    }
+    return level - 1;
+  }
+
+  public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    m = sc.nextInt();
+    n = sc.nextInt();
+    int[][] arr = new int[n][m];
+
+    //배열 초기화
+    for (int i = 0; i < n; i++) {
+      for (int j = 0; j < m; j++) {
+        arr[i][j] = sc.nextInt();
+      }
+    }
+    System.out.println(bfs(arr));
+
+  }
+}
+
+class Point {
+  int r, c;
+
+  public Point(int r, int c) {
+    this.r = r;
+    this.c = c;
+  }
+  public boolean isInBoundary() {
+    if (r >= 0 && c >= 0 && r < Tomato.n && c < Tomato.m) {
+      return true;
+    }
+    return false;
+  }
+  public Point uPoint() {
+    return new Point(r - 1, c);
+  }
+  public Point dPoint() {
+    return new Point(r + 1, c);
+  }
+  public Point lPoint() {
+    return new Point(r, c - 1);
+  }
+  public Point rPoint() {
+    return new Point(r, c + 1);
+  }
+
+  @Override
+  public String toString() {
+    return "Point{" +
+            "r=" + r +
+            ", c=" + c +
+            '}';
+  }
+}
 ```
 
 ### 08-13 
