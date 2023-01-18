@@ -2893,70 +2893,101 @@ class Point {
 ```
 
 ### 08-13 
+- Island
 - 지도에서 섬이 몇개인지 세는 프로그램
-- 이게 시간초과가 안나긴 하네 .. 반복문도 엄청 많고 코드도 길고 깔끔하지 못하다 
-- 상하좌우 대각선까지 쓰니까 배열 만들어서 반복문으로 처리해야 할 듯 .. 고민하고 적용해보자
-- 혼자 풀 때는 BFS로 풀었다. 
-- 1인 점 하나 찾고 그 주변으로 퍼지도록 한 것 
-- 1인 지점 하나를 찾기 위한 이중 포문을 한번에 탈출하기 위해서 라벨을 사용하기도 하지만 나는 break_flag 만들어서 해결 
-```java 
-while (!allZero(map)) {
-            //1인 지점 하나 잡아낸다
-            //이후 그 지점과 연결된 곳들을 하나의 섬으로 취급할 것
-            for (int i = 0; i < map.length; i++) {
-                for (int j = 0; j < map[0].length; j++) {
-                    if (map[i][j] == 1) {
-                        Q.add(new Coord(i, j));
-                        break_flag = true;
-                        break;
-                    }
-                }
-                if (break_flag) {
-                    break;
-                }
-            }
-            break_flag = false;
-            //System.out.println(allZero(map));
-            while (!Q.isEmpty()) {
-                int len = Q.size();
-                for (int i = 0; i < len; i++) {
-                    Coord cur = Q.poll();
-                    map[cur.row][cur.col] = 0;
+- DFS가 불릴때마다 섬이 하나씩 카운트 된다고 생각하면 편함
+- 다른 DFS들과 다르게 아래로 뻗어나간 흐름이 종료되고 다음 라인을 실행할 때 원복할 필요가 없다
+  - 그냥 뻗는 대로 체크하고 돌아오기 때문 
+```java
+package algorithm_ex.dfs_bfs;
 
-                    if (isAble(cur.row-1,cur.col) && map[cur.row-1][cur.col] == 1) { //상
-                        Q.add(new Coord(cur.row-1,cur.col));
-                    }
-                    if (isAble(cur.row+1,cur.col) &&map[cur.row+1][cur.col] == 1) { //하
-                        Q.add(new Coord(cur.row+1,cur.col));
-                    }
-                    if (isAble(cur.row,cur.col-1) &&map[cur.row][cur.col-1] == 1) { //좌
-                        Q.add(new Coord(cur.row,cur.col-1));
-                    }
-                    if (isAble(cur.row,cur.col+1) &&map[cur.row][cur.col+1] == 1) { //우
-                        Q.add(new Coord(cur.row,cur.col+1));
-                    }
-                    if (isAble(cur.row-1,cur.col-1) && map[cur.row-1][cur.col-1] == 1) { //좌상
-                        Q.add(new Coord(cur.row-1,cur.col-1));
-                    }
-                    if (isAble(cur.row+1,cur.col-1) && map[cur.row+1][cur.col-1] == 1) { //좌하
-                        Q.add(new Coord(cur.row+1,cur.col-1));
-                    }
-                    if (isAble(cur.row-1,cur.col+1) && map[cur.row-1][cur.col+1] == 1) { //우상
-                        Q.add(new Coord(cur.row-1,cur.col+1));
-                    }
-                    if (isAble(cur.row+1,cur.col+1) && map[cur.row+1][cur.col+1] == 1) { //우하
-                        Q.add(new Coord(cur.row+1,cur.col+1));
-                    }
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
 
+public class Island {
 
-                }
-            }
-            level++;
-            //System.out.println("level = " + level);
+    static int size;
+    static int[][] arr;
+    static int res = 0;
+    static boolean[][] check;
+
+    public static void dfs(int r, int c) {
+        //상
+        check[r][c] = true;
+        if (isInBoundary(r-1,c) && arr[r - 1][c] == 1 && check[r - 1][c] == false) {
+            check[r - 1][c] = true;
+            dfs(r - 1, c);
         }
-        return level;
+        //하
+        if (isInBoundary(r+1,c) && arr[r + 1][c] == 1 && check[r + 1][c] == false) {
+            check[r + 1][c] = true;
+            dfs(r + 1, c);
+        }
+        //좌
+        if (isInBoundary(r,c-1) && arr[r][c-1] == 1 && check[r][c-1] == false) {
+            check[r][c-1] = true;
+            dfs(r, c-1);
+        }
+        //우
+        if (isInBoundary(r,c+1) && arr[r][c+1] == 1 && check[r][c+1] == false) {
+            check[r][c+1] = true;
+            dfs(r, c + 1);
+        }
+        //상좌
+        if (isInBoundary(r-1,c-1) && arr[r-1][c-1] == 1 && check[r-1][c-1] == false) {
+            check[r-1][c-1] = true;
+            dfs(r-1, c - 1);
+        }
+        //상우
+        if (isInBoundary(r-1,c+1) && arr[r-1][c+1] == 1 && check[r-1][c+1] == false) {
+            check[r-1][c+1] = true;
+            dfs(r-1, c + 1);
+        }
+        //하좌
+        if (isInBoundary(r+1,c-1) && arr[r+1][c-1] == 1 && check[r+1][c-1] == false) {
+            check[r+1][c-1] = true;
+            dfs(r+1, c - 1);
+        }
+        //하우
+        if (isInBoundary(r+1,c+1) && arr[r+1][c+1] == 1 && check[r+1][c+1] == false) {
+            check[r+1][c+1] = true;
+            dfs(r+1, c + 1);
+        }
+    }
 
-    } 
+    public static boolean isInBoundary(int r, int c) {
+        if (r >= 0 && c >= 0 && r < size && c < size) {
+            return true;
+        }
+        return false;
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        size = sc.nextInt();
+        arr = new int[size][size];
+        check = new boolean[size][size];
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                arr[i][j] = sc.nextInt();
+                check[i][j] = false;
+            }
+        }
+
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if (arr[i][j] == 1 && check[i][j] == false) {
+                    res++;
+                    dfs(i, j);
+                }
+            }
+        }
+        System.out.println(res);
+
+    }
+}
+
+
 ```
 ### 08-14 
 - 피자집 문제 
