@@ -2547,37 +2547,84 @@ public class Combination {
 ```
 
 ### 08-10
+- Maze
+- 이제는 쉬운 미로 dfs
 - 미로 탈출 경우의 수 세기
+- 백트래킹 했을 때 갔던 경로를 원복하는 과정 필요하다는 것 기억하자
 ```java
-    public static void dfs(int i,int j) {
-        if (i == 6 && j == 6) {
-            count++;
-        }
+package algorithm_ex.dfs_bfs;
 
-        else {
-            if(isableToGo(i-1,j)) { //상
-                visited[i-1][j] = true;
-                dfs(i-1, j);
-                visited[i-1][j] = false;
-            }
-            if(isableToGo(i+1,j)) { //하
-                visited[i+1][j] = true;
-                dfs(i+1, j);
-                visited[i+1][j] = false;
-            }
-            if(isableToGo(i,j-1)) { //좌
-                visited[i][j-1] = true;
-                dfs(i, j-1);
-                visited[i][j-1] = false;
-            }
-            if(isableToGo(i,j+1)) { //우
-                visited[i][j+1] = true;
-                dfs(i, j+ 1);
-                visited[i][j+1] = false;
-            }
+import java.util.Scanner;
 
-        }
-    } 
+public class Maze {
+
+  static final int RSIZE = 7;
+  static final int CSIZE = 7;
+  static int[][] maze = new int[RSIZE][CSIZE];;
+  static int res = 0;
+
+  public static void dfs(int r, int c) {
+    //목적지 도착
+    if (r == RSIZE-1 && c == CSIZE-1) {
+      res++;
+      return;
+    }
+
+    //상
+    if (isInBoundary(r - 1, c) && maze[r - 1][c] == 0) {
+//            System.out.println("상");
+      maze[r - 1][c] = 1;
+      dfs(r - 1, c);
+      maze[r - 1][c] = 0;
+    }
+    //하
+    if (isInBoundary(r + 1, c) && maze[r + 1][c] == 0) {
+//            System.out.println("하");
+      maze[r+1][c] = 1;
+      dfs(r + 1, c);
+      maze[r + 1][c] = 0;
+    }
+    //좌
+    if (isInBoundary(r, c - 1) && maze[r][c - 1] == 0) {
+//            System.out.println("좌");
+      maze[r][c - 1] = 1;
+      dfs(r, c - 1);
+      maze[r][c - 1] = 0;
+    }
+    //우
+    if (isInBoundary(r, c + 1) && maze[r][c + 1] == 0) {
+//            System.out.println("우");
+      maze[r][c + 1] = 1;
+      dfs(r, c + 1);
+      maze[r][c + 1] = 0;
+    }
+
+
+  }
+
+  public static boolean isInBoundary(int r, int c) {
+    if (r >= 0 && r < RSIZE && c >= 0 && c < CSIZE) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    //출발지
+
+    for (int i = 0; i < RSIZE; i++) {
+      for (int j = 0; j < CSIZE; j++) {
+        maze[i][j] = sc.nextInt();
+      }
+    }
+    maze[0][0] = 1;
+    dfs(0, 0);
+    System.out.println(res);
+
+  }
+}
+
 ```
 
 ### 08-11

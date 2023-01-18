@@ -4,60 +4,69 @@ import java.util.Scanner;
 
 public class Maze {
 
-    static int[][] maze = new int[7][7];
-    static boolean[][] visited = new boolean[7][7];
-    static int count = 0;
-    public static boolean isableToGo(int i, int j) {
+    static final int RSIZE = 7;
+    static final int CSIZE = 7;
+    static int[][] maze = new int[RSIZE][CSIZE];;
+    static int res = 0;
 
-        if (i > 6 || j > 6 || i < 0 || j < 0 || visited[i][j] || maze[i][j] == 1) { // 인덱스 벗어나거나 이미 방문한 적 있거나 벽일 떄는 못감
-            return false;
+    public static void dfs(int r, int c) {
+        //목적지 도착
+        if (r == RSIZE-1 && c == CSIZE-1) {
+            res++;
+            return;
         }
-        else  {
-            return true;
+
+        //상
+        if (isInBoundary(r - 1, c) && maze[r - 1][c] == 0) {
+//            System.out.println("상");
+            maze[r - 1][c] = 1;
+            dfs(r - 1, c);
+            maze[r - 1][c] = 0;
         }
+        //하
+        if (isInBoundary(r + 1, c) && maze[r + 1][c] == 0) {
+//            System.out.println("하");
+            maze[r+1][c] = 1;
+            dfs(r + 1, c);
+            maze[r + 1][c] = 0;
+        }
+        //좌
+        if (isInBoundary(r, c - 1) && maze[r][c - 1] == 0) {
+//            System.out.println("좌");
+            maze[r][c - 1] = 1;
+            dfs(r, c - 1);
+            maze[r][c - 1] = 0;
+        }
+        //우
+        if (isInBoundary(r, c + 1) && maze[r][c + 1] == 0) {
+//            System.out.println("우");
+            maze[r][c + 1] = 1;
+            dfs(r, c + 1);
+            maze[r][c + 1] = 0;
+        }
+
 
     }
-    public static void dfs(int i,int j) {
-        if (i == 6 && j == 6) {
-            count++;
-        }
 
-        else {
-            if(isableToGo(i-1,j)) { //상
-                visited[i-1][j] = true;
-                dfs(i-1, j);
-                visited[i-1][j] = false;
-            }
-            if(isableToGo(i+1,j)) { //하
-                visited[i+1][j] = true;
-                dfs(i+1, j);
-                visited[i+1][j] = false;
-            }
-            if(isableToGo(i,j-1)) { //좌
-                visited[i][j-1] = true;
-                dfs(i, j-1);
-                visited[i][j-1] = false;
-            }
-            if(isableToGo(i,j+1)) { //우
-                visited[i][j+1] = true;
-                dfs(i, j+ 1);
-                visited[i][j+1] = false;
-            }
-
+    public static boolean isInBoundary(int r, int c) {
+        if (r >= 0 && r < RSIZE && c >= 0 && c < CSIZE) {
+            return true;
+        } else {
+            return false;
         }
     }
     public static void main(String[] args) {
-
         Scanner sc = new Scanner(System.in);
-        for (int i = 0; i < 7; i++) {
-            for (int j = 0; j < 7; j++) {
+        //출발지
+
+        for (int i = 0; i < RSIZE; i++) {
+            for (int j = 0; j < CSIZE; j++) {
                 maze[i][j] = sc.nextInt();
             }
         }
-        visited[0][0] = true; // 출발지 0,0
+        maze[0][0] = 1;
         dfs(0, 0);
-        System.out.println(count);
-
+        System.out.println(res);
 
     }
 }
