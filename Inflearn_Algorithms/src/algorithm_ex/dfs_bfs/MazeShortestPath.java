@@ -3,101 +3,83 @@ package algorithm_ex.dfs_bfs;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
-class Coord {
-    int row;
-    int col;
-
-    public Coord(int row, int col) {
-        this.row = row;
-        this.col = col;
-    }
-
-    @Override
-    public String toString() {
-        return this.row + " " + this.col;
-    }
-}
 public class MazeShortestPath {
-    private final static int maze_width = 7;
-    private final static int maze_height = 7;
-    private final static Coord destination = new Coord(6, 6);
-    static int[][] maze;
-    static boolean[][] visited;
-    public static boolean isableToGo(int i, int j) {
 
-        if (i > 6 || j > 6 || i < 0 || j < 0 || maze[i][j] == 1 || visited[i][j]) { // 인덱스 벗어나거나 이미 방문한 적 있거나 벽일 떄는 못감
-            return false;
+    public final static int RSIZE = 7;
+    public final static int CSIZE = 7;
+    public static int[][] maze = new int[RSIZE][CSIZE];
+    public static int sp = Integer.MAX_VALUE;
+
+    public static void dfs(int r, int c, int len) {
+
+        //도착
+        if (r == RSIZE - 1 && c == CSIZE - 1) {
+//            System.out.println("MazeShortestPath.dfs");
+            //도착까지 경로의 길이가 현재 최소경로 보다 짧다면 갱신
+            if (len < sp) {
+                sp = len;
+            }
+            return;
         }
-        else  {
+        //상
+        if (isInBoundary(r - 1, c) && maze[r - 1][c] == 0) {
+//            System.out.println("상");
+            maze[r - 1][c] = 1;
+            dfs(r - 1, c, len+1);
+            maze[r - 1][c] = 0;
+        }
+        //하
+        if (isInBoundary(r + 1, c) && maze[r + 1][c] == 0) {
+//            System.out.println("하");
+            maze[r + 1][c] = 1;
+            dfs(r + 1, c, len + 1);
+            maze[r + 1][c] = 0;
+        }
+        //좌
+        if (isInBoundary(r, c - 1) && maze[r][c - 1] == 0) {
+//            System.out.println("좌");
+            maze[r][c - 1] = 1;
+            dfs(r, c - 1, len + 1);
+            maze[r][c - 1] = 0;
+        }
+        //우
+        if (isInBoundary(r, c + 1) && maze[r][c + 1] == 0) {
+//            System.out.println("우");
+            maze[r][c + 1] = 1;
+            dfs(r, c + 1, len + 1);
+            maze[r][c + 1] = 0;
+        }
+
+
+
+
+    }
+
+    public static boolean isInBoundary(int r, int c) {
+        if (r >= 0 && r < RSIZE && c >= 0 && c < CSIZE) {
             return true;
         }
-
+        return false;
     }
-    public  static int findShortestPathInMaze(int[][] maze) {
 
-        int level = 0;
-        Queue<Coord> Q = new LinkedList<>();
-        Q.add(new Coord(0, 0)); //start
-
-        while (!Q.isEmpty()) {
-            //System.out.println("MazeShortestPath.findShortestPathInMaze");
-            //System.out.println("level = " + level);
-
-            int len = Q.size();
-            //System.out.println("len = " + len);
-
-
-
-
-            for (int i = 0; i < len; i++) {
-                Coord cur = Q.poll();
-                if (cur.row == destination.row && cur.col == destination.col) { // arrived 이거 equals 왜 안되지 까먹었다.. 다시 공부 ㄱㄱ
-                    return level;
-                }
-                if (isableToGo(cur.row-1,cur.col)) { //상
-                    Q.add(new Coord(cur.row-1,cur.col ));
-                    visited[cur.row - 1][cur.col] = true;
-                    //System.out.println(new Coord(cur.row-1,cur.col));
-                }
-                if (isableToGo(cur.row+1,cur.col )) { //하
-                    Q.add(new Coord(cur.row + 1,cur.col ));
-                    visited[cur.row + 1][cur.col] = true;
-                    //System.out.println(new Coord(cur.row + 1,cur.col ));
-                }
-                if (isableToGo(cur.row,cur.col-1)) { //좌
-                    Q.add(new Coord(cur.row,cur.col-1));
-                    visited[cur.row][cur.col - 1] = true;
-                    //System.out.println(new Coord(cur.row, cur.col - 1));
-                }
-                if (isableToGo(cur.row, cur.col+1)) { //우
-                    Q.add(new Coord(cur.row, cur.col+1));
-                    visited[cur.row][cur.col+1] = true;
-                    //System.out.println(new Coord(cur.row, cur.col+1));
-                }
-            }
-            level++;
-
-        }
-        return -1;
-
-    }
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
-        maze = new int[maze_height][maze_width];
-        visited = new boolean[maze_height][maze_width];
-        visited[0][0] = true;
-
-        //maze setting done
-        for (int i = 0; i < maze_height; i++) {
-            for (int j = 0; j < maze_width; j++) {
+        //미로 초기화
+        for (int i = 0; i < RSIZE; i++) {
+            for (int j = 0; j < CSIZE; j++) {
                 maze[i][j] = sc.nextInt();
             }
         }
+        maze[0][0] = 1;
+        dfs(0, 0, 0);
 
-        System.out.println(findShortestPathInMaze(maze));
+        if (sp == Integer.MAX_VALUE) {
+            System.out.println(-1);
+            return;
+        }
+        System.out.println(sp);
 
     }
-
 
 }

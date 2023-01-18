@@ -2,6 +2,20 @@ package algorithm_ex.dfs_bfs;
 
 import java.util.Scanner;
 
+class Coord {
+    int row;
+    int col;
+
+    public Coord(int row, int col) {
+        this.row = row;
+        this.col = col;
+    }
+
+    @Override
+    public String toString() {
+        return this.row + " " + this.col;
+    }
+}
 public class IslandDFS {
 
     static int N;

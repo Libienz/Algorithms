@@ -2628,8 +2628,99 @@ public class Maze {
 ```
 
 ### 08-11
+- MazeShortestPath
 - 미로에서 가장 짧은 경로의 길이 찾기
-- BFS이용
+- 최단 거리 하면 BFS가 떠올라야 함 DFS로도 풀 수는 있다.
+- 아래는 dfs 코드
+```java
+package algorithm_ex.dfs_bfs;
+
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+public class MazeShortestPath {
+
+  public final static int RSIZE = 7;
+  public final static int CSIZE = 7;
+  public static int[][] maze = new int[RSIZE][CSIZE];
+  public static int sp = Integer.MAX_VALUE;
+
+  public static void dfs(int r, int c, int len) {
+
+    //도착
+    if (r == RSIZE - 1 && c == CSIZE - 1) {
+//            System.out.println("MazeShortestPath.dfs");
+      //도착까지 경로의 길이가 현재 최소경로 보다 짧다면 갱신
+      if (len < sp) {
+        sp = len;
+      }
+      return;
+    }
+    //상
+    if (isInBoundary(r - 1, c) && maze[r - 1][c] == 0) {
+//            System.out.println("상");
+      maze[r - 1][c] = 1;
+      dfs(r - 1, c, len+1);
+      maze[r - 1][c] = 0;
+    }
+    //하
+    if (isInBoundary(r + 1, c) && maze[r + 1][c] == 0) {
+//            System.out.println("하");
+      maze[r + 1][c] = 1;
+      dfs(r + 1, c, len + 1);
+      maze[r + 1][c] = 0;
+    }
+    //좌
+    if (isInBoundary(r, c - 1) && maze[r][c - 1] == 0) {
+//            System.out.println("좌");
+      maze[r][c - 1] = 1;
+      dfs(r, c - 1, len + 1);
+      maze[r][c - 1] = 0;
+    }
+    //우
+    if (isInBoundary(r, c + 1) && maze[r][c + 1] == 0) {
+//            System.out.println("우");
+      maze[r][c + 1] = 1;
+      dfs(r, c + 1, len + 1);
+      maze[r][c + 1] = 0;
+    }
+
+
+
+
+  }
+
+  public static boolean isInBoundary(int r, int c) {
+    if (r >= 0 && r < RSIZE && c >= 0 && c < CSIZE) {
+      return true;
+    }
+    return false;
+  }
+
+  public static void main(String[] args) {
+
+    Scanner sc = new Scanner(System.in);
+    //미로 초기화
+    for (int i = 0; i < RSIZE; i++) {
+      for (int j = 0; j < CSIZE; j++) {
+        maze[i][j] = sc.nextInt();
+      }
+    }
+    maze[0][0] = 1;
+    dfs(0, 0, 0);
+
+    if (sp == Integer.MAX_VALUE) {
+      System.out.println(-1);
+      return;
+    }
+    System.out.println(sp);
+
+  }
+
+} 
+```
+
+- BFS 이용
 - equals 정리하자 -> equals는 오버라이드를 해야 의미가 있다 String 같은 경우에는 정의되어 있는 것 
 - bfs에서 visited 사용해야 하는 이유!? 한번 방문한 것은 이미 해당 경로에 대한 최단거리가 계산되었다는 뜻
 - 강사는 distance배열을 이용 모든 지점에 대한 최단 경로를 최신화 시켜나감 이 문제에서는 그닥 필요 없는 듯 하지만 익혀두어야 함 
