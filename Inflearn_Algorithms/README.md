@@ -3113,12 +3113,9 @@ public class Pizza {
 <div markdown="1">
 
 ### 09-01 
+- Wrestling
 - 씨름선수 선발 키와 몸무게 둘 다 한 선수에 비해 딸리는 애가 있으면 제외
-- Map 당연히 못 쓰지 유일해야 하는 키값으로 키 몸무게 둘다 적합하지 않으니
-- 조합 방식으로 선택 DFS 사용한다는 것은 아니고 1,2 1,3 1,4 1,5 2,3 2,4 이런식으로 간다는 뜻
-- 갈때마다 더 작은쪽이 있으면 제외 시켜야함
-- 근데 제외되고 또 제외되는 경우 조심해야함 이거 만약에 채점결과 못보면 내가 맞출 수 있었을까 ..? 
-- 나름의 함정같은 느낌 
+- 이중루프로 체크하면 해결되는 문제
 
 - 강사의 아이디어
   - 이게 그리디 ..? 여튼 키를 기준으로 정렬(Comparable)하고 몸무게의 최댓값을 저장해놓는다.
@@ -3128,32 +3125,75 @@ public class Pizza {
   - 정렬한번 for문 한번 O(n)이라고 강사가 주장하지만 O(n)짜리 정렬이 있나 ..? nlogn일 듯
   - Comparable 이거 compareTo사용법에 대해서 잘 정리해놓은 블로그는 왜 없는가 .. 
 ```java
-public static int getMaxSelection(List<Spec> playerList,int num) {
+package algorithm_ex.greedy;
 
-        int[] get_eli = new int[num];
-        int eli_count = 0;
-        //System.out.println("count = " + count);
-        for (int i = 0; i < playerList.size()-1; i++) { //i 선수와 j 선수의 비교
-            for (int j = i+1; j < playerList.size(); j++) {
-                if (playerList.get(i).getHeight() > playerList.get(j).getHeight() && playerList.get(i).getWeight() > playerList.get(j).getWeight()) {
-                    //count--;
-                    get_eli[j]= 1;
-                    //System.out.println(i+ " " +j); //여러번 빠지는 경우 어쩔꺼야 ..
-                }
-                else if (playerList.get(i).getHeight() < playerList.get(j).getHeight() && playerList.get(i).getWeight() < playerList.get(j).getWeight()) {
-                    get_eli[i] = 1;
-                    //count--;
-                }
-            }
-        }
+import java.util.*;
 
-        for (int i : get_eli) {
-            if (i == 1) {
-                eli_count += 1;
-            }
-        }
-        return num - eli_count;
+class Spec {
+  private int w;
+  private int h;
+
+  public int getW() {
+    return w;
+  }
+
+  public void setW(int w) {
+    this.w = w;
+  }
+
+  public int getH() {
+    return h;
+  }
+
+  public void setH(int h) {
+    this.h = h;
+  }
+
+  public Spec(int w, int h) {
+    this.w = w;
+    this.h = h;
+  }
+}
+public class Wrestling {
+  public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    int size = sc.nextInt();
+    ArrayList<Spec> arr = new ArrayList<>();
+    int res = 0;
+    boolean p = true;
+
+    for (int i = 0; i < size; i++) {
+      int h = sc.nextInt();
+      int w = sc.nextInt();
+      arr.add(new Spec(w, h));
     }
+
+    for (int i = 0; i < size; i++) {
+      Spec cur = arr.get(i);
+      //cur가 선발될 수 있는지 알아보자
+      for (int j = 0; j < size; j++) {
+        if (i == j) {
+          continue;
+        }
+        Spec comp = arr.get(j);
+        if (cur.getH() < comp.getH() && cur.getW() < comp.getW()) {
+          //탈락
+          p = false;
+          break;
+        }
+      }
+      if (p) {
+        res++;
+      }
+      p = true;
+
+
+    }
+    System.out.println(res);
+  }
+}
+
+
 ```
 
 ### 09-02 
