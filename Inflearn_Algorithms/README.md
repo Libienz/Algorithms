@@ -3402,8 +3402,9 @@ public class Reception {
 ```
 
 ### 09-04 
+- MaxIncome
 - 며칠안에 강의를 해주면 강연료 x를 준다고 했을 때 최대로 얻을 수 있는 강연료는?
-- 나의 풀이
+- 나의 예전 틀린 풀이
   - 강연료 기준 정렬
   - 젤 많이 주는 애 부터 제일 늦게 배치할 수 있을 만큼 배치
   - 오답 ... 이 로직이 틀렸다고 ..?
@@ -3416,39 +3417,96 @@ public class Reception {
     30 3
     30 1
     20 1
-- 강사의 풀이
-  - 우선순위 큐 사용해야 함
+- 올바른 풀이
+  - 우선순위 큐 사용
   - 시간의 내림차순으로 강의정렬
   - 가장 큰 날짜부터 해당 날짜에 강의 할 수 있는 것들중 가장 좋은 것 찾아 넣기
 
 ```java
-public static int getMaxIncome(List<Request2> req_arr) {
+package algorithm_ex.greedy;
 
-        int day = req_arr.get(0).getDline();
-        int fee_sum = 0;
-        PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder()); //내림차순 큰게 우선
+import java.util.*;
 
-        for (int i = 0; i<req_arr.size(); i++) {
-            Request2 cur = req_arr.get(i);
-            if (cur.getDline() == day) {
-                pq.add(cur.getFee());
-                //System.out.println(r.getFee());
-            }
-            else {
-                if (!pq.isEmpty()) {
-                    fee_sum += pq.poll();
-                }
-                day--;
-                i--;
-            }
-        }
-        if (day>=1 && !pq.isEmpty()) {
-            fee_sum += pq.poll();
-        }
+class Request implements Comparable<Request>{
+  private int reward;
+  private int due;
 
-        return fee_sum;
+  public Request(int reward, int due) {
+    this.reward = reward;
+    this.due = due;
+  }
 
+  public int getReward() {
+    return reward;
+  }
+
+  public void setReward(int reward) {
+    this.reward = reward;
+  }
+
+  public int getDue() {
+    return due;
+  }
+
+  public void setDue(int due) {
+    this.due = due;
+  }
+
+  @Override
+  public String toString() {
+    return "Request{" +
+            "reward=" + reward +
+            ", due=" + due +
+            '}';
+  }
+
+  @Override
+  public int compareTo(Request o) {
+    if (this.due == o.due) {
+      return o.reward - this.reward;
     }
+    return o.due - this.due;
+  }
+}
+public class MaxIncome {
+
+  public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    int size = sc.nextInt();
+    PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+    ArrayList<Request> arr = new ArrayList<>();
+
+    for (int i = 0; i < size; i++) {
+      arr.add(new Request(sc.nextInt(), sc.nextInt()));
+    }
+    Collections.sort(arr);
+//        System.out.println("arr = " + arr);
+    int res = 0;
+    int mDue = arr.get(0).getDue();
+    int idx = 0;
+    //i일에 할 수 있는 강연 중 가장 페이가 쎈 것을 찾자
+    for (int i = mDue; i >= 1; i--) {
+      for (int j = idx; j < size; j++) {
+        if (arr.get(j).getDue() == i) {
+          pq.offer(arr.get(j).getReward());
+        } else {
+          idx = j;
+          break;
+        }
+      }
+//            System.out.println("pq = " + pq);
+      //보상이 제일 큰 것 선택
+      if (pq.isEmpty()) {
+        continue;
+      }
+      res += pq.poll();
+    }
+
+    System.out.println(res);
+
+  }
+}
+
 ```
 
 
