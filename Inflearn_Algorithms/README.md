@@ -3304,37 +3304,101 @@ public class Counsle {
 ```
 
 ### 09-03 
+- Reception
 - 사람들이 머무는 시간이 주어졌을 때 동시에 최대 붐비는 인원의 수 
-- 3분컷함 
-- 배열 만들어서 사람들이 머무는 시간 전부 해당 인덱스 ++ 한다음에 그 배열의 최댓값 출력
-- 시간초과를 의도한 것일 까 나의 풀이가 맞는 것일까 ..? -> 맞다
-- 강사도 비슷 cnt 변수 만들어서 start만나면 +1 finish 만나면 -1 cnt의 값이 바뀔 때마다 max와 비교
+- naive하게 풀 수 있음 
+  - 시간대 루프로 돌리면서 해당 시간대에 존재하는 사람 모두 체크 하는 방식으로
+  - 이중 for문 돌리면 됨 다만 시간 아슬아슬
+- cnt 변수 만들어서 start만나면 +1 finish 만나면 -1 cnt의 값이 바뀔 때마다 max와 비교하는 방법으로 풀 수도 있다
 
 ```java 
-    private static int getSameTimeMaxNumOfPeople(List<StayTime> arr) {
+package algorithm_ex.greedy;
 
-        int size = arr.get(arr.size() - 1).getFinish();
-        //System.out.println("size = " + size);
-        int[] same_time_num = new int[size + 1];
-        for (StayTime person : arr) {
-            int start = person.getStart();
-            int finish = person.getFinish();
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
 
-            for (int i = start; i < finish; i++) {
-                same_time_num[i]++;
-            }
+class Participent implements Comparable<Participent> {
+
+    private int aTime;
+    private int lTime;
+
+    public Participent(int aTime, int lTime) {
+        this.aTime = aTime;
+        this.lTime = lTime;
+    }
+
+    public int getaTime() {
+        return aTime;
+    }
+
+    public void setaTime(int aTime) {
+        this.aTime = aTime;
+    }
+
+    public int getlTime() {
+        return lTime;
+    }
+
+    public void setlTime(int lTime) {
+        this.lTime = lTime;
+    }
+
+    @Override
+    public int compareTo(Participent o) {
+        if (o.getaTime() == this.getaTime()) {
+            return this.getlTime() - o.getlTime();
         }
+        return this.getaTime() - o.getaTime();
+    }
 
+    @Override
+    public String toString() {
+        return "Participent{" +
+                "aTime=" + aTime +
+                ", lTime=" + lTime +
+                '}';
+    }
+}
+public class Reception {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int size = sc.nextInt();
+        ArrayList<Participent> arr = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            arr.add(new Participent(sc.nextInt(), sc.nextInt()));
+        }
+        Collections.sort(arr);
+//        int cnt = 0;
         int max = Integer.MIN_VALUE;
 
-        for (int n : same_time_num) {
-            if (n > max) {
-                max = n;
+        //제일 빨리 도착하는 친구의 시간부터 제일 늦게 떠나는 친구의 시간까지 몇명이 있는지 확인한다
+        for (int i = arr.get(0).getaTime(); i < arr.get(size - 1).getlTime(); i++) {
+            int cnt = 0;
+            for (Participent p : arr) {
+                //아직 도착 안함
+                if (p.getaTime() > i) {
+                    continue;
+                }
+                //도착 해있음
+                else {
+                    //아직 안떠났다면
+                    if (p.getlTime() > i) {
+                        cnt++;
+                    }
+                }
+            }
+            if (max < cnt) {
+                max = cnt;
             }
         }
-        
-        return max; 
+        System.out.println(max);
+
     }
+}
+
 ```
 
 ### 09-04 
