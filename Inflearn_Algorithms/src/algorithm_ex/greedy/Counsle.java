@@ -32,19 +32,11 @@ class Conference implements Comparable<Conference>{
 
     @Override
     public int compareTo(Conference o) {
-        if (this.fTime < o.fTime) {
-            return -1;
-        } else if (this.fTime == o.fTime) {
-            if (this.sTime < o.sTime) {
-                return -1;
-            } else if (this.sTime == o.sTime) {
-                return 0;
-            } else {
-                return 1;
-            }
-        } else {
-            return 1;
+        if (this.fTime == o.fTime) {
+            return this.sTime - o.sTime;
         }
+
+        return this.fTime - o.fTime;
     }
 
     @Override
@@ -69,7 +61,7 @@ public class Counsle {
         }
 
         Collections.sort(arr);
-//        System.out.println("arr = " + arr);
+        System.out.println("arr = " + arr);
 
         for (int i = 0; i < size; i++) {
             Conference cur = arr.get(i);
