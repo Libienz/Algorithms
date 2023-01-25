@@ -5,78 +5,91 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
-class CTime implements Comparable<CTime> {
-    private int start;
-    private int finish;
+class Conference implements Comparable<Conference>{
+    private int sTime;
+    private int fTime;
+
+    public int getsTime() {
+        return sTime;
+    }
+
+    public void setsTime(int sTime) {
+        this.sTime = sTime;
+    }
+
+    public int getfTime() {
+        return fTime;
+    }
+
+    public void setfTime(int fTime) {
+        this.fTime = fTime;
+    }
+
+    public Conference(int sTime, int fTime) {
+        this.sTime = sTime;
+        this.fTime = fTime;
+    }
+
+    @Override
+    public int compareTo(Conference o) {
+        if (this.fTime < o.fTime) {
+            return -1;
+        } else if (this.fTime == o.fTime) {
+            if (this.sTime < o.sTime) {
+                return -1;
+            } else if (this.sTime == o.sTime) {
+                return 0;
+            } else {
+                return 1;
+            }
+        } else {
+            return 1;
+        }
+    }
 
     @Override
     public String toString() {
-        return "CTime{" +
-                "start=" + start +
-                ", finish=" + finish +
+        return "Conference{" +
+                "sTime=" + sTime +
+                ", fTime=" + fTime +
                 '}';
-    }
-
-    public int getStart() {
-        return start;
-    }
-
-    public void setStart(int start) {
-        this.start = start;
-    }
-
-    public int getFinish() {
-        return finish;
-    }
-
-    public void setFinish(int finish) {
-        this.finish = finish;
-    }
-
-    public CTime(int start, int finish) {
-        this.start = start;
-        this.finish = finish;
-    }
-
-    @Override
-    public int compareTo(CTime o) {
-        if (this.getFinish() == o.getFinish()) {
-            return  this.getStart() -o.getStart();
-        }
-        return this.finish - o.finish; //오름차순
     }
 }
 public class Counsle {
 
     public static void main(String[] args) {
-
         Scanner sc = new Scanner(System.in);
-        int num = sc.nextInt();
-        List<CTime> arr = new ArrayList<>();
+        int size = sc.nextInt();
+        int cnt = 0;
+        int idx = 0;
 
-        for (int i = 0; i < num; i++) {
-            arr.add(new CTime(sc.nextInt(), sc.nextInt()));
+        ArrayList<Conference> arr = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            arr.add(new Conference(sc.nextInt(), sc.nextInt()));
         }
 
         Collections.sort(arr);
+//        System.out.println("arr = " + arr);
 
-       // System.out.println("arr = " + arr);
-        System.out.println(getMaxCounsle(arr));
+        for (int i = 0; i < size; i++) {
+            Conference cur = arr.get(i);
+            if (i == 0) {
+                cnt++;
+                idx = 0;
+            } else {
+                Conference prev = arr.get(idx);
+                if (prev.getfTime() <= cur.getsTime()) {
+                    cnt++;
+                    idx = i;
 
-    }
-
-    private static int getMaxCounsle(List<CTime> arr) {
-
-        int count = 0;
-
-        int end_time = arr.get(0).getFinish();
-        count++;
-        for (int i = 1; i < arr.size(); i++) {
-            if (end_time <= arr.get(i).getStart()) {
-                count++;
-                end_time = arr.get(i).getFinish();
+                }
+                else {
+                    continue;
+                }
             }
+
         }
-        return count;
+
+        System.out.println(cnt);
     }
 }

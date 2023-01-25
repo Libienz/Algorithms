@@ -3197,26 +3197,110 @@ public class Wrestling {
 ```
 
 ### 09-02 
+- Counsle
 - 회의시간 배정할 때 몇개의 회의를 최대로 설정할 수 있는가
 - 끝나는 시간 기준 greedy
 - 회의 배열을 끝나는 시간 기준 정렬(Comparable) 하고 진행하면 됨 
+  - but 왜 why 끝나는 시간 기준으로 greedy하게 해결하면 그게 solution이 되는가 ..
+  - https://source-sc.tistory.com/59
+  - 
 
 ```java
-    private static int getMaxCounsle(List<CTime> arr) {
+package algorithm_ex.greedy;
 
-        int count = 0;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
 
-        int end_time = arr.get(0).getFinish();
-        count++;
-        for (int i = 1; i < arr.size(); i++) {
-            if (end_time <= arr.get(i).getStart()) {
-                count++;
-                end_time = arr.get(i).getFinish();
-            }
-        }
-        return count;
+class Conference implements Comparable<Conference>{
+  private int sTime;
+  private int fTime;
+
+  public int getsTime() {
+    return sTime;
+  }
+
+  public void setsTime(int sTime) {
+    this.sTime = sTime;
+  }
+
+  public int getfTime() {
+    return fTime;
+  }
+
+  public void setfTime(int fTime) {
+    this.fTime = fTime;
+  }
+
+  public Conference(int sTime, int fTime) {
+    this.sTime = sTime;
+    this.fTime = fTime;
+  }
+
+  @Override
+  public int compareTo(Conference o) {
+    if (this.fTime < o.fTime) {
+      return -1;
+    } else if (this.fTime == o.fTime) {
+      if (this.sTime < o.sTime) {
+        return -1;
+      } else if (this.sTime == o.sTime) {
+        return 0;
+      } else {
+        return 1;
+      }
+    } else {
+      return 1;
+    }
+  }
+
+  @Override
+  public String toString() {
+    return "Conference{" +
+            "sTime=" + sTime +
+            ", fTime=" + fTime +
+            '}';
+  }
+}
+public class Counsle {
+
+  public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    int size = sc.nextInt();
+    int cnt = 0;
+    int idx = 0;
+
+    ArrayList<Conference> arr = new ArrayList<>();
+    for (int i = 0; i < size; i++) {
+      arr.add(new Conference(sc.nextInt(), sc.nextInt()));
     }
 
+    Collections.sort(arr);
+//        System.out.println("arr = " + arr);
+
+    for (int i = 0; i < size; i++) {
+      Conference cur = arr.get(i);
+      if (i == 0) {
+        cnt++;
+        idx = 0;
+      } else {
+        Conference prev = arr.get(idx);
+        if (prev.getfTime() <= cur.getsTime()) {
+          cnt++;
+          idx = i;
+
+        }
+        else {
+          continue;
+        }
+      }
+
+    }
+
+    System.out.println(cnt);
+  }
+}
 ```
 
 ### 09-03 
