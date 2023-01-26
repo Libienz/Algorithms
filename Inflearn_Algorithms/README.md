@@ -3511,47 +3511,150 @@ public class MaxIncome {
 
 
 ### 09-05
-- dijkstra
-  - 한 노드에서 모든 노드로의 최단 거리 구하기 가중치 있는 그래프
-  - 음수 간선 안됨 
-  - 출발지점에서 붙어있는 애들까지 거리 구해서 거기까지의 거리를 일단 고걸로 넣어놓는다.
-  - 방문안한 애들 중에서 가장 가까운 거리에 있는 거에서 갈 수 있는 애들 구한다. 거리 배열 갱신 가장 가까운 거리에 있는 애는 확정 된 것! 
-  - 반복 
-  - 나는 pq 안쓰고 먼저 풀어봤는데 pq로 푸는 것이랑 무엇이 다를까..?
-  - pq를 쓴다는 것은 힙구조를 이용한다는 것 O(nlogn)으로 설계할 수 있다. 
-  - dis 배열에서 최솟값을 찾을 때 priority q 사용하면 트리구조이기 때문에 logn으로 최솟값을 찾을 수 있다는 것!!
+- Dijkstra
+- 한 노드에서 모든 노드로의 최단 거리 구하기 가중치 있는 그래프
+- 음수 간선 안됨 
+- distance배열 을 갱신해나가는 방식으로 진행한다.
+  - distance[i] 는 i 노드 까지의 최소 거리를 의미하게 될 것임
+  - 우선 dis배열의 모든 인덱스의 val을 Integer.MAX로 초기화
+  - 출발지점까지의 거리는 0으로 설정
+  - 앞으로 dis배열의 최솟값을 찍어서 그 주위로 퍼지는 식으로 갈건데 dis배열에서 가장 최솟값을 꺼내면 그 값은 갱신할 필요없이 출발지점에서 최소거리가 된다.
+    - 왜 최소거리가 되는가? 다른 노드로 돌아가게 되면 추가적인 비용이 들기 때문 (음수 간선이 없다고 한 것을 기억하라)
+    - check배열과 dis 배열을 갱신해 나가면서 루프를 돈다
+
+- pq를 사용하고 문제를 풀수도 있다.
+- 나는 pq 안쓰고 먼저 풀어봤는데 pq로 푸는 것이랑 무엇이 다를까..?
+- pq를 쓴다는 것은 힙구조를 이용한다는 것 O(nlogn)으로 설계할 수 있다. 
+- dis 배열에서 최솟값을 찾을 때 priority q 사용하면 트리구조이기 때문에 logn으로 최솟값을 찾을 수 있다는 것!!
 
 ```java
-    private static void dijkstra(int start) {
+package algorithm_ex.greedy;
 
-        distance = new int[graph.size()];
-        visited = new boolean[graph.size()];
-        Arrays.fill(distance, Integer.MAX_VALUE);
-        distance[start] = 0;
-        visited[start] = true;
+import java.util.*;
 
-        for (Edge e : graph.get(1)) {
-            distance[e.getFinish()] = e.getWeight();
-        }
+class Edge {
+  private int start;
+  private int finish;
+  private int weight;
 
-        while (anyLeftToGo()) {
-            int togo = getSmallestIndex();
-            System.out.println(togo);
+  public Edge(int start, int finish) {
+    this.start = start;
+    this.finish = finish;
+  }
 
-            visited[togo] = true;
-            int w_to_here = distance[togo];
-            for (Edge e : graph.get(togo)) {
-                if (distance[e.getFinish()] > w_to_here + e.getWeight()) {
-                    distance[e.getFinish()] = w_to_here + e.getWeight();
-                }
-            }
-            System.out.println();
-            for (int num : distance) {
-                System.out.println("num = " + num);
-            }
-        }
+  public Edge(int start, int finish, int weight) {
+    this.start = start;
+    this.finish = finish;
+    this.weight = weight;
+  }
 
+  public int getStart() {
+    return start;
+  }
+
+  public void setStart(int start) {
+    this.start = start;
+  }
+
+  public int getFinish() {
+    return finish;
+  }
+
+  public void setFinish(int finish) {
+    this.finish = finish;
+  }
+
+  public int getWeight() {
+    return weight;
+  }
+
+  public void setWeight(int weight) {
+    this.weight = weight;
+  }
+}
+public class Dijkstra {
+
+  public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    int n = sc.nextInt();
+    int m = sc.nextInt();
+    ArrayList<Edge> edges = new ArrayList<>();
+    int[] dis = new int[n + 1];
+    boolean[] check = new boolean[n + 1];
+
+    for (int i = 0; i < m; i++) {
+      edges.add(new Edge(sc.nextInt(), sc.nextInt(), sc.nextInt()));
     }
+
+    for (int i = 0; i < dis.length; i++) {
+      dis[i] = Integer.MAX_VALUE;
+      check[i] = false;
+    }
+
+    //1에서 시작. 1로 가는 비용은 0
+    dis[1] = 0;
+    check[0] = true;
+    //다익스트라의 전제 조건: 간선의 음수 안됨 0은 상관 없음
+    while (!allCheck(check)) {
+
+      //dis 배열의 최솟값을 가지고 있는 인덱스 번호를 얻어온다
+      int minDisIdx = getMinDisIdx(dis, check);
+      if (dis[minDisIdx] == Integer.MAX_VALUE) {
+        check[minDisIdx] = true;
+        continue;
+      }
+      System.out.println("minDisIdx = " + minDisIdx);
+      //해당 인덱스는 노드를 말함. minDisIdx노드 까지 가는 최소거리는 확정되었다.
+      check[minDisIdx] = true;
+
+
+      for (Edge edge : edges) {
+        if (edge.getStart() == minDisIdx) {
+          int d = edge.getFinish();
+          int cd = edge.getWeight() + dis[minDisIdx]; //연결 된 곳 까지 걸리는 거리 -> cd
+          if (cd <= dis[d]) {
+            dis[d] = cd;
+          }
+        }
+      }
+    }
+
+    for (int i = 0; i < dis.length; i++) {
+      if (dis[i] == Integer.MAX_VALUE) {
+        System.out.println(i + ": " + "impossible");
+        continue;
+      }
+      System.out.println(i + ": " + dis[i]);
+    }
+
+  }
+
+  private static boolean allCheck(boolean[] check) {
+    for (boolean b : check) {
+      if (!b) {
+        return false;
+      }
+    }
+    return true;
+  }
+  private static int getMinDisIdx(int[] dis, boolean[] check) {
+    int minDistance = Integer.MAX_VALUE;
+    int mInd = -1;
+    for (int i = 1; i < dis.length; i++) {
+      if (check[i]) {
+        continue;
+      }
+      if (dis[i] <= minDistance) {
+        minDistance = dis[i];
+        mInd = i;
+      }
+    }
+    return mInd;
+
+  }
+
+}
+
 ```
 ### 09-06
 
