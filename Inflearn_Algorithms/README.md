@@ -3524,8 +3524,8 @@ public class MaxIncome {
 
 - pq를 사용하고 문제를 풀수도 있다.
 - 나는 pq 안쓰고 먼저 풀어봤는데 pq로 푸는 것이랑 무엇이 다를까..?
-- pq를 쓴다는 것은 힙구조를 이용한다는 것 O(nlogn)으로 설계할 수 있다. 
-- dis 배열에서 최솟값을 찾을 때 priority q 사용하면 트리구조이기 때문에 logn으로 최솟값을 찾을 수 있다는 것!!
+- pq를 쓴다는 것은 힙구조를 이용한다는 것 O(nlogn)으로 설계할 수 있다.
+- dis 배열에서 최솟값을 찾을 때 priority q 사용하면 이진트리구조이기 때문에 logn으로 최솟값을 찾을 수 있다는 것!!
 
 ```java
 package algorithm_ex.greedy;
