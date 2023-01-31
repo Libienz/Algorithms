@@ -3662,22 +3662,100 @@ public class Dijkstra {
 - 친구의 친구는 모두 친구 
 - 정보가 주어졌을 때 친구가 맞는지 확인해 주는 알고리즘
 - 나는 꽤나 브루트포스하게 푼듯
-- 일단 일차원 적으로 친구 그룹을 나누고 그룹간 교집합이 없을 때 까지 교집합을 없애 나간다. 
 - 시간초과는 안나네 .. 다만 좋은 알고리즘은 아닌듯?
 
 ```java
-    while (!allDisjoint(group)) { // 모든 그룹에 교집합이 하나라도 존재한다면
-            for (int i = 0; i < group.size()-1; i++) {
-                for (int j = i + 1; j < group.size(); j++) {
-                    if (!isDisjoint(group.get(i), group.get(j))) { //교집합 발견 합치고 없앤다
-                        for (int num : group.get(j)) {
-                            group.get(i).add(num);
-                        }
-                        group.remove(j);
-                    }
-                }
-            }
+package algorithm_ex.greedy;
+
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Scanner;
+import java.util.Set;
+
+public class Friend {
+
+  public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    int s = sc.nextInt(); //학생 명수
+    int r = sc.nextInt(); //관계 개수
+
+    ArrayList<Set<Integer>> arr = new ArrayList<>();
+
+    for (int i = 0; i < r; i++) {
+      int f1 = sc.nextInt();
+      int f2 = sc.nextInt();
+//            boolean needNewGroup = true;
+      int f1gNum = -1;
+      int f2gNum = -1;
+
+
+      for (int j = 0; j < arr.size(); j++) {
+
+        if (arr.get(j).contains(f1)) {
+//                    f1isInGroup = true;
+          f1gNum = j;
         }
+        if (arr.get(j).contains(f2)) {
+//                    f2isInGroup = true;
+          f2gNum = j;
+        }
+
+      }
+      //둘다 그룹에 속해있지 않은 경우
+      if (f1gNum == -1 && f2gNum == -1) {
+        HashSet<Integer> g = new HashSet<>();
+        g.add(f1);
+        g.add(f2);
+        arr.add(g);
+      }
+      //둘다 그룹에 속해있는 경우
+      else if (f1gNum != -1 && f2gNum != -1) {
+        if (f1gNum != f2gNum) {
+          Set<Integer> set1 = arr.get(f1gNum);
+          Set<Integer> set2 = arr.get(f2gNum);
+          HashSet<Integer> newSet = new HashSet<>();
+
+          for (Integer n : set1) {
+            newSet.add(n);
+          }
+          for (Integer n : set2) {
+            newSet.add(n);
+          }
+          arr.remove(f1gNum);
+          arr.remove(f2gNum);
+          arr.add(newSet);
+        }
+      }
+      //한명만 그룹에 속해있는 경우
+      else {
+        if (f1gNum == -1) {
+          arr.get(f2gNum).add(f1);
+        } else {
+          arr.get(f1gNum).add(f2);
+        }
+      }
+
+
+    }
+
+    int s1 = sc.nextInt();
+    int s2 = sc.nextInt();
+
+    //s1과 s2는 친구인가를 알아내야 함
+
+//        System.out.println("arr = " + arr);
+    for (Set<Integer> g : arr) {
+      if (g.contains(s1) && g.contains(s2)) {
+        System.out.println("YES");
+        return;
+      }
+    }
+    System.out.println("NO");
+
+  }
+}
+
 ```
 
 - Union-Find
@@ -3687,6 +3765,73 @@ public class Dijkstra {
     - UNION : x와 y가 포함되어있는 집합을 합치는 연산
   - 참고 : https://brenden.tistory.com/33
   
+
+- union find 방식 해결
+```java
+package algorithm_ex.greedy;
+
+
+import java.util.Scanner;
+
+public class FriendUF {
+
+  static int[] unf;
+
+  public static int find(int s) { //이것만 이해하면 된다...
+
+    if (s == unf[s]) {
+      return s;
+    }
+    else {
+      return unf[s] = find(unf[s]); //이게 경로 압축
+    }
+
+  }
+
+  public static void union(int s1, int s2) {
+    int fa = find(s1); // 속해 있는 그룹을 리턴하는게 find다
+    int fb = find(s2);
+    if (fa != fb) { //그룹이 다르다면 한쪽으로 합침
+      unf[fa] = fb;
+    }
+  }
+  public static void main(String[] args) {
+
+    Scanner sc = new Scanner(System.in);
+    int s_num = sc.nextInt(); //학생 수
+    int r_num = sc.nextInt(); //학생 관계의 개수
+
+    unf = new int[s_num + 1];
+    for (int i = 0; i < unf.length; i++) {
+      unf[i] = i;
+    }
+
+    for (int i = 0; i < r_num; i++) {
+      int s1 = sc.nextInt();
+      int s2 = sc.nextInt();
+      //s1과 s2는 친구
+      union(s1, s2); //s1과 s2가 한 집합이 되도록 만들어라
+
+    }
+    int s1 = sc.nextInt(); // 학생 1
+    int s2 = sc.nextInt(); // 학생 2
+
+    if (find(s1) == find(s2)) {
+      System.out.println("YES");
+    } else {
+      System.out.println("NO");
+    }
+
+        /*for (int i = 0; i < unf.length; i++) {
+            System.out.println(unf[i]);
+        }*/
+
+
+  }
+
+}
+ 
+```
 
 
 ### 09-07
