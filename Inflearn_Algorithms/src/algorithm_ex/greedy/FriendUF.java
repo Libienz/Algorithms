@@ -7,7 +7,7 @@ public class FriendUF {
 
     static int[] unf;
 
-    public static int find(int s) { //이것만 이해하면 된다...
+    public static int find(int s) { //find만 ...
 
         if (s == unf[s]) {
             return s;
