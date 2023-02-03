@@ -1,66 +1,3 @@
-//package algorithm_ex.greedy;
-//
-//
-//import java.util.Scanner;
-//
-//public class FriendUF {
-//
-//    static int[] unf;
-//
-//    public static int find(int s) { //find만 ...
-//
-//        if (s == unf[s]) {
-//            return s;
-//        }
-//        else {
-//            return unf[s] = find(unf[s]); //이게 경로 압축
-//        }
-//
-//    }
-//
-//    public static void union(int s1, int s2) {
-//        int fa = find(s1); // 속해 있는 그룹을 리턴하는게 find다
-//        int fb = find(s2);
-//        if (fa != fb) { //그룹이 다르다면 한쪽으로 합침
-//            unf[fa] = fb;
-//        }
-//    }
-//    public static void main(String[] args) {
-//
-//        Scanner sc = new Scanner(System.in);
-//        int s_num = sc.nextInt(); //학생 수
-//        int r_num = sc.nextInt(); //학생 관계의 개수
-//
-//        unf = new int[s_num + 1];
-//        for (int i = 0; i < unf.length; i++) {
-//            unf[i] = i;
-//        }
-//
-//        for (int i = 0; i < r_num; i++) {
-//            int s1 = sc.nextInt();
-//            int s2 = sc.nextInt();
-//            //s1과 s2는 친구
-//            union(s1, s2); //s1과 s2가 한 집합이 되도록 만들어라
-//
-//        }
-//        int s1 = sc.nextInt(); // 학생 1
-//        int s2 = sc.nextInt(); // 학생 2
-//
-//        if (find(s1) == find(s2)) {
-//            System.out.println("YES");
-//        } else {
-//            System.out.println("NO");
-//        }
-//
-//        /*for (int i = 0; i < unf.length; i++) {
-//            System.out.println(unf[i]);
-//        }*/
-//
-//
-//    }
-//
-//}
-
 package algorithm_ex.greedy;
 
 
@@ -68,58 +5,63 @@ import java.util.Scanner;
 
 public class FriendUF {
 
-    static int[] unf;
 
-    public static int find(int s) { //이것만 이해하면 된다...
-
-        if (s == unf[s]) {
-            return s;
-        }
-        else {
-            return unf[s] = find(unf[s]); //이게 경로 압축
-        }
-
-    }
+    //unf: 인덱스 1의 값이 3이라면 1번 학생은 3그룹에 속한다는 뜻
+    static int unf[];
 
     public static void union(int s1, int s2) {
-        int fa = find(s1); // 속해 있는 그룹을 리턴하는게 find다
-        int fb = find(s2);
-        if (fa != fb) { //그룹이 다르다면 한쪽으로 합침
-            unf[fa] = fb;
+
+        int g1 = find(s1);
+        int g2 = find(s2);
+
+        //s1이 속한 그룹번호 g1과 s2가 속한 그룹번호 g2가 다를 경우 두 그룹을 합친다.
+        //find는 파라미터로 넘어간 학생이 속한 그룹 번호를 알려주는 메서드
+        if (g1 != g2) {
+            unf[g1] = g2;
         }
     }
+
+    //파라미터로 넘어온 학생이 (학생번호) 어느 그룹에 속하는지를 알리는 메서드
+    public static int find(int s) {
+        if (s == unf[s]) {
+            return s;
+        } else {
+            //return find(unf[s]);
+            //위의 코드도 정상동작 but 경로 압축한 버젼은 다음과 같다
+            return unf[s] = find(unf[s]);
+
+        }
+
+    }
+
     public static void main(String[] args) {
-
         Scanner sc = new Scanner(System.in);
-        int s_num = sc.nextInt(); //학생 수
-        int r_num = sc.nextInt(); //학생 관계의 개수
+        int s = sc.nextInt();  //학생 명수 (student)
+        int r = sc.nextInt(); //숫자 쌍의 개수 (relation)
 
-        unf = new int[s_num + 1];
-        for (int i = 0; i < unf.length; i++) {
+        unf = new int[s + 1];
+
+        for (int i = 0; i <= s; i++) {
             unf[i] = i;
         }
 
-        for (int i = 0; i < r_num; i++) {
+        for (int i = 0; i < r; i++) {
             int s1 = sc.nextInt();
             int s2 = sc.nextInt();
-            //s1과 s2는 친구
-            union(s1, s2); //s1과 s2가 한 집합이 되도록 만들어라
-
+            union(s1, s2);
         }
-        int s1 = sc.nextInt(); // 학생 1
-        int s2 = sc.nextInt(); // 학생 2
 
+        int s1 = sc.nextInt();
+        int s2 = sc.nextInt();
+        //문제에서는 s1과 s2가 친구사이인지 확인하고 싶다.
         if (find(s1) == find(s2)) {
             System.out.println("YES");
         } else {
             System.out.println("NO");
         }
-
-        /*for (int i = 0; i < unf.length; i++) {
-            System.out.println(unf[i]);
-        }*/
-
-
+//        for (int i : unf) {
+//            System.out.println(i);
+//        }
     }
 
 }
