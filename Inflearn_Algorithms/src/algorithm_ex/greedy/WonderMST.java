@@ -70,13 +70,15 @@ public class WonderMST {
     }
 
     public static void union(int p1, int p2) {
-        if (p1 >= p2) {
-            int tmp = p2;
-            p2 = p1;
-            p1 = tmp;
+        int g1 = findParent(p1);
+        int g2 = findParent(p2);
+        if (g1 >= g2) {
+            int tmp = g2;
+            g2 = g1;
+            g1 = tmp;
         }
-        //p1이 p2보다 작도록 스왑 완료
-        unf[p2] = p1;
+        //g1이 g2보다 작도록 스왑 완료
+        unf[g2] = g1;
 
     }
 
@@ -111,7 +113,7 @@ public class WonderMST {
         }
         Collections.sort(egs);
 
-        System.out.println("egs = " + egs);
+//        System.out.println("egs = " + egs);
 
         for (Eg eg : egs) {
             if (egMakesCycle(eg)) {
@@ -125,6 +127,6 @@ public class WonderMST {
             }
         }
 
-        System.out.println("res = " + res);
+        System.out.println(res);
     }
 }
