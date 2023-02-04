@@ -77,7 +77,7 @@ public class WonderMST {
             g2 = g1;
             g1 = tmp;
         }
-        //g1이 g2보다 작도록 스왑 완료
+        //g1이 g2보다 작도록 스왑 완료한 상태에서 union
         unf[g2] = g1;
 
     }
