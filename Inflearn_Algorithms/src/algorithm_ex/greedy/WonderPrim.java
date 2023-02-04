@@ -2,98 +2,106 @@ package algorithm_ex.greedy;
 
 import java.util.*;
 
-//class Eg implements Comparable<Eg> {
-//
-//    private int node1;
-//    private int node2;
-//    private int weight;
-//
-//    public Eg(int node1, int node2, int weight) {
-//        this.node1 = node1;
-//        this.node2 = node2;
-//        this.weight = weight;
-//    }
-//
-//    public int getNode1() {
-//        return node1;
-//    }
-//
-//    public void setNode1(int node1) {
-//        this.node1 = node1;
-//    }
-//
-//    public int getNode2() {
-//        return node2;
-//    }
-//
-//    public void setNode2(int node2) {
-//        this.node2 = node2;
-//    }
-//
-//    public int getWeight() {
-//        return weight;
-//    }
-//
-//    public void setWeight(int weight) {
-//        this.weight = weight;
-//    }
-//
-//    @Override
-//    public int compareTo(Eg eg) {
-//        return this.getWeight() - eg.getWeight();
-//    }
-//
-//    @Override
-//    public String toString() {
-//        return "Eg{" +
-//                "node1=" + node1 +
-//                ", node2=" + node2 +
-//                ", weight=" + weight +
-//                '}';
-//    }
-//}
+/**
+ * 해당 간선은 v로 가는데 cost가 w다.
+ * 출발 점은? 인접 리스트로 만들 것이기에 인덱스 번호가 된다.
+ */
+class Edg implements Comparable<Edg> {
+
+
+    private int v;
+    private int w;
+
+    public Edg(int v, int w) {
+        this.v = v;
+        this.w = w;
+    }
+
+    public int getV() {
+        return v;
+    }
+
+    public void setV(int v) {
+        this.v = v;
+    }
+
+    public int getW() {
+        return w;
+    }
+
+    public void setW(int w) {
+        this.w = w;
+    }
+
+    @Override
+    public String toString() {
+        return "Edg{" +
+                "v=" + v +
+                ", w=" + w +
+                '}';
+    }
+
+    @Override
+    public int compareTo(Edg eg) {
+        return this.getW() - eg.getW();
+    }
+
+}
+
 public class WonderPrim {
 
     public static void main(String[] args) {
+
         Scanner sc = new Scanner(System.in);
-        int v = sc.nextInt();
-        int e = sc.nextInt();
-        int res = 0;
+        int vNum = sc.nextInt();
+        int eNum = sc.nextInt();
+        boolean[] check = new boolean[vNum + 1];
+        ArrayList<ArrayList<Edg>> graph = new ArrayList<>(); //인접 리스트 -> 1번 인덱스에 들어있는 배열의 정체는 1번 인덱스로 부터 뻗어나가는 간선들
+        PriorityQueue<Edg> pq = new PriorityQueue<>();
 
-        ArrayList<Eg> egs = new ArrayList<>();
-        Set<Integer> sg = new HashSet<>();
+        for (int i = 0; i < vNum + 1; i++) {
+            graph.add(new ArrayList<>());
+            check[i] = false;
+        }
 
-        for (int i = 0; i < e; i++) {
+        for (int i = 0; i < eNum; i++) {
             int v1 = sc.nextInt();
             int v2 = sc.nextInt();
             int w = sc.nextInt();
-            Eg eg = new Eg(v1, v2, w);
-            egs.add(eg);
+            graph.get(v2).add(new Edg(v1, w));
+            graph.get(v1).add(new Edg(v2, w));
         }
 
 
-        int sn = 1; //start node
-        sg.add(sn);
-        while (sg.size() < v) {
-            PriorityQueue<Eg> pq = new PriorityQueue<>();
-            for (Eg eg : egs) {
+        int sn = 1; //출발 노드는 1번
+//        check[1] = true; //1번은 방문 했음 재방문 하려 한다면 그것은 cycle
 
-                //서브그룹과 서브그룹이 아닌 두 덩어리 사이를 연결하는 간선이라면 pq에 넣는다.
-                if (sg.contains(eg.getNode1()) && !sg.contains(eg.getNode2())) {
-                    pq.add(eg);
-                } else if (sg.contains(eg.getNode2()) && !sg.contains(eg.getNode1())) {
-                    pq.add(eg);
+        //1번으로 가는 코스트는 0
+        pq.add(new Edg(1, 0));
+
+        int res = 0;
+        while (!pq.isEmpty()) {
+//            System.out.println("pq = " + pq);
+            Edg poll = pq.poll();
+            if (check[poll.getV()]) {
+                continue;
+            }
+            //poll은 서브 그래프와 서브그래프가 아닌 두 그래프 사이를 잇는 간선 중 가중치가 최소인 간선
+            //greedy하게 최소 가중치의 간선을 뽑는다
+            //뽑았다면 그것은 서브 그래프와 서브그래프가 아닌 부분을 잇는 MST에 일부분이 될 수 밖에 없는 간선임
+            check[poll.getV()] = true;
+            res += poll.getW();
+
+            //뽑은 간선의 목적지에서 서브그래프에 포함되지 않는 부분과 연결되는 간선들을 다시 pq에 add
+            for (Edg edg : graph.get(poll.getV())) {
+                if (!check[edg.getV()]) {
+                    pq.offer(edg);
                 }
             }
-            Eg eg = pq.poll();
-            sg.add(eg.getNode1());
-            sg.add(eg.getNode2());
 
-            res += eg.getWeight();
         }
-
-
-        System.out.println(+ res);
+        System.out.println(res);
 
     }
+
 }
