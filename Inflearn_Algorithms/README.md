@@ -3854,6 +3854,13 @@ public class FriendUF {
     - 참고 : https://chanhuiseok.github.io/posts/algo-33/
     - 싸이클을 만드는지 안만드는지 유니온 파인드로 체크한다!
       - 두 노드의 조상번호 까봐서 같으면 사이클을 만들 것이고 같지 않다면 사이클을 만들지 않을 것 
+- 잠깐 제일 비용이 싼 Edge를 greedy하게 골라나가면 최소 신장트리가 완성된다는 것인데 왜 그럴까?
+  - 첫번째 궁금점: 이렇게 만들어진 그래프는 모든 정점을 잇기는 하는가?
+    - -> 모든 edge를 빠짐없이 살펴봄으로 모든 정점을 이어주기는 할 것이다.ㅇㅈ
+  - 두번째 궁금점: 이렇게 만들어진 그래프는 가중치의 합이 최소일 수 밖에 없는가?
+    - https://stalker5217.netlify.app/algorithm/kruskal/
+    - 잘 .. 이해가 안간다.. 그리디 증명하는 법 공부 필요 다음 lap때 한번 다시!!! 
+
 
 ```java 
 package algorithm_ex.greedy;
