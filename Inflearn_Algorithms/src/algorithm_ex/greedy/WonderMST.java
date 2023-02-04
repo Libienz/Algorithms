@@ -4,129 +4,127 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
+class Eg implements Comparable<Eg> {
 
-class Edge1 implements Comparable<Edge1> {
-    private int s;
-    private int f;
-    private int w;
+    private int node1;
+    private int node2;
+    private int weight;
 
-    public Edge1(int s, int f, int w) {
-        this.s = s;
-        this.f = f;
-        this.w = w;
+    public Eg(int node1, int node2, int weight) {
+        this.node1 = node1;
+        this.node2 = node2;
+        this.weight = weight;
+    }
+
+    public int getNode1() {
+        return node1;
+    }
+
+    public void setNode1(int node1) {
+        this.node1 = node1;
+    }
+
+    public int getNode2() {
+        return node2;
+    }
+
+    public void setNode2(int node2) {
+        this.node2 = node2;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    @Override
+    public int compareTo(Eg eg) {
+        return this.getWeight() - eg.getWeight();
     }
 
     @Override
     public String toString() {
-        return "Edge1{" +
-                "s=" + s +
-                ", f=" + f +
-                ", w=" + w +
+        return "Eg{" +
+                "node1=" + node1 +
+                ", node2=" + node2 +
+                ", weight=" + weight +
                 '}';
-    }
-
-    public int getS() {
-        return s;
-    }
-
-    public void setS(int s) {
-        this.s = s;
-    }
-
-    public int getF() {
-        return f;
-    }
-
-    public void setF(int f) {
-        this.f = f;
-    }
-
-    public int getW() {
-        return w;
-    }
-
-    public void setW(int w) {
-        this.w = w;
-    }
-
-    @Override
-    public int compareTo(Edge1 o) {
-        return this.w - o.w; //오름차순 this에서 빼기
     }
 }
 public class WonderMST {
 
-    //public static ArrayList<ArrayList<Edge>> graph = new ArrayList<>();
-    public static ArrayList<Edge1> e_arr = new ArrayList<>();
-    public static int[] unf;
+    public static int unf[];
+    public static int res = 0;
+    public static boolean egMakesCycle(Eg eg) {
+        int p1 = findParent(eg.getNode1());
+        int p2 = findParent(eg.getNode2());
+
+        if (p1 != p2) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public static void union(int p1, int p2) {
+        if (p1 >= p2) {
+            int tmp = p2;
+            p2 = p1;
+            p1 = tmp;
+        }
+        //p1이 p2보다 작도록 스왑 완료
+        unf[p2] = p1;
+
+    }
+
+    public static int findParent(int node) {
+        if (unf[node] == node) {
+            return node;
+        } else {
+            return unf[node] = findParent(unf[node]);
+        }
+
+    }
 
     public static void main(String[] args) {
-
         Scanner sc = new Scanner(System.in);
-        int v = sc.nextInt(); // 도시의 개수
-        int e = sc.nextInt(); // 도로의 개수
 
+        int v = sc.nextInt();
+        int e = sc.nextInt();
+        ArrayList<Eg> egs = new ArrayList<>();
         unf = new int[v + 1];
 
-        for (int i = 0; i < unf.length; i++) {
+        for (int i = 0; i < v + 1; i++) {
             unf[i] = i;
         }
 
-        /*for (int i = 0; i <= v; i++) {
-            graph.add(i, new ArrayList<>());
-        }*/
-
         for (int i = 0; i < e; i++) {
-            int start = sc.nextInt();
-            int finish = sc.nextInt();
-            int weight = sc.nextInt();
-            //graph.get(start).add(new Edge(finish, weight));
-            e_arr.add(new Edge1(start, finish, weight));
-        }
+            int n1 = sc.nextInt();
+            int n2 = sc.nextInt();
+            int w = sc.nextInt();
+            Eg edge = new Eg(n1, n2, w);
 
-        //간선 가중치의 오름차순으로 정렬 CompartTo 활용
-        Collections.sort(e_arr);
-        int sum = 0;
-        for (Edge1 e1 : e_arr) {
-            if (isTriggerCycle(e1)) {
+            egs.add(edge);
+        }
+        Collections.sort(egs);
+
+        System.out.println("egs = " + egs);
+
+        for (Eg eg : egs) {
+            if (egMakesCycle(eg)) {
                 continue;
+            } else {
+                res += eg.getWeight();
+                int node1 = eg.getNode1();
+                int node2 = eg.getNode2();
+
+                union(node1, node2);
             }
-            else {
-                union(e1.getS(), e1.getF());
-                sum += e1.getW();
-            }
         }
 
-        System.out.println(sum);
-
-
-
-
-    }
-
-    private static void union(int s, int f) {
-        int fa = find(s);
-        int fb = find(f);
-
-        if (fa != fb) {
-            unf[fa] = fb;
-        }
-    }
-
-    private static int find(int s) {
-        if (s == unf[s]) {
-            return unf[s];
-        }
-        else {
-            return find(unf[s]);
-        }
-    }
-    private static boolean isTriggerCycle(Edge1 e1) {
-        if (find(e1.getS()) == find(e1.getF())) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        System.out.println("res = " + res);
     }
 }
