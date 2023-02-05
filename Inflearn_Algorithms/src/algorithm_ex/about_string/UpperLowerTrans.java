@@ -1,33 +1,25 @@
 package algorithm_ex.about_string;
 
+
 import java.util.Scanner;
 
 public class UpperLowerTrans {
 
     public static void main(String[] args) {
-
         Scanner sc = new Scanner(System.in);
-        String str = sc.next();
+        String s = sc.next();
+        String ans = "";
 
-        //빈문자열에 붙여넣기 신공! 유용하게 쓰이는 편
-        //Stirng에서는 +연산자가 오버로딩 되니까.. 빈 문자열 만들어 놓고 정답을 붙여나갈 수 있다.
-        String answer = "";
-
-        char[] chars = str.toCharArray();
-
-        //enumertation controlled loop는 String에서 안됨
-        //즉 java는 String에 for each 못씀
-        //고로 str.toCharArray(); 필요!!
+        char[] chars = s.toCharArray();
         for (char c : chars) {
+            //소문자면 -> 대문자로
             if (Character.isLowerCase(c)) {
-                answer += Character.toUpperCase(c);
-            }
-            else {
-                answer += Character.toLowerCase(c);
+                ans += (char)(c - 32);
+            } else {
+                ans += (char)(c + 32);
             }
         }
 
-
-        System.out.println(answer);
+        System.out.println(ans);
     }
 }
