@@ -7,29 +7,25 @@ import java.util.Scanner;
 public class ReverseWord {
 
     public static void main(String[] args) {
-
-        int lt, rt;
-        char tmp;// tmp는 스왑에 사용될 캐릭터
         Scanner sc = new Scanner(System.in);
-        int cnt = sc.nextInt();
+        int n = sc.nextInt();
 
-        for (int i = 0; i < cnt; i++) {
-            char[] str = sc.next().toCharArray();
-            lt = 0;
-            rt = str.length - 1;
+        for (int i = 0; i < n; i++) {
+            String s = sc.next();
+            int len = s.length();
+            int lt = 0;
+            int rt = len - 1;
+            char[] chars = s.toCharArray();
 
-            while (lt < rt) { //문자열의 길이가 홀수든 짝수든 상관없다.
-                tmp = str[lt];
-                str[lt] = str[rt];
-                str[rt] = tmp;
+            while (lt <= rt) {
+                char tmp = chars[lt];
+                chars[lt] = chars[rt];
+                chars[rt] = tmp;
                 lt++;
                 rt--;
             }
-            String s = String.valueOf(str);
-            System.out.println(s);
-
+            System.out.println(chars);
         }
-
     }
 }
 

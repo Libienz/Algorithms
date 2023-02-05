@@ -50,7 +50,7 @@ while(str.indexOf(" ") != -1) {
 - 자바에서 스트링에 대한 연산을 한다면 객체가 수정되는 것이 아니라 새로운 객체가 계속해서 만들어짐
 - 프로그래밍 언어론 관점에서 자바는 primitive 타입이 아닌 클래스 타입에 대해서는 referential value model을 사용하기 때문
 - String Builder는 인자로 받은 문자열에 대해 여러가지 연산을 제공하며 객체를 효율적인 방법으로 사용한다
-- 마구 만들어내지 않음
+- 마구 만들어내지 않게 도와주는 String Builder
 
 ```java
 //1. StringBuilder 클래스 사용
