@@ -8,23 +8,30 @@ public class SpecificPalindrome {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
-        String str = sc.nextLine();
-        str = str.toLowerCase().replaceAll("[^a-z]", ""); //정규식 이용!
-        //System.out.println(str);
+        String obj = "";
+        String s = sc.nextLine();
 
-        int lt, rt;
-        lt = 0;
-        rt = str.length() - 1;
-
-        //palindrome인지 체크한다.
-        while (lt < rt) {
-            if (str.charAt(lt) != str.charAt(rt)) {
-                System.out.println("NO");
-                return;
+        char[] chars = s.toCharArray();
+        for (char c : chars) {
+            if (Character.isAlphabetic(c)) {
+                obj += c;
             }
-            lt++;
-            rt--;
         }
-        System.out.println("YES");
+//        System.out.println("obj = " + obj);
+
+        StringBuilder stbd = new StringBuilder(obj);
+        String rs = stbd.reverse().toString();
+
+//        System.out.println("rs = " + rs);
+//        System.out.println("obj = " + obj);
+        rs = rs.toLowerCase();
+        obj = obj.toLowerCase();
+        if (rs.equals(obj)) {
+            System.out.println("YES");
+        } else {
+            System.out.println("NO");
+        }
+
     }
+
 }
