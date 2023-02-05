@@ -6,23 +6,24 @@ public class PalindromeCheck {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        String str = sc.next();
-        str = str.toLowerCase();
+        String s = sc.next();
+        s = s.toLowerCase();
 
-        int lt, rt;
-        lt = 0;
-        rt = str.length()-1;
+        char[] chars = s.toCharArray();
+        int lt = 0;
+        int rt = s.length() - 1;
         while (lt < rt) {
-            //인덱스의 대칭되는 자리에 같지 않은게 있으면 palindrom 아님
-            if (str.charAt(lt) != str.charAt(rt)) {
+            char lc = chars[lt];
+            char rc = chars[rt];
+//            System.out.println("rc = " + rc);
+//            System.out.println("lc = " + lc);
+            if (lc != rc) {
                 System.out.println("NO");
                 return;
             }
             lt++;
             rt--;
-
         }
         System.out.println("YES");
-
     }
 }
