@@ -5,32 +5,31 @@ import java.util.Scanner;
 public class SpecificReverse {
 
     public static void main(String[] args) {
-        int lt, rt;
-        char tmp;
         Scanner sc = new Scanner(System.in);
+        String s = sc.next();
+        char[] chars = s.toCharArray();
+        int lt = 0;
+        int rt = chars.length - 1;
 
-        char[] str = sc.next().toCharArray(); //문자열 받아서 char의 배열로
-        lt = 0;
-        rt = str.length - 1;
         while (lt < rt) {
-            //알파벳이 아니라면 스왑하지 않는다.
-            if (!Character.isAlphabetic(str[lt])) {
+            char lc = chars[lt];
+            char rc = chars[rt];
+
+            if (!Character.isAlphabetic(lc)) {
                 lt++;
                 continue;
-            } else if (!Character.isAlphabetic(str[rt])) {
+            }
+            if (!Character.isAlphabetic(rc)) {
                 rt--;
                 continue;
             }
-            tmp = str[lt];
-            str[lt] = str[rt];
-            str[rt] = tmp;
+
+            chars[lt] = chars[rt];
+            chars[rt] = lc;
+
             lt++;
             rt--;
-
         }
-        String res = String.valueOf(str);
-        System.out.println(res);
-
+        System.out.println(chars);
     }
-
 }
