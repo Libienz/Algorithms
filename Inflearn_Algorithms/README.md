@@ -259,7 +259,7 @@ for (int i = 0; i < cnt; i++) {
     subCryp = cryp.substring(i * 7, i * 7 + 7); //substring의 end index는 두번째 인자 -1 까지
     int ch = Integer.parseInt(subCryp, 2); //두번째 인자가 진법 
     res += (char)ch;
-} 
+}  
 ```
 </div>
 </details>
