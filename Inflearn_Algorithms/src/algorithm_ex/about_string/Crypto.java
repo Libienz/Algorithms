@@ -2,24 +2,55 @@ package algorithm_ex.about_string;
 
 import java.util.Scanner;
 
+
 public class Crypto {
 
-    public static void main(String[] args) {
+    public static int b2d (String bnum) {
 
-        Scanner sc = new Scanner(System.in);
-
-        int cnt = sc.nextInt();
-        String cryp = sc.next();
-        String subCryp;
-        String res = "";
-        cryp = cryp.replace('*', '0').replace('#', '1');
-
-        for (int i = 0; i < cnt; i++) {
-            subCryp = cryp.substring(i * 7, i * 7 + 7);
-            int ch = Integer.parseInt(subCryp, 2);
-            res += (char)ch;
+        char[] bs = bnum.toCharArray();
+        int res = 0;
+        int sp = 0;
+        while (bs[sp] == '0') {
+            sp++;
         }
-        System.out.println(res);
+        for (int i = sp; i < bs.length; i++) {
+            res = (res * 2) + bs[i] - 48;
+//            System.out.println("res = " + res);
+//            int c = '0';
+//            System.out.println("c = " + c);
+//            System.out.println("res = " + res);
+//            System.out.println("bs = " + (int) bs[i]);
+
+
+        }
+        return res;
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int len = sc.nextInt();
+        String cs = sc.next(); //cryptonized string
+
+//        cs = cs.replaceAll("#", "1");
+//        cs = cs.replaceAll("*", "0");
+
+        String bs = "";
+        char[] chars = cs.toCharArray();
+        for (char c : chars) {
+            if (c == '#') {
+                bs += 1;
+            } else {
+                bs += 0;
+            }
+        }
+//        System.out.println("bs = " + bs);
+
+        int clen = bs.length() / len;
+        for (int i = 0; i < len; i++) {
+            String ch = bs.substring(0, clen);
+            bs = bs.substring(7, bs.length());
+//            System.out.println("ch = " + ch);
+            System.out.print((char)b2d(ch));
+        }
 
     }
 
