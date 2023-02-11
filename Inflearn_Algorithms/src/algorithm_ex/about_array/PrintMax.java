@@ -8,15 +8,22 @@ public class PrintMax {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt(); //n개의 정수가 입력될 것
+
         ArrayList<Integer> arr = new ArrayList<>();
 
-        int cnt = sc.nextInt();
-        for (int i = 0; i < cnt; i++) {
-            arr.add(sc.nextInt()); //primitive type이 자동으로 boxing되어서 arrayList에 들어간다.
-            if (i == 0 || arr.get(i - 1) < arr.get(i)) { //Shortcut eval
-                System.out.printf("%d ", arr.get(i));
-            }
+        for (int i = 0; i < n; i++) {
+            arr.add(sc.nextInt());
         }
+        int prev = Integer.MIN_VALUE;
+        for (Integer num : arr) {
+            if (prev < num) {
+                System.out.print(num + " ");
+            }
+            prev = num;
+
+        }
+
 
     }
 }
