@@ -1,24 +1,28 @@
 package algorithm_ex.about_array;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CalcScore {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int cnt = sc.nextInt();
-        int point = 0; //해당 문제에 부여되는 점수 (가산점 포함)
-        int score = 0; //총 점수
+        int n = sc.nextInt();//문제의 개수
+        ArrayList<Integer> arr = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            arr.add(sc.nextInt());
+        }
 
-        for (int i = 0; i < cnt; i++) {
-            if (sc.nextInt() == 1) {
-                score += (++point);
+        int w = 0;
+        int score = 0;
+        for (Integer num : arr) {
+            if (num == 1) {
+                score += 1 + w;
+                w++;
             } else {
-                point = 0;
+                w = 0;
             }
         }
         System.out.println(score);
-
-
     }
 }
