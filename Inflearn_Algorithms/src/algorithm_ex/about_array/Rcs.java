@@ -8,54 +8,59 @@ public class Rcs {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int cnt = sc.nextInt();
+        ArrayList<Integer> aE = new ArrayList<>(); //A entry
+        ArrayList<Integer> bE = new ArrayList<>(); //B entry
 
-        ArrayList<Integer> aEntry = new ArrayList<>();
-        ArrayList<Integer> bEntry = new ArrayList<>();
-
-        for (int i = 0; i < cnt; i++) {
-            aEntry.add(sc.nextInt());
+        int n = sc.nextInt(); //n번의 가위바위보
+        for (int i = 0; i < n; i++) {
+            aE.add(sc.nextInt());
         }
-        for (int i = 0; i < cnt; i++) {
-            bEntry.add(sc.nextInt());
+        for (int i = 0; i < n; i++) {
+            bE.add(sc.nextInt());
         }
 
-        for (int i = 0; i < cnt; i++) {
-            int a = aEntry.get(i);
-            int b = bEntry.get(i);
+        for (int i = 0; i < n; i++) {
+            Integer a = aE.get(i);
+            Integer b = bE.get(i);
 
             switch (a) {
-                case 1:
-                    if (b == 1) { //a가위 b가위
+                case 1: //a 가위
+                    if (b == 1) { //b 가위
                         System.out.println("D");
-                    } else if (b == 2) { //a가위 b바위
+                    } else if (b == 2) { //b 바위
                         System.out.println("B");
-                    } else { //a가위 b보
+                    } else if (b == 3) { //b 보
                         System.out.println("A");
+                    } else { //오류
+                        System.out.println("B가 가위 바위 보 중 하나를 내지 않았습니다.");
                     }
                     break;
-                case 2:
-                    if (b == 1) { //a바위 b가위
+                case 2: //a 바위
+                    if (b == 1) { //b 가위
                         System.out.println("A");
-                    } else if (b == 2) { //a바위 b바위
+                    } else if (b == 2) { //b 바위
                         System.out.println("D");
-                    } else { //a바위 b보
+                    } else if (b == 3) { //b 보
                         System.out.println("B");
+                    } else { //오류
+                        System.out.println("B가 가위 바위 보 중 하나를 내지 않았습니다.");
                     }
                     break;
-                case 3:
-                    if (b == 1) {//a보 b가위
+                case 3: //a 보
+                    if (b == 1) { //b 가위
                         System.out.println("B");
-                    } else if (b == 2) { //a보 b바위
+                    } else if (b == 2) { //b 바위
                         System.out.println("A");
-                    } else { //a보 b보
+                    } else if (b == 3) { //b 보
                         System.out.println("D");
+                    } else { //오류
+                        System.out.println("B가 가위 바위 보 중 하나를 내지 않았습니다.");
                     }
                     break;
                 default:
-                    break;
+                    System.out.println("A가 가위 바위 보 중 하나를 내지 않았습니다.");
+
             }
         }
-
     }
 }
