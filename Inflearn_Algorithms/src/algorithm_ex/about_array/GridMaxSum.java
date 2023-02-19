@@ -7,50 +7,51 @@ public class GridMaxSum {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int size = sc.nextInt();
-        int[][] arr = new int[size][size];
-        int rMaxSum = 0;
-        int rSum = 0;
-        int cMaxSum = 0;
-        int cSum = 0;
-        int dMaxSum = 0;
-        int dSum = 0;
+        int n = sc.nextInt();
 
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                arr[i][j] = sc.nextInt();
-                rSum+=arr[i][j];
+        //n by n 배열 생성
+        int[][] grid = new int[n][n];
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                grid[i][j] = sc.nextInt();
             }
-            if (rSum > rMaxSum) {
-                rMaxSum = rSum;
+        }
+        //각 라인의 합을 구하고 최댓값을 구한다.
+        int max = Integer.MIN_VALUE;
+
+        //행 숫자들의 합 중 최대 살펴보기
+        for (int i = 0; i < n; i++) {
+            int sm = 0; // subMax
+            for (int j = 0; j < n; j++) {
+                sm += grid[i][j];
             }
-            rSum = 0;
-        }
-        for (int j = 0; j < size; j++) {
-            for (int i = 0; i < size; i++) {
-                cSum += arr[i][j];
+            if (sm > max) {
+                max = sm;
             }
-            if (cSum > cMaxSum) {
-                cMaxSum = cSum;
+        }
+        //열 숫자들의 합 중 최대 살펴보기
+        for (int j = 0; j < n; j++) {
+            int sm = 0;
+            for (int i = 0; i < n; i++) {
+                sm += grid[i][j];
             }
-            cSum = 0;
-        }
-        for (int i = 0; i < size; i++) {
-            dSum += arr[i][i];
-        }
-        if (dSum > dMaxSum) {
-            dMaxSum = dSum;
-        }
-        dSum = 0;
-        for (int i = 0; i < size; i++) {
-            dSum += arr[i][size - i - 1];
-        }
-        if (dSum > dMaxSum) {
-            dMaxSum = dSum;
+            if (sm > max) {
+                max = sm;
+            }
         }
 
-        int subMax = Math.max(dMaxSum, rMaxSum);
-        int res = Math.max(subMax, cMaxSum);
-        System.out.println(res);
+        //대각 숫자들의 합 중 최대 살펴보기
+        int sm = 0;
+        for (int i = 0; i < n; i++) {
+
+            sm += grid[i][i];
+        }
+        if (sm > max) {
+            max = sm;
+        }
+
+        System.out.println(max);
+
     }
 }
