@@ -5,42 +5,54 @@ import java.util.*;
 public class SameElementSort {
 
     public static void main(String[] args) {
-
         Scanner sc = new Scanner(System.in);
-
-        int size1 = sc.nextInt();
-        int[] arr1 = new int[size1];
-        for (int i = 0; i < size1; i++) {
-            arr1[i] = sc.nextInt();
+        //첫번째 집합의 size 받는다.
+        int s1 = sc.nextInt();
+        //집합 선언 및 초기화
+        ArrayList<Integer> set1 = new ArrayList<>();
+        for (int i = 0; i < s1; i++) {
+            set1.add(sc.nextInt());
         }
-        Arrays.sort(arr1);
-
-        int size2 = sc.nextInt();
-        int[] arr2 = new int[size2];
-        for (int i = 0; i < size2; i++) {
-            arr2[i] = sc.nextInt();
+        //두번째 집합의 size 받는다.
+        int s2 = sc.nextInt();
+        //집합 선언 및 초기화
+        ArrayList<Integer> set2 = new ArrayList<>();
+        for (int i = 0; i < s2; i++) {
+            set2.add(sc.nextInt());
         }
-        Arrays.sort(arr2);
-
-        int index1 = 0;
-        int index2 = 0;
 
 
+        //투포인터 알고리즘 사용하기 위해 두 집합 정렬
+        Collections.sort(set1);
+        Collections.sort(set2);
+
+        //투포인터 알고리즘 위한 변수 선언 및 초기화
+        int lt = 0;
+        int rt = 0;
+
+        //결과를 담을 집합
         ArrayList<Integer> res = new ArrayList<>();
-        while (index1 < arr1.length && index2 < arr2.length) {
-            if (arr1[index1] == arr2[index2]) {
-                res.add(arr1[index1]);
-                index2++;
-                index1++;
-            } else if (arr1[index1] < arr2[index2]) {
-                index1++;
-            } else {
-                index2++;
-            }
-        }
 
-        for (int num : res) {
-            System.out.print(num+ " ");
+        //투포인터 알고리즘
+        while (lt < set1.size() && rt < set2.size()) {
+
+            Integer lnum = set1.get(lt);
+            Integer rnum = set2.get(rt);
+
+            if (lnum < rnum) {
+                lt++;
+            } else if (lnum > rnum) {
+                rt++;
+            } else {
+                lt++;
+                rt++;
+                res.add(lnum);
+            }
+
+        }
+        for (Integer num : res) {
+            System.out.print(num + " ");
+
         }
     }
 }

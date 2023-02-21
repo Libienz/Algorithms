@@ -639,9 +639,10 @@ for (int i = 1; i<=num_of_student; i ++) { //i -> mento
 ### 03-02
 - SameElementSort
 - 공통원소 구하기
-- Arrays.sort, Collections.sort
-- 손코딩으로 코딩 구현하는 것도 .. 연습하자
-- index1과 index2로 이루어지는 투포인터 알고리즘이 핵심이다.
+- 이중 포문으로 naive하게 접근하면 시간 초과! 
+- index1과 index2로 이루어지는 투포인터 알고리즘을 물어보는 문제
+- 추가로 Arrays.sort, Collections.sort를 사용할 수는 있지만 손코딩으로 코딩 구현하는 것도 .. 연습하자
+
 ```java
 ArrayList<Integer> res = new ArrayList<>();
 while (index1 < arr1.length && index2 < arr2.length) {
