@@ -592,7 +592,7 @@ System.out.println(pres);
   - 나는 0번째부터 시작하는데 문제의 입력에서는 1번째 학생이 시작임 .. 맞춰야 함 
 ```java
 //학생들의 모든 경우의 수를 돌며 멘토링이 가능한지 여부 메소드로 확인
-int count = 0;
+int count = 0; 
 for (int i = 1; i<=num_of_student; i ++) { //i -> mento
     for (int j = 1; j<=num_of_student; j++) { //j -> menti
         if( i==j) continue;
