@@ -5,28 +5,28 @@ import java.util.*;
 public class ClassPresident {
 
     public static void main(String[] args) {
-
         Scanner sc = new Scanner(System.in);
-        int size = sc.nextInt();
-        char res =' ';
-        int max = 0;
+        int len = sc.nextInt();
+        String p = sc.next();
 
-        Map<Character, Integer> map = new HashMap<>();
-        String voted = sc.next();
-        char[] votes = voted.toCharArray();
-        //System.out.println(voted);
-        for (int i = 0; i < size; i++) {
-            map.put(votes[i], map.getOrDefault(votes[i],0)+1);
+        char[] pa = p.toCharArray();
+
+        Map<Character, Integer> m = new HashMap<>();
+        for (int i = 0; i < len; i++) {
+            char c = pa[i];
+            m.put(c, (m.getOrDefault(c, 0) + 1));
         }
-        for (Character c : map.keySet()) {
-            if (map.get(c) > max) {
-                res = c;
-                max = map.get(c);
+
+        Set<Character> set = m.keySet();
+        char vc = 0;
+        int cn = Integer.MIN_VALUE;
+        for (Character c : set) {
+            Integer n = m.get(c);
+            if (n > cn) {
+                vc = c;
+                cn = n;
             }
         }
-        System.out.println(res);
-
-
+        System.out.println(vc);
     }
-
 }
