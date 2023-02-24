@@ -4,38 +4,37 @@ import java.util.*;
 
 public class LimitWeight {
 
-    static int size, cp;
-    static int max = Integer.MIN_VALUE;
-
-    static ArrayList<Integer> arr = new ArrayList<>();
-
-    public static void dfs(int idx, int sum) {
-        if (idx >= size) {
-            if (sum > cp) {
-                return;
+    static int lw;
+    static int len;
+    static ArrayList<Integer> wa;
+    static int mw;
+    public static void dfs(int w, int idx) {
+        if (idx >= len) {
+            if (w < lw) {
+                mw = Math.max(w, mw);
             }
-            if (max < sum) {
-                max = sum;
-            }
-            return;
+        } else {
+            int cw = wa.get(idx);
+            //cw무게를 태운다
+            dfs(w + cw, idx + 1);
+            //cw무게를 태우지 않는다.
+            dfs(w, idx + 1);
+
         }
-        //idx 강아지를 태운다
-        Integer dw = arr.get(idx);
-        dfs(idx + 1, sum + dw);
-        //태우지 않는다.
-        dfs(idx + 1, sum);
     }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        cp = sc.nextInt(); //capacity
-        size = sc.nextInt();
+        lw = sc.nextInt();
+        len = sc.nextInt();
+        mw = Integer.MIN_VALUE;
+        wa = new ArrayList<>();
 
-        for (int i = 0; i < size; i++) {
-            arr.add(sc.nextInt());
+        for (int i = 0; i < len; i++) {
+            wa.add(sc.nextInt());
         }
 
         dfs(0, 0);
-        System.out.println(max);
+        System.out.println(mw);
 
     }
 
