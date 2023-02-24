@@ -5,42 +5,43 @@ import java.util.Scanner;
 
 public class Permutaion {
 
-    static int n, m;
     static ArrayList<Integer> arr;
-    static ArrayList<Integer> res;
-    public static void dfs(int num) {
-//        System.out.println("res = " + res[0]);
-        if (num == m) {
-            for (int n : res) {
-                System.out.print(n + " ");
+    static int n;
+    static int m;
+    static ArrayList<Integer> choiced;
+    public static void dfs(int ch) {
+        if (ch == m) {
+            for (Integer num : choiced) {
+                System.out.print(num + " ");
             }
             System.out.println();
         } else {
-            for (Integer n : arr) {
-//                System.out.println("num = " + num);
-                if (res.contains(n)) {
+            for (Integer num : arr) {
+                //num을 뽑는다.
+                if (choiced.contains(num)) {
                     continue;
-                } else {
-                    res.add(n);
-                    dfs(num + 1);
-                    res.remove((Object) n);
                 }
+                choiced.add(num);
+                dfs(ch + 1);
+                //num을 뽑지 않는다.
+                choiced.remove((Object) num);
+
 
             }
         }
     }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-
-        n = sc.nextInt();
-        m = sc.nextInt();
+        n = sc.nextInt(); //n개의 자연수가 주어질 것
+        m = sc.nextInt(); //m개를 뽑아 일렬로 나열해야 함
 
         arr = new ArrayList<>();
+        choiced = new ArrayList<>();
+
         for (int i = 0; i < n; i++) {
             arr.add(sc.nextInt());
         }
-        res = new ArrayList<Integer>();
-
         dfs(0);
 
 
