@@ -3,124 +3,88 @@ package algorithm_ex.greedy;
 import java.util.*;
 
 class Edge {
-    private int start;
-    private int finish;
-    private int weight;
+    int sn;
+    int fn;
+    int w;
 
-    public Edge(int start, int finish) {
-        this.start = start;
-        this.finish = finish;
-    }
-
-    public Edge(int start, int finish, int weight) {
-        this.start = start;
-        this.finish = finish;
-        this.weight = weight;
-    }
-
-    public int getStart() {
-        return start;
-    }
-
-    public void setStart(int start) {
-        this.start = start;
-    }
-
-    public int getFinish() {
-        return finish;
-    }
-
-    public void setFinish(int finish) {
-        this.finish = finish;
-    }
-
-    public int getWeight() {
-        return weight;
-    }
-
-    public void setWeight(int weight) {
-        this.weight = weight;
+    public Edge(int sn, int fn, int w) {
+        this.sn = sn;
+        this.fn = fn;
+        this.w = w;
     }
 }
 public class Dijkstra {
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        int m = sc.nextInt();
-        ArrayList<Edge> edges = new ArrayList<>();
-        int[] dis = new int[n + 1];
-        boolean[] check = new boolean[n + 1];
-
-        for (int i = 0; i < m; i++) {
-            edges.add(new Edge(sc.nextInt(), sc.nextInt(), sc.nextInt()));
-        }
-
-        for (int i = 0; i < dis.length; i++) {
-            dis[i] = Integer.MAX_VALUE;
-            check[i] = false;
-        }
-
-        //1에서 시작. 1로 가는 비용은 0
-        dis[1] = 0;
-        check[0] = true;
-        //다익스트라의 전제 조건: 간선의 음수 안됨 0은 상관 없음
-        while (!allCheck(check)) {
-
-            //dis 배열의 최솟값을 가지고 있는 인덱스 번호를 얻어온다
-            int minDisIdx = getMinDisIdx(dis, check);
-            if (dis[minDisIdx] == Integer.MAX_VALUE) {
-                check[minDisIdx] = true;
-                continue;
-            }
-            System.out.println("minDisIdx = " + minDisIdx);
-            //해당 인덱스는 노드를 말함. minDisIdx노드 까지 가는 최소거리는 확정되었다.
-            check[minDisIdx] = true;
-
-
-            for (Edge edge : edges) {
-                if (edge.getStart() == minDisIdx) {
-                    int d = edge.getFinish();
-                    int cd = edge.getWeight() + dis[minDisIdx]; //연결 된 곳 까지 걸리는 거리 -> cd
-                    if (cd <= dis[d]) {
-                        dis[d] = cd;
-                    }
-                }
-            }
-        }
-
-        for (int i = 0; i < dis.length; i++) {
-            if (dis[i] == Integer.MAX_VALUE) {
-                System.out.println(i + ": " + "impossible");
-                continue;
-            }
-            System.out.println(i + ": " + dis[i]);
-        }
-
-    }
-
-    private static boolean allCheck(boolean[] check) {
-        for (boolean b : check) {
-            if (!b) {
+    public static boolean allChecked(ArrayList<Boolean> check) {
+        for (boolean bool : check) {
+            if (!bool) {
                 return false;
             }
         }
         return true;
     }
-    private static int getMinDisIdx(int[] dis, boolean[] check) {
-        int minDistance = Integer.MAX_VALUE;
-        int mInd = -1;
-        for (int i = 1; i < dis.length; i++) {
-            if (check[i]) {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt(); //정점 수
+        int m = sc.nextInt(); //간선 수
+
+        ArrayList<Edge> arr = new ArrayList<>();
+
+        for (int i = 0; i < m; i++) {
+            int sn = sc.nextInt();
+            int fn = sc.nextInt();
+            int w = sc.nextInt();
+            arr.add(new Edge(sn-1, fn-1, w));
+        }
+
+        ArrayList<Integer> distance = new ArrayList<>();
+        ArrayList<Boolean> check = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            distance.add(Integer.MAX_VALUE);
+            check.add(false);
+        }
+
+        //start
+        distance.set(0, 0);
+
+
+        while (!allChecked(check)) {
+
+            //distance배열에서 최솟값 찾는다.
+            System.out.println("distance = " + distance);
+            int ld = Integer.MAX_VALUE;
+            int li = -1;
+            for (int i = 0; i < distance.size(); i++) {
+                int cur = distance.get(i);
+                if (cur <= ld && !check.get(i)) {
+                    li = i;
+                    ld = cur;
+                }
+
+            }
+
+            //1번 노드에서 li노드로 가는 거리는 확정
+            System.out.println("li = " + li);
+            check.set(li, true);
+            //li에서 갈 수 있는 곳들을 추가한다.
+            if (distance.get(li) == Integer.MAX_VALUE) {
                 continue;
             }
-            if (dis[i] <= minDistance) {
-                minDistance = dis[i];
-                mInd = i;
+            for (Edge e : arr) {
+                if (e.sn == li) {
+//                    distance.set(e.fn, distance.get(li) + e.w);
+                    int ndis = distance.get(li) + e.w;
+                    Integer odis = distance.get(e.fn);
+                    if (ndis < odis) {
+                        distance.set(e.fn, ndis);
+                    }
+//                    System.out.println(distance.get(li));
+
+                }
             }
         }
-        return mInd;
+
+        System.out.println("distance = " + distance);
 
     }
-
 }
