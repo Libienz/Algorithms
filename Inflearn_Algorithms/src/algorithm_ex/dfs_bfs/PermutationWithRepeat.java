@@ -7,36 +7,38 @@ public class PermutationWithRepeat {
 
     static int n;
     static int m;
-    static ArrayList<Integer> arr = new ArrayList<>();
-    static ArrayList<Integer> choiced = new ArrayList<>();
+    public static ArrayList<Integer> choiced;
 
-    public static void dfs(int c) {
-        //뽑아야 할 만큼 뽑았을 경우
-        if (c == m) {
-            System.out.println("choiced = " + choiced);
-            return;
-        } else {
-            for (int i = 1; i <= n; i++) {
-                //i를 뽑는다.
-                choiced.add(i);
-                dfs(c + 1);
-                //i를 뽑지 않는다.
-                choiced.remove((Object) i);
+    public static void dfs(int ch) {
 
-
+//        System.out.println("ch = " + ch);
+        if (ch == m) {
+//            System.out.println("choiced = " + choiced);
+            for (Integer n : choiced) {
+                System.out.print(n + " ");
             }
-
+            System.out.println();
+            return;
         }
+
+        for (int i = 1; i <= n; i++) {
+
+            //i을 뽑는다.
+            choiced.add(i);
+            dfs(ch + 1);
+            //i을 뽑지 않는다.
+            choiced.remove((Object) i);
+        }
+
+
     }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        n = sc.nextInt();
-        m = sc.nextInt();
-        for (int i = 1; i <= n; i++) {
-            arr.add(i);
-        }
-        dfs(0);
+        n = sc.nextInt(); //1부터 n까지의 숫자중
+        m = sc.nextInt(); //m번 뽑는다 -> 중복 허용
 
+        choiced = new ArrayList<>();
+        dfs(0);
 
     }
 }
