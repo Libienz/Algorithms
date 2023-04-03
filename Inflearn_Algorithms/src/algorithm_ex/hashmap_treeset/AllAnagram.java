@@ -1,67 +1,64 @@
 package algorithm_ex.hashmap_treeset;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
-/*
-    1. 문자열 두개 입력받기
-    2. 두번째 문자열 해쉬맵에 넣기
-    3. 첫번째 문자열 각 자리의 캐릭터 순회하며 두번째 문자열 사이즈만큼의
-        부분 해쉬맵과 비교
-    4. 빼며 리무브브
-*/
 public class AllAnagram {
 
-    public static boolean isAnagram(String s1, String s2) {
+    public static boolean isAnagram(String s, String t) {
+
+//        System.out.println("s = " + s);
+//        System.out.println("t = " + t);
         Map<Character, Integer> map = new HashMap<>();
-        for (int i = 0; i < s1.length(); i++) {
-            char key = s1.charAt(i);
-            int val = map.getOrDefault(key, 0);
-            map.put(key, val + 1);
+
+        char[] sa = s.toCharArray();
+        char[] ta = t.toCharArray();
+
+        for (char c : sa) {
+            map.put(c, map.getOrDefault(c, 0) + 1);
         }
-        for (int i = 0; i < s2.length(); i++) {
-            char key = s2.charAt(i);
-            int val = map.getOrDefault(key, 0);
-            map.put(key, val - 1);
+        for (char c : ta) {
+            map.put(c, map.getOrDefault(c,0) -1);
         }
-        for (char c : map.keySet()) {
-            int val = map.get(c);
-            if (val != 0) {
+
+        Set<Character> cs = map.keySet();
+        for (char c : cs) {
+            if (map.get(c) != 0) {
                 return false;
             }
         }
+
         return true;
     }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        String s1 = sc.next();
-        String s2 = sc.next();
-        String subString = "";
+        String s = sc.next();
+        String t = sc.next();
 
+        //System.out.println("s = " + s);
+        //System.out.println("t = " + t);
+
+        int si = 0; //start idx
+        int ei = t.length()-1; //end idx
         int cnt = 0;
 
-        //첫번째 subString
-        for (int i = 0; i < s2.length(); i++) {
-            subString += s1.charAt(i);
-        }
-        if (isAnagram(subString, s2)) {
-            cnt++;
-        }
-        //이후의 subString
-        int maxIdx = s1.length();
-        int startIdx = s2.length();
-        for (int i = startIdx; i < maxIdx; i++) {
-            subString = subString.substring(1) + s1.charAt(i);
-            //System.out.println("subString = " + subString);
-            if (isAnagram(subString, s2)) {
+        //시작하는 부분을 case 분류의 기준으로 처음부터 연속 부분 문자열을 모두 아나그램인지 따진다.
+        for (int i = 0; i < s.length(); i++) {
+            si = i;
+            ei = si + t.length() - 1;
+            if (ei > s.length() -1 ){
+                break;
+            }
+            String substring = s.substring(si, ei + 1);
+
+            if (isAnagram(substring, t)) {
                 cnt++;
             }
         }
+
         System.out.println(cnt);
-
-
+        //처음부터 옮겨가며 아나그램인지 체크
 
 
     }
+
 }
