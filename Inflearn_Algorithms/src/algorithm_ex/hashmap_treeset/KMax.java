@@ -1,5 +1,4 @@
 package algorithm_ex.hashmap_treeset;
-
 import java.util.*;
 
 public class KMax {
@@ -15,7 +14,7 @@ public class KMax {
     public static void dfs(int choiced, int si) {
 //        System.out.println("choiced = " + choiced);
 //        System.out.println("si = " + si);
-        if (choiced == k) {
+        if (choiced == 3) {
             int sum = 0;
             for (Integer i : chs) {
                 sum += i;
@@ -60,7 +59,12 @@ public class KMax {
         dfs(choiced, 0);
 
         Collections.sort(sums);
-        Integer res = sums.get(sums.size() - k);
+        Integer res;
+        if (0 > sums.size() - k) {
+            System.out.println(-1);
+            return;
+        }
+        res = sums.get(sums.size() - k);
         System.out.println(res);
 //        System.out.println("sums = " + sums);
     }
