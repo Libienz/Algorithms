@@ -4,38 +4,64 @@ import java.util.*;
 
 public class KMax {
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt(); //N장의 카드 : 1~100의 자연수가 적혀 있음 (중복가능)
-        int K = sc.nextInt(); //나올 수 있는 3장의 카드의 합 중 K번째로 큰 숫자를 찾아볼 것임
+    static int n;
+    static int k;
+    static ArrayList<Integer> sums;
+    static ArrayList<Integer> chs;
+    static ArrayList<Integer> arr;
 
-        ArrayList<Integer> arr = new ArrayList<>();
-        for (int i = 0; i < N; i++) {
+
+    //dfs로 조합 모든 경우 구하는 거 아직도 미숙...
+    public static void dfs(int choiced, int si) {
+//        System.out.println("choiced = " + choiced);
+//        System.out.println("si = " + si);
+        if (choiced == k) {
+            int sum = 0;
+            for (Integer i : chs) {
+                sum += i;
+//                System.out.print(i + " ");
+            }
+
+
+            //같은 것이 있다면 cnt 않음으로 같으면 sums에 넣지 않는다.
+            if (!sums.contains(sum)) {
+                sums.add(sum);
+            }
+        } else {
+
+            for (int i = si; i < arr.size(); i++) {
+                //현재 보고있는 i를 뽑는다.
+                chs.add(arr.get(i));
+                dfs(choiced + 1, i+1);
+                //현재 보고있는 i를 뽑지 않는다.
+                chs.remove(arr.get(i));
+            }
+        }
+    }
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        //static 변수들 초기화
+        n = sc.nextInt();
+        k = sc.nextInt();
+        sums = new ArrayList<>();
+        arr = new ArrayList<>();
+        chs = new ArrayList<>();
+
+        for (int i = 0; i < n; i++) {
             arr.add(sc.nextInt());
         }
 
-        //arr.get(i)
-        //arr.get(j)
-        //arr.get(k)
-        //3개를 뽑아보자
-        Set<Integer> sums = new TreeSet<>();
-        for (int i = 0; i < arr.size(); i++) {
-            for (int j = i + 1; j < arr.size(); j++) {
-                for (int k = j + 1; k < arr.size(); k++) {
-                    int sum = arr.get(i) + arr.get(j) + arr.get(k);
-                    sums.add(sum);
-                }
-            }
-        }
-        if (sums.isEmpty()||sums.size() < K) {
-            System.out.println("-1");
-            return;
-        }
-        Object[] objects = sums.toArray();
-        int maxIdx = sums.size() - 1;//제일 큰 수
-        Object object = objects[maxIdx - K + 1];
-        System.out.println(object);
 
-        //System.out.println(sums.get(maxIdx - K + 1));
+        //k개를 골라서 합한 모든 경우의 수 구하기 위해 dfs 사용]
+        //합들은 static 변수인 sums에 저장
+        int choiced = 0;
+        dfs(choiced, 0);
+
+        Collections.sort(sums);
+        Integer res = sums.get(sums.size() - k);
+        System.out.println(res);
+//        System.out.println("sums = " + sums);
     }
 }
