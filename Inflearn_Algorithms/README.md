@@ -903,7 +903,7 @@ int maxIdx = sums.size() - 1;//제일 큰 수
 Object object = objects[maxIdx - K + 1];
 System.out.println(object);
  
-```
+``` 
 </div>
 </details>
 
