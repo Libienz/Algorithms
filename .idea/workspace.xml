@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="dbf978e5-8439-4132-a216-0addf4c5880f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Inflearn_Algorithms/src/algorithm_ex/hashmap_treeset/KMax.java" beforeDir="false" afterPath="$PROJECT_DIR$/Inflearn_Algorithms/src/algorithm_ex/hashmap_treeset/KMax.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Inflearn_Algorithms/src/algorithm_ex/stack_queue/BraceCheck.java" beforeDir="false" afterPath="$PROJECT_DIR$/Inflearn_Algorithms/src/algorithm_ex/stack_queue/BraceCheck.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,13 +20,26 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="RunManager" selected="Application.KMax">
+  <component name="RunManager" selected="Application.BraceCheck">
     <configuration name="AllAnagram" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="algorithm_ex.hashmap_treeset.AllAnagram" />
       <module name="Java_Algorithms" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="algorithm_ex.hashmap_treeset.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BraceCheck" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="algorithm_ex.stack_queue.BraceCheck" />
+      <module name="Java_Algorithms" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="algorithm_ex.stack_queue.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -62,6 +75,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.BraceCheck" />
         <item itemvalue="Application.KMax" />
         <item itemvalue="Application.AllAnagram" />
         <item itemvalue="Application.TypeOfSales" />
