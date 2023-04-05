@@ -1,31 +1,38 @@
 package algorithm_ex.stack_queue;
 
-import java.util.Scanner;
-import java.util.Stack;
+import java.util.*;
 
 public class IgnoreBrace {
 
-    public static void main(String[] args) {
+    public static void main (String[] args) {
 
         Scanner sc = new Scanner(System.in);
-        String str = sc.next();
-        Stack<Character> stack = new Stack<>();
+        String s = sc.next();
 
-        for (int i = 0; i < str.length(); i++) {
-            char c = str.charAt(i);
-            if (c == ')') {
-                if (stack.contains('(')) {
-                    while (stack.pop() != '(');
+        //s 문자열 중 괄호와 괄호 안의 문자를 무시한 문자열을 출력하라
+
+        char[] ca = s.toCharArray();
+        Stack<Character> stack = new Stack<>();
+        String res = "";
+
+        for (char c : ca) {
+            if (c == '(') {
+                stack.push('(');
+            }
+            else if (c == ')') {
+                stack.pop();
+            }
+            else {
+                if (stack.isEmpty()) {
+                    res += c;
+                }
+                else {
                     continue;
+
                 }
             }
-            stack.push(c);
-
-        }
-        for (Character character : stack) {
-            System.out.print(character);
-
         }
 
+        System.out.println(res);
     }
 }
