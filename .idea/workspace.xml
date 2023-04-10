@@ -4,6 +4,7 @@
     <list default="true" id="dbf978e5-8439-4132-a216-0addf4c5880f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Inflearn_Algorithms/src/algorithm_ex/stack_queue/PuppetDraw.java" beforeDir="false" afterPath="$PROJECT_DIR$/Inflearn_Algorithms/src/algorithm_ex/stack_queue/PuppetDraw.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Java_Algorithms/algorithm_ex/stack_queue/PuppetDraw.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Java_Algorithms/algorithm_ex/stack_queue/PuppetDraw.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

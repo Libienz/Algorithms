@@ -27,31 +27,34 @@ public class PuppetDraw {
         for (int i : mvs) {
             //i번째 레인을 바구니에 옮길 것임
 //            System.out.println("i = " + i);
+//            System.out.println("i = " + i);
+            //i 제대로 나옴
+            //애초에 루프가 지금 ...
+            int obj = -999;
             for (int j = 0; j<n; j++) {
                 if (board[j][i - 1] == 0) {
                     continue;
                 } else {
-                    int obj = board[j][i-1];
-                    board[j][i-1] = 0;
+                    obj = board[j][i - 1];
+                    System.out.println("obj = " + obj);
+                    board[j][i - 1] = 0;
                     if (stack.isEmpty()) {
                         stack.push(obj);
                     }
-
-                    else {
-                        if (obj == stack.peek()) {
-                            stack.pop();
-                            res += 2;
-                        }
-                        else {
-                            stack.push(obj);
-                        }
-
-                    }
-
                 }
             }
 
+            if (obj == stack.peek()) {
+                stack.pop();
+                res += 2;
+            }
+            else {
+                stack.push(obj);
+            }
+
         }
-        System.out.println(res);
+        System.out.println("res = " + res);
+
     }
+//        System.out.println(res);
 }
