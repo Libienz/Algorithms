@@ -30,30 +30,31 @@ public class PuppetDraw {
 //            System.out.println("i = " + i);
             //i 제대로 나옴
             //애초에 루프가 지금 ...
-            int obj = -999;
-            for (int j = 0; j<n; j++) {
+            int obj = 0;
+            for (int j = 0; j < n; j++) {
+                obj = 0;
                 if (board[j][i - 1] == 0) {
                     continue;
                 } else {
                     obj = board[j][i - 1];
-                    System.out.println("obj = " + obj);
+//                    System.out.println("obj = " + obj);
                     board[j][i - 1] = 0;
-                    if (stack.isEmpty()) {
-                        stack.push(obj);
-                    }
+
                 }
             }
 
-            if (obj == stack.peek()) {
-                stack.pop();
-                res += 2;
-            }
-            else {
+            if (stack.isEmpty() && obj != 0) {
                 stack.push(obj);
+            } else if (!stack.isEmpty() && obj != 0){
+                if (obj == stack.peek()) {
+                    stack.pop();
+                    res += 2;
+                } else {
+                    stack.push(obj);
+                }
             }
-
         }
-        System.out.println("res = " + res);
+        System.out.println(res);
 
     }
 //        System.out.println(res);
