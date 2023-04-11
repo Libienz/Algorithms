@@ -5,8 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f91dfb25-4a81-4d5c-a59e-6fa5d64adfad" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/boj/Q2583.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/boj/Q2583.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Q2583.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Q2583.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -64,5 +62,16 @@
       <updated>1681217257663</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
