@@ -22,7 +22,9 @@ public class Q2583 {
     public static void dfs(int r, int c) {
 
         board[r][c] = 1;
-
+        //stack frame의 특징을 이용한 dfs
+        //한 방향으로 갈 수 있는 곳 까지 파고든 후 back tracking한다.
+        //visit 배열을 사용하지 않고 방문한 곳은 1로 바꾸어 처리
         sa++;
         //상
         if (isAvailableCoord(r - 1, c) && board[r - 1][c] == 0) {
@@ -71,6 +73,8 @@ public class Q2583 {
             }
         }
 
+        //board를 뒤져가며 0이 나오는 위치를 찾는다.
+        //해당 위치에서 dfs를 이용, 0인 영역의 넓이를 구한다.
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 if (board[i][j] == 0) {
