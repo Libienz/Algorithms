@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="dbf978e5-8439-4132-a216-0addf4c5880f" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Inflearn_Algorithms/src/algorithm_ex/stack_queue/PuppetDraw.java" beforeDir="false" afterPath="$PROJECT_DIR$/Inflearn_Algorithms/src/algorithm_ex/stack_queue/PuppetDraw.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Java_Algorithms/algorithm_ex/stack_queue/PuppetDraw.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Java_Algorithms/algorithm_ex/stack_queue/PuppetDraw.class" afterDir="false" />
-    </list>
+    <list default="true" id="dbf978e5-8439-4132-a216-0addf4c5880f" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -21,6 +17,12 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Project.color": "31500d",
+    "last_opened_file_path": "C:/Code/Java_Algorithms/boj"
+  }
+}]]></component>
   <component name="RunManager" selected="Application.PuppetDraw">
     <configuration name="AllAnagram" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="algorithm_ex.hashmap_treeset.AllAnagram" />
@@ -118,6 +120,5 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>
