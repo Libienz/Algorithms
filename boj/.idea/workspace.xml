@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="f91dfb25-4a81-4d5c-a59e-6fa5d64adfad" name="Changes" comment="" />
+=======
+    <list default="true" id="f91dfb25-4a81-4d5c-a59e-6fa5d64adfad" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/src/Q2583.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Q2583.java" afterDir="false" />
+    </list>
+>>>>>>> 8c85b838b3c58537a4e6937554bd5797bf0969a7
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -57,5 +63,16 @@
       <updated>1681217257663</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
