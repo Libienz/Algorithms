@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dbf978e5-8439-4132-a216-0addf4c5880f" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Inflearn_Algorithms/src/algorithm_ex/stack_queue/CuttingStick.java" beforeDir="false" afterPath="$PROJECT_DIR$/Inflearn_Algorithms/src/algorithm_ex/stack_queue/CuttingStick.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Inflearn_Algorithms/src/algorithm_ex/stack_queue/SaveDeer.java" beforeDir="false" afterPath="$PROJECT_DIR$/Inflearn_Algorithms/src/algorithm_ex/stack_queue/SaveDeer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -12,6 +11,14 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -23,7 +30,7 @@
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$/boj" />
   </component>
-  <component name="RunManager" selected="Application.CuttingStick">
+  <component name="RunManager" selected="Application.SaveDeer">
     <configuration name="BraceCheck" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="algorithm_ex.stack_queue.BraceCheck" />
       <module name="Java_Algorithms" />
@@ -63,19 +70,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="KMax" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="algorithm_ex.hashmap_treeset.KMax" />
-      <module name="Java_Algorithms" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="algorithm_ex.hashmap_treeset.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="PuppetDraw" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="algorithm_ex.stack_queue.PuppetDraw" />
       <module name="Java_Algorithms" />
@@ -89,13 +83,26 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="SaveDeer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="algorithm_ex.stack_queue.SaveDeer" />
+      <module name="Java_Algorithms" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="algorithm_ex.stack_queue.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.SaveDeer" />
         <item itemvalue="Application.CuttingStick" />
         <item itemvalue="Application.PuppetDraw" />
         <item itemvalue="Application.IgnoreBrace" />
         <item itemvalue="Application.BraceCheck" />
-        <item itemvalue="Application.KMax" />
       </list>
     </recent_temporary>
   </component>
