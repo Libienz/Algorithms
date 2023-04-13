@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dbf978e5-8439-4132-a216-0addf4c5880f" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Inflearn_Algorithms/src/algorithm_ex/stack_queue/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/Inflearn_Algorithms/src/algorithm_ex/stack_queue/Course.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Inflearn_Algorithms/src/algorithm_ex/stack_queue/Emergency.java" beforeDir="false" afterPath="$PROJECT_DIR$/Inflearn_Algorithms/src/algorithm_ex/stack_queue/Emergency.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,7 +31,7 @@
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$/boj" />
   </component>
-  <component name="RunManager" selected="Application.Course">
+  <component name="RunManager" selected="Application.Emergency">
     <configuration name="Course" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="algorithm_ex.stack_queue.Course" />
       <module name="Java_Algorithms" />
@@ -57,8 +58,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="IgnoreBrace" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="algorithm_ex.stack_queue.IgnoreBrace" />
+    <configuration name="Emergency" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="algorithm_ex.stack_queue.Emergency" />
       <module name="Java_Algorithms" />
       <extension name="coverage">
         <pattern>
@@ -98,11 +99,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Emergency" />
         <item itemvalue="Application.Course" />
         <item itemvalue="Application.SaveDeer" />
         <item itemvalue="Application.CuttingStick" />
         <item itemvalue="Application.PuppetDraw" />
-        <item itemvalue="Application.IgnoreBrace" />
       </list>
     </recent_temporary>
   </component>
