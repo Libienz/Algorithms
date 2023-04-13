@@ -4,13 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-<<<<<<< HEAD
-    <list default="true" id="f91dfb25-4a81-4d5c-a59e-6fa5d64adfad" name="Changes" comment="" />
-=======
     <list default="true" id="f91dfb25-4a81-4d5c-a59e-6fa5d64adfad" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Q2667.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/runConfigurations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/boj/Q2583.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/boj/Q2583.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Q2583.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Q2583.java" afterDir="false" />
     </list>
->>>>>>> 8c85b838b3c58537a4e6937554bd5797bf0969a7
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -30,16 +31,18 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2OHUyRC8nUSDy9i6YBUKNPyi7H5" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Inflearn_Algorithms" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Q2667">
     <configuration name="Q2583" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Q2583" />
       <module name="boj" />
@@ -47,8 +50,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Q2667" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Q2667" />
+      <module name="boj" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Q2667" />
         <item itemvalue="Application.Q2583" />
       </list>
     </recent_temporary>
