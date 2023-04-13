@@ -47,28 +47,34 @@ public class Q2667 {
 
         //지도 초기화
         for (int i = 0; i < n; i++) {
-            for (int j = 0; j<n; j++) {
-                map[i][j] = sc.nextInt();
+            String ns = sc.next();
+//            System.out.println("i = " + i);
+//            System.out.println("ns = " + ns);
+            for (int j = 0; j < n; j++) {
+//                System.out.println(sc.nextInt());
+                map[i][j] = ns.charAt(j) -48;
+//                System.out.print(map[i][j] + " ");
             }
         }
 
+        //지도 올바르게 입력되었나?
         ArrayList<Integer> sizes = new ArrayList<>();
 
         for (int i = 0; i < n; i++) {
-            for (int j = 0; j< n; j++) {
+            for (int j = 0; j < n; j++) {
                 if (map[i][j] == 1) {
                     //1인 지점을 찾아 DFS 시작
                     ac++;
-                    System.out.println("ac = " + ac);
-                    dfs(i,j);
-                    System.out.println("sa = " + sa);
+//                    System.out.println("ac = " + ac);
+                    dfs(i, j);
+//                    System.out.println("sa = " + sa);
                     sizes.add(sa);
                     sa = 0;
                 }
             }
         }
 
-        System.out.println(cnt);
+        System.out.println(ac);
         Collections.sort(sizes);
         for (int size : sizes) {
             System.out.println(size);
