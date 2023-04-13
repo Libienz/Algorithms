@@ -25,18 +25,20 @@ public class CuttingStick {
             } else {
 
                 st.pop();
-                lp = false;
                 //lazer
                 if (lp) {
                     cnt--;
+//                    System.out.println("lazer");
                     //레이저 아래에 있는 막대의 수: s
                     int s = st.size();
-                    cnt += s * 2;
+                    cnt += s;
+                    lp = false;
 
                 }
                 //그냥 닫는 괄호
                 else {
                     //do nothing
+                    lp = false;
                 }
             }
         }
