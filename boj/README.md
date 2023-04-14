@@ -88,6 +88,66 @@
     }
 ```
 
+### - Q1759
+#### 암호의 조건이 주어질 때 가능한 암호를 모두 구해보기
+
+- 암호는 주어진 문자들에서만 나와야 하고 모음 1개 자음 2개 이상 필요
+- 나의 첫번째 시도 
+  - 주어진 문자들에서 4개를 뽑아야 하는 상황
+  - 모든 경우의 수를 dfs로 고른 후 뽑은 경우의 수가 유효한 암호가 될 수 있는지를 체크함
+  - 결국 메모리 초과
+- 나의 두번째 시도
+  - 모두 구하고 유효한지 체크하는 것이 아닌 
+  - 중간 중간 체크할 수 있도록 바꿈 
+  - 예로 애초에 뽑을 때 오름차순으로 뽑을 수 밖에 없도록 설계한다던가..
+  - 메모리 초과 안남
+
+- 줄일 수 있다면 줄이자 naive하게 빠르게 접근하는 것은 좋지만 너무 naive하면 안된다는 것을 꺠달음
+
+```java
+    public static void dfs(int ch, String code, int idx) {
+        //arr에서 l개를 뽑아냈다. -> 유효한 암호인지 검증
+        if (ch == l) {
+            char[] ca = code.toCharArray();
+            boolean vowelExist = false; //모음이 1개이상 존재하는가?
+            boolean isAscending = true; //오름차순인가?
+            int constantsCnt = 0; //자음의 숫자
+
+            char prevChar = 0;
+
+            for (char c : ca) {
+                if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u') {
+                    vowelExist = true;
+                } else {
+                    constantsCnt++;
+                }
+
+                if (prevChar > c) {
+                    isAscending = false;
+                }
+
+            }
+            //자음이 2개 이상이고 모음이 존재하며 오름차순으로 정렬되었다면 codes에 추가
+            if (constantsCnt >= 2 && vowelExist && isAscending) {
+                codes.add(code);
+            }
+
+        }
+        else {
+            for (int i = idx; i < arr.size(); i++) {
+                Character cur = arr.get(i);
+                if (code.indexOf(cur) != -1) {
+                    continue;
+                }
+                //cur 문자를 암호에 사용한다.
+                dfs(ch+1, code + cur, i + 1);
+                //사용하지 않는다. -> 다음 루프로
+
+            }
+
+        }
+    }
+```
 
 </div>
 </details>
