@@ -3,6 +3,7 @@ package algorithm_ex.sorting_searching;
 import java.util.*;
 
 class Coord implements Comparable<Coord> {
+
     private int x;
     private int y;
 
@@ -28,42 +29,33 @@ class Coord implements Comparable<Coord> {
     }
 
     @Override
-    public String toString() {
-        return x + " " + y;
-    }
-
-
-    @Override
-    public int compareTo(Coord c2) {
-        Coord c1 = this;
-        //c1과 c2를 비교하는 방법을 알려준다.
-        //c1과 c2의 x값이 같다면 Y값으로 비교하라
-        if (c1.getX() == c2.getX()) {
-            return c1.getY() - c2.getY();
+    public int compareTo(Coord o) {
+        if (o.x == this.x) {
+            return this.y - o.y;
+        } else {
+            return this.x - o.x;
         }
-        //x값이 같지 않다면 x값으로 비교하라
-        return c1.getX() - c2.getX();
     }
 }
 public class CoordSort {
 
     public static void main(String[] args) {
+
         Scanner sc = new Scanner(System.in);
         int size = sc.nextInt();
+
         ArrayList<Coord> arr = new ArrayList<>();
 
-        //좌표들을 담은 배열 설정
         for (int i = 0; i < size; i++) {
             arr.add(new Coord(sc.nextInt(), sc.nextInt()));
         }
 
         Collections.sort(arr);
 
-        for (Coord coord : arr) {
-            System.out.println(coord);
+        for (Coord c : arr) {
+            System.out.print(c.getX() + " " + c.getY());
+            System.out.println();
         }
 
     }
-
-
 }
