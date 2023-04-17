@@ -149,5 +149,53 @@
     }
 ```
 
+### - Q1987
+#### 보드와 특정 위치의 말이 주어졌을 때 말이 제일 멀리 몇칸을 갈 수 있는가?
+
+- 알파벳으로 채워진 2차원 보드에서 말은 한번 간 칸의 알파벳이 있는 다른 곳으로는 갈 수 없다
+- 상하좌우로만 움직임 가능 
+- dfs로 파고 들며 모든 경우의 수를 따진다.
+- 방문했던 알파벳은 Set에 넣어 중복방문하지 않도록 처리했음 
+
+```java
+public static void dfs(int r, int c, int lev) {
+
+        int row = r;
+        int col = c;
+        if (maxMv < lev) {
+            maxMv = lev;
+        }
+
+        //상
+        row = row -1;
+        if (isAvailableIdx(row, col) && !set.contains(board[row][col])) {
+            set.add(board[row][col]);
+            dfs(row, col, lev + 1);
+            set.remove(board[row][col]);
+        }
+        //하
+        row = row + 2;
+        if (isAvailableIdx(row, col) && !set.contains(board[row][col])) {
+            set.add(board[row][col]);
+            dfs(row, col, lev + 1);
+            set.remove(board[row][col]);
+        }
+        //좌
+        row = row - 1;
+        col = col - 1;
+        if (isAvailableIdx(row, col) && !set.contains(board[row][col])) {
+            set.add(board[row][col]);
+            dfs(row, col, lev + 1);
+            set.remove(board[row][col]);
+        }
+        //우
+        col = col + 2;
+        if (isAvailableIdx(row, col) && !set.contains(board[row][col])) {
+            set.add(board[row][col]);
+            dfs(row, col, lev + 1);
+            set.remove(board[row][col]);
+        }
+    }
+```
 </div>
 </details>
