@@ -4,60 +4,15 @@ import java.util.*;
 
 public class StallDecision {
 
-
-    public static boolean isPossible(int stall1, int stall2,int[] valid_stall, int num_of_horse) {
-        int shortest = Math.abs(valid_stall[stall2] - valid_stall[stall1]);
-        //System.out.println("shortest : " + shortest );
-        int count = num_of_horse;
-
-        for (int n : valid_stall) {
-            if (n != valid_stall[stall1] &&
-                    n != valid_stall[stall2] &&
-                    Math.abs(n-valid_stall[stall1]) > shortest &&
-                    Math.abs(n-valid_stall[stall2]) >shortest) {
-                count--;
-                //System.out.println(num_of_horse);
-                if (count == 0) return true;
-
-            }
-
-        }
-        //System.out.println("impossible");
-        return false;
-
-    }
-
-
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
-        int num_of_stall = sc.nextInt();
-        int num_of_horse = sc.nextInt();
+        //가장 가까운 말의 거리가 최대가 되도록 설정
+        int n = sc.nextInt(); //n개의 마구간이 수직 선상
+        int c = sc.nextInt(); //c마리의 말을 마구간에 배치 할 것임
 
-        int[] valid_stall = new int[num_of_stall];
-
-        for (int i = 0; i<num_of_stall; i++) {
-            valid_stall[i] = sc.nextInt();
+        for (int i = 0; i < n; i++) {
+            int mc = sc.nextInt(); //마구간 좌표
         }
-        Arrays.sort(valid_stall);
-
-
-        if (num_of_horse == 2) {
-            System.out.println(valid_stall[valid_stall.length-1]-valid_stall[0]);
-            return;
-        }
-        int max = 0;
-        for (int i = 0; i<num_of_stall-1; i++) {
-            for (int j = i+1; j<num_of_stall; j++) {
-                if(isPossible(j,i,valid_stall,num_of_horse-2)) {
-                    if(max < valid_stall[j]-valid_stall[i]) {
-                        max = valid_stall[j]-valid_stall[i];
-                    }
-                }
-            }
-        }
-        System.out.println(max);
-
-
     }
 }
