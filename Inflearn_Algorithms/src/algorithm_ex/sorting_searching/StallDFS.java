@@ -2,7 +2,7 @@ package algorithm_ex.sorting_searching;
 
 import java.util.*;
 
-public class StallDecision {
+public class StallDFS {
 
 
     static int n;
