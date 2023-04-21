@@ -1,67 +1,48 @@
 package algorithm_ex.sorting_searching;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
 
 public class StallDecision {
 
-
-    static int n;
-    static int c;
-    static int[] sp;
-    static ArrayList<Integer> hs;
-    static ArrayList<Integer> ha;
-
-    // 0 - n-1 까지의 숫자 중에서 c개를 뽑기
-    public static void dfs(int lc, int idx) {
-
-        if (lc == 0) {
-            //hs에는 선택한 마굿간의 좌표가 들어있음
-            int mbt = Integer.MAX_VALUE; // min between two horse 가장 가까운 두 말의 거리
-            Collections.sort(hs);
-//            System.out.println("hs = " + hs);
-            for (int i = 0; i < hs.size() - 1; i++) {
-                int h1 = hs.get(i);
-                int h2 = hs.get(i + 1);
-
-                if ((h2 - h1) < mbt) {
-                    mbt = h2 - h1;
-                }
+    public static int count(int C, int distance, ArrayList<Integer> arr) {
+        int ep = arr.get(0);
+        int cnt = 1;
+        for (int i = 1; i < arr.size(); i++) {
+            if (arr.get(i) - ep >= distance) {
+                cnt++;
+                ep = arr.get(i);
             }
-            ha.add(mbt);
         }
-        else {
-            for (int i = idx; i < n; i++) {
+        return cnt;
 
-                //i를 초이스 한다.
-                hs.add(sp[i]); //hs에는 선택한 마굿간의 좌표가 들어있음
-//                System.out.println("sp[i] = " + sp[i]);
-                dfs(lc - 1, i + 1);
-                //i를 초이스 하지 않는다.
-                hs.remove((Object) sp[i]);
-//                dfs(lc - 1, i + 1);
-            }
-
-        }
     }
     public static void main(String[] args) {
-
         Scanner sc = new Scanner(System.in);
-        n = sc.nextInt(); //n개의 마굿간이 수직선상에 있다.
-        c = sc.nextInt(); //현수는 c마리의 말을 가지고 있다.
-
-        sp = new int[n]; //n개의 마굿간의 좌표들이 들어있다.
-        hs = new ArrayList<>();
-        ha = new ArrayList<>();
-        for (int i = 0; i < n; i++) {
-            sp[i] = sc.nextInt(); //sp[i]는 i번째 마굿간의 수직선상 위치
+        int N = sc.nextInt(); //마구간의 개수
+        int C = sc.nextInt(); //말의 마리수
+        ArrayList<Integer> arr = new ArrayList<>();
+        for (int i = 0; i < N; i++) {
+            arr.add(sc.nextInt());
         }
 
-        //가장 가까운 두 말의 거리가 최대가 되게 말을 배치
-        //dfs 적 풀이
-        dfs(c, 0);
-
-        Collections.sort(ha);
-        System.out.println(ha.get(ha.size() - 1));
-
+        Collections.sort(arr);
+        //두 말의 거리가 가질 수 있는 최댓 값
+        //우리가 구하고자 하는 해는 lt부터 rt사이에!
+        int lt = 1;
+        int rt = arr.get(arr.size() - 1) - arr.get(0);
+        int answer = 0;
+        while (lt <= rt) {
+            int mid = (lt + rt) / 2;
+            //System.out.println("mid = " + mid);
+            if (C <= count(C, mid, arr)) {
+                answer = mid;
+                lt = mid + 1;
+            } else {
+                rt = mid -1;
+            }
+        }
+        System.out.println(answer);
     }
 }
