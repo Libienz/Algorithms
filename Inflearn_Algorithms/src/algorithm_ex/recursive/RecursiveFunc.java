@@ -6,18 +6,25 @@ import java.util.Scanner;
  */
 public class RecursiveFunc {
 
-    public static void printRecursive(int num) {
-        if (num == 1) {
+    static int n;
+    //인자를 두개 쓰든
+    //전역변수를 잡든 상관없다
+    //스택 프레임의 순서와 동작흐름을 이해하라
+    public static void recursivePrint(int num) {
+
+        if (num <= n) {
             System.out.print(num + " ");
+            recursivePrint(num + 1);
         } else {
-            printRecursive(num - 1);
-            System.out.print(num + " ");
+            //do nothing
         }
+
     }
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int num = sc.nextInt();
-        printRecursive(num);
 
+        Scanner sc = new Scanner(System.in);
+        n = sc.nextInt();
+
+        recursivePrint(1);
     }
 }
