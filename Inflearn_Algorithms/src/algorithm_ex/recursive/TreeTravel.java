@@ -1,80 +1,79 @@
 package algorithm_ex.recursive;
 
 import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 class Node {
-    int data;
-    Node lt, rt;
+    int num;
+    Node lt,rt;
 
-    public Node(int val) {
-        data = val;
-        lt=rt=null;
+    public Node(int num) {
+        this.num = num;
     }
 }
 
 class Tree {
-    Node root;
 
+    Node root;
     public Tree(Node root) {
         this.root = root;
     }
-
-    //부 왼 오
-    public void DFS(Node root) {
-        if (root == null) { // 말단노드 입니당
-            return;
-        }
-        else {
-            //System.out.print(root.data + " ");
-            DFS(root.lt);
-            DFS(root.rt);
-            System.out.print(root.data + " ");
-        }
-
-    }
-
-    public void BFS(Node root) {
-
-        Queue<Node> Q = new LinkedList<>();
-        Q.offer(root);
-        int level = 0;
-
-        while (!Q.isEmpty()) {
-            int len = Q.size();
-            System.out.print(level + " : ");
-            for (int i = 0; i < len; i++) {
-                Node cur = Q.poll();
-                System.out.print(cur.data + " ");
-                if (cur.lt != null) {
-                    Q.add(cur.lt);
-                }
-                if (cur.rt != null) {
-                    Q.add(cur.rt);
-                }
-            }
-            level++;
-            System.out.println();
-
-        }
-    }
 }
 public class TreeTravel {
+    //왼 -> 중 -> 오
+    public static void midOrder(Node t) {
+        if (t == null) {
+            return;
+        }
+        midOrder(t.lt);
+        System.out.print(t.num + " ");
+        midOrder(t.rt);
+    }
+    public static void preOrder(Node t) {
+        //가운데 출력
+        if (t == null) {
+            //do nothing
+            return;
+        }
+        System.out.print(t.num + " ");
+        //왼쪽
+        preOrder(t.lt);
+        //오른쪽
+        preOrder(t.rt);
 
+    }
+
+    public static void postOrder(Node t) {
+        //왼 -> 오 -> 중
+        if (t == null) {
+            return;
+        }
+        postOrder(t.lt);
+        postOrder(t.rt);
+        System.out.print(t.num + " ");
+
+    }
     public static void main(String[] args) {
+        //tree 초기화
+        Tree t = new Tree(new Node(1));
+        t.root.lt = new Node(2);
+        t.root.rt = new Node(3);
+        t.root.lt.lt = new Node(4);
+        t.root.lt.rt = new Node(5);
+        t.root.rt.lt = new Node(6);
+        t.root.rt.rt = new Node(7);
 
-        Tree tree = new Tree(new Node(1));
-        tree.root.lt = new Node(2);
-        tree.root.rt = new Node(3);
-        tree.root.lt.lt = new Node(4);
-        tree.root.lt.rt = new Node(5);
-        tree.root.rt.lt = new Node(6);
-        tree.root.rt.rt = new Node(7);
+        //전위 순회: 가운데 -> 왼쪽 -> 오른쪽
+        preOrder(t.root);
+        System.out.println();
+        midOrder(t.root);
+        System.out.println();
+        postOrder(t.root);
+        System.out.println();
 
-        //tree.DFS(tree.root);
+        //중위 순회
 
-        tree.DFS(tree.root);
-
+        //후위 순회
 
     }
 }
