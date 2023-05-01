@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5edefbf8-9d25-4511-9bf4-1d0bf8571ea6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Q2580.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Inflearn_Algorithms/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../Inflearn_Algorithms/.idea/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Inflearn_Algorithms/out/production/JAVA_algorithm_lab/algorithm_ex/recursive/FindCow.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Inflearn_Algorithms/out/production/JAVA_algorithm_lab/algorithm_ex/recursive/FindCow.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
