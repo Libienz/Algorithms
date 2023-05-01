@@ -20,6 +20,32 @@ class Tree {
     }
 }
 public class TreeTravel {
+    public static void bfs(Node t) {
+
+        Queue<Node> q = new LinkedList<>();
+        q.add(t);
+        while (!q.isEmpty()) {
+            int len = q.size();
+            for (int i = 0; i < len; i++) {
+                Node cur = q.poll();
+                System.out.print(cur.num + " ");
+                //현재 노드에서 한 스텝에 닿을 수 있는 것들 q에 넣는다.
+                Node lt = cur.lt;
+                Node rt = cur.rt;
+
+                if (lt != null) {
+                    q.add(lt);
+                }
+                if (rt != null) {
+                    q.add(rt);
+                }
+            }
+
+
+        }
+
+
+    }
     //왼 -> 중 -> 오
     public static void midOrder(Node t) {
         if (t == null) {
@@ -64,13 +90,18 @@ public class TreeTravel {
         t.root.rt.rt = new Node(7);
 
         //전위 순회: 가운데 -> 왼쪽 -> 오른쪽
+        System.out.println("Pre");
         preOrder(t.root);
         System.out.println();
+        System.out.println("Mid");
         midOrder(t.root);
         System.out.println();
+        System.out.println("Post");
         postOrder(t.root);
         System.out.println();
-
+        System.out.println("Bfs");
+        bfs(t.root);
+        System.out.println();
         //중위 순회
 
         //후위 순회
