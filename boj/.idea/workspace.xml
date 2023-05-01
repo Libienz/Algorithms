@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-<<<<<<< HEAD
-    <list default="true" id="f91dfb25-4a81-4d5c-a59e-6fa5d64adfad" name="Changes" comment="">
-=======
-    <list default="true" id="272802a1-a8f2-47c0-87b0-8b200df15bbf" name="Changes" comment="">
->>>>>>> ed800a1604963bb78be08a45e1ab864f54d9f32b
+    <list default="true" id="5edefbf8-9d25-4511-9bf4-1d0bf8571ea6" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Q2580.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -20,66 +20,23 @@
       </list>
     </option>
   </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
-  </component>
-  <component name="GitSEFilterConfiguration">
-    <file-type-list>
-      <filtered-out-file-type name="LOCAL_BRANCH" />
-      <filtered-out-file-type name="REMOTE_BRANCH" />
-      <filtered-out-file-type name="TAG" />
-      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
-    </file-type-list>
-  </component>
-  <component name="ProjectId" id="2OM7ciJjP9OQva0MmIiWgDWTGSf" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+  <component name="ProjectId" id="2PCF2gxAu9EgymqXparve89F24c" />
+  <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-<<<<<<< HEAD
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;Project.color&quot;: &quot;003049&quot;,
+    &quot;Project.color&quot;: &quot;4d0c58&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Code/Java_Algorithms/Inflearn_Algorithms&quot;
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RunManager">
-    <configuration name="Q2583" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Q2583" />
-=======
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Inflearn_Algorithms" />
-  </component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\code\algorithms\boj\src" />
-    </key>
-  </component>
-  <component name="RunManager" selected="Application.Q1987">
-    <configuration name="Q1759" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Q1759" />
-      <module name="boj" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Q1987" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Q1987" />
-      <module name="boj" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Q2667" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Q2667" />
->>>>>>> ed800a1604963bb78be08a45e1ab864f54d9f32b
+    <configuration name="Q2580" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Q2580" />
       <module name="boj" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -87,20 +44,18 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Q1987" />
-        <item itemvalue="Application.Q1759" />
-        <item itemvalue="Application.Q2667" />
+        <item itemvalue="Application.Q2580" />
       </list>
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="272802a1-a8f2-47c0-87b0-8b200df15bbf" name="Changes" comment="" />
-      <created>1681358679457</created>
+      <changelist id="5edefbf8-9d25-4511-9bf4-1d0bf8571ea6" name="Changes" comment="" />
+      <created>1682952952763</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1681358679457</updated>
+      <updated>1682952952763</updated>
     </task>
     <servers />
   </component>
@@ -114,6 +69,5 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>
