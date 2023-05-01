@@ -1,63 +1,48 @@
 package algorithm_ex.sorting_searching;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
 
 public class StallDecision {
 
-
-    public static boolean isPossible(int stall1, int stall2,int[] valid_stall, int num_of_horse) {
-        int shortest = Math.abs(valid_stall[stall2] - valid_stall[stall1]);
-        //System.out.println("shortest : " + shortest );
-        int count = num_of_horse;
-
-        for (int n : valid_stall) {
-            if (n != valid_stall[stall1] &&
-                    n != valid_stall[stall2] &&
-                    Math.abs(n-valid_stall[stall1]) > shortest &&
-                    Math.abs(n-valid_stall[stall2]) >shortest) {
-                count--;
-                //System.out.println(num_of_horse);
-                if (count == 0) return true;
-
+    public static int count(int C, int distance, ArrayList<Integer> arr) {
+        int ep = arr.get(0);
+        int cnt = 1;
+        for (int i = 1; i < arr.size(); i++) {
+            if (arr.get(i) - ep >= distance) {
+                cnt++;
+                ep = arr.get(i);
             }
-
         }
-        //System.out.println("impossible");
-        return false;
+        return cnt;
 
     }
-
-
     public static void main(String[] args) {
-
         Scanner sc = new Scanner(System.in);
-        int num_of_stall = sc.nextInt();
-        int num_of_horse = sc.nextInt();
-
-        int[] valid_stall = new int[num_of_stall];
-
-        for (int i = 0; i<num_of_stall; i++) {
-            valid_stall[i] = sc.nextInt();
+        int N = sc.nextInt(); //마구간의 개수
+        int C = sc.nextInt(); //말의 마리수
+        ArrayList<Integer> arr = new ArrayList<>();
+        for (int i = 0; i < N; i++) {
+            arr.add(sc.nextInt());
         }
-        Arrays.sort(valid_stall);
 
-
-        if (num_of_horse == 2) {
-            System.out.println(valid_stall[valid_stall.length-1]-valid_stall[0]);
-            return;
-        }
-        int max = 0;
-        for (int i = 0; i<num_of_stall-1; i++) {
-            for (int j = i+1; j<num_of_stall; j++) {
-                if(isPossible(j,i,valid_stall,num_of_horse-2)) {
-                    if(max < valid_stall[j]-valid_stall[i]) {
-                        max = valid_stall[j]-valid_stall[i];
-                    }
-                }
+        Collections.sort(arr);
+        //두 말의 거리가 가질 수 있는 최댓 값
+        //우리가 구하고자 하는 해는 lt부터 rt사이에!
+        int lt = 1;
+        int rt = arr.get(arr.size() - 1) - arr.get(0);
+        int answer = 0;
+        while (lt <= rt) {
+            int mid = (lt + rt) / 2;
+            //System.out.println("mid = " + mid);
+            if (C <= count(C, mid, arr)) {
+                answer = mid;
+                lt = mid + 1;
+            } else {
+                rt = mid -1;
             }
         }
-        System.out.println(max);
-
-
+        System.out.println(answer);
     }
 }

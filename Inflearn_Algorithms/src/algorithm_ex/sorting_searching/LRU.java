@@ -3,76 +3,48 @@ package algorithm_ex.sorting_searching;
 import java.lang.reflect.Array;
 import java.util.*;
 
-
-class Cache {
-    int size;
-    int[] cache;
-
-    public Cache(int size) {
-        this.size = size;
-        cache = new int[size];
-        for (int i = 0; i < size; i++) {
-            cache[i] = 0;
-        }
-    }
-
-    public int cacheHit(int work) {
-        for (int i = 0; i < size; i++) {
-            if (cache[i] == work) {
-                return i;
+public class LRU {
+    public static int cacheHit(int[] cache, int work) {
+        for (int j = 0; j < cache.length; j++) {
+            //hit
+            if (cache[j] == work) {
+                return j;
             }
         }
         return -1;
     }
-
-    public void add(int work) {
-
-        int idx = cacheHit(work);
-
-        //cache miss
-        if (idx == -1) {
-
-            for (int i = size-1; i>=1; i--) {
-                cache[i] = cache[i - 1];
-            }
-            cache[0] = work;
-
-        }
-        //cache hit
-        else {
-
-            for (int i = idx; i >= 1; i--) {
-                cache[i] = cache[i - 1];
-            }
-            cache[0] = work;
-
-        }
-
-
-    }
-
-    @Override
-    public String toString() {
-        String str = "";
-        for (int i : cache) {
-            str += (i+" ");
-        }
-        return str;
-    }
-}
-public class LRU {
-
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int S = sc.nextInt(); //캐시 크기
-        int N = sc.nextInt(); //작업 개수
-        Cache cache = new Cache(S);
 
-        for (int i = 0; i < N; i++) {
-            cache.add(sc.nextInt());
+        Scanner sc = new Scanner(System.in);
+        int s = sc.nextInt(); //캐시 사이즈
+        int n = sc.nextInt(); //작업의 개수
+
+        int[] cache = new int[s];
+
+        for (int i = 0; i < n; i++) {
+            int work = sc.nextInt();
+            int hi = cacheHit(cache, work); //hit idx
+            //hit
+            if (hi != -1) {
+                for (int j = hi; j > 0; j--) {
+                    cache[j] = cache[j-1];
+                }
+                cache[0] = work;
+            }
+            //miss
+            else {
+                int tmp = cache[0];
+                for (int j = s-1; j > 0; j--) {
+                    cache[j] = cache[j-1];
+                }
+                cache[0] =work;
+            }
         }
 
-        System.out.println(cache);
+
+        for (int i = 0; i < cache.length; i++) {
+            System.out.print(cache[i] + " ");
+        }
 
 
     }

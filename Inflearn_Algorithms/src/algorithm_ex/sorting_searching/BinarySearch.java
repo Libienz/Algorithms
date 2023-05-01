@@ -8,36 +8,57 @@ import java.util.Scanner;
 public class BinarySearch {
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int size = sc.nextInt();
-        int target = sc.nextInt();
-        ArrayList<Integer> arr = new ArrayList<>();
 
-        for (int i = 0; i < size; i++) {
-            arr.add(sc.nextInt());
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt(); //n개의 숫자가 주어진다
+        int m = sc.nextInt(); //m이라는 숫자가 이분 검색 후 몇번째에 있는 지 구하시오 중복값 존재 x
+
+        int[] arr = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
         }
 
-        Collections.sort(arr);
+        //이분 검색은 정렬된 상태에서 시작하기에 정렬 먼저
+        //선택정렬
+        for (int i = 0; i < n; i++) {
+            int min = Integer.MAX_VALUE;
+            int minIdx = -1;
 
-        //정렬된 상태에서 이분 검색 binary search
+            for (int j = i; j < n; j++) {
+                if (min > arr[j]) {
+                    min = arr[j];
+                    minIdx = j;
+                }
+            }
+
+            int tmp = arr[i];
+            arr[i] = min;
+            arr[minIdx] = tmp;
+        }
+        //arr은 정렬완료
+        //binary search로 m을 찾을 것
+
         int lt = 0;
-        int rt = size - 1;
+        int rt = n-1;
 
         while (lt <= rt) {
             int midIdx = (lt + rt) / 2;
-            int midNum = arr.get(midIdx);
+            int mid = arr[midIdx];
 
-            if (midNum == target) {
-                System.out.println(midIdx+1);
+
+            if (m == mid) {
+                System.out.println(midIdx + 1);
                 break;
-            } else if (midNum < target) {
-                lt = midIdx + 1;
-                continue;
-            } else {
+            } else if (m < mid) {
                 rt = midIdx - 1;
-                continue;
+            } else {
+                lt = midIdx + 1;
             }
         }
+
+
+
     }
 
 }

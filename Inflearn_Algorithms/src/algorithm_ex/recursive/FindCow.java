@@ -1,60 +1,68 @@
 package algorithm_ex.recursive;
 
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Scanner;
+import java.util.*;
+
+//시간 초과  -> 방문했던 곳은 방문하지 않는다!
 
 public class FindCow {
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int pPoint = sc.nextInt(); //수직선 상 사람 위치
-        int cPoint = sc.nextInt(); //수직선 상 송아지 위치
+    static boolean[] visited;
 
-        int res = BFS(pPoint, cPoint);
-        System.out.println(res);
-
-    }
-
-    private static int BFS(int pPoint, int cPoint) {
-        Queue<Integer> q = new LinkedList<>();
-        int level = 0;
-        q.offer(pPoint);
-        boolean[] visited = new boolean[10001];
-        int[] mv = new int[3];
-        mv[0] = 1;
-        mv[1] = -1;
-        mv[2] = 5;
-
-        for (int i = 0; i < visited.length; i++) {
-            visited[i] = false;
+    static int cp;
+    public static boolean onCoord(int p) {
+        if (1 <= p && p <= 10000) {
+            return true;
         }
-        visited[pPoint] = true;
-
-
+        return false;
+    }
+    public static void bfs(int sp) { //사람의 시작위치를 인자로 받는 bfs 몇번 만에 소가 있는 위치로 갈 수 있는지 찾는다.
+        Queue<Integer> q = new LinkedList<>();
+        q.add(sp);
+        visited[sp] = true;
+        int level = 0;
         while (!q.isEmpty()) {
+
             int len = q.size();
             for (int i = 0; i < len; i++) {
-                int cur = q.poll();
-                if (cur == cPoint) {
-                    return level;
+
+                Integer cur = q.poll();
+//                System.out.println("cur = " + cur);
+//                System.out.println("level = " + level);
+
+                if (cur == cp) {
+                    System.out.println(level);
+                    return;
                 }
-                for (int move : mv) {
-                    int dest = cur + move;
-                    if (1 > dest || dest > 10000) {
-                        continue;
-                    }
-                    if (visited[dest]) {
-                        continue;
-                    }
-                    q.offer(dest);
-                    visited[dest] = true; //아직 방문하지는 않았지만 큐에 들어있으니까 중복적으로 방문하지 않도록 하는 것
+
+
+                if (onCoord(cur + 5) && !visited[cur + 5]) {
+//                    System.out.println("none");
+                    q.add(cur + 5);
+                    visited[cur + 5] = true;
                 }
+                if (onCoord(cur + 1) && !visited[cur + 1]) {
+//                    System.out.println("none");
+                    q.add(cur + 1);
+                    visited[cur + 1] = true;
+                }
+                if (onCoord(cur - 1) && !visited[cur - 1]) {
+//                    System.out.println("none");
+                    q.add(cur - 1);
+                    visited[cur - 1] = true;
+                }
+
 
             }
             level++;
         }
 
-        return -999;
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int hp = sc.nextInt(); // human position
+        cp = sc.nextInt(); // cow position
+        visited = new boolean[10001];
+        bfs(hp);
+
     }
 }

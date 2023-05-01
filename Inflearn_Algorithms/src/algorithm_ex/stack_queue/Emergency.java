@@ -1,64 +1,79 @@
 package algorithm_ex.stack_queue;
 
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Scanner;
+import java.sql.SQLOutput;
+import java.util.*;
 
-public class Emergency {
+class Patient {
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
-        int M = sc.nextInt();
-        int cnt = 1;
-        boolean mCured = false;
-        Queue<Integer> q = new LinkedList<>();
+    private int severity;
+    private int pnum;
 
-        for (int i = 0; i < N; i++) {
-            q.add(sc.nextInt());
-        }
-
-        //m이 치료될 때까지 반복
-        while (!mCured) {
-            //현재 보고 있는 환자의 위험도
-            Integer cur = q.poll();
-
-            //대기 순번 중 최대 위험도 환자 구하기
-            int listMax = getMax(q);
-
-            //치료 못함
-            if (cur < listMax) {
-                q.offer(cur);
-                if (M == 0) {
-                    M = q.size() - 1;
-                    continue;
-                }
-                M--;
-                continue;
-            }
-            //치료 함
-            else {
-                //치료 한게 M이라면
-                if (M == 0) {
-                    System.out.println(cnt);
-                    return;
-                } else {
-                    cnt++;
-                    M--;
-                }
-            }
-        }
+    public Patient(int sev, int pnum) {
+        this.severity = sev;
+        this.pnum = pnum;
+    }
+    public int getSeverity() {
+        return severity;
     }
 
-    private static int getMax(Queue<Integer> q) {
-        int max = 0;
-        for (Integer num : q) {
-            if (num > max) {
-                max = num;
-            }
+    public int getPnum() {
+        return pnum;
+    }
+}
+public class Emergency {
+
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt(); //n명의 환자
+        int m = sc.nextInt(); //m번째 환자는 몇번째로 진료를 받을까?
+        //pq? or q?
+        Queue<Patient> q = new LinkedList<>();
+        for (int i = 0; i < n; i++) {
+            int severity = sc.nextInt();
+            int pnum = i;
+            Patient p = new Patient(severity, pnum);
+            q.add(p);
         }
-        return max;
+
+        //q에 현황 구성 완료
+        //진료 시작
+
+        int cnt = 0;
+
+        while (!q.isEmpty()) {
+            boolean moreSevere = false;
+            Patient cur = q.poll();
+            int cs = cur.getSeverity();
+            for (Patient p : q) {
+                //현재 환자보다 위독한 환자가 있다면
+                if (cs < p.getSeverity()) {
+//                    System.out.println("cs = " + cs);
+//                    System.out.println("p = " + p.getSeverity());
+                    moreSevere = true;
+                    q.add(cur);
+                    break;
+                }
+            }
+            //더 심각한 환자가 있다면 다시 다음환자를 본다.
+            if (moreSevere) {
+                continue;
+            }
+            //더 심각한 환자가 없음
+            //현재 환자를 진료한다.
+            if (cur.getPnum() == m) {
+//                System.out.println("cs = " + cs);
+                System.out.println(++cnt);
+                return;
+            }
+            else {
+                cnt++;
+            }
+
+
+        }
+
     }
 
 }
