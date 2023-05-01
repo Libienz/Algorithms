@@ -1816,7 +1816,8 @@ public class Subset {
 - root - 0레벨
 - 아래 - 1레벨
 - ...
-BFS는 Queue를 이용한다. 레벨당 탐색하기 위해 level 변수 필요.
+BFS는 Queue를 이용한다. 레벨당 
+- 탐색하기 위해 level 변수 필요.
 ```java
 public void BFS(Node root) {
 
