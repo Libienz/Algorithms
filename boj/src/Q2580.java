@@ -11,6 +11,7 @@ import java.util.*;
 //        this.val = val;
 //    }
 //}
+
 public class Q2580 {
 
     static int[][] board;
@@ -88,23 +89,21 @@ public class Q2580 {
             //사각형 체크
             //9개의 사각형 체크해야 함
 //            System.out.println("사각형 시작");
-            int rw = 0;
-            int cw = 0;
-            while(rw <= 6) {
-                System.out.println("rw = " + rw);
-                System.out.println("cw = " + cw);
-                int rs = 0 + rw;
-                int cs = 0 + cw;
+            int rs = 0;
+            int cs = 0;
+            for (int i = 0; i < 9; i++) {
+//                System.out.println("rw = " + rw);
+//                System.out.println("cw = " + cw);
                 int r = -1;
                 int c = -1;
-                for (int j = 0; j < 3; j++) {
+                for (int j = rs; j < rs + 3; j++) {
                     Set<Integer> s = new HashSet<>();
-                    for (int k = 0; k <  3; k++) {
-                        s.add(board[j + rw][k + cw]);
+                    for (int k = cs; k < cs + 3; k++) {
+                        s.add(board[j][k]);
 //                        System.out.println("board[i][j] = " + board[j][k]);
-                        if (board[j + rw][k + cw] == 0) {
-                            r = j + rw;
-                            c = k + cw;
+                        if (board[j][k] == 0) {
+                            r = j;
+                            c = k;
                         }
                     }
                     if (s.size() == 9) {
@@ -117,13 +116,8 @@ public class Q2580 {
                     }
                 }
                 //하나 사각형 다봄
-                if (cw == 6) {
-                    System.out.println("cw = " + cw);
-                    rw += 3;
-                    cw = 0;
-                } else {
-                    cw += 3;
-                }
+                rs = (rs + 3) % 9;
+                cs = (cs + 3) % 9;
 
 
             }
