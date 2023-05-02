@@ -1,21 +1,10 @@
 import java.util.*;
 
-//class Node {
-//    int r;
-//    int c;
-//    int val;
-//
-//    public Node(int r, int c, int val) {
-//        this.r = r;
-//        this.c = c;
-//        this.val = val;
-//    }
-//}
-
 public class Q2580 {
 
-    static int[][] board;
-    static int cnt = 0;
+    static int[][] board; //스도쿠 보드
+
+    //스도쿠가 완성되었는지 확인하는 메서드
     public static boolean allDone() {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
@@ -30,18 +19,18 @@ public class Q2580 {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
-        //스도쿠 보드 선언 및 초기화
+        //스도쿠 보드 초기화
         board = new int[9][9];
-
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 board[i][j] = sc.nextInt();
             }
         }
 
+        //스도쿠가 완성될때까지 가로, 세로, 사각형을 검증한다.
         while (!allDone()) {
 
-            //가로 체크
+            /*가로 체크*/
             for (int i = 0; i < 9; i++) {
                 //i + 1번째 가로줄에 어떤 숫자들 있는지 s에 담는다.
                 Set<Integer> s = new HashSet<>();
@@ -64,7 +53,7 @@ public class Q2580 {
                 }
             }
 
-            //세로 체크
+            /*세로 체크*/
             for (int i = 0; i < 9; i++) {
                 //i + 1번째 세로줄에 어떤 숫자들 있는지 s에 담는다.
                 Set<Integer> s = new HashSet<>();
@@ -86,18 +75,18 @@ public class Q2580 {
                     }
                 }
             }
-            //사각형 체크
+            /*사각형 체크*/
             //9개의 사각형 체크해야 함
-//            System.out.println("사각형 시작");
             int rs = 0;
             int cs = 0;
             for (int i = 0; i < 9; i++) {
-//                System.out.println("rw = " + rw);
-//                System.out.println("cw = " + cw);
+
                 int r = -1;
                 int c = -1;
+//                System.out.println("rs = " + rs);
+//                System.out.println("cs = " + cs);
+                Set<Integer> s = new HashSet<>();
                 for (int j = rs; j < rs + 3; j++) {
-                    Set<Integer> s = new HashSet<>();
                     for (int k = cs; k < cs + 3; k++) {
                         s.add(board[j][k]);
 //                        System.out.println("board[i][j] = " + board[j][k]);
@@ -116,22 +105,13 @@ public class Q2580 {
                     }
                 }
                 //하나 사각형 다봄
-                rs = (rs + 3) % 9;
                 cs = (cs + 3) % 9;
-
-
-            }
-            System.out.println("사각형 끝");
-
-            System.out.println("cnt = " + cnt++);
-
-            for (int i = 0; i < 9; i++) {
-                for (int j = 0; j < 9; j++) {
-                    System.out.print(board[i][j] + " ");
+                if (cs == 0) {
+                    rs = (rs + 3) % 9;
                 }
-                System.out.println();
+
+
             }
-            System.out.println();
 
         }
 
