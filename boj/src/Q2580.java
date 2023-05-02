@@ -48,6 +48,7 @@ public class Q2580 {
                 }
             }
         }
+        //0인 칸이 모두 없어질 때 까지
         while (!spaces.isEmpty()) {
 
             Space s = spaces.poll();

@@ -197,5 +197,64 @@ public static void dfs(int r, int c, int lev) {
         }
     }
 ```
+
+### -Q2580
+#### 스도쿠 완성하기
+- 가운데 사각형 검사를 구현하는 것이 조금 빡셈
+- 또한 시간초과에 걸리지 않기 위해서 특정알고리즘을 사용해야 하는 듯? 
+  - 근데 시간복잡도는 똑같은데 .. 입력과 출력으로도 시간초과가 갈리는거보면 크게 신경쓸 필요는 없으려나.. 
+- 무튼 구현문제 하나 챙겨간다고 생각하자
+- 빡구현일수록 코드부터가 아니라 설계부터하고 들어가자! 들어가서 이것저것 만지다 보면 머리 쥐남
+
+```java
+        while (!spaces.isEmpty()) {
+
+            Space s = spaces.poll();
+            //가로줄 검증
+            ArrayList<Integer> checkSet = generateCheckSet();
+            for (int i = 0; i < 9; i++) {
+                if (board[s.getR()][i] != 0) {
+                    checkSet.remove((Object) board[s.getR()][i]);
+                }
+            }
+            if (checkSet.size() == 1) {
+                board[s.getR()][s.getC()] = checkSet.get(0);
+                spaces.remove(0);
+                continue;
+            }
+            //세로줄 검증
+            checkSet = generateCheckSet();
+            for (int i = 0; i < 9; i++) {
+                if (board[i][s.getC()] != 0) {
+                    checkSet.remove((Object) board[i][s.getC()]);
+                }
+            }
+            if (checkSet.size() == 1) {
+                board[s.getR()][s.getC()] = checkSet.get(0);
+                spaces.remove(0);
+                continue;
+            }
+            //사각형 검증
+            checkSet = generateCheckSet();
+            int qr = s.getR() / 3;
+            int qc = s.getC() / 3;
+            for (int i = qr*3; i < qr*3 + 3; i++) {
+                for (int j = qc * 3; j < qc * 3 + 3; j++) {
+                    if (board[i][j] != 0) {
+                        checkSet.remove((Object) board[i][j]);
+                    }
+                }
+            }
+            if (checkSet.size() == 1) {
+                board[s.getR()][s.getC()] = checkSet.get(0);
+                spaces.remove(0);
+                continue;
+            }
+            //아무런 조건으로도 못찾으면 다시 큐로..
+            spaces.add(s);
+
+        }
+
+```
 </div>
 </details>
