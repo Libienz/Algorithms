@@ -1,127 +1,109 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.*;
 
+class Space {
+    private int r;
+    private int c;
+
+    public Space(int r, int c) {
+        this.r = r;
+        this.c = c;
+    }
+
+    public int getR() {
+        return r;
+    }
+
+    public int getC() {
+        return c;
+    }
+}
 public class Q2580 {
 
     static int[][] board; //스도쿠 보드
 
-    //스도쿠가 완성되었는지 확인하는 메서드
-    public static boolean allDone() {
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                if (board[i][j] == 0) {
-                    return false;
-                }
-            }
+    public static ArrayList<Integer> generateCheckSet() {
+        ArrayList<Integer> checkSet = new ArrayList<>();
+        for (int i = 1; i <= 9; i++) {
+            checkSet.add(i);
         }
-        return true;
+        return checkSet;
     }
-
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         Scanner sc = new Scanner(System.in);
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        Queue<Space> spaces = new LinkedList<>(); //0인 공간들을 모아놓은 리스트
         //스도쿠 보드 초기화
         board = new int[9][9];
         for (int i = 0; i < 9; i++) {
+            StringTokenizer st = new StringTokenizer(br.readLine(), " ");
             for (int j = 0; j < 9; j++) {
-                board[i][j] = sc.nextInt();
+                board[i][j] = Integer.parseInt(st.nextToken());
+                if (board[i][j] == 0) {
+                    Space s = new Space(i, j);
+                    spaces.add(s);
+                }
             }
         }
+        while (!spaces.isEmpty()) {
 
-        //스도쿠가 완성될때까지 가로, 세로, 사각형을 검증한다.
-        while (!allDone()) {
-
-            /*가로 체크*/
+            Space s = spaces.poll();
+            //가로줄 검증
+            ArrayList<Integer> checkSet = generateCheckSet();
             for (int i = 0; i < 9; i++) {
-                //i + 1번째 가로줄에 어떤 숫자들 있는지 s에 담는다.
-                Set<Integer> s = new HashSet<>();
-                int c = -1;
-                for (int j = 0; j < 9; j++) {
-                    s.add(board[i][j]);
-                    if (board[i][j] == 0) {
-                        c = j;
-                    }
+                if (board[s.getR()][i] != 0) {
+                    checkSet.remove((Object) board[s.getR()][i]);
                 }
-                //9개가 들어있다면 빈칸이 하나라는 뜻. 즉 채울 수 있음
-                if (s.size() == 9) {
-                    //1부터 9까지의 수중에 어떤 것이 빠져있는지 s를 통해 체크
-                    for (int j = 1; j <= 9; j++) {
-                        if (!s.contains(j)) {
-                            //j가 빠졌다.
-                            board[i][c] = j;
-                        }
+            }
+            if (checkSet.size() == 1) {
+                board[s.getR()][s.getC()] = checkSet.get(0);
+                spaces.remove(0);
+                continue;
+            }
+            //세로줄 검증
+            checkSet = generateCheckSet();
+            for (int i = 0; i < 9; i++) {
+                if (board[i][s.getC()] != 0) {
+                    checkSet.remove((Object) board[i][s.getC()]);
+                }
+            }
+            if (checkSet.size() == 1) {
+                board[s.getR()][s.getC()] = checkSet.get(0);
+                spaces.remove(0);
+                continue;
+            }
+            //사각형 검증
+            checkSet = generateCheckSet();
+            int qr = s.getR() / 3;
+            int qc = s.getC() / 3;
+            for (int i = qr*3; i < qr*3 + 3; i++) {
+                for (int j = qc * 3; j < qc * 3 + 3; j++) {
+                    if (board[i][j] != 0) {
+                        checkSet.remove((Object) board[i][j]);
                     }
                 }
             }
-
-            /*세로 체크*/
-            for (int i = 0; i < 9; i++) {
-                //i + 1번째 세로줄에 어떤 숫자들 있는지 s에 담는다.
-                Set<Integer> s = new HashSet<>();
-                int r = -1;
-                for (int j = 0; j < 9; j++) {
-                    s.add(board[j][i]);
-                    if (board[j][i] == 0) {
-                        r = j;
-                    }
-                }
-                //9개가 들어있다면 빈칸이 하나라는 뜻. 즉 채울 수 있음
-                if (s.size() == 9) {
-                    //1부터 9까지의 수중에 어떤 것이 빠져있는지 s를 통해 체크
-                    for (int j = 1; j <= 9; j++) {
-                        if (!s.contains(j)) {
-                            //j가 빠졌다.
-                            board[r][i] = j;
-                        }
-                    }
-                }
+            if (checkSet.size() == 1) {
+                board[s.getR()][s.getC()] = checkSet.get(0);
+                spaces.remove(0);
+                continue;
             }
-            /*사각형 체크*/
-            //9개의 사각형 체크해야 함
-            int rs = 0;
-            int cs = 0;
-            for (int i = 0; i < 9; i++) {
-
-                int r = -1;
-                int c = -1;
-//                System.out.println("rs = " + rs);
-//                System.out.println("cs = " + cs);
-                Set<Integer> s = new HashSet<>();
-                for (int j = rs; j < rs + 3; j++) {
-                    for (int k = cs; k < cs + 3; k++) {
-                        s.add(board[j][k]);
-//                        System.out.println("board[i][j] = " + board[j][k]);
-                        if (board[j][k] == 0) {
-                            r = j;
-                            c = k;
-                        }
-                    }
-                    if (s.size() == 9) {
-                        for (int k = 1; k <= 9; k++) {
-                            if (!s.contains(k)) {
-                                //j가 빠졌다.
-                                board[r][c] = k;
-                            }
-                        }
-                    }
-                }
-                //하나 사각형 다봄
-                cs = (cs + 3) % 9;
-                if (cs == 0) {
-                    rs = (rs + 3) % 9;
-                }
-
-
-            }
+            //아무런 조건으로도 못찾으면 다시 큐로..
+            spaces.add(s);
 
         }
 
-
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                System.out.print(board[i][j] + " ");
+                sb.append(board[i][j]).append(' ');
             }
-            System.out.println();
+            sb.append('\n');
         }
+        System.out.println(sb);
 
     }
 }
