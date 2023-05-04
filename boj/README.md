@@ -198,7 +198,7 @@ public static void dfs(int r, int c, int lev) {
     }
 ```
 
-### -Q2580
+### - Q2580
 #### 스도쿠 완성하기
 - 가운데 사각형 검사를 구현하는 것이 조금 빡셈
 - 또한 시간초과에 걸리지 않기 위해서 특정알고리즘을 사용해야 하는 듯? 
@@ -255,6 +255,61 @@ public static void dfs(int r, int c, int lev) {
 
         }
 
+
+```
+### - Q14889
+#### 짝수명의 인원이 주어질 때 능력치 차이가 최소가 되는 두 팀으로 나누기
+- dfs 조합으로 팀을 나눈 후 팀의 능력을 계산하여 모든 케이스를 살펴봄으로써 해결 가능
+- 순열과 조합, 그리고 중복순열을 dfs로 구현하는 법을 기억하자! 
+- 참고로 2개를 뽑는 순열은 dfs보다는 이중루프가 간단하다 첨부터 이렇게 갔으면 삽질 안했는데..
+
+```java
+    public static int getTeamAbility(ArrayList<Integer> team) {
+        int ability = 0;
+        //팀에서 임의 두명을 뽑았을 때의 능력치를 더해나가고 리턴한다.
+        for (int i = 0; i < team.size(); i++) {
+            for (int j = 0; j < team.size(); j++) {
+                if (i == j) {
+                    continue;
+                }
+                ability += ab[team.get(i)][team.get(j)];
+            }
+        }
+        return ability;
+    }
+
+    public static void combinationDfs(int ch, int idx) {
+        if (ch == n / 2) {
+            //팀고르기 끝 team1에는 선수들이 편성되어있음
+            //team1에 편성되지 못한 선수들은 team2로!
+            for (int i = 0; i < n; i++) {
+                if (!team1.contains(i)) {
+                    team2.add(i);
+                }
+            }
+            //각팀의 능력치를 구한다.
+            int team1Ability = getTeamAbility(team1);
+            int team2Ability = getTeamAbility(team2);
+
+            //능력치의 차를 계산한다.
+            int diff = Math.abs(team1Ability - team2Ability);
+
+            //능력치의 차가 최소인지 확인한다.
+            if (diff < minDiff) {
+                minDiff = diff;
+            }
+            team2.clear();
+        } else {
+            for (int i = idx; i < n; i++) {
+                //i번 선수를 team1에 포함한다
+                team1.add(i);
+                combinationDfs(ch + 1, i + 1);
+                used[i] = true;
+                //i번 선수를 team1에 포함하지 않는다
+                team1.remove((Object) i);
+            }
+        }
+    }
 ```
 </div>
 </details>
