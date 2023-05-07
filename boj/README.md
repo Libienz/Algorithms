@@ -311,5 +311,77 @@ public static void dfs(int r, int c, int lev) {
         }
     }
 ```
+
+### - Q9019
+#### 연산 d,s,l,r이 정해짐 -> input에서 output으로 바꾸는 데에 최소한의 연산을 거칠 때 사용된 연산 정보를 출력하는 문제
+- 최소라는 키워드 bfs와 밀접하게 연관되어 있다는 것 기억하시오
+  - level별로 순회하니
+- 다만 몇번만에 가능하냐를 묻는 문제가 아닌 연산과정을 알려달라는 문제기에 나는 HistoryInteger라는 새로운 클래스로 어떤 연산을 거쳐 왔는지 저장하도록 했음
+
+- 참고로 dfs, bfs에서 내가 시간초과 내는 경우는 대부분 visited를 제대로 설정하지 않은 것 !
+- 이번에도 visited를 만들긴 했지만 전체적 시간복잡도를 고려하지 않은 visited를 만들어서 왜 시간초과가 나는지 30분동안 뻘짓함 
+  - boolean[] 이걸 만들고 처음에 초기화 해 놓은 것과
+  - ArrayList를 만들고 isContan을 이너루프에서 하는 것 성능차이 있을 수 밖에 없음
+  - 애초에 시간복잡도가 n배 차이남 (boolean[]는 idx를 통해 접근 가능하지만 ArrayList는 매번 for루프 하나 더 돌아야 함)
+
+```java
+        //각 케이스별로 첫번째 숫자를 두번째 숫자로 옮기기 위한 최소 연산을 찾는다.
+        for (ArrayList<Integer> tc : cases) {
+
+            int in = tc.get(0);
+            int out = tc.get(1);
+            boolean[] visited = new boolean[10001];
+            for (int i = 0; i < visited.length; i++) {
+                visited[i] = false;
+            }
+            //in에서 out으로 되기 위한 최소 연산을 구하자
+            Queue<HistoryInteger> q = new LinkedList<>();
+            int level = 0;
+            HistoryInteger hi = new HistoryInteger(in, "");
+            q.add(hi);
+            visited[hi.getNum()] = true;
+            //bfs start
+            while (!q.isEmpty()) {
+                int len = q.size();
+                for (int i = 0; i < len; i++) {
+
+                    HistoryInteger cur = q.poll();
+
+                    if (cur.getNum() == out) {
+                        System.out.println(cur.getOpHistory());
+                        q.clear();
+                        break;
+                    } else {
+
+                        //현재 숫자에서 4가지 연산한 결과들
+                        int d = Calculator.d(cur.getNum());
+                        int s = Calculator.s(cur.getNum());
+                        int l = Calculator.l(cur.getNum());
+                        int r = Calculator.r(cur.getNum());
+
+                        //이미 만들어봤던 숫자로 돌아가는 것은 최단이 아님 q에 넣지 않는다.
+                        if (!visited[d]) {
+                            q.add(new HistoryInteger(d, cur.getOpHistory() + "D"));
+                            visited[d] = true;
+                        }
+                        if (!visited[s]) {
+                            q.add(new HistoryInteger(s, cur.getOpHistory() + "S"));
+                            visited[s] = true;
+                        }
+                        if (!visited[l]) {
+                            q.add(new HistoryInteger(l, cur.getOpHistory() + "L"));
+                            visited[l] = true;
+                        }
+                        if (!visited[r]) {
+                            q.add(new HistoryInteger(r, cur.getOpHistory() + "R"));
+                            visited[r] = true;
+                        }
+
+                    }
+                }
+                level++;
+            }
+        }
+```
 </div>
 </details>
