@@ -385,5 +385,43 @@ public static void dfs(int r, int c, int lev) {
             }
         }
 ```
+
+### - 5014
+#### 엘레베이터가 위로 u층 아래로 d층만 움직일 수 있을 때 특정 floor에 도달하기 위한 최소한의 움직임 수
+- 보자마자 이제는 bfs문제인 것을 알 수 있다.
+- 문제 꼼꼼히 읽자 놓치는 정보가 아직 많다.
+```java 
+
+        while (!q.isEmpty()) {
+            int len = q.size();
+
+            for (int i = 0; i < len; i++) {
+                int cur = q.poll();
+
+                if (cur == g) {
+                    System.out.println(level);
+                    q.clear();
+                    useStair = false;
+                    break;
+                } else {
+                    // 방문한적 없고 범위에 포함되는 올바른 층이면 cur + u 층을 가는 경우를 따져본다
+                    int dest = cur + u;
+                    if (dest <= f && dest >= 1 && !visited[dest]) {
+                        q.add(dest);
+                        visited[dest] = true;
+                    }
+                    // 방문한적 없고 범위에 포함되는 올바른 층이면 cur + d 층을 가는 경우를 따져본다
+                    dest = cur - d;
+                    if (dest <= f && dest >= 1 && !visited[dest]) {
+                        q.add(dest);
+                        visited[dest] = true;
+                    }
+
+                }
+            }
+            level++;
+        } 
+```
+
 </div>
 </details>
