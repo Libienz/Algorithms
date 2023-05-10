@@ -28,7 +28,8 @@ public class Q15684 {
     static boolean prevSideMv = false;
     static ArrayList<Node> candidates;
     static ArrayList<Node> choiced;
-
+    static int[][] tmpMap;
+    static boolean answer = false;
     public static boolean isInRange(int r, int c) {
         if (0 <= r && r < map.length && c >= 0 && c < map[0].length) {
             return true;
@@ -39,17 +40,17 @@ public class Q15684 {
         //가로선 후보들 중 obj개를 뽑았다.
         if (ch == obj) {
             //뽑은 가로선들이 조건에 맞아서 병행가능한지 체크
-
             if (isAvailable(choiced)) {
-                //병행 가능하다.
+                //병행 가능하다면
                 //답이 될 수 있는지 체크
-//                System.out.println("obj = " + obj);
-//                System.out.println("choiced = " + choiced);
-                for (int i = 1; i < map[0].length; i += 2) {
-                    if (driveLadder(0, i)) {
-                        System.out.println(obj);
+                // 고른 가로선을 반영한 tmpMap에서
+                //세로선 하나씩 사다리 타보고 자기자신으로 떨어지는 지 확인한다.
+                for (int i = 1; i < tmpMap[0].length; i += 2) {
+                    if (!driveLadder(0, i, tmpMap)) {
+                        return;
                     }
                 }
+                answer = true;
             }
 
         } else {
@@ -65,7 +66,7 @@ public class Q15684 {
 
     public static boolean isAvailable(ArrayList<Node> choiced) {
         //고른 가로선들을 반영하여 tmpMap을 만들어본다.
-        int[][] tmpMap = new int[h + 2][2 * n + 1];
+        tmpMap = new int[h + 2][2 * n + 1];
         for (int i = 0; i < tmpMap.length; i++) {
             for (int j = 0; j < tmpMap[0].length; j++) {
                 tmpMap[i][j] = map[i][j];
@@ -74,6 +75,14 @@ public class Q15684 {
         for (Node n : choiced) {
             tmpMap[n.r][n.c] = 1;
         }
+        //tmpMap 출력해보기
+//        System.out.println("tmpMap = " + tmpMap);
+//        for (int i = 0; i < tmpMap.length; i++) {
+//            for (int j = 0; j < tmpMap[0].length; j++) {
+//                System.out.print(tmpMap[i][j] + " ");
+//            }
+//            System.out.println();
+//        }
 
         //tmpmap 완성
         //가로선은 연속하거나 접하면 안되는데 이를 따져보자
@@ -97,7 +106,7 @@ public class Q15684 {
         }
         return true;
     }
-    public static boolean driveLadder(int r, int c) {
+    public static boolean driveLadder(int r, int c, int[][]map) {
 
         int row = r;
         int col = c;
@@ -105,25 +114,34 @@ public class Q15684 {
 
             //왼쪽 혹은 오른쪽 먼저 살펴본다.
 
+//            System.out.print("row = " + row + " ");
+//            System.out.println("col = " + col);
+
             //오른쪽
             row = row;
-            col = col + 2;
+            col = col + 1;
             if (isInRange(row,col) && map[row][col] == 1 && !prevSideMv) {
                 prevSideMv = true;
+                col = col + 1;
                 continue;
             }
             //왼쪽
             row = row;
-            col = col - 4;
+            col = col - 2;
             if (isInRange(row,col) && map[row][col] == 1 && !prevSideMv) {
                 prevSideMv = true;
+                col = col - 1;
                 continue;
-            } else {
-                prevSideMv = false;
-                row = row + 1;
             }
+
+            prevSideMv = false;
+            row = row + 1;
+            col = col + 1;
+
         }
         if (col == c) {
+//            System.out.println(col);
+//            System.out.println("c = " + c);
             return true;
         } else {
             return false;
@@ -161,16 +179,16 @@ public class Q15684 {
 
         }
         //map 출력
-        for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < map[0].length; j++) {
-                System.out.print(map[i][j] + " ");
-
-            }
-            System.out.println();
-        }
+//        for (int i = 0; i < map.length; i++) {
+//            for (int j = 0; j < map[0].length; j++) {
+//                System.out.print(map[i][j] + " ");
+//
+//            }
+//            System.out.println();
+//        }
         //0인부분들 중 일부는 가로선을 놓을 수 있는 곳임
         for (int i = 1; i < map.length - 1; i++) {
-            for (int j = 0; j < map[0].length; j += 2) {
+            for (int j = 2; j < map[0].length - 1; j += 2) {
                 if (map[i][j] == 0) {
                     candidates.add(new Node(i, j));
                 }
@@ -180,10 +198,16 @@ public class Q15684 {
 
         //정답은 0, 1, 2, 3중에 하나!
         for (int chance = 0; chance <= 3; chance++) {
+//            System.out.println("chance = " + chance);
             //가로선으로 선택 가능한 좌표들을 담고 있는 candidates 에서 chance개의 노드를 고른다.
             dfs(0, 0, chance);
-
+            if (answer) {
+                System.out.println(chance);
+                return;
+            }
+//            answer = false;
         }
+        System.out.println(-1);
 
     }
 }
