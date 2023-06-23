@@ -423,5 +423,55 @@ public static void dfs(int r, int c, int lev) {
         } 
 ```
 
+### - Q15684
+#### 사다리에 최소 몇개의 다리를 추가해야 모든 세로선이 자기자신으로 회귀하는지 찾으시오
+- DFS 모든 가로선 추가의 경우의 수를 따지면 된다.
+- 다만 이문제의 핵심은 (적어도 내가 느낀 핵심) DFS 그 자체보다 문제를 어떻게 잘 추상화하는지 인듯
+- 사다리를 어떤 자료구조로 표현할지 다리가 연결된 것은 어떻게 표현할지 이런 부분들을 처음부터 잘 정립해야 함
+- 처음에 난잡하게 풀었다가 올바르게 동작하는 코드는 만들었지만 시간초과였음
+- 후에 표현방법을 간결하게 만드니 자연스레 로직이 간결해지고 시간복잡도가 많이 줄었다. (똑같은 DFS인데)
+
+```java 
+    public static void dfs(int left, int rInd, int cInd) {
+        //정해진 개수만큼 추가할 사다리를 모두 고른 상태 
+        if (left == 0) {
+            //고른 상태가 정답이 되었을 때 
+            if (isAllColumnReturnToItsNumber()) {
+                solvable = true;
+            }
+            return;
+        } else {
+            //가로선 고르기
+            //2차원 인덱스를 기억하고 있기에 보고 있던 열의 나머지 부분을 추가적으로 체크 
+            for (int j = cInd; j < n - 1; j++) {
+                if (map[rInd][j] == 0 && map[rInd][j + 1] == 0) {
+                    map[rInd][j] = 1;
+                    map[rInd][j + 1] = -1;
+                    //가로선 하나 선택 완료
+                    dfs(left - 1,rInd,j);
+                    //해당 가로선 쓰지 않음
+                    map[rInd][j] = 0;
+                    map[rInd][j + 1] = 0;
+                }
+            }
+            //보고 있던 열 다봤음 다음 열부터 다시 
+            for (int i = rInd + 1; i < h; i++) {
+                for (int j = 0; j < n - 1; j++) {
+                    if (map[i][j] == 0 && map[i][j + 1] == 0) {
+                        map[i][j] = 1;
+                        map[i][j + 1] = -1;
+                        //가로선 하나 선택 완료
+                        dfs(left - 1,i,j + 2);
+                        //back tracking 해당 가로선을 선택 안한 것으로 하고 다음 가로선들 체크
+                        map[i][j] = 0;
+                        map[i][j + 1] = 0;
+
+                    }
+                }
+            }
+        }
+    }
+```
+
 </div>
 </details>
