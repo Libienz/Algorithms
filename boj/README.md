@@ -473,5 +473,53 @@ public static void dfs(int r, int c, int lev) {
     }
 ```
 
+### - Q16956
+#### 양이 늑대에게 잡아먹히지 않도록 울타리를 설치하라 
+- 양이 늑대에게 잡아 먹히는 것을 막을 수 없는 경우는 양과 늑대가 변을 공유하고 있을 때 뿐
+- 따로 체크해준다.
+- 그렇지 않다면 어떠한 경우에도 지킬 수 있음
+- dfs로 늑대가 갈 수 있는 곳 모두에 'F'를 저장한다. 
+- 양 주변에 'F'가 있다면 울타리로 막는다. 
+
+```java 
+    public static void dfs(int r, int c) {
+        visited[r][c] = true;
+        if (map[r][c] == 'S') {
+
+        }
+
+        int row, col;
+
+        //상
+        row = r - 1;
+        col = c;
+        if (isValidIdx(row,col) && !visited[row][col] && map[row][col] == '.') {
+            map[row][col] = 'F';
+            dfs(row, col);
+        }
+        //하
+        row = r + 1;
+        col = c;
+        if (isValidIdx(row, col) && !visited[row][col] && map[r + 1][c] == '.') {
+            map[row][col] = 'F';
+            dfs(row, col);
+        }
+        //좌
+        row = r;
+        col = c - 1;
+        if (isValidIdx(row,col)&& !visited[row][col] && map[r][c-1] == '.') {
+            map[row][col] = 'F';
+            dfs(row, col);
+        }
+        //우
+        row = r;
+        col = c + 1;
+        if (isValidIdx(row,col)&& !visited[row][col] && map[r][c+1] == '.') {
+            map[row][col] = 'F';
+            dfs(row, col);
+        }
+    }
+```
+
 </div>
 </details>
