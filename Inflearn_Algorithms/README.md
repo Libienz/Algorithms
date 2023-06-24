@@ -3278,7 +3278,8 @@ public class Wrestling {
 - 회의 배열을 끝나는 시간 기준 정렬(Comparable) 하고 진행하면 됨 
   - but 왜 why 끝나는 시간 기준으로 greedy하게 해결하면 그게 solution이 되는가 ..
   - https://source-sc.tistory.com/59
-  - 
+  - 빨리 끝나는 회의를 골랐다는 것은 뒤로 남은 가용 회의 시간이 더 많다는 것
+  - 회의 시간이 많을 수록 더 많은 회의를 욱여넣을 수 있는 것이 당연하다 
 
 ```java
 package algorithm_ex.greedy;

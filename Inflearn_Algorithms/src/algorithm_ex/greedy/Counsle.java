@@ -5,83 +5,76 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
-class Conference implements Comparable<Conference>{
-    private int sTime;
-    private int fTime;
+class Conference implements Comparable<Conference> {
+    private int st;
+    private int ft;
 
-    public int getsTime() {
-        return sTime;
+    public Conference(int st, int ft) {
+        this.st = st;
+        this.ft = ft;
     }
 
-    public void setsTime(int sTime) {
-        this.sTime = sTime;
+    public int getSt() {
+        return st;
     }
 
-    public int getfTime() {
-        return fTime;
+    public void setSt(int st) {
+        this.st = st;
     }
 
-    public void setfTime(int fTime) {
-        this.fTime = fTime;
+    public int getFt() {
+        return ft;
     }
 
-    public Conference(int sTime, int fTime) {
-        this.sTime = sTime;
-        this.fTime = fTime;
+    public void setFt(int ft) {
+        this.ft = ft;
     }
 
     @Override
     public int compareTo(Conference o) {
-        if (this.fTime == o.fTime) {
-            return this.sTime - o.sTime;
+        if (o.getFt() == this.getFt()) {
+            return this.getSt() - o.getSt();
         }
-
-        return this.fTime - o.fTime;
+        return this.getFt() - o.getFt();
     }
 
     @Override
     public String toString() {
         return "Conference{" +
-                "sTime=" + sTime +
-                ", fTime=" + fTime +
+                "st=" + st +
+                ", ft=" + ft +
                 '}';
     }
 }
 public class Counsle {
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int size = sc.nextInt();
-        int cnt = 0;
-        int idx = 0;
 
+        Scanner sc = new Scanner(System.in);
+        int cnt = sc.nextInt(); //회의 개수
         ArrayList<Conference> arr = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
-            arr.add(new Conference(sc.nextInt(), sc.nextInt()));
+        ArrayList<Conference> timeTable = new ArrayList<>();
+
+        for (int i = 0; i < cnt; i++) {
+            int st = sc.nextInt(); //회의 시작시간
+            int ft = sc.nextInt(); //회의 종료시간
+            Conference cf = new Conference(st, ft);
+            arr.add(cf);
+
         }
+
 
         Collections.sort(arr);
-        System.out.println("arr = " + arr);
+//        System.out.println("arr = " + arr);
 
-        for (int i = 0; i < size; i++) {
-            Conference cur = arr.get(i);
-            if (i == 0) {
-                cnt++;
-                idx = 0;
-            } else {
-                Conference prev = arr.get(idx);
-                if (prev.getfTime() <= cur.getsTime()) {
-                    cnt++;
-                    idx = i;
-
-                }
-                else {
-                    continue;
-                }
+        timeTable.add(arr.get(0));
+        for (int i = 1; i < cnt; i++) {
+            if (timeTable.get(timeTable.size()-1).getFt() <= arr.get(i).getSt()) {
+                timeTable.add(arr.get(i));
             }
-
         }
 
-        System.out.println(cnt);
+        System.out.println(timeTable.size());
+
     }
 }
