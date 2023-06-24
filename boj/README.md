@@ -521,5 +521,47 @@ public static void dfs(int r, int c, int lev) {
     }
 ```
 
+### - Q2468
+#### 비가 왔을 때 잠기지 않는 안전한 Sector 개수를 구하라
+- 비의 양에 따라 루프를 돌며 각각의 양만큼 비가 왔을 때 나누어지는 섹터를 일일이 계산
+- 섹터를 판별하는 것은 DFS로 visited배열과 함께 
+- 어렵지 않은 문제 상하좌우 DFS
+
+```java 
+    public static void dfs(int row, int col) {
+
+        int r = row;
+        int c = col;
+
+        visited[row][col] = true;
+
+        //상
+        r = row - 1;
+        c = col;
+        if (isValidIdx(r,c) && !visited[r][c] && map[r][c] != 0) {
+            dfs(r, c);
+        }
+        //하
+        r = row + 1;
+        c = col;
+        if (isValidIdx(r,c) && !visited[r][c] && map[r][c] != 0) {
+            dfs(r, c);
+        }
+        //좌
+        r = row;
+        c = col - 1;
+        if (isValidIdx(r,c) && !visited[r][c] && map[r][c] != 0) {
+            dfs(r, c);
+        }
+        //우
+        r = row;
+        c = col + 1;
+        if (isValidIdx(r,c) && !visited[r][c] && map[r][c] != 0) {
+            dfs(r, c);
+        }
+    }
+
+```
+
 </div>
 </details>
