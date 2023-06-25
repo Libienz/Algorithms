@@ -2,79 +2,67 @@ package algorithm_ex.greedy;
 
 import java.util.*;
 
-class Request implements Comparable<Request>{
-    private int reward;
-    private int due;
+class Request implements Comparable<Request> {
+    int m;
+    int d;
 
-    public Request(int reward, int due) {
-        this.reward = reward;
-        this.due = due;
+    public Request(int m, int d) {
+        this.m = m;
+        this.d = d;
     }
 
-    public int getReward() {
-        return reward;
-    }
 
-    public void setReward(int reward) {
-        this.reward = reward;
-    }
-
-    public int getDue() {
-        return due;
-    }
-
-    public void setDue(int due) {
-        this.due = due;
-    }
 
     @Override
     public String toString() {
         return "Request{" +
-                "reward=" + reward +
-                ", due=" + due +
+                "m=" + m +
+                ", d=" + d +
                 '}';
     }
 
     @Override
     public int compareTo(Request o) {
-        if (this.due == o.due) {
-            return o.reward - this.reward;
-        }
-        return o.due - this.due;
+
+        return o.m - this.m;
     }
 }
 public class MaxIncome {
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int size = sc.nextInt();
-        PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
-        ArrayList<Request> arr = new ArrayList<>();
 
-        for (int i = 0; i < size; i++) {
-            arr.add(new Request(sc.nextInt(), sc.nextInt()));
+        ArrayList<Request> arr = new ArrayList<>();
+        PriorityQueue<Request> pq = new PriorityQueue<>();
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt(); //n개의 기업이 강연 요청을 했다.
+        for (int i = 0; i < n; i++) {
+            int m = sc.nextInt(); //m만큼의 강연료를 주겠다.
+            int d = sc.nextInt(); //d일 안에 와서 강의 해주면
+            Request request = new Request(m, d);
+            arr.add(request);
         }
-        Collections.sort(arr);
-//        System.out.println("arr = " + arr);
+
+
+        int maxD = Integer.MIN_VALUE;
+        for (Request r : arr) {
+            if (r.d > maxD) {
+                maxD = r.d;
+            }
+        }
+
+
         int res = 0;
-        int mDue = arr.get(0).getDue();
-        int idx = 0;
-        //i일에 할 수 있는 강연 중 가장 페이가 쎈 것을 찾자
-        for (int i = mDue; i >= 1; i--) {
-            for (int j = idx; j < size; j++) {
-                if (arr.get(j).getDue() == i) {
-                    pq.offer(arr.get(j).getReward());
-                } else {
-                    idx = j;
-                    break;
+        for (int i = maxD; i > 0; i--) {
+            for (Request r : arr) {
+                if (r.d == i) {
+                    pq.add(r);
                 }
             }
-//            System.out.println("pq = " + pq);
-            //보상이 제일 큰 것 선택
             if (pq.isEmpty()) {
                 continue;
             }
-            res += pq.poll();
+            res += pq.poll().m;
+            //i일 째에 할 수 있는 강연
         }
 
         System.out.println(res);
