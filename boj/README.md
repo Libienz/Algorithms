@@ -563,5 +563,65 @@ public static void dfs(int r, int c, int lev) {
 
 ```
 
+### - Q6593
+#### 건물을 탈출하는데 최소 몇 스텝이나 걸릴까?
+- 특별하지 않은 문제이지만 삽질을 하며 깨달은 게 많은 문제 
+- 문제는 층까지 나누어진 건물을 탈출하는 최소 단계를 물어보지만 차원을 하나 더 늘린 char[][][] map으로 간단히 해결할 수 있음
+- 메모리 초과
+  - 계속 메모리초과가 나길래 visited 배열 쪽을 봤는데 내가 굉장히 착각을 하고 있었다.
+  - visited는 도착해서 cur를 수정하는 것은 의미가 없다! 가기 전에 상하좌우 따질 때 갈 수 있다면 visited를 체크해야 의미가 있음
+  - 도착해서 visited true로 찍으면 그전에 여러번 큐에 들어갈 가능성이 있기 때문! 
+- move 배열을 통한 분기 줄이기 
+  - 이거 그렇게 어렵지 않다 moveX, moveY, moveZ들이 각 인덱스에서 하나만 1이 되도록 설정하면 끝! 그러면 for 문으로 불러왔을 때 한칸씩만 움직임
+```java
+//for를 통한 동서남북상하 분기를 위한 
+static int[] moveX = {-1, 1, 0, 0, 0, 0};
+static int[] moveY = {0, 0, -1, 1, 0, 0};
+static int[] moveZ = {0, 0, 0, 0, -1, 1};
+```
+
+```java 
+//핵심 bfs
+    public static int bfs(int sf, int sr, int sc) {
+
+        Queue<Coord> q = new LinkedList<>();
+        Coord start = new Coord(sf, sr, sc);
+        q.add(start);
+        int step = 0;
+
+        while (!q.isEmpty()) {
+            int len = q.size();
+            for (int i = 0; i < len; i++) {
+                Coord cur = q.poll();
+//                System.out.println("cur = " + cur);
+//                visited[cur.floor][cur.row][cur.col] = true;
+                if (map[cur.floor][cur.row][cur.col] == 'E') {
+                    q.clear();
+                    return step;
+                }
+                int nf, nr, nc;
+
+
+                for (int m = 0; m < moveX.length; m++) {
+                    nf = cur.floor + moveZ[m];
+                    nr = cur.row + moveY[m];
+                    nc = cur.col + moveX[m];
+                    if (isAvailableCoord(nf, nr, nc) && map[nf][nr][nc] != '#' && !visited[nf][nr][nc]) {
+                        q.add(new Coord(nf, nr, nc));
+                        visited[nf][nr][nc] = true; //visited 위치가 여기가 되야 더 많은 케이스를 절약할 수 있음!
+                    }
+                }
+
+
+            }
+            step++;
+
+        }
+
+        return -1;
+    }
+
+```
+
 </div>
 </details>
