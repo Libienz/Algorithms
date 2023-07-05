@@ -652,6 +652,65 @@ public static Co roll(Co pos, int rw, int cw, int nr, int nc) {
 
 ```
 
+### - 12851
+#### 직선 상 술래잡기 몇 스텝만에 잡을 수 있는가 또한 잡을 수 있는 경우의 수가 몇가지 인가
+- 간단한 bfs문제이지만 도달할 수 있는 경우의 수가 몇가지인지도 체크해야 하는 문제
+- 처음엔 visited를 사용하지 않고 모든 경우를 따져보아야 하나 생각했지만 메모리 초과 발생
+- 메모리 문제로 visited를 안쓸 수는 없는 상황. 그럼 어떻게 해야 할까?
+- 일전에 삽질한 문제 덕분에 빠르게 풀 수 있었다. Q6593 참고!
+- visited는 실제로 도착하기 전에 다음 위치를 계산할 때 찍어야 의미가 있다고 삽질하며 크게 깨달은 적이 있었다.
+- 이유는 같은 q에 추가하는 단계에서 같은 것이 여러 개 추가될 수 있기 때문 
+- 하지만 이 문제에서는 visited를 도착해서 찍어야 한다! 해당 위치에 도착하기 전까지는 경로가 몇개인지 여러개 카운트를 해야 하기 때문
+- 이것이 이 문제의 핵심!
+```java
+
+  public static int bfs() {
+    int level = 0;
+    Queue<Integer> q = new LinkedList<>();
+    q.add(n);
+    while (!q.isEmpty()) {
+      int len = q.size();
+
+      for (int i = 0; i < len; i++) {
+        Integer curP = q.poll(); //현재 술래의 위치
+        visited[curP] = true;
+        if (curP == k) {
+          //술래가 찾은 경우
+          ++count;
+          continue;
+        }
+        if (count > 0) {
+          continue;
+        }
+        //술래가 걸었을 경우: X-1 혹은 X+1로 이동 가능
+        if (curP - 1 >= 0 && curP -1 <=100000 && !visited[curP-1]) {
+//                    visited[curP - 1] = true;
+          q.offer(curP - 1);
+        }
+        if (curP + 1 >= 0 && curP + 1 <= 100000 && !visited[curP + 1]) {
+//                    visited[curP + 1] = true;
+          q.offer(curP + 1);
+        }
+        //술래가 순간이동 한 경우: 2*X 위치로 이동 가능
+        if (curP * 2 >= 0 && curP * 2 <= 100000 && !visited[curP * 2]) {
+//                    visited[curP * 2] = true;
+          q.offer(curP * 2);
+        }
+      }
+
+      if (count > 0) {
+        return level;
+      }
+      level++;
+
+    }
+
+    return -1;
+  }
+
+```
+
+
 
 
 </div>
