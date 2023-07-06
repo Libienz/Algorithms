@@ -710,6 +710,50 @@ public static Co roll(Co pos, int rw, int cw, int nr, int nc) {
 
 ```
 
+### - 12851
+#### 직선 상 술래잡기 몇 스텝만에 잡을 수 있는가 또한 잡는 경우 경로를 출력
+- 간단한 bfs문제, but 경로를 관리하는 것 추가로 생각해야 함. 
+- 오지게 삽질했다. 첫번째로 경로를 저장하기 위해 history를 저장할 수 있는 노드 객체를 만들어서 해결해보려고 했음
+```java
+class Node {
+
+  int position;
+  String route;
+
+  public Node(int position) {
+    this.position = position;
+    route = "" + position;
+
+  }
+
+} 
+```
+- 이렇게 하고 다음 스텝에 갈 수 있는 곳이 있으면 현재 노드를 clone해서 경로에 맞는 새로운 히스토리를 추가했다.
+- 이렇게 설정하면 마지막에 도착한 노드를 까보면 지금까지 거쳐온 경로를 모두 알 수 있음
+- 제일 무난한 풀이방법이라 생각했으나 시간초과에 걸림
+- 시간초과에 걸린 이유는 새로 만들어지는 노드마다 history를 관리해야 하기 때문 히스토리 크기가 크다면 시간이 오래걸릴 수 밖에 그리고 clone이 수시로 일어나니까..
+- 결국 이문제의 핵심은 경로 관리에서 바로 이전 위치, 즉 내가 어디서 왔는지만 관리하느냐, 아니면 경로 전체를 관리하느냐에서 갈린다.
+- 내가 노드로 푼 방법은 경로 전체를 관리하는 것이고 다음에 보이는 풀이 방법이 방문한 곳에서 내가 이전에 있던 곳만 따지는 풀이 방법이다.
+
+```java
+
+        bfs();
+        Stack<Integer> st = new Stack<>();
+
+        String route = "";
+        int pos = parent[k];
+        while (pos != -2) {
+            st.push(pos);
+            pos = parent[pos];
+        }
+        while (!st.isEmpty()) {
+            System.out.print(st.pop() + " ");
+        }
+        System.out.println(k);
+```
+- parent[k]는 k에 도달한 놈이 이전에 어디있었는지를 말함 이렇게 바로 이전 경로들만 추적해 나가면 시간초과에 걸리지 않는다.
+
+
 
 
 
