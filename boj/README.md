@@ -778,6 +778,28 @@ class Node {
     }
 ```
 
+### - 1780
+#### 2차원 배열이 coherent한 구성인지 확인, 그렇지 않다면 부분 배열이 coherent할 때까지 9분할 해나가는 문제
+#### Divide & Conquer
+- 간단한 문제지만 배열 분할 하는 것에서 애를 많이 먹었다
+- 첫번째 풀이에서 배열 분할은 다음과 같이 해결했다.
+```java 
+    /**
+     * @param rs rowStart
+     * @param cs colStart
+     * @param size
+     */
+    public static void divideAndConquer(int rs, int cs, int size) {
+        ....
+        ....
+    }
+```
+- 원래의 종이에서 subPaper는 세가지 parameter로 표현 가능함을 이용했다.(rs, cs, size )
+- size가 9인 원본 종이에서 rs = 0, cs = 0, size = 3의 부분종이는 9등분 했을 때 좌상의 부분종이를 가리키도록 되는 것이다
+- 또한 size가 9인 원본 종이에서 rs = 0, cs = 0, size = 1인 부분종이는 좌상을 다시 9등분했을 때의 좌상을 가리키게 된다. 
+- 나머지 풀이는 어렵지 않으나 (그냥 재귀로 해결 가능) 배열을 분할한 것을 어떻게 표현할 것인지의 아이디어를 챙겨가도록 하자 
+
+
 
 
 
