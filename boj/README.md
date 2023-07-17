@@ -755,6 +755,30 @@ class Node {
 
 
 
+### - 2210
+#### DFS 기초 문제 
+- 간단한 dfs문제 꼬는 부분 하나 없다. 그냥 모든 경우의 수를 dfs를 통해 구하면 끝
+```java
+    public static void dfs(int r, int c, int count, int sequence) {
+        if (count == MOVE_COUNT) {
+//            int res = sequence / 10;
+                set.add(sequence);
+        } else {
+            for (int i = 0; i < moveR.length; i++) {
+                int newR = r + moveR[i];
+                int newC = c + moveC[i];
+                if (newR >= 0 && newR < BOARD_WIDTH && newC >= 0 && newC < BOARD_HEIGHT) {
+                    int newSequence = sequence * 10;    
+                    newSequence += board[newR][newC];
+                    dfs(newR, newC, count + 1, newSequence);
+                }
+            }
+        }
+
+    }
+```
+
+
 
 
 </div>
