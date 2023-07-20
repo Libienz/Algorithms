@@ -800,6 +800,60 @@ class Node {
 - 나머지 풀이는 어렵지 않으나 (그냥 재귀로 해결 가능) 배열을 분할한 것을 어떻게 표현할 것인지의 아이디어를 챙겨가도록 하자 
 
 
+### - 14502
+#### 벽 3개를 세워서 전염병의 확산을 막을 때 어떻게 세우는 것이 가장 큰 안전영역을 가져오는가?
+#### naive하게 모든 경우의 수를 따져 해결
+- 벽 3개를 세울 때 가능한 모든 경우의 수를 구한다.
+- 각 경우의 수처럼 벽을 세웠을 때 안전 지대를 count한다. 
+- 전염병의 확산을 진행시키고 안전지대를 count해야 하는데 확산은 dfs를 이용하여 적용했다. 
+- 어렵지 않은 문제인데 나름 자주 보이는 문제 예전에 소프트웨어 마에스트로 코테에서 본적 있음
+- 조합은 다음과 같이 구현가능. 
+```java
+for (int i = 0; i < mapHeight * mapWidth; i++) {
+    for (int j = i + 1; j < mapHeight * mapWidth; j++) {
+        for (int k = j + 1; k < mapHeight * mapWidth; k++) {
+            int row, col;
+            //새로운 벽 1의 좌표
+            int r1 = i / mapWidth;
+            int c1 = i % mapWidth;
+            //새로운 벽 2의 좌표
+            int r2 = j / mapWidth;
+            int c2 = j % mapWidth;
+            //새로운 벽 3의 좌표
+            int r3 = k / mapWidth;
+            int c3 = k % mapWidth;
+            
+        ... 중략...
+        }
+    }
+}
+
+```
+- 3개 이상의 것을 고르는 조합은 dfs를 이용하여 구현함이 현명해보인다. 지금은 3개니까 루프로 단순 해결했다.
+- 그렇기에 꼬아서 낼려면 한도 끝도 없는 문제인 듯 함 
+- 하지만 보통 이런 류의 문제가 4개 이상을 선택하도록 주어지진 않는 듯하다.
+- 전염병의 확산을 구현한 dfs의 코드는 다음과 같이 간단하다.
+```java 
+    public static void infect(int r, int c, int[][] tmpMap, boolean[][] visited) {
+
+        //4방향 살펴보기
+        for (int i = 0; i < moveR.length; i++) {
+            int newR = r + moveR[i];
+            int newC = c + moveC[i];
+            //유효 인덱스 검사
+            if (!(newR >= 0 && newR < mapHeight && newC >= 0 && newC < mapWidth)) {
+                continue;
+            }
+            if (tmpMap[newR][newC] == 0 ) {
+                tmpMap[newR][newC] = 2;
+                visited[newR][newC] = true;
+                infect(newR, newC, tmpMap, visited);
+            }
+        }
+    }
+```
+- 문제를 소화할 수 있는 만큼씩 잘라서 이해하고 차근차근 구현하는 것이 중요하다는 것을 명심하자
+
 
 
 
