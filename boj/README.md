@@ -855,6 +855,146 @@ for (int i = 0; i < mapHeight * mapWidth; i++) {
 - 문제를 소화할 수 있는 만큼씩 잘라서 이해하고 차근차근 구현하는 것이 중요하다는 것을 명심하자
 
 
+### - 17141
+#### 바이러스를 어떻게 배치했을 때 Spread Time이 최소가 되는가
+#### naive하게 모든 경우를 따져 해결 with DFS, BFS
+- 바이러스를 배치하는 모든 경우의 수를 DFS로 따진다. 
+- 각 경우의 수처럼 바이러스를 배치했을 때 SpreadTime을 count.
+- 문제가 어렵진 않은데 볼륨이 크다 (요구하는 게 많음)
+- 잘라서 소화하자 특히 한번에 주루룩 쓰고 돌리지 말고 좀 기능단위로 테스트 진행하면서 천천히가라 그게 결국엔 젤 빠른 방법이다.
+- DFS로 모든 경우의 수 따지는 코드 (2차원 좌표를 save하며 조합해나갈때 다음 재귀에서 해당 row의 처리 한번 해야 하는 것 잊지말자 )
+```java    
+
+    public static void combinationDFS(int left, int r, int c, ArrayList<Integer> virusPutIdxs) {
+
+        //모든 바이러스를 배치한 경우
+        if (left == 0) {
+            //지도 깊은 복사 임시 지도에 옮겨넣는다. 
+            int[][] tmpMap = new int[mapSize][mapSize];
+            for (int i = 0; i < mapSize; i++) {
+                for (int j = 0; j < mapSize; j++) {
+                    tmpMap[i][j] = map[i][j];
+                    if (map[i][j] == 2) {
+                        tmpMap[i][j] = 0;
+                    }
+                }
+            }
+            //지정한 위치에 바이러스 배치
+            for (int i = 0; i < virusPutIdxs.size() / 2; i++) {
+                Integer vr = virusPutIdxs.get(i * 2);
+                Integer vc = virusPutIdxs.get(i * 2 + 1);
+                tmpMap[vr][vc] = 2;
+            }
+            //해당 경우의 지도 추가
+            virusDropCaseMaps.add(tmpMap);
+
+        } else {
+            if (r == mapSize) {
+                return;
+            }
+            //해당 열의 나머지 부분 체크
+            //조합 진행 인덱스의 r과 c중 r열의 c+1부터 나머지 확인하는 것
+            for (int j = c; j < mapSize; j++) {
+                int nextC = (j + 1) % mapSize;
+                int nextR = r;
+                if (nextC == 0) {
+                    nextR += 1;
+                }
+
+                if (map[r][j] == 2) {
+                    //바이러스를 현재 위치에 투하
+                    virusPutIdxs.add(r);
+                    virusPutIdxs.add(j);
+                    combinationDFS(left-1, nextR, nextC, virusPutIdxs);
+
+                    //바이러스를 현재 위치에 투하하지 않는다.
+                    virusPutIdxs.remove(virusPutIdxs.size() - 1);
+                    virusPutIdxs.remove(virusPutIdxs.size() - 1);
+                    //다음 루프로
+                }
+            }
+            //다음 열부터 진행
+            for (int i = r+1; i < mapSize; i++) {
+                for (int j = 0; j < mapSize; j++) {
+
+                    int nextC = (j + 1) % mapSize;
+                    int nextR = i;
+                    if (nextC == 0) {
+                        nextR += 1;
+                    }
+
+                    if (map[i][j] == 2) {
+                        //바이러스를 현재 위치에 투하
+                        virusPutIdxs.add(i);
+                        virusPutIdxs.add(j);
+
+                        combinationDFS(left-1, nextR, nextC, virusPutIdxs);
+                        //바이러스를 현재 위치에 투하하지 않는다.
+                        virusPutIdxs.remove(virusPutIdxs.size() - 1);
+                        virusPutIdxs.remove(virusPutIdxs.size() - 1);
+                        //다음 루프로
+                    }
+                }
+            }
+        }
+
+    }
+```
+- 다음은 Spread Counting (by BFS)
+```java 
+    public static int countSpreadTime(int[][] caseMap) {
+
+        Queue<Integer> q = new LinkedList<>();
+        boolean[][] visited = new boolean[mapSize][mapSize];
+        int time = 0;
+        for (int i = 0; i < mapSize; i++) {
+            for (int j = 0; j < mapSize; j++) {
+                if (caseMap[i][j] == 2) {
+                    q.add(i);
+                    q.add(j);
+                }
+            }
+        }
+
+        while (!q.isEmpty()) {
+            int len = q.size() / 2;
+            boolean spread = false;
+            for (int i = 0; i < len; i++) {
+                Integer curR = q.poll();
+                Integer curC = q.poll();
+
+                for (int j = 0; j < 4; j++) {
+                    int nextR = curR + moveR[j];
+                    int nextC = curC + moveC[j];
+                    //인덱스 유효 검사
+                    if (!(nextR >= 0 && nextR < mapSize && nextC >= 0 && nextC < mapSize)) {
+                        continue;
+                    }
+                    if (caseMap[nextR][nextC] == 0 && !visited[nextR][nextC]) {
+                        spread = true;
+                        caseMap[nextR][nextC] = 2;
+                        q.add(nextR);
+                        q.add(nextC);
+                        visited[nextR][nextC] = true;
+                    }
+                }
+            }
+            if (spread) {
+                time++;
+            }
+        }
+        // 모든 빈 칸을 바이러스로 채웠는지 체크
+        for (int i = 0; i < mapSize; i++) {
+            for (int j = 0; j < mapSize; j++) {
+                if (caseMap[i][j] == 0) {
+                    return -1;
+                }
+            }
+        }
+        return time;
+
+    }
+```
 
 
 </div>
