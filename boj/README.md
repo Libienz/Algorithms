@@ -858,7 +858,7 @@ for (int i = 0; i < mapHeight * mapWidth; i++) {
 ### - 17141, 17142
 #### 바이러스를 어떻게 배치했을 때 Spread Time이 최소가 되는가
 #### naive하게 모든 경우를 따져 해결 with DFS, BFS
-- 바이러스를 배치하는 모든 경우의 수를 DFS로 따진다. 
+- 바이러스를 배치하는 모든 경우의 수를 DFS로 따진다.
 - 각 경우의 수처럼 바이러스를 배치했을 때 SpreadTime을 count.
 - 문제가 어렵진 않은데 볼륨이 크다 (요구하는 게 많음)
 - 잘라서 소화하자 특히 한번에 주루룩 쓰고 돌리지 말고 좀 기능단위로 테스트 진행하면서 천천히가라 그게 결국엔 젤 빠른 방법이다.
@@ -995,6 +995,164 @@ for (int i = 0; i < mapHeight * mapWidth; i++) {
 
     }
 ```
+
+### - 17090
+#### 미로의 격자에 적힌대로 이동해야 할 때 사이클에 빠지지 않고 탈출할 수 있는 시작점은 몇개인지 구하라
+#### DFS가 핵심인데 DFS가 왜 쓰이는지 근본적인 이해를 요구한다. 
+- Q17090.java 첫번째 풀이 
+- 모든 출발점에 대해서 탈출 가능한지 불가능한지를 따진다. 사이클에 빠지면 무한으로 돌기에 사이클 체크를 visited로 확인했다. 
+- 제출 결과는 시간 초과, 시간초과를 해결하기 위해서 dfs내에 shortCut을 추가했다.
+- 방문한 곳이 이미 방문한 곳이면 사이클에 빠졌음을 감지하고 지금까지 밟아왔던 모든 인덱스는 한 번 밟으면 사이클에 빠지게 되는 것으로 구별했다.
+- 정보를 저장하고 처음에 출발할 때 사이클지점인지 확인하여 모든 경우의 수에서 dfs를 하지 않게 하는 것에는 성공  
+- 실제로 hit되는 경우가 많았고 압축에 나름 성공한 줄 알았으나 여전히 시간초과 .. 
+- 아래는 실패한 코드 
+```java        
+//정해진 대로만 이동해야 함. 만약 이동했는데 왔던 곳으로 왔으면 루프에 빠져 탈출할 수 없는 상태임을 알리는 것
+    public static void driveMaze(Node1 node) {
+
+        int startRow = node.getRow();
+        int startCol = node.getCol();
+
+        char cur = map[startRow][startCol];
+        int nextRow = 0, nextCol = 0;
+
+        //현재 밟고 있는 곳에 적힌대로 이동
+        switch (cur) {
+            case 'U':
+                nextRow = startRow - 1;
+                nextCol = startCol;
+                break;
+            case 'D':
+                nextRow = startRow + 1;
+                nextCol = startCol;
+                break;
+            case 'L':
+                nextRow = startRow;
+                nextCol = startCol - 1;
+                break;
+            case 'R':
+                nextRow = startRow;
+                nextCol = startCol + 1;
+                break;
+
+        }
+
+        //탈출 성공 확정
+        if (nextRow < 0 || nextCol < 0 || nextRow >= n || nextCol >= m) {
+
+            //현 위치는 탈출 가능한 위치임을 설정
+            isEscapableStartPoint[startRow][startCol] = true;
+            Node1 prevNode;
+            int rowIdx = startRow;
+            int colIdx = startCol;
+            //지금 까지 밟아왔던 것들 중 하나라도 밟게 되면 탈출 성공
+            while((prevNode = prev[rowIdx][colIdx]) != null) {
+                isEscapableStartPoint[prevNode.getRow()][prevNode.getCol()] = true;
+                rowIdx = prevNode.getRow();
+                colIdx = prevNode.getCol();
+
+            }
+            return;
+        }
+
+        //가려는 곳에 방문한 적이 있다면 탈출 실패 확정
+        if (prev[nextRow][nextCol] != null) {
+
+            isEscapableStartPoint[startRow][startCol] = false;
+            Node1 prevNode;
+            int rowIdx = startRow;
+            int colIdx = startCol;
+            //지금 까지 밟아왔던 것들 중 하나라도 밟게 되면 탈출 불가
+            while((prevNode = prev[rowIdx][colIdx]) != null) {
+                isEscapableStartPoint[prevNode.getRow()][prevNode.getCol()] = false;
+                rowIdx = prevNode.getRow();
+                colIdx = prevNode.getCol();
+
+            }
+            return;
+        }
+
+        //다음으로 가고자 하는 곳이 이미 결과가 나온 곳인지 체크
+        if (isEscapableStartPoint[nextRow][nextCol] != null) {
+            //현 위치부터 지금까지 밟아온 곳은 다음 밟는 곳의 결과를 따른다.
+            isEscapableStartPoint[startRow][startCol] = isEscapableStartPoint[nextRow][nextCol];
+            Node1 prevNode;
+            int rowIdx = startRow;
+            int colIdx = startCol;
+            while((prevNode = prev[rowIdx][colIdx]) != null) {
+                isEscapableStartPoint[prevNode.getRow()][prevNode.getCol()] = isEscapableStartPoint[nextRow][nextCol];
+                rowIdx = prevNode.getRow();
+                colIdx = prevNode.getCol();
+
+            }
+            return;
+        }
+        //다음으로 가기전 어디에서 오는 것인지 기입
+        prev[nextRow][nextCol] = node;
+        //다음으로 이동
+        Node1 nextNode = new Node1(nextRow, nextCol);
+        driveMaze(nextNode);
+    }
+```
+- Q17090RS.java: Right solution
+- 사실 dfs에 관해서 지금까지 너무 획일화된 문제만 풀어와서 그럴까 이게 dfs의 근본을 묻는 문제라는 것을 꽤나 늦게 알아차림
+- dfs의 본질은 파고들다가 막히면 back tracking 한다는 것 
+- 즉 어디에서 왔는지 prev배열을 두어 저장할 필요 없이 back tracking을 통해서 이전 위치에 값을 알릴 수 있는것
+- 이렇게 하면 prev를 처리하는 n~n제곱만큼의 시간복잡도를 줄일 수 있다
+- 애초에 잘못된 풀이에서 필요 없는 것을 덕지덕지 붙여놓고 경로 압축이라고 주장한 셈.. 
+- dfs의 back tracking을 이용하여 결과를 퍼뜨리는 코드를 한번 살펴보자 
+```java 
+    //정해진 대로만 이동해야 함. 만약 이동했는데 왔던 곳으로 왔으면 루프에 빠져 탈출할 수 없는 상태임을 알리는 것
+    public static int dfs(int sr, int sc) {
+
+        //현재 탈출했다면 return 1
+        if (sr < 0 || sc < 0 || sr >= n || sc >= m) {
+//            dp[sr][sc] = 1;
+            return 1;
+        }
+        //현재 위치에 방문한 적이 있다면
+        if (dp[sr][sc] != 0) {
+            return dp[sr][sc];
+        }
+
+        dp[sr][sc] = -1;
+        char cur = map[sr][sc];
+        int nr = 0, nc = 0;
+
+        //현재 밟고 있는 곳에 적힌대로 이동
+        switch (cur) {
+            case 'U':
+                nr = sr - 1;
+                nc = sc;
+                break;
+            case 'D':
+                nr = sr + 1;
+                nc = sc;
+                break;
+            case 'L':
+                nr = sr;
+                nc = sc - 1;
+                break;
+            case 'R':
+                nr = sr;
+                nc = sc + 1;
+                break;
+
+        }
+
+
+        //다음 위치에 방문한 적이 없다면
+        dp[sr][sc] = dfs(nr, nc);
+
+        return dp[sr][sc];
+    }
+   
+```
+- dfs가 return한다. 사실 요것이 나한테 조금 어색했던 부분 
+- dfs(row, col)은 해당 위치가 탈출 할 수 있는 지 없는지를 int로 알린다. 
+- 방문한 곳이 탈출 가능한지 안한지는 돌려서 사이클을 만나던지 탈출 하던지 그 때가 되서야 알 수 있다. 
+- 따라서 가다가 결론이 나면 propagate하는 부분이 바로 이부분이다. dp[sr][sc] = dfs(nr, nc);
+- prev 없이 propagate이 가능한 것을 볼 수 있음 
 
 
 </div>
