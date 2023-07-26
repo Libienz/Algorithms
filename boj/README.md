@@ -1154,6 +1154,87 @@ for (int i = 0; i < mapHeight * mapWidth; i++) {
 - 따라서 가다가 결론이 나면 propagate하는 부분이 바로 이부분이다. dp[sr][sc] = dfs(nr, nc);
 - prev 없이 propagate이 가능한 것을 볼 수 있음 
 
+### - 3055
+#### 탈출 시간 
+#### 두가지를 한번에 bfs 돌리는 것이 핵심 어렵지 않음
+- 1분이 지나면 비버와 물이 동시에 움직임 bfs를 두개 따지면 끝
+- 쉬운 문제라 후딱 넘어가지만 문제 좀 꼼꼼히 읽고 코드좀 짧게 짜자 아무리 자바라지만 길다.. (변수명도 좀 일관적으로 짜고)
+```java        
+    public static int countMinuteForEscape(int sr, int sc) {
+
+        //bfs 요소 초기화
+        Queue<Node2> bq = new LinkedList<>(); //비버 위치
+        Queue<Node2> wq = new LinkedList<>(); //물 위치
+        boolean[][] bieberVisited = new boolean[mapRowSize][mapColSize];
+        boolean[][] waterVisited = new boolean[mapRowSize][mapColSize];
+
+        int level = 0;
+
+        //출발지점 큐에 삽입
+        bq.add(new Node2(sr, sc));
+        bieberVisited[sr][sc] = true;
+        //물 있는 위치 큐에 삽입
+        for (int i = 0; i < mapRowSize; i++) {
+            for (int j = 0; j < mapColSize; j++) {
+                if (map[i][j] == '*') {
+                    wq.add(new Node2(i, j));
+                    waterVisited[i][j] = true;
+                }
+            }
+        }
+
+        while (!bq.isEmpty()) {
+            int len = bq.size();
+            for (int i = 0; i < len; i++) {
+                //현재 위치
+                Node2 cur = bq.poll();
+                if (map[cur.getRow()][cur.getCol()] == '*') {
+                    continue;
+                }
+                //도착했으면
+                if (map[cur.getRow()][cur.getCol()] == 'D') {
+                    return level;
+                }
+                //도착하지 않았으면 다음 으로
+                for (int j = 0; j < 4; j++) {
+                    int nr = cur.getRow() + moveR[j];
+                    int nc = cur.getCol() + moveC[j];
+
+                    // 갈 수 있는지 체크
+                    if (isBieberAbleToGo(nr, nc) && !bieberVisited[nr][nc]) {
+                        bq.add(new Node2(nr, nc));
+                        bieberVisited[nr][nc] = true;
+                    }
+
+                }
+            }
+
+            //spread Water
+            int wl = wq.size();
+
+            for (int i = 0; i < wl; i++) {
+                Node2 curWater = wq.poll();
+                for (int j = 0; j < 4; j++) {
+                    int nextWaterRow = curWater.getRow() + moveR[j];
+                    int nextWaterCol = curWater.getCol() + moveC[j];
+                    if (isWaterAbleToGo(nextWaterRow, nextWaterCol) && !waterVisited[nextWaterRow][nextWaterCol]) {
+                        if (map[nextWaterRow][nextWaterCol] =='D') {
+                            return -1;
+                        }
+                        map[nextWaterRow][nextWaterCol] = '*';
+                        waterVisited[nextWaterRow][nextWaterCol] = true;
+                        wq.add(new Node2(nextWaterRow, nextWaterCol));
+                    }
+                }
+            }
+
+            level++;
+        }
+        return -1;
+    }
+
+```
+
 
 </div>
 </details>
