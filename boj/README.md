@@ -6,6 +6,10 @@
 <summary>dfs, bfs</summary></summary>
 <div markdown="1">
 
+<details>
+<summary>2583</summary></summary>
+<div markdown="1">
+
 ### - Q2583
 #### 모눈 종이가 색칠된 부분과 그렇지 않은 부분으로 나누어 질때 색칠되지 않은 영역이 어떻게 나뉘는지 에 대한 정보 파악 문제
 ![img_2.png](img_2.png)
@@ -44,6 +48,14 @@
 
     }
 ```
+
+</div>
+</details>
+
+
+<details>
+<summary>2667</summary></summary>
+<div markdown="1">
 
 ### - Q2667
 #### 정사각형의 지도에서 1이 집을, 0이 집이 없는 곳을 나타낼 때 집의 모임인 단지에 대한 정보를 파악하는 문제
@@ -87,6 +99,13 @@
 
     }
 ```
+
+</div>
+</details>
+
+<details>
+<summary>1759</summary></summary>
+<div markdown="1">
 
 ### - Q1759
 #### 암호의 조건이 주어질 때 가능한 암호를 모두 구해보기
@@ -148,6 +167,12 @@
         }
     }
 ```
+</div>
+</details>
+
+<details>
+<summary>1987</summary></summary>
+<div markdown="1">
 
 ### - Q1987
 #### 보드와 특정 위치의 말이 주어졌을 때 말이 제일 멀리 몇칸을 갈 수 있는가?
@@ -197,6 +222,13 @@ public static void dfs(int r, int c, int lev) {
         }
     }
 ```
+
+</div>
+</details>
+
+<details>
+<summary>2580</summary></summary>
+<div markdown="1">
 
 ### - Q2580
 #### 스도쿠 완성하기
@@ -254,9 +286,17 @@ public static void dfs(int r, int c, int lev) {
             spaces.add(s);
 
         }
-
+        
 
 ```
+
+</div>
+</details>
+
+<details>
+<summary>14889</summary></summary>
+<div markdown="1">
+
 ### - Q14889
 #### 짝수명의 인원이 주어질 때 능력치 차이가 최소가 되는 두 팀으로 나누기
 - dfs 조합으로 팀을 나눈 후 팀의 능력을 계산하여 모든 케이스를 살펴봄으로써 해결 가능
@@ -311,6 +351,14 @@ public static void dfs(int r, int c, int lev) {
         }
     }
 ```
+
+</div>
+</details>
+
+<details>
+<summary>9019</summary></summary>
+<div markdown="1">
+
 
 ### - Q9019
 #### 연산 d,s,l,r이 정해짐 -> input에서 output으로 바꾸는 데에 최소한의 연산을 거칠 때 사용된 연산 정보를 출력하는 문제
@@ -386,6 +434,13 @@ public static void dfs(int r, int c, int lev) {
         }
 ```
 
+</div>
+</details>
+
+<details>
+<summary>5014</summary></summary>
+<div markdown="1">
+
 ### - 5014
 #### 엘레베이터가 위로 u층 아래로 d층만 움직일 수 있을 때 특정 floor에 도달하기 위한 최소한의 움직임 수
 - 보자마자 이제는 bfs문제인 것을 알 수 있다.
@@ -422,6 +477,13 @@ public static void dfs(int r, int c, int lev) {
             level++;
         } 
 ```
+
+</div>
+</details>
+
+<details>
+<summary>15684</summary></summary>
+<div markdown="1">
 
 ### - Q15684
 #### 사다리에 최소 몇개의 다리를 추가해야 모든 세로선이 자기자신으로 회귀하는지 찾으시오
@@ -473,6 +535,13 @@ public static void dfs(int r, int c, int lev) {
     }
 ```
 
+</div>
+</details>
+
+<details>
+<summary>16956</summary></summary>
+<div markdown="1">
+
 ### - Q16956
 #### 양이 늑대에게 잡아먹히지 않도록 울타리를 설치하라 
 - 양이 늑대에게 잡아 먹히는 것을 막을 수 없는 경우는 양과 늑대가 변을 공유하고 있을 때 뿐
@@ -521,6 +590,13 @@ public static void dfs(int r, int c, int lev) {
     }
 ```
 
+</div>
+</details>
+
+<details>
+<summary>2468</summary></summary>
+<div markdown="1">
+
 ### - Q2468
 #### 비가 왔을 때 잠기지 않는 안전한 Sector 개수를 구하라
 - 비의 양에 따라 루프를 돌며 각각의 양만큼 비가 왔을 때 나누어지는 섹터를 일일이 계산
@@ -562,6 +638,13 @@ public static void dfs(int r, int c, int lev) {
     }
 
 ```
+
+</div>
+</details>
+
+<details>
+<summary>6593</summary></summary>
+<div markdown="1">
 
 ### - Q6593
 #### 건물을 탈출하는데 최소 몇 스텝이나 걸릴까?
@@ -623,6 +706,13 @@ static int[] moveZ = {0, 0, 0, 0, -1, 1};
 
 ```
 
+</div>
+</details>
+
+<details>
+<summary>13459</summary></summary>
+<div markdown="1">
+
 ### - 13459
 #### 보드를 기울이며 파란공이 아닌 빨간공만 구멍에 넣어라
 - bfs문제이지만 요구조건이 많은 문제 
@@ -651,6 +741,14 @@ public static Co roll(Co pos, int rw, int cw, int nr, int nc) {
 }
 
 ```
+
+
+</div>
+</details>
+
+<details>
+<summary>12851</summary></summary>
+<div markdown="1">
 
 ### - 12851
 #### 직선 상 술래잡기 몇 스텝만에 잡을 수 있는가 또한 잡을 수 있는 경우의 수가 몇가지 인가
@@ -754,6 +852,13 @@ class Node {
 - parent[k]는 k에 도달한 놈이 이전에 어디있었는지를 말함 이렇게 바로 이전 경로들만 추적해 나가면 시간초과에 걸리지 않는다.
 
 
+</div>
+</details>
+
+<details>
+<summary>2210</summary></summary>
+<div markdown="1">
+
 
 ### - 2210
 #### DFS 기초 문제 
@@ -778,6 +883,14 @@ class Node {
     }
 ```
 
+
+</div>
+</details>
+
+<details>
+<summary>1780</summary></summary>
+<div markdown="1">
+
 ### - 1780
 #### 2차원 배열이 coherent한 구성인지 확인, 그렇지 않다면 부분 배열이 coherent할 때까지 9분할 해나가는 문제
 #### Divide & Conquer
@@ -799,6 +912,13 @@ class Node {
 - 또한 size가 9인 원본 종이에서 rs = 0, cs = 0, size = 1인 부분종이는 좌상을 다시 9등분했을 때의 좌상을 가리키게 된다. 
 - 나머지 풀이는 어렵지 않으나 (그냥 재귀로 해결 가능) 배열을 분할한 것을 어떻게 표현할 것인지의 아이디어를 챙겨가도록 하자 
 
+
+</div>
+</details>
+
+<details>
+<summary>14502</summary></summary>
+<div markdown="1">
 
 ### - 14502
 #### 벽 3개를 세워서 전염병의 확산을 막을 때 어떻게 세우는 것이 가장 큰 안전영역을 가져오는가?
@@ -854,6 +974,13 @@ for (int i = 0; i < mapHeight * mapWidth; i++) {
 ```
 - 문제를 소화할 수 있는 만큼씩 잘라서 이해하고 차근차근 구현하는 것이 중요하다는 것을 명심하자
 
+
+</div>
+</details>
+
+<details>
+<summary>17141</summary></summary>
+<div markdown="1">
 
 ### - 17141, 17142
 #### 바이러스를 어떻게 배치했을 때 Spread Time이 최소가 되는가
@@ -995,6 +1122,13 @@ for (int i = 0; i < mapHeight * mapWidth; i++) {
 
     }
 ```
+
+</div>
+</details>
+
+<details>
+<summary>17090</summary></summary>
+<div markdown="1">
 
 ### - 17090
 #### 미로의 격자에 적힌대로 이동해야 할 때 사이클에 빠지지 않고 탈출할 수 있는 시작점은 몇개인지 구하라
@@ -1154,6 +1288,13 @@ for (int i = 0; i < mapHeight * mapWidth; i++) {
 - 따라서 가다가 결론이 나면 propagate하는 부분이 바로 이부분이다. dp[sr][sc] = dfs(nr, nc);
 - prev 없이 propagate이 가능한 것을 볼 수 있음 
 
+</div>
+</details>
+
+<details>
+<summary>3055</summary></summary>
+<div markdown="1">
+
 ### - 3055
 #### 탈출 시간 
 #### 두가지를 한번에 bfs 돌리는 것이 핵심 어렵지 않음
@@ -1235,6 +1376,88 @@ for (int i = 0; i < mapHeight * mapWidth; i++) {
 
 ```
 
+</div>
+</details>
+
+<details>
+<summary>14923</summary></summary>
+<div markdown="1">
+
+### - 14923
+### 미로 탈출 
+### 3차원 visited 베열이 핵심 
+- 간단한 bfs 문제에서 3차원 visited 배열이 필요함을 알아채야 하는 문제
+- 테케도 적어서 직접 발견하기는 매우 어려울 듯.. 느낌 가져가고 비슷한 문제에서 바로 적용할 수 있도록 훈련하자
+- 홍익이는 미로를 탈출해야 하는데 단 한번 벽을 부술 수 있다. 이 경우에서 발생하는 문제 때문에 3차원 visited 배열이 필요한 것이다.
+- 다음을 살펴보자 
+- ![img_3.png](img_3.png)
+- 2차원 방문 배열을 사용할 경우 벽을 부수고 간 2,1이 먼저 visited 배열에 찍히게 된다.
+- 그럴 경우 벽을 부수지 않고 오던 빨간 경로는 visited에 의해 막히게 되는데 초록 경로 역시 벽을 더이상 부술 수 없어 탈출할 수 없다고 판명이 난다.
+- 2차원 방문 배열을 사용하면 빨간경로로 탈출할 수 있음에도 막히게 되는 것이다.
+- 따라서 3차원 방문배열을 두어 벽을 부술때의 visited와 벽을 부수지 않는 경우의 visited를 나누어야 한다. 
+
+```java
+    public static int getEscapeCount() {
+        Queue<Node> q = new LinkedList<>();
+        Node startPosition = new Node(Hx, Hy, 1);
+        visited[0][Hx][Hy] = true;
+        int distance = 0;
+
+        q.add(startPosition);
+        while (!q.isEmpty()) {
+            int len = q.size();
+            for (int i = 0; i < len; i++) {
+                Node cur = q.poll();
+                int curR = cur.getR();
+                int curW = cur.getW();
+//                System.out.println("curR = " + curR);
+//                System.out.println("curW = " + curW);
+//                System.out.println("chance = " + cur.isBreakable());
+//                System.out.println();
+                //탈출 성공
+                if (curR == Ex && curW == Ey) {
+                    return distance;
+                }
+                //4방향으로 이동 가능
+                for (int j = 0; j < 4; j++) {
+                    int nextR = curR + moveX[j];
+                    int nextW = curW + moveY[j];
+
+                    //미로의 범위에 맞는지 체크
+                    if (!(nextR >= 0 && nextR < N && nextW >= 0 && nextW < M)) {
+                        continue;
+                    }
+                    //방문 했는 지 체크
+                    if ( !visited[cur.getChanceCount()][nextR][nextW]) {
+                        //다음 위치가 벽이고
+                        if (maze[nextR][nextW] == 1) {
+                            //부술 수 있다면
+                            if (cur.getChanceCount() > 0) {
+                                q.add(new Node(nextR, nextW, cur.getChanceCount() - 1));
+                                visited[cur.getChanceCount()][nextR][nextW] = true;
+                            }
+                            //부술 수 없다면
+                            else {
+                                continue;
+                            }
+                        }
+                        //다음 위치가 벽이 아니라면
+                        else {
+                            q.add(new Node(nextR, nextW, cur.getChanceCount()));
+                            visited[cur.getChanceCount()][nextR][nextW] = true;
+
+                        }
+                    }
+                }
+
+
+            }
+            distance++;
+        }
+        return -1;
+    }
+
+```
 
 </div>
 </details>
