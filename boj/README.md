@@ -1461,3 +1461,121 @@ for (int i = 0; i < mapHeight * mapWidth; i++) {
 
 </div>
 </details>
+
+<details>
+<summary>1726</summary></summary>
+<div markdown="1">
+
+### 로봇을 몰아보자
+### bfs 
+#### 큐에 올라가는 next를 잘 검증하는 것이 포인트!
+- 로봇은 한턴을 써서 90도 회전하거나 1~3만큼을 이동할 수 있다
+- visited를 3차원배열로 구성하여 해결할 수 있어보이지만! 주의해야 할 점이 있다.
+- [robot 0 1 0]
+  - 위의 배열에서 로봇은 idx 1로 이동할 수 있지만 idx 2로는 이동할 수 없다. 또한 idx 3으로도 이동할 수 없다!
+  - 점프뛰듯이 각 위치의 값만 꺼내서 0인지만 체크하면 올바른 답이 나오지 않는다는 뜻..
+  - 해당 조건을 빼고는 어렵지 않았는데 이건 결국 생각을 못해냈다. 
+  - 조건을 잘 파악하는 것이 문제풀이에서 중요할 듯.. 이건 부딪히면서 익힐 수 밖에 없나
+
+```java
+    public static int bfs() {
+
+        Queue<Status> q = new LinkedList<>();
+        Status start = new Status(sr, sc, sd);
+        visited[sr][sc][sd] = true;
+        int level = 0;
+        q.add(start);
+
+        while (!q.isEmpty()) {
+
+            int len = q.size();
+            for (int i = 0; i < len; i++) {
+                Status cur = q.poll();
+                System.out.println();
+                if (cur.getR() == dr && cur.getC() == dc && cur.getD() == dd) {
+                    return level;
+                }
+                //회전
+                for (int j = 0; j < 2; j++) {
+                    int nd = turnDirect(cur.getD(), j);
+                    if (!visited[cur.getR()][cur.getC()][nd]) {
+                        q.add(new Status(cur.getR(), cur.getC(), nd));
+                        visited[cur.getR()][cur.getC()][nd] = true;
+                    }
+                }
+                //움직이기
+                for (int j = 1; j <= 3; j++) {
+                    if (cur.d == 0) { //동
+                        int nr = cur.r;
+                        int nc = cur.c + 1 * j;
+                        int nd = cur.d;
+
+                        if (nr >= 0 && nc >= 0 && nr < rowSize && nc < colSize && !visited[nr][nc][nd]) {
+                            if (map[nr][nc] == 1) {
+                                break;
+                            }
+                            q.add(new Status(nr, nc, nd));
+                            visited[nr][nc][nd] = true;
+                        }
+                    }
+                    if (cur.d == 1) { //서
+                        int nr = cur.r;
+                        int nc = cur.c + (-1) * j;
+                        int nd = cur.d;
+
+                        if (nr >= 0 && nc >= 0 && nr < rowSize && nc < colSize && !visited[nr][nc][nd]) {
+                            if (map[nr][nc] == 1) {
+                                break;
+                            }
+                            q.add(new Status(nr, nc, nd));
+                            visited[nr][nc][nd] = true;
+                        }
+                    }
+                    if (cur.d == 2) { //남
+                        int nr = cur.r + 1 * j;
+                        int nc = cur.c;
+                        int nd = cur.d;
+
+                        if (nr >= 0 && nc >= 0 && nr < rowSize && nc < colSize && !visited[nr][nc][nd]) {
+                            if (map[nr][nc] == 1) {
+                                break;
+                            }
+                            q.add(new Status(nr, nc, nd));
+                            visited[nr][nc][nd] = true;
+                        }
+                    }
+                    if (cur.d == 3) { //북
+                        int nr = cur.r + (-1) * j;
+                        int nc = cur.c;
+                        int nd = cur.d;
+
+                        if (nr >= 0 && nc >= 0 && nr < rowSize && nc < colSize && !visited[nr][nc][nd]) {
+                            if (map[nr][nc] == 1) {
+                                break;
+                            }
+                            q.add(new Status(nr, nc, nd));
+                            visited[nr][nc][nd] = true;
+                        }
+                    }
+                }
+
+            }
+            level++;
+        }
+        return -1;
+    }
+```
+
+</div>
+</details>
+
+<details>
+<summary>next</summary></summary>
+<div markdown="1">
+
+</div>
+</details>
+
+
+</div>
+</details>
