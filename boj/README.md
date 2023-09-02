@@ -1570,12 +1570,47 @@ for (int i = 0; i < mapHeight * mapWidth; i++) {
 </details>
 
 <details>
+<summary>1012</summary></summary>
+<div markdown="1">
+
+### 1012
+### 유기농 배추
+#### 해충 방지를 위한 지렁이가 최소 몇마리 필요한가!?
+- 전형적인 dfs 문제 지렁이를 배추가 있는 곳에 투하하고 해당 지렁이가 관리할 수 있는 영역을 dfs로 파고든다.
+- dfs가 끝나면 visited에 방금 그 지렁이가 관리할 수 있는 영역이 true가 됨 
+- 다음 배추를 찾아서 또 visited가 안걸려 있으면 dfs진행한다
+
+```java
+
+    public static void dfs(int row, int col) {
+
+        visited[row][col] = true;
+        //4방향 살펴보기
+        for (int i = 0; i < 4; i++) {
+            int nr = row + moveR[i];
+            int nc = col + moveC[i];
+            //인덱스 벗어나면 다음 방향 살펴보기
+            if (nr < 0 || nc < 0 || nr >= curCaseMap.length || nc >= curCaseMap[0].length) {
+                continue;
+            }
+            //주위에 배추가 있고 방문한 적이 없다면 dfs
+            if (curCaseMap[nr][nc] == 1 && !visited[nr][nc]) {
+                dfs(nr, nc);
+            }
+        }
+    }
+```
+
+
+</div>
+</details>
+
+<details>
 <summary>next</summary></summary>
 <div markdown="1">
 
 </div>
 </details>
-
 
 </div>
 </details>
