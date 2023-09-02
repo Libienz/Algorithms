@@ -1606,6 +1606,109 @@ for (int i = 0; i < mapHeight * mapWidth; i++) {
 </details>
 
 <details>
+<summary>4991</summary></summary>
+<div markdown="1">
+
+### 4991
+### 로봇 청소기는 몇번의 움직임으로 모든 먼지를 제거할 수 있을까?
+#### dfs + bfs로 해결
+- 맵에 먼지가 여러개 있다
+- 처음에는 로봇의 출발위치에서 가장 가까운 먼지를 bfs로 찾아가고 이후에 또 해당 위치에서 가장 가까운 먼지를 찾아가게 하는 greedy 방식으로 풀었다
+- 하지만 반례가 역시 존재..
+- 색다른 발상이 필요한 문제다
+
+### 로봇은 모든 먼지를 순회해야 한다.
+- 로봇은 출발지점부터 모든 먼지를 거쳐야 한다.
+- 그말인 즉슨 출발지점 o 부터 a먼지 b먼지 c먼지를 들려야 한다는 것 
+- 그렇다면 로봇은 이제 다음을 정해야 한다.
+- o -> a -> b -> c 순으로 갈지
+- o -> a -> c -> b 순으로 갈지
+- o -> b -> a -> c 순으로 갈지
+- o -> b -> c -> a 순으로 갈지
+- o -> c -> a -> b 순으로 갈지
+- o -> c -> b -> a 순으로 갈지 정해야 한다.
+- 즉 순열로 모든 순서를 수집하고 해당 순서로 진행했을 때의 hopCount를 구하는 것이다. 
+- 이렇게 하면 확실히 모든 경우를 커버하고 그 중 가장 최솟값을 구할 수 있다.
+
+```java
+    //n1에서 n2로의 최단 시간
+    public static int countHop(Node n1, Node n2) {
+        if (dist[n1.r][n1.c][n2.r][n2.c] != 0) {
+            return dist[n1.r][n1.c][n2.r][n2.c];
+        }
+        Queue<Node> q = new LinkedList<>();
+        boolean[][] visited = new boolean[map.length][map[0].length];
+        int hop = 0;
+        q.add(n1);
+
+        while (!q.isEmpty()) {
+            int len = q.size();
+            for (int i = 0; i < len; i++) {
+                Node cur = q.poll();
+                //도착
+                if (cur.r == n2.r && cur.c == n2.c) {
+                    dist[n1.r][n1.c][n2.r][n2.c] = hop;
+                    dist[n2.r][n2.c][n1.r][n1.c] = hop;
+                    return hop;
+                }
+                //4방향 탐색
+                for (int j = 0; j < 4; j++) {
+                    int nr = cur.r + moveR[j];
+                    int nc = cur.c + moveC[j];
+                    //범위 벗어났거나 가구에 막혔거나 이미 방문했음
+                    if (nr < 0 || nc < 0 || nr >= map.length || nc >= map[0].length || visited[nr][nc] || map[nr][nc] == 'x') {
+                        continue;
+                    }
+                    q.add(new Node(nr, nc));
+                    visited[nr][nc] = true;
+                }
+
+            }
+            hop++;
+        }
+        dist[n1.r][n1.c][n2.r][n2.c] = -1;
+        dist[n2.r][n2.c][n1.r][n1.c] = -1;
+        return -1;
+    }
+
+```
+
+```java
+    //모든 순서를 저장하는 dfs 순열 메서드
+    public static void permutationDfs(int ch, ArrayList<Node> res) {
+        if (ch == dirts.size()) {
+            ArrayList<Node> tmp = new ArrayList<>();
+            tmp.add(startPosition);
+            for (Node node : res) {
+                tmp.add(node);
+            }
+            permutatedDirtsList.add(tmp);
+
+        } else {
+            for (int i = 0; i < dirts.size(); i++) {
+                if (res.contains(dirts.get(i))) {
+                    continue;
+                }
+                //쓴다.
+                res.add(dirts.get(i));
+                permutationDfs(ch + 1, res);
+                //안쓴다
+                res.remove(dirts.get(i));
+            }
+        }
+    }
+```
+ 
+- 하지만 이방법으로 진행하면 시간초과가 난다.
+- 순열 + bfs 방법을 사용했다면 memoization까지 사용해야 올바른 풀이라고 할 수 있다.
+- 똑같은 countHop 요청이 올 때 hit 되었을 때는 bfs가 안돌 수 있기 때문이다
+
+</div>
+</details>
+
+
+
+<details>
 <summary>next</summary></summary>
 <div markdown="1">
 
