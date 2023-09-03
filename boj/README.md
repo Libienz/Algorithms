@@ -1709,11 +1709,56 @@ for (int i = 0; i < mapHeight * mapWidth; i++) {
 
 
 <details>
+<summary>2644</summary></summary>
+<div markdown="1">
+
+### 2644
+### 촌수 계산기를 구현하라
+#### 부모 자식 관계를 기반으로 특정 두 사람의 촌수를 계산하라
+
+- bfs로 hop by hop으로 촌수를 계산하면 된다. 
+- 어렵지 않은 문제 관계를 2차원 배열로 설정했다.
+
+```java
+    //bfs p1, p2의 촌수 계산기
+    public static int countHop(int p1, int p2) {
+
+        int level = 0;
+        Queue<Integer> q = new LinkedList<>();
+        q.add(p1);
+        visited[p1][p1] = true;
+
+        while (!q.isEmpty()) {
+            int len = q.size();
+            for (int i = 0; i < len; i++) {
+                Integer cur = q.poll();
+                if (cur == p2) {
+                    return level;
+                }
+                for (int j = 0; j < n; j++) {
+                    if (map[cur][j] == 1 && !visited[cur][j]) {
+                        q.add(j);
+                        visited[cur][j] = true;
+                    }
+                }
+            }
+            level++;
+        }
+        return -1;
+
+    }
+```
+
+
+</div>
+</details>
+
+
+<details>
 <summary>next</summary></summary>
 <div markdown="1">
 
 </div>
 </details>
-
 </div>
 </details>
