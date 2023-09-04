@@ -1828,6 +1828,122 @@ public class Q11724 {
 </details>
 
 <details>
+<summary>14503</summary></summary>
+<div markdown="1">
+
+### 로봇 청소기 
+### 14503
+#### 로봇 청소기 시뮬레이션 코드
+
+- 문제대로 무결성을 지키며 구현하는 것이 포인트인 문제이다.
+- 문제를 잘 읽고 올바른 코드를 작성하는 꼼꼼함을 보는 문제 같다.
+- 다 풀고나서 든 생각인데 기능 단위로 메서드로 분리하여 메서드 단위의 테스트를 진행하면 더 빨리 풀 수 있을 듯
+- 다 풀고 어디서 틀렸는지 찾는 것 보다는 
+
+```java
+    public static void runCleaningRobot(int sr, int sc, int sd) {
+//        System.out.println("sr = " + sr);
+//        System.out.println("sc = " + sc);
+//        System.out.println("sd = " + sd);
+
+        //현재 칸이 아직 청소되지 않은 경우 현재 칸 청소
+        if (map[sr][sc] == 0) {
+            map[sr][sc] = -1;
+            cleaned++;
+        }
+
+        //주변 4칸의 청소여부 파악
+        boolean nearAreasAreClean = true;
+        for (int i = 0; i < 4; i++) {
+            int nr = sr + moveR[i];
+            int nc = sc + moveC[i];
+            int nd = sd;
+            if (!ableToGo(nr, nc)) {
+                continue;
+            }
+            if (map[nr][nc] == 0) {
+                nearAreasAreClean = false;
+                break;
+            }
+
+        }
+
+        //현재 칸 주변 4칸 중 청소되지 않은 빈칸이 없는 경우
+        if (nearAreasAreClean) {
+            int nr = 0;
+            int nc = 0;
+
+            //북 동 남 서
+            if (sd == 0) {
+                nr = sr + 1;
+                nc = sc;
+            } else if (sd == 1) {
+                nr = sr;
+                nc = sc - 1;
+            } else if (sd == 2) {
+                nr = sr - 1;
+                nc = sc;
+            } else if (sd == 3) {
+                nr = sr;
+                nc = sc + 1;
+            }
+            if (ableToGo(nr, nc)) {
+                //go
+                runCleaningRobot(nr, nc, sd);
+            } else {
+                //stop
+                return;
+            }
+        }
+        //주변 4칸 중 청소되지 않은 빈 칸이 있는 경우
+        else {
+            int nr = 0;
+            int nc = 0;
+            int nd = 0;
+
+            if (sd == 0) {
+                nr = sr;
+                nc = sc - 1;
+                nd = 3;
+
+            } else if (sd == 1) {
+                nr = sr - 1;
+                nc = sc;
+                nd = 0;
+
+            } else if (sd == 2) {
+                nr = sr;
+                nc = sc + 1;
+                nd = 1;
+
+            } else if (sd == 3) {
+                nr = sr + 1;
+                nc = sc;
+                nd = 2;
+
+            }
+
+            if (map[nr][nc] == 0) {
+                runCleaningRobot(nr, nc, nd);
+            } else {
+                runCleaningRobot(sr, sc, nd);
+            }
+
+        }
+    }
+
+    private static boolean ableToGo(int nr, int nc) {
+        if (nr < 0 || nc < 0 || nr >= N || nc >= M || map[nr][nc] == 1) {
+            return false;
+        }
+        return true;
+    }
+```
+</div>
+</details>
+
+
+<details>
 <summary>next</summary></summary>
 <div markdown="1">
 
