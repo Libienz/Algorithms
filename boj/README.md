@@ -1755,10 +1755,85 @@ for (int i = 0; i < mapHeight * mapWidth; i++) {
 
 
 <details>
+<summary>11724</summary></summary>
+<div markdown="1">
+
+### 11724
+### 그래프가 주어질 경우 연결 요소의 개수를 세는 문제
+- 그래프를 어떻게 구현할지 정하자 (인접 리스트, 인접 행렬)
+- 그래프를 인접 행렬로 구현 
+- 연결된 요소들을 타고다니면서 visited 찍고 dfs가 몇번 불리는 지 확인하면 된다.
+
+```java
+import java.util.*;
+import java.io.*;
+
+public class Q11724 {
+
+  private static int[][] graph;
+  private static boolean[] visited;
+  private static int res;
+  private static int N;
+  private static int M;
+
+  public static void main(String[] args) throws IOException {
+
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+    StringTokenizer st = new StringTokenizer(br.readLine());
+
+    N = Integer.parseInt(st.nextToken());
+    M = Integer.parseInt(st.nextToken());
+
+    graph = new int[N][N];
+    visited = new boolean[N];
+
+    for (int i = 0; i < M; i++) {
+      st = new StringTokenizer(br.readLine());
+      int n1 = Integer.parseInt(st.nextToken()) - 1;
+      int n2 = Integer.parseInt(st.nextToken()) - 1;
+      graph[n1][n2] = 1;
+      graph[n2][n1] = 1;
+    }
+
+    for (int i = 0; i < N; i++) {
+
+      if (!visited[i]) {
+        dfs(i);
+        res++;
+      }
+    }
+    bw.write(res + "");
+    bw.flush();
+
+  }
+
+  public static void dfs(int sn) {
+
+    visited[sn] = true;
+    for (int i = 0; i < N; i++) {
+      if (graph[sn][i] == 1 && !visited[i]) {
+        dfs(i);
+      }
+    }
+
+
+  }
+}
+ 
+```
+
+
+</div>
+</details>
+
+<details>
 <summary>next</summary></summary>
 <div markdown="1">
 
 </div>
 </details>
+
+
 </div>
 </details>
