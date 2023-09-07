@@ -2835,6 +2835,87 @@ public class Q14890 {
 
 
 <details>
+<summary>11403</summary></summary>
+<div markdown="1">
+
+### 11403
+#### 경로 찾기
+
+- 이게 뭐라고 꽤나 오래걸렸네
+- 플로이드 워셜 알고리즘 (https://velog.io/@kimdukbae/%ED%94%8C%EB%A1%9C%EC%9D%B4%EB%93%9C-%EC%9B%8C%EC%85%9C-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-Floyd-Warshall-Algorithm)
+- 다들 플로이드 워셜 알고리즘을 주로 사용하는 것 같은데 나는 dfs로 풀었다 
+- 주요 풀이 과정은 다음과 같다 
+  - 우선 각 노드 마다 노드가 갈 수 있는 곳 까지 뻗치도록 dfs를 유도 한다
+  - 각 노드를 방문할 때 마다 출발한 첫번째 노드(파라미터로 기억)에서 해당 노드로의 경로가 존재함을 설정한다.
+  - visited를 찍으며 반복 방문이 일어나지 않도록 한다 (방문한 곳에서 갈 수 있는 모든 곳으로 뻗치니 visited 찍어놔도 된다.)
+- 그런데 주의해야 할 점이 있다
+  - 첫번째 출발할 때 출발지점의 visited를 안된다! (이 간단한 것을 떠올리지 못해서 1시간 삽질함) 
+  - 자기 자신으로 돌아오는 길은 회귀하는 길은 처음부터 존재하지 않는다
+  - 존재함을 증명해야 함 visited를 출발지점에 찍지 않고 시작함으로써 돌아오는 dfs를 걸러낼 수 있다!
+
+
+
+```java
+import java.util.*;
+import java.io.*;
+
+public class Q11403 {
+
+    private static int N;
+    private static int[][] graph;
+    private static boolean[] visited;
+
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        N = Integer.parseInt(st.nextToken());
+        graph = new int[N][N];
+        visited = new boolean[N];
+
+        for (int i = 0; i < N; i++) {
+            st = new StringTokenizer(br.readLine());
+            for (int j = 0; j < N; j++) {
+                graph[i][j] = Integer.parseInt(st.nextToken());
+            }
+        }
+
+        for (int i = 0; i < N; i++) {
+            visited = new boolean[N];
+            dfs(i, i);
+        }
+
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                bw.write(graph[i][j] + " ");
+            }
+            bw.newLine();
+        }
+        bw.flush();
+    }
+
+    public static void dfs(int sn, int cur) {
+        for (int i = 0; i < N; i++) {
+            if (graph[sn][i] == 1 && !visited[i]) {
+                graph[cur][i] = 1;
+                visited[i] = true;
+                dfs(i, cur);
+            }
+        }
+    }
+
+}
+
+```
+</div>
+</details>
+
+
+
+
+<details>
 <summary>next</summary></summary>
 <div markdown="1">
 
