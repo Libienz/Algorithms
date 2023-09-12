@@ -3470,6 +3470,98 @@ public class Q11559 {
 
 
 <details>
+<summary>14916</summary></summary>
+<div markdown="1">
+
+### 14916
+#### 최소 거스름돈의 개수를 구하라
+- 모든 경우의 수를 따지는 dfs와 bfs 두가지 모두로 한번 풀어봤다
+- 이게 greedy로 될려면 어떻게 해야 되는 걸까
+  - 18원일 경우 5원을 거슬러 줄 수 있는 개수는 3개 , 2개 ,1개 이다. 각각의 경우에서 남은 액수를 2원으로 거슬러 줄 수 있는지 확인하면 그리디한 풀이가 완성된다.
+
+
+```java
+
+import java.util.*;
+import java.io.*;
+
+public class Q14916 {
+
+    private static int res = Integer.MAX_VALUE;
+    private static boolean solved;
+    private static boolean[] visited;
+
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        int N = Integer.parseInt(br.readLine());
+        visited = new boolean[N + 1];
+        dfs(N, 0, 0, bw);
+        if (res == Integer.MAX_VALUE) {
+            bw.write(-1 + "");
+            bw.flush();
+            return;
+        }
+        bw.write(res + "");
+        bw.flush();
+
+    }
+
+    public static void dfs(int remain, int count5, int count2, BufferedWriter bw) throws IOException {
+
+        if (remain < 0) {
+            return;
+        }
+        if (remain == 0) {
+            if (count5 + count2 < res) {
+                res = count5 + count2;
+                solved = true;
+            }
+        } else {
+            if (!solved) {
+                dfs(remain - 5, count5 + 1, count2, bw);
+            }
+
+            if (!solved) {
+                dfs(remain - 2, count5, count2 + 1, bw);
+            }
+        }
+    }
+
+    public static int bfs(int remain) {
+
+        Queue<Integer> q = new LinkedList<>();
+        int level = 0;
+        q.add(remain);
+
+        while (!q.isEmpty()) {
+            int len = q.size();
+            for (int i = 0; i < len; i++) {
+                int cur = q.poll();
+                if (cur == 0) {
+                    return level;
+                }
+                if (cur - 5 >= 0 && !visited[cur - 5]) {
+                    visited[cur - 5] = true;
+                    q.add(cur - 5);
+                }
+                if (cur - 2 >= 0 && !visited[cur - 2]) {
+                    visited[cur - 2] = true;
+                    q.add(cur - 2);
+                }
+            }
+            level++;
+        }
+        return -1;
+    }
+}
+
+```
+</div>
+</details>
+
+<details>
 <summary>next</summary></summary>
 <div markdown="1">
 
