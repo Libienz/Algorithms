@@ -3621,9 +3621,75 @@ public class Q2828 {
 
 
 <details>
+<summary>2217</summary></summary>
+<div markdown="1">
+
+### 2217
+### 밧줄이 견딜 수 있는 최대 무게 구하기
+ 
+- greedy를 무턱대고 dfs로 풀려고 하지 말자 시간 부족이 자주 터진다.
+- 근데 그리디로 풀 아이디어가 도저히 안떠올라서 결국 카카시했다.
+- 아이디어는 다음과 같다.
+- 모든 case는 가장 가벼운 rope로 i번째 로프를 고른 경우로 나누어진다.
+- 가장 가벼운 로프를 i번째 로프로 상정했을 때 최대 무게는 가장 가벼운 로프보다 무거운 로프를 몽땅 고르면 된다.
+- 정렬 해놓으면 O(n)으로 해결 가능 
+
+```java
+
+import java.util.*;
+import java.io.*;
+
+public class Q2217 {
+
+    private static int N;
+    private static ArrayList<Integer> tws;
+
+    private static int totalWeight = Integer.MIN_VALUE;
+
+    public static void main(String[] args) throws IOException {
+
+        //요소 초기화
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        N = Integer.parseInt(br.readLine());
+        tws = new ArrayList<>();
+
+        //모든 경우는 각 로프가 가장 약한 로프인 경우로 나뉠 수 있다.
+        //case 1: 1번 로프가 가장 약한 로프인 경우
+        //case 2: 2번 로프가 가장 약한 로프인 경우 ....
+        //case 1에서 최대한의 이득을 내려면 자기보다 강한 로프를 무작정 많이 고르면 된다.
+
+        for (int i = 0; i < N; i++) {
+            int curWeight = Integer.parseInt(br.readLine());
+            tws.add(curWeight);
+        }
+        Collections.sort(tws);
+        for (int i = 0; i < N; i++) {
+            int tolerableWeight = (N - i) * tws.get(i);
+            if (totalWeight < tolerableWeight) {
+                totalWeight = tolerableWeight;
+            }
+        }
+
+
+        bw.write(totalWeight + "");
+        bw.flush();
+    }
+
+
+
+}
+
+```
+</div>
+</details>
+
+
+
+
+<details>
 <summary>next</summary></summary>
 <div markdown="1">
 
 </div>
 </details>
-
