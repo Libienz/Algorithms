@@ -3777,6 +3777,56 @@ public class Q13305 {
 
 
 <details>
+<summary>1758</summary></summary>
+<div markdown="1">
+
+### 1758
+#### 최대한 돈을 많이 벌자
+- 정렬하고 돈 세면 된다.
+- 근데 왜 그리디가 답이 되는 건지는 항상 의문
+- 증명하기 보단 제출을 여러번 해야된다고 일단 생각하자
+
+```java
+import java.util.*;
+import java.io.*;
+
+public class Q1758 {
+
+    private static int N;
+    private static List<Integer> tips = new ArrayList<>();
+    private static Long totalTip = 0L;
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        N = Integer.parseInt(br.readLine());
+        for (int i = 0; i < N; i++) {
+            int tip = Integer.parseInt(br.readLine());
+            tips.add(tip);
+        }
+        Collections.sort(tips, Collections.reverseOrder());
+
+        for (int i = 0; i < N; i++) {
+            Integer tip = tips.get(i);
+            tip = tip - i;
+            if (tip < 0) {
+                continue;
+            }
+            totalTip += tip;
+        }
+
+        bw.write(totalTip + "");
+        bw.flush();
+
+    }
+}
+
+```
+</div>
+</details>
+
+
+<details>
 <summary>next</summary></summary>
 <div markdown="1">
 
