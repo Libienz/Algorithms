@@ -4134,6 +4134,83 @@ public class Q11000 {
 
 
 <details>
+<summary>13164</summary></summary>
+<div markdown="1">
+
+### 13164
+#### 키에 맞추어 조짜기 (각 조의 키차이의 합 최소가 되도록)
+- input보고 정해라 함부로 dfs로 덤비지 말 것
+- 최선의 풀이가 있다.
+- 같은 조 원생들은 인접해야함 (조건도 놓치지 마라)
+- 옆친구와의 키차이를 구한 후 키차이가 가장 큰 곳에 분리를 두어 조를 나누면 된다!
+- 1 | 3 5 | 6 10 -> 2+4 = 6
+- 1 3 | 5 | 6 10 -> 2+4 = 6
+- 1 3 | 5 6 | 10 -> 2+1 = 3 (최소 비용) 
+- 왜 키차이가 가장 크게 나는 곳에 두면 총 키차이의 합이 최소가 될까?
+  - 이거 반례 찾으려고 무던히 노력했는데 반례 없다 이게 답임
+  - 왜냐하면 키차이가 크게 남에도 분리를 안한다는 것은 해당 크기가 전체 키차이의 합에 반영되기 때문
+  - 우리는 키차이의 합의 최소를 구하고 싶음 큰 것은 빠지는게 좋다 
+  - 이 아이디어를 생각해야 풀 수 있는 문제 
+  - 알면은 넘나 빨리 풀리는 문제지만 떠올리기가..
+
+```java
+import java.util.*;
+import java.io.*;
+
+public class Q13164 {
+
+    private static int N;
+    private static int K;
+    private static int[] heights;
+    private static int[] diffs;
+
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        N = Integer.parseInt(st.nextToken());
+        K = Integer.parseInt(st.nextToken());
+
+        heights = new int[N];
+        diffs = new int[N - 1];
+        st = new StringTokenizer(br.readLine());
+        for (int i = 0; i < N; i++) {
+            int h = Integer.parseInt(st.nextToken());
+            heights[i] = h;
+        }
+
+        //키차이가 가장 많이나는 곳은 분리되면 좋음
+        for (int i = 0; i < N - 1; i++) {
+            int cur = heights[i];
+            int next = heights[i + 1];
+            int diff = next - cur;
+            diffs[i] = diff;
+        }
+
+        Arrays.sort(diffs);
+        int res = 0;
+        for (int i = 0; i < diffs.length - (K-1); i++) {
+//            System.out.println("diffs[i] = " + diffs[i]);
+            res += diffs[i];
+        }
+        bw.write(res + "");
+        bw.flush();
+
+    }
+
+
+
+}
+
+```
+</div>
+</details>
+
+
+
+<details>
 <summary>next</summary></summary>
 <div markdown="1">
 
