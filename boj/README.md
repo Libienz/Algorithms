@@ -4043,6 +4043,97 @@ public class Q20115 {
 
 
 <details>
+<summary>11000</summary></summary>
+<div markdown="1">
+
+### 11000
+#### pq 활용 문제 강의실 최소 개수 구하기
+- 시작 시간 부터 끝나는 시간까지 += 1 arr에다가 해도 메모리 초과
+- 입력 개수 때문에 시간초과도 조심해야 함 
+- pq를 이용해야 함
+  - 시작시간 순으로 정렬
+  - 강의실이 여러개 있을 때 강의실들 중에서 가장 빨리 끝나는 강의실을 뽑아서 이어붙일 수 있는지만 확인하면 된다.
+  - 이어붙일 수 없다면 pq.add()
+  - 이어붙일 수 있다면 poll and add
+```java
+
+import java.util.*;
+import java.io.*;
+
+public class Q11000 {
+
+    private static ArrayList<Lecture> lectures;
+    private static PriorityQueue<Integer> pq;
+
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        int N = Integer.parseInt(br.readLine());
+        pq = new PriorityQueue<>();
+        lectures = new ArrayList<>();
+
+        for (int i = 0; i < N; i++) {
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            int s = Integer.parseInt(st.nextToken());
+            int f = Integer.parseInt(st.nextToken());
+            lectures.add(new Lecture(s, f));
+        }
+
+        Collections.sort(lectures);
+        int prev = 0;
+        pq.add(lectures.get(0).finishTime);
+        for (int i = 1; i < lectures.size(); i++) {
+            Lecture cur = lectures.get(i);
+            Integer peek = pq.peek();
+//            System.out.println("peek = " + peek);
+            if (cur.startTime >= peek) {
+                //can concat
+                pq.poll();
+                pq.add(cur.finishTime);
+            } else {
+                //cannot concat
+                pq.add(cur.finishTime);
+            }
+
+        }
+
+        bw.write(pq.size() + "");
+        bw.flush();
+    }
+
+    static class Lecture implements Comparable<Lecture> {
+
+        private int startTime;
+        private int finishTime;
+
+        public Lecture(int startTime, int finishTime) {
+            this.startTime = startTime;
+            this.finishTime = finishTime;
+        }
+
+        @Override
+        public int compareTo(Lecture o) {
+            return startTime - o.startTime;
+        }
+
+        @Override
+        public String toString() {
+            return "Lecture{" +
+                    "startTime=" + startTime +
+                    ", finishTime=" + finishTime +
+                    '}';
+        }
+    }
+}
+
+```
+</div>
+</details>
+
+
+<details>
 <summary>next</summary></summary>
 <div markdown="1">
 
