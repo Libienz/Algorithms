@@ -3994,6 +3994,55 @@ public class Q11047 {
 
 
 <details>
+<summary>20115</summary></summary>
+<div markdown="1">
+
+### 20115
+#### 에너지 드링크를 모으자
+
+- 버리는 양이 최소가 되면 모은 것이 최대가 됨을 알면 문제가 풀기 쉽다.
+
+```java
+import java.io.*;
+import java.util.*;
+
+public class Q20115 {
+
+    private static int N;
+    private static double[] amounts;
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        N = Integer.parseInt(br.readLine());
+        amounts = new double[N];
+
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        for (int i = 0; i < N; i++) {
+            double amount = Double.parseDouble(st.nextToken());
+            amounts[i] = amount;
+        }
+
+        Arrays.sort(amounts);
+        //버리는 양이 최소가 되어야 함
+        double total = amounts[N - 1];
+        for (int i = 0; i < N - 1; i++) {
+            total += amounts[i] / 2;
+        }
+
+        bw.write(total + "");
+        bw.flush();
+
+    }
+}
+
+```
+</div>
+</details>
+
+
+<details>
 <summary>next</summary></summary>
 <div markdown="1">
 
