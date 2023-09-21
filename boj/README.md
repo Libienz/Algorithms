@@ -4211,6 +4211,77 @@ public class Q13164 {
 
 
 <details>
+<summary>20300</summary></summary>
+<div markdown="1">
+
+### 20300
+#### 두개로 묶었을 때 각 케이스의 최대가 최소가 되는 값 구하기
+- 항상 그리디를 풀때마다 느끼는 문제점 이왜답?
+- 접근 확실히 정하고 들어가자 코드는 오래 안걸림
+- 오름차순 배열에서 묶는 법은 무조건 양쪽을 묶는 답밖에 없다
+- 안그러면 전부 오버
+
+```java
+import java.io.*;
+import java.util.*;
+
+public class Q20300 {
+
+  private static int N;
+  private static Long[] ts;
+  public static void main(String[] args) throws IOException {
+
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+    N = Integer.parseInt(br.readLine());
+    ts = new Long[N];
+    StringTokenizer st = new StringTokenizer(br.readLine());
+    for (int i = 0; i < N; i++) {
+      Long t = Long.parseLong(st.nextToken());
+      ts[i] = t;
+    }
+    Arrays.sort(ts);
+    //ts중 두개씩 묶은 것 중 최대가 모든 case의 최소가 되는 것을 구하라
+    if (N % 2 == 0) {
+      Long max = Long.MIN_VALUE;
+      for (int i = 0; i < N / 2; i++) {
+
+        Long cur = ts[i] + ts[N - 1 - i];
+        if (cur > max) {
+          max = cur;
+        }
+      }
+      bw.write(max + "");
+      bw.flush();
+
+    } else {
+      Long max = Long.MIN_VALUE;
+      for (int i = 0; i < (N - 1) / 2; i++) {
+
+        Long cur = ts[i] + ts[N - 2 - i];
+        if (cur > max) {
+          max = cur;
+        }
+      }
+      if (max < ts[N - 1]) {
+        max = ts[N - 1];
+      }
+      bw.write(max + "");
+      bw.flush();
+
+    }
+  }
+}
+ 
+```
+
+
+</div>
+</details>
+
+
+<details>
 <summary>next</summary></summary>
 <div markdown="1">
 
