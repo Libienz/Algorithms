@@ -4423,6 +4423,76 @@ public class Q19941 {
 </details>
 
 <details>
+<summary>2212</summary></summary>
+<div markdown="1">
+
+### 2212
+#### 센서 문제
+- 각 집중국은 커버할 수 있는 길이를 다르게 설정할 수 있음
+- 최대 집중국 K개 까지 사용할 때 모든 censor를 커버할 수 있도록 집중국들의 스펙을 설정하는데 각 집중국의 커버 길이를 모두 더한 것이 최소가 되도록 하라
+- 1. 센서들의 위치를 담은 배열 정렬
+- 2. 이웃한 센서들끼리의 dist 차이를 배열에 담는다.
+- 3. dist 배열에서 가장 큰 값부터 k-1개를 빼고 나머지를 더하면 답이다.
+- 결국 모두가 더해지는 와중 뺄 수 있는 찬스가 생기는 문제이다.
+- 일반식을 바탕으로 어떤 것이 greedy한 것인지 체크하자
+
+```java
+import java.util.*;
+import java.io.*;
+
+public class Q2212 {
+
+  private static int N;
+  private static int K;
+  private static int[] censors;
+  private static int[] dist;
+
+  public static void main(String[] args) throws IOException {
+
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+    N = Integer.parseInt(br.readLine());
+    K = Integer.parseInt(br.readLine());
+
+    if (N <= K) {
+      bw.write("0");
+      bw.flush();
+      return;
+    }
+    StringTokenizer st = new StringTokenizer(br.readLine());
+    censors = new int[N];
+    dist = new int[N - 1];
+
+    for (int i = 0; i < N; i++) {
+      censors[i] = Integer.parseInt(st.nextToken());
+    }
+
+    Arrays.sort(censors);
+    for (int i = 1; i < N; i++) {
+      int distance = censors[i] - censors[i - 1];
+      dist[i-1] = distance;
+    }
+    Arrays.sort(dist);
+
+    int res = 0;
+    for (int i = 0; i < dist.length; i++) {
+      res += dist[i];
+    }
+    for (int i = 0; i < K-1; i++) {
+      res -= dist[dist.length - 1 - i];
+    }
+    bw.write(res + "");
+    bw.flush();
+
+  }
+}
+ 
+```
+</div>
+</details>
+
+<details>
 <summary>next</summary></summary>
 <div markdown="1">
 
