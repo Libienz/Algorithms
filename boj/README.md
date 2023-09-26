@@ -4589,13 +4589,6 @@ public class Q1541 {
 </div>
 </details>
 
-<details>
-<summary>next</summary></summary>
-<div markdown="1">
-
-</div>
-</details>
-
 
 <details>
 <summary>1092</summary></summary>
@@ -4694,5 +4687,72 @@ public class Q1092 {
 }
 
 ```
+</div>
+</details>
+
+<details>
+<summary>20365</summary></summary>
+<div markdown="1">
+
+### 20365
+#### 최소한의 작업으로 원하는대로 색칠하기
+- 파란색으로 색칠하기 위해 몇번의 작업이 필요한지 계산
+- 빨간색으로 색칠하기 위해 몇번의 작업이 필요한지 계산
+- 더 많이 필요한쪽으로 쫙 칠한다음에 다른 색깔로 색칠
+
+```java
+import java.util.*;
+import java.io.*;
+
+public class Q20365 {
+
+    private static int N;
+
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        N = Integer.parseInt(br.readLine());
+
+        String cs = br.readLine();
+        char[] colors = cs.toCharArray();
+        int bc = 0;
+        int rc = 0;
+        char prev = colors[0];
+        if (prev == 'B') {
+            bc++;
+        } else {
+            rc++;
+        }
+        for (int i = 1; i < colors.length; i++) {
+            char c = colors[i];
+            if (c == 'B' && prev != 'B') {
+                bc++;
+            }
+            if (c == 'R' && prev != 'R'){
+                rc++;
+            }
+            prev = c;
+        }
+
+
+
+        if (bc > rc) {
+            bw.write(1 + rc + "");
+        } else {
+            bw.write(1 + bc + "");
+        }
+        bw.flush();
+    }
+}
+
+```
+</div>
+</details>
+
+<details>
+<summary>next</summary></summary>
+<div markdown="1">
+
 </div>
 </details>
