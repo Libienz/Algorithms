@@ -4895,6 +4895,85 @@ public class Q16953 {
 </details>
 
 <details>
+<summary>2141</summary></summary>
+<div markdown="1">
+
+### 2141
+#### 어디에 우체국을 세우는 것이 좋을까
+- 우체국을 세우는 위치는 각 사람들까지의 거리의 합이 최소가 되는 곳이 필요
+- 우체국 기준 왼쪽에 있는 사람과 오른쪽에 있는 사람이 균등하면 그곳이 우체국을 세우기에 좋다
+- 우체국 왼쪽에 있는 사람이 오른쪽에 있는 사람보다 많다면 우체국을 오른쪽으로 옮길 때 마다 손해를 보게되고 반대로 우체국을 왼쪽으로 옮길 때마다 전체 거리에서 이득을 보게된다
+- 우체국 오른쪽에 있는 사람이 왼쪽에 있는 사람보다 많다면 우체국을 왼쪽으로 옮길 때 마다 손해를 보게되고 반대로 오른쪽으로 옮길 때마다 이득을 보게된다. 
+- 따라서 최대한 이득을 보는 방향으로 움직이는 것은 양쪽에 균일하게 인원들이 배치되어 있을 때이다.
+
+```java
+import java.util.*;
+import java.io.*;
+
+public class Q2141 {
+
+    private static int N;
+    private static ArrayList<Village> villages = new ArrayList<>();
+    private static int leftVillageLoc = Integer.MAX_VALUE;
+    private static int rightVillageLoc = Integer.MIN_VALUE;
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        N = Integer.parseInt(br.readLine());
+        long totalPop = 0L;
+        for (int i = 0; i < N; i++) {
+            StringTokenizer st = new StringTokenizer(br.readLine());
+
+            int x = Integer.parseInt(st.nextToken()); //마을의 위치
+            int a = Integer.parseInt(st.nextToken()); //마을의 인구수
+            totalPop += a;
+            Village v = new Village(x, a);
+            villages.add(v);
+        }
+
+        //위치 순 정렬
+        Collections.sort(villages);
+        int res = Integer.MAX_VALUE;
+
+        long leftPop = 0;
+        long postLoc = 0;
+        for (int i = 0; i < villages.size(); i++) {
+            leftPop += villages.get(i).population;
+
+            if ((totalPop + 1) / 2 <= leftPop) {
+
+                postLoc = villages.get(i).location;
+                break;
+            }
+        }
+
+        bw.write(postLoc +"");
+        bw.flush();
+
+    }
+
+    static class Village implements Comparable<Village> {
+        private long location;
+        private long population;
+
+        public Village(long location, long population) {
+            this.location = location;
+            this.population = population;
+        }
+
+        @Override
+        public int compareTo(Village o) {
+            return (int) (this.location - o.location);
+        }
+    }
+}
+
+```
+</div>
+</details>
+
+<details>
 <summary>next</summary></summary>
 <div markdown="1">
 
