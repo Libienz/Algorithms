@@ -2,6 +2,9 @@
 
 백준 알고리즘 자바 풀이 
 
+<details>
+<summary>DFS, BFS</summary></summary>
+<div markdown="1">
 
 <details>
 <summary>2583</summary></summary>
@@ -1824,6 +1827,13 @@ public class Q11724 {
 </div>
 </details>
 
+</div>
+</details>
+
+<details>
+<summary>Simulation</summary></summary>
+<div markdown="1">
+
 <details>
 <summary>14503</summary></summary>
 <div markdown="1">
@@ -3206,6 +3216,7 @@ public class Q16918 {
 </details>
 
 
+
 <details>
 <summary>1343</summary></summary>
 <div markdown="1">
@@ -3464,10 +3475,13 @@ public class Q11559 {
 </div>
 </details>
 
+</div>
+</details>
 
 
-
-
+<details>
+<summary>Greedy</summary></summary>
+<div markdown="1">
 
 <details>
 <summary>14916</summary></summary>
@@ -5138,5 +5152,102 @@ public class Q21314 {
 }
 
 ```
+</div>
+</details>
+
+
+
+</div>
+</details>
+
+
+
+<details>
+<summary>DP</summary></summary>
+<div markdown="1">
+
+<details>
+<summary>9655</summary></summary>
+<div markdown="1">
+
+### 두명이서 주어진 돌을 1개 혹은 3개씩 가져가는 게임을 할 때 누가 이길까?
+#### 상근이 부터 1개 또는 3개를 가져가는 게임을 할 때 마지막 돌을 가져가는 사람이 이긴다.
+- DP 문제 
+- DP 문제를 처음 푸니 정리하자 
+### DP란!
+- 큰 문제를 작은 문제로 쪼개서 푸는 기법
+- 한 번 푼 것을 여러번 다시 푸는 일이 없이 비효율적인 알고리즘을 개선시키는 방법 중에 하나! 
+- 따라서 이미 정답을 구한 작은 문제의 결과는 따로 배열에 저장하고 나중에 다시 필요할 때 사용한다.
+- 이것을 메모이제이션이라고 함
+- 앞에서 메모한 작은 문제의 결과값을 O(1)의 시간 복잡도로 가져오는 것이 핵심
+- fibbonachi를 구할때의 메모이제이션을 생각하자 
+
+#### 9655 문제 DP로 풀기
+- 자 그럼 DP 문제로 9655 문제를 어떻게 풀 수 있을까
+- 돌이 한개 있으면 선공하는 사람 승리
+- 돌이 두개 있으면 후공하는 사람 승리
+- 돌이 세개 있으면 선공하는 사람 승리
+- 돌이 네개 있으면 후공하는 사람 승리
+- 여기까진 구할 수 있고 dp 배열에 메모이제이션 해놓을 수 있을 것이다.
+- 그렇다면 돌이 5개인 경우는 누가 이기는가?
+  - 선공이 돌을 한개 가져갈 경우 dp[4]을 확인해보자.
+    - dp[4]의 경우 후공하는 사람이 승리라고 나와있다. 
+    - 4개의 돌이 남았을 경우 후공 하는 사람은 상근이다.
+    - 상근이가 이기는 것이다.
+  - 선공이 돌을 3개 가져갈 경우 dp[2]을 확인해보자
+    - dp[2]의 경우 후공하는 사람이 이긴다.
+    - 5개 부터 시작하여 3개의 돌을 선공이 가져와 2개의 돌이 남은 경우 후공은 상근이다. 
+    - 상근이가 이기는 것이다.
+- 이렇게 이전 결과를 반영하여 더 큰 문제를 solve하는 dp 풀이법이 적용된 것이다!
+
+```java
+import java.util.*;
+import java.io.*;
+
+public class Q9655 {
+
+    private static int dp[] = new int[1001];
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        int n = Integer.parseInt(br.readLine());
+        dp[1] = 0;
+        dp[2] = 1;
+        dp[3] = 0;
+        dp[4] = 1;
+        dp[5] = 0;
+
+        for (int i = 6; i <= n; i++) {
+            if (dp[i - 1] == 0 || dp[i - 3] == 0) {
+                dp[i] = 1;
+            } else {
+                dp[i] = 0;
+            }
+        }
+
+        if (dp[n] == 0) {
+            bw.write("SK");
+        } else {
+            bw.write("CY");
+        }
+        bw.flush();
+    }
+}
+
+```
+
+</div>
+</details>
+
+<details>
+<summary>next</summary></summary>
+<div markdown="1">
+
+
+</div>
+</details>
+
 </div>
 </details>
