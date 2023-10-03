@@ -5037,8 +5037,106 @@ public class Q13975 {
 </details>
 
 <details>
-<summary>next</summary></summary>
+<summary>21314</summary></summary>
 <div markdown="1">
 
+### 21314
+#### mk 수가 주어질 때 가장 최대로 해석할 수 있는 수와 가장 최소로 해석할 수 있는 수를 구하라
+- mk 수는 같은 수여도 어디에서 분절시키는지에 따라 값이 달라질 수 있는 수
+- 가능한 경우의 수 중 가장 최대의 수와 최소의 수를 구해야 한다.
+- 최대가 되려면 k로 끝날 때 까지 쭉쭉 끌고가야 한다.
+- 그리고 마지막에 남은 M은 전부 하나씩 짤라 1로 처리해야 가장 큰 수가 나온다.
+- 최소가 되려면 k인 지점을 전부 5로 잘라버려야 한다.
+- 왜냐하면 k인 지점의 앞을 인정해주면 50이 되어버림으로 15보다 큰 수가 나오기 때문
+
+```java
+import java.io.*;
+
+public class Q21314 {
+
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        String mk = br.readLine();
+        char[] cs = mk.toCharArray();
+
+        bw.write(getMax(mk) + "");
+        bw.newLine();
+        bw.write(getMin(mk) + "");
+        bw.flush();
+
+    }
+
+    public static String getMax(String mk) {
+
+        int si = 0;
+        String res = "";
+        for (int i = 0; i < mk.length(); i++) {
+            char cur = mk.charAt(i);
+            if (cur == 'K') {
+                String subStr = mk.substring(si, i+1);
+                String convert = convert(subStr);
+                res += convert;
+                si = i + 1;
+            }
+        }
+        if (si != mk.length()) {
+
+            String subStr = mk.substring(si, mk.length());
+            for (int i = 0; i < subStr.length(); i++) {
+                res += 1;
+            }
+//            res += convert(subStr);
+        }
+        return res;
+    }
+
+    public static String getMin(String mk) {
+        int si = 0;
+        String res = "";
+        for (int i = 0; i < mk.length(); i++) {
+            char cur = mk.charAt(i);
+            if (cur == 'K') {
+                if (si < i) {
+                    String subStr = mk.substring(si, i);
+                    String convert = convert(subStr);
+                    res += convert;
+                }
+                si = i + 1;
+                res += 5;
+            }
+        }
+        if (si != mk.length()) {
+
+            String subStr = mk.substring(si, mk.length());
+            res += convert(subStr);
+        }
+        return res;
+    }
+
+    public static String convert(String mk) {
+
+        String res = "";
+        if (mk.charAt(mk.length() - 1) == 'K') {
+            res += 5;
+            for (int i = 0; i < mk.length() - 1; i++) {
+                res += 0;
+            }
+//            return 5 * (int) Math.pow(10, mk.length() - 1);
+        } else {
+            res += 1;
+            for (int i = 0; i < mk.length() - 1; i++) {
+                res += 0;
+            }
+//            return 1 * (int) Math.pow(10, mk.length() - 1);
+        }
+
+        return res;
+    }
+}
+
+```
 </div>
 </details>
