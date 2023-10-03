@@ -5242,8 +5242,118 @@ public class Q9655 {
 </details>
 
 <details>
-<summary>next</summary></summary>
+<summary>1463</summary></summary>
 <div markdown="1">
+
+### 1463
+#### 3가지 연산이 주어질 경우 1을 만드는 최소 연산의 개수 구하기
+- 딱 보자마자 bfs가 떠오르는 문제
+- 하지만 dp를 공부중이니 dp로도 풀어보자
+- dp로 풀려면 우선 1,2,3,4인 경우를 dp 배열에 값으로 넣어놓자.
+- 5인 경우 부터는 루프를 도는데
+  - 3으로 나누어 떨어진다면 1 + dp[i/3]
+  - 2로 나누어 떨어진다면 1 + dp[i/2]
+  - 다른 경우는 1 + dp[i-1]
+  - 위 3경우의 후보 중 가장 최소값을 dp[i]값으로 설정하면 dp 풀이 끝 
+```java
+import java.util.*;
+import java.io.*;
+
+public class Q1463 {
+
+  private static int[] dp = new int[1000001];
+  private static boolean[] visited;
+  public static void main(String[] args) throws IOException {
+
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+    int N = Integer.parseInt(br.readLine());
+    visited = new boolean[N + 1];
+
+//        int res = countHopBFS(N);
+    int res = countHopDP(N);
+    bw.write(res + "");
+    bw.flush();
+
+  }
+
+  //dp 풀이
+  public static int countHopDP(int N) {
+    dp[1] = 0;
+    dp[2] = 1;
+    dp[3] = 1;
+    dp[4] = 2;
+    dp[5] = 3;
+    for (int i = 6; i <= N; i++) {
+      dp[i] = Integer.MAX_VALUE;
+    }
+
+    for (int i = 6; i <= N; i++) {
+      int cand = 0;
+      if (i % 3 == 0) {
+        cand = 1 + dp[i / 3];
+        if (cand < dp[i]) {
+          dp[i] = cand;
+        }
+      }
+      if (i % 2 == 0) {
+        cand = 1 + dp[i / 2];
+        if (cand < dp[i]) {
+          dp[i] = cand;
+        }
+      }
+      cand = 1 + dp[i - 1];
+      if (cand < dp[i]) {
+        dp[i] = cand;
+      }
+    }
+    return dp[N];
+  }
+  //bfs 풀이
+  public static int countHopBFS(int N) {
+
+    int hop = 0;
+    Queue<Integer> q = new LinkedList<>();
+    q.add(N);
+    visited[N] = true;
+
+    while (!q.isEmpty()) {
+      int len = q.size();
+
+      for (int i = 0; i < len; i++) {
+        Integer cur = q.poll();
+        if (cur == 1) {
+          return hop;
+        }
+        int next = cur;
+        if (cur % 3 == 0) {
+          next = cur / 3;
+          if (!visited[next]) {
+            q.add(next);
+          }
+        }
+        if (cur % 2 == 0) {
+          next = cur / 2;
+          if (!visited[next]) {
+            q.add(next);
+          }
+        }
+        next = cur - 1;
+        if (!visited[next]) {
+          q.add(next);
+        }
+      }
+      hop++;
+    }
+    return -1;
+  }
+}
+
+```
+
+
+
 
 
 </div>
