@@ -5354,8 +5354,67 @@ public class Q1463 {
 
 
 
+</div>
+</details>
 
 
+<details>
+<summary>1463</summary></summary>
+<div markdown="1">
+
+</div>
+</details>
+
+
+<details>
+<summary>2193</summary></summary>
+<div markdown="1">
+
+### 2193
+#### N자리 이'친'수 개수 구하기
+- 잘 만든 문제 같다
+- 우선 문제는 여러모로 dp로 풀라고 소리를 고래고래 지른다.
+  - 간단한 수학 공식 문제처럼 보이지만 그렇지 않다. 조건에서 막힌다.
+    - 첫자리는 1로 고정 pow(2,N-1)개의 경우의 수 중 이친수를 고르면 됨
+    - (N-1) * pow(2,N-2) -> 1이 두개 연속되는 경우는 N-1 경우의 수 
+    - 첫자리를 1로 고정시켰기에 교집합을 빼면 끝
+    - 하지만 이 풀이는 2의 90승까지 고려해야 하기 때문에 long으로도 계산 불가
+  - dfs로 풀어도 시간 초과
+  - 완전 탐색도 시간 초과 및 범위 초과
+- dp 외의 모든 풀이가 적절히 막혀 있는 느낌이다. 나는 이것 저것 다 풀어보고 넘어왔지만..
+- 그렇지만 dp로 풀려고 해도 아이디어가 잘 떠오르지 않는 문제다
+- 나는 귀납으로 피보나치임을 깨달았지만 dp로 푸는 것도 떠올리고 피보나치인것도 스스로 깨달을 수 있었을까.... 반성하자.
+- 왜 피보나치 인가!? -> https://m.blog.naver.com/occidere/220788046159
+
+```java
+import java.util.*;
+import java.io.*;
+
+public class Q2193 {
+
+
+    private static long[] dp;
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        int N = Integer.parseInt(br.readLine());
+        dp = new long[N + 1];
+        dp[0] = 0L;
+        dp[1] = 1L; //1
+
+        for (int i = 2; i <= N; i++) {
+            dp[i] = dp[i - 2] + dp[i - 1];
+        }
+        bw.write(dp[N] + "");
+        bw.flush();
+    }
+
+
+}
+
+```
 </div>
 </details>
 
