@@ -4974,6 +4974,69 @@ public class Q2141 {
 </details>
 
 <details>
+<summary>13975</summary></summary>
+<div markdown="1">
+
+### 13975
+#### 코스트의 합 최소가 되게 하기
+- 결국 코스트의 합을 구하는 것이 문제
+- 어차피 몇 개의 코스트를 더해야 하는지는 정해져 있다.
+- 가장 작은 코스트를 더해나가면 정답이다
+- 가장 작은 코스트를 형성했을 때 뒤에 더 큰 코스트가 생겨나 손해볼 일이 있는지만 따져보면 된다.
+- 없다 어차피 모두 더해진다! 무엇을 먼저 더하는지 전혀 상관이 없으니 그리디로 풀 수 있는 것 
+
+```java
+import java.util.*;
+import java.io.*;
+
+public class Q13975 {
+
+    private static List<PriorityQueue<Long>> tests = new ArrayList<>();
+
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        int T = Integer.parseInt(br.readLine());
+
+        for (int i = 0; i < T; i++) {
+
+            Long K = Long.parseLong(br.readLine()); //chapter size
+            PriorityQueue<Long> sizes = new PriorityQueue<>();
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            for (int j = 0; j < K; j++) {
+                sizes.add(Long.parseLong(st.nextToken()));
+            }
+            tests.add(sizes);
+        }
+
+        for (PriorityQueue<Long> test : tests) {
+            Long res = calcCost(test);
+            bw.write(res + "");
+            bw.newLine();
+        }
+        bw.flush();
+    }
+
+    public static Long calcCost(PriorityQueue<Long> sizes) {
+        Long res = 0L;
+        while (sizes.size() != 1) {
+            Long c1 = sizes.poll();
+            Long c2 = sizes.poll();
+            sizes.add(c1 + c2);
+            res += (c1 + c2);
+        }
+        return res;
+    }
+}
+
+```
+
+</div>
+</details>
+
+<details>
 <summary>next</summary></summary>
 <div markdown="1">
 
