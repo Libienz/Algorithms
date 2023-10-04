@@ -3,11 +3,11 @@
 백준 알고리즘 자바 풀이 
 
 <details>
-<summary>DFS, BFS</summary></summary>
+<summary>DFS, BFS</summary>
 <div markdown="1">
 
 <details>
-<summary>2583</summary></summary>
+<summary>2583</summary>
 <div markdown="1">
 
 ### - Q2583
@@ -54,7 +54,7 @@
 
 
 <details>
-<summary>2667</summary></summary>
+<summary>2667</summary>
 <div markdown="1">
 
 ### - Q2667
@@ -104,7 +104,7 @@
 </details>
 
 <details>
-<summary>1759</summary></summary>
+<summary>1759</summary>
 <div markdown="1">
 
 ### - Q1759
@@ -171,7 +171,7 @@
 </details>
 
 <details>
-<summary>1987</summary></summary>
+<summary>1987</summary>
 <div markdown="1">
 
 ### - Q1987
@@ -227,7 +227,7 @@ public static void dfs(int r, int c, int lev) {
 </details>
 
 <details>
-<summary>2580</summary></summary>
+<summary>2580</summary>
 <div markdown="1">
 
 ### - Q2580
@@ -294,7 +294,7 @@ public static void dfs(int r, int c, int lev) {
 </details>
 
 <details>
-<summary>14889</summary></summary>
+<summary>14889</summary>
 <div markdown="1">
 
 ### - Q14889
@@ -356,7 +356,7 @@ public static void dfs(int r, int c, int lev) {
 </details>
 
 <details>
-<summary>9019</summary></summary>
+<summary>9019</summary>
 <div markdown="1">
 
 
@@ -438,7 +438,7 @@ public static void dfs(int r, int c, int lev) {
 </details>
 
 <details>
-<summary>5014</summary></summary>
+<summary>5014</summary>
 <div markdown="1">
 
 ### - 5014
@@ -482,7 +482,7 @@ public static void dfs(int r, int c, int lev) {
 </details>
 
 <details>
-<summary>15684</summary></summary>
+<summary>15684</summary>
 <div markdown="1">
 
 ### - Q15684
@@ -539,7 +539,7 @@ public static void dfs(int r, int c, int lev) {
 </details>
 
 <details>
-<summary>16956</summary></summary>
+<summary>16956</summary>
 <div markdown="1">
 
 ### - Q16956
@@ -594,7 +594,7 @@ public static void dfs(int r, int c, int lev) {
 </details>
 
 <details>
-<summary>2468</summary></summary>
+<summary>2468</summary>
 <div markdown="1">
 
 ### - Q2468
@@ -643,7 +643,7 @@ public static void dfs(int r, int c, int lev) {
 </details>
 
 <details>
-<summary>6593</summary></summary>
+<summary>6593</summary>
 <div markdown="1">
 
 ### - Q6593
@@ -710,7 +710,7 @@ static int[] moveZ = {0, 0, 0, 0, -1, 1};
 </details>
 
 <details>
-<summary>13459</summary></summary>
+<summary>13459</summary>
 <div markdown="1">
 
 ### - 13459
@@ -747,7 +747,7 @@ public static Co roll(Co pos, int rw, int cw, int nr, int nc) {
 </details>
 
 <details>
-<summary>12851</summary></summary>
+<summary>12851</summary>
 <div markdown="1">
 
 ### - 12851
@@ -856,7 +856,7 @@ class Node {
 </details>
 
 <details>
-<summary>2210</summary></summary>
+<summary>2210</summary>
 <div markdown="1">
 
 
@@ -888,7 +888,7 @@ class Node {
 </details>
 
 <details>
-<summary>1780</summary></summary>
+<summary>1780</summary>
 <div markdown="1">
 
 ### - 1780
@@ -917,7 +917,7 @@ class Node {
 </details>
 
 <details>
-<summary>14502</summary></summary>
+<summary>14502</summary>
 <div markdown="1">
 
 ### - 14502
@@ -979,7 +979,7 @@ for (int i = 0; i < mapHeight * mapWidth; i++) {
 </details>
 
 <details>
-<summary>17141</summary></summary>
+<summary>17141</summary>
 <div markdown="1">
 
 ### - 17141, 17142
@@ -1127,7 +1127,7 @@ for (int i = 0; i < mapHeight * mapWidth; i++) {
 </details>
 
 <details>
-<summary>17090</summary></summary>
+<summary>17090</summary>
 <div markdown="1">
 
 ### - 17090
@@ -1292,7 +1292,7 @@ for (int i = 0; i < mapHeight * mapWidth; i++) {
 </details>
 
 <details>
-<summary>3055</summary></summary>
+<summary>3055</summary>
 <div markdown="1">
 
 ### - 3055
@@ -1380,7 +1380,7 @@ for (int i = 0; i < mapHeight * mapWidth; i++) {
 </details>
 
 <details>
-<summary>14923</summary></summary>
+<summary>14923</summary>
 <div markdown="1">
 
 ### - 14923
@@ -1463,7 +1463,7 @@ for (int i = 0; i < mapHeight * mapWidth; i++) {
 </details>
 
 <details>
-<summary>1726</summary></summary>
+<summary>1726</summary>
 <div markdown="1">
 
 ### 로봇을 몰아보자
@@ -1570,7 +1570,7 @@ for (int i = 0; i < mapHeight * mapWidth; i++) {
 </details>
 
 <details>
-<summary>1012</summary></summary>
+<summary>1012</summary>
 <div markdown="1">
 
 ### 1012
@@ -1606,7 +1606,7 @@ for (int i = 0; i < mapHeight * mapWidth; i++) {
 </details>
 
 <details>
-<summary>4991</summary></summary>
+<summary>4991</summary>
 <div markdown="1">
 
 ### 4991
@@ -1709,7 +1709,7 @@ for (int i = 0; i < mapHeight * mapWidth; i++) {
 
 
 <details>
-<summary>2644</summary></summary>
+<summary>2644</summary>
 <div markdown="1">
 
 ### 2644
@@ -1755,7 +1755,7 @@ for (int i = 0; i < mapHeight * mapWidth; i++) {
 
 
 <details>
-<summary>11724</summary></summary>
+<summary>11724</summary>
 <div markdown="1">
 
 ### 11724
@@ -1831,11 +1831,11 @@ public class Q11724 {
 </details>
 
 <details>
-<summary>Simulation</summary></summary>
+<summary>Simulation</summary>
 <div markdown="1">
 
 <details>
-<summary>14503</summary></summary>
+<summary>14503</summary>
 <div markdown="1">
 
 ### 로봇 청소기 
@@ -1951,7 +1951,7 @@ public class Q11724 {
 
 
 <details>
-<summary>17140</summary></summary>
+<summary>17140</summary>
 <div markdown="1">
 
 ### 이차원 배열과 연산
@@ -2182,7 +2182,7 @@ public class Q17140 {
 
 
 <details>
-<summary>1260</summary></summary>
+<summary>1260</summary>
 <div markdown="1">
 - dfs, bfs 그래프 길찾기 기본 문제
 
@@ -2276,7 +2276,7 @@ public class Q1260 {
 
 
 <details>
-<summary>16324</summary></summary>
+<summary>16324</summary>
 <div markdown="1">
 
 ### 16324
@@ -2441,7 +2441,7 @@ public class Q16234 {
 
 
 <details>
-<summary>10552</summary></summary>
+<summary>10552</summary>
 <div markdown="1">
 
 ### 10552
@@ -2552,7 +2552,7 @@ public class Q10552 {
 
 
 <details>
-<summary>2178</summary></summary>
+<summary>2178</summary>
 <div markdown="1">
 
 ### 2178
@@ -2651,7 +2651,7 @@ public class Q2178 {
 
 
 <details>
-<summary>14890</summary></summary>
+<summary>14890</summary>
 <div markdown="1">
 
 ### 14890
@@ -2845,7 +2845,7 @@ public class Q14890 {
 
 
 <details>
-<summary>11403</summary></summary>
+<summary>11403</summary>
 <div markdown="1">
 
 ### 11403
@@ -2926,7 +2926,7 @@ public class Q11403 {
 
 
 <details>
-<summary>17144</summary></summary>
+<summary>17144</summary>
 <div markdown="1">
 
 ### 17144
@@ -3090,7 +3090,7 @@ public class Q17144 {
 
 
 <details>
-<summary>16918</summary></summary>
+<summary>16918</summary>
 <div markdown="1">
 
 ### 16918
@@ -3218,7 +3218,7 @@ public class Q16918 {
 
 
 <details>
-<summary>1343</summary></summary>
+<summary>1343</summary>
 <div markdown="1">
 
 ### 1343
@@ -3322,7 +3322,7 @@ public class Q1343 {
 
 
 <details>
-<summary>11559</summary></summary>
+<summary>11559</summary>
 <div markdown="1">
 
 ### 11559
@@ -3480,11 +3480,11 @@ public class Q11559 {
 
 
 <details>
-<summary>Greedy</summary></summary>
+<summary>Greedy</summary>
 <div markdown="1">
 
 <details>
-<summary>14916</summary></summary>
+<summary>14916</summary>
 <div markdown="1">
 
 ### 14916
@@ -3576,7 +3576,7 @@ public class Q14916 {
 </details>
 
 <details>
-<summary>2828</summary></summary>
+<summary>2828</summary>
 <div markdown="1">
 
 ### 2828
@@ -3635,7 +3635,7 @@ public class Q2828 {
 
 
 <details>
-<summary>2217</summary></summary>
+<summary>2217</summary>
 <div markdown="1">
 
 ### 2217
@@ -3702,7 +3702,7 @@ public class Q2217 {
 
 
 <details>
-<summary>13305</summary></summary>
+<summary>13305</summary>
 <div markdown="1">
 
 ### 13305
@@ -3791,7 +3791,7 @@ public class Q13305 {
 
 
 <details>
-<summary>1758</summary></summary>
+<summary>1758</summary>
 <div markdown="1">
 
 ### 1758
@@ -3841,7 +3841,7 @@ public class Q1758 {
 
 
 <details>
-<summary>11508</summary></summary>
+<summary>11508</summary>
 <div markdown="1">
 
 ### 11508
@@ -3896,7 +3896,7 @@ public class Q11508 {
 
 
 <details>
-<summary>11399</summary></summary>
+<summary>11399</summary>
 <div markdown="1">
 
 ### 11399
@@ -3948,7 +3948,7 @@ public class Q11399 {
 </details>
 
 <details>
-<summary>11047</summary></summary>
+<summary>11047</summary>
 <div markdown="1">
 
 ### 11047
@@ -4008,7 +4008,7 @@ public class Q11047 {
 
 
 <details>
-<summary>20115</summary></summary>
+<summary>20115</summary>
 <div markdown="1">
 
 ### 20115
@@ -4057,7 +4057,7 @@ public class Q20115 {
 
 
 <details>
-<summary>11000</summary></summary>
+<summary>11000</summary>
 <div markdown="1">
 
 ### 11000
@@ -4148,7 +4148,7 @@ public class Q11000 {
 
 
 <details>
-<summary>13164</summary></summary>
+<summary>13164</summary>
 <div markdown="1">
 
 ### 13164
@@ -4225,7 +4225,7 @@ public class Q13164 {
 
 
 <details>
-<summary>20300</summary></summary>
+<summary>20300</summary>
 <div markdown="1">
 
 ### 20300
@@ -4296,7 +4296,7 @@ public class Q20300 {
 
 
 <details>
-<summary>19598</summary></summary>
+<summary>19598</summary>
 <div markdown="1">
 
 ### 19598
@@ -4372,7 +4372,7 @@ public class Q19598 {
 
 
 <details>
-<summary>19941</summary></summary>
+<summary>19941</summary>
 <div markdown="1">
 
 ### 19941
@@ -4437,7 +4437,7 @@ public class Q19941 {
 </details>
 
 <details>
-<summary>2212</summary></summary>
+<summary>2212</summary>
 <div markdown="1">
 
 ### 2212
@@ -4507,7 +4507,7 @@ public class Q2212 {
 </details>
 
 <details>
-<summary>1541</summary></summary>
+<summary>1541</summary>
 <div markdown="1">
 
 ### 1541 
@@ -4605,7 +4605,7 @@ public class Q1541 {
 
 
 <details>
-<summary>1092</summary></summary>
+<summary>1092</summary>
 <div markdown="1">
 
 ### 1092
@@ -4705,7 +4705,7 @@ public class Q1092 {
 </details>
 
 <details>
-<summary>20365</summary></summary>
+<summary>20365</summary>
 <div markdown="1">
 
 ### 20365
@@ -4767,7 +4767,7 @@ public class Q20365 {
 
 
 <details>
-<summary>1863</summary></summary>
+<summary>1863</summary>
 <div markdown="1">
 
 ### 1863
@@ -4836,7 +4836,7 @@ public class Q1863 {
 </details>
 
 <details>
-<summary>16953</summary></summary>
+<summary>16953</summary>
 <div markdown="1">
 
 ### 16953
@@ -4909,7 +4909,7 @@ public class Q16953 {
 </details>
 
 <details>
-<summary>2141</summary></summary>
+<summary>2141</summary>
 <div markdown="1">
 
 ### 2141
@@ -4988,7 +4988,7 @@ public class Q2141 {
 </details>
 
 <details>
-<summary>13975</summary></summary>
+<summary>13975</summary>
 <div markdown="1">
 
 ### 13975
@@ -5051,7 +5051,7 @@ public class Q13975 {
 </details>
 
 <details>
-<summary>21314</summary></summary>
+<summary>21314</summary>
 <div markdown="1">
 
 ### 21314
@@ -5163,11 +5163,11 @@ public class Q21314 {
 
 
 <details>
-<summary>DP</summary></summary>
+<summary>DP</summary>
 <div markdown="1">
 
 <details>
-<summary>9655</summary></summary>
+<summary>9655</summary>
 <div markdown="1">
 
 ### 두명이서 주어진 돌을 1개 혹은 3개씩 가져가는 게임을 할 때 누가 이길까?
@@ -5242,7 +5242,7 @@ public class Q9655 {
 </details>
 
 <details>
-<summary>1463</summary></summary>
+<summary>1463</summary>
 <div markdown="1">
 
 ### 1463
@@ -5359,7 +5359,7 @@ public class Q1463 {
 
 
 <details>
-<summary>1463</summary></summary>
+<summary>1463</summary>
 <div markdown="1">
 
 </div>
@@ -5367,7 +5367,7 @@ public class Q1463 {
 
 
 <details>
-<summary>2193</summary></summary>
+<summary>2193</summary>
 <div markdown="1">
 
 ### 2193
