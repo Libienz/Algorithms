@@ -5358,12 +5358,6 @@ public class Q1463 {
 </details>
 
 
-<details>
-<summary>1463</summary>
-<div markdown="1">
-
-</div>
-</details>
 
 
 <details>
@@ -5415,6 +5409,59 @@ public class Q2193 {
 }
 
 ```
+</div>
+</details>
+
+
+<details>
+<summary>1904</summary>
+<div markdown="1">
+
+### 1904
+#### 가능한 binary string 개수 구하기
+
+- dfs로 풀면 메모리 초과!
+- dp로 풀어줘야 한다. 
+- dp로 풀려면 점화식을 세워야 하는데 떠오르면 굿 안 떠오르면 좀 써보면서 귀납적으로 발견하자
+
+```java
+import java.io.*;
+import java.util.*;
+
+public class Q1904 {
+
+    private static int N;
+    private static long[] dp;
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        N = Integer.parseInt(br.readLine());
+
+        dp = new long[1000000];
+
+        dp[0] = 0L;
+        dp[1] = 1L;
+        dp[2] = 2L;
+        dp[3] = 3L;
+
+        for (int i = 4; i < N + 1; i++) {
+            dp[i] = (((dp[i - 1] * 2) + (dp[i - 2] * 2)) / 2) % 15746;
+        }
+
+        bw.write(dp[N]+ "");
+        bw.flush();
+    }
+}
+
+```
+</div>
+</details>
+
+<details>
+<summary>next</summary>
+<div markdown="1">
+
 </div>
 </details>
 
