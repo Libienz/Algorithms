@@ -5504,11 +5504,56 @@ public class Q11726 {
 </details>
 
 <details>
+<summary>11727</summary>
+<div markdown="1">
+
+### 11727 
+#### 타일 문제 dp
+
+- 모든 경우는 끝나는 타일로 나눌 수 있다 (배반사건)
+- 2*1, 1*2, 2*2 각각의 크기로 끝나는 경우로 나눌수 있는 것
+- 더 작은 N에 대하여 답을 구해놓았다면 dp로 답을 구할 수 있다. 
+
+```java
+import java.io.*;
+import java.util.*;
+
+public class Q11727 {
+
+    private static int N;
+    private static int[] dp = new int[1001];
+
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        N = Integer.parseInt(br.readLine());
+
+        dp[0] = 0;
+        dp[1] = 1;
+        dp[2] = 3;
+
+        for (int i = 3; i < N + 1; i++) {
+            dp[i] = (dp[i - 2] + dp[i - 1] + dp[i - 2]) % 10007;
+        }
+        bw.write(dp[N] + "");
+        bw.flush();
+
+    }
+}
+
+```
+</div>
+</details>
+
+<details>
 <summary>next</summary>
 <div markdown="1">
 
 </div>
 </details>
+
 
 </div>
 </details>
