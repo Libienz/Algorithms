@@ -5667,6 +5667,114 @@ public class Q2293 {
 </details>
 
 <details>
+<summary>2294</summary>
+<div markdown="1">
+
+### 2294
+#### 동전 문제 dp
+- 최소 개수를 보는 순간 bfs가 떠올랐고
+- 동전이라는 키워드와 동전이 배수관계가 아닌 것을 본 순간 dp가 떠올랐다
+- 두가지 방법으로 모두 풀어봤다.
+- bfs는 설명을 생략하고 dp 설명만 남기겠다.
+- dp[0] = 0이다 0을 만드는데 필요한 동전의 개수는 0개!
+- 현재 동전은 1, 5, 12의 종류가 있다고 가정하자
+- 1크기의 동전만 사용한다고 쳤을 때 필요한 동전의 개수는 다음과 같다.
+- ![img_4.png](img_4.png)
+- 1크기의 동전과 5크기의 동전을 조합했을 때 필요한 동전의 개수는 다음과 같다.
+- ![img_5.png](img_5.png)
+- 1만 사용하다가 5까지 사용하기로 결심한 순간 1-4까지는 최솟 값이 정해졌다. fix
+- 그렇다면 그 다음 값부터는 (빨간색 값) fix 되어야 한다.
+- 5를 만들기 위해서는 0을 만드는 경우 (이미 고정된 값) 0개에 5를 사용하는 경우 1개를 더하면 된다 -> 1
+- 6을 만들기 위해서는 1을 만드는 경우 (이미 고정된 값) 1개에 5를 사용하는 경우 1개를 더하면 된다 -> 2
+- 이런식으로 나가면 결국 최솟값은 계속해서 갱신될 것이고 이것이 dp 풀이다
+
+```java
+import java.io.*;
+import java.security.Key;
+import java.util.*;
+
+public class Q2294 {
+
+    private static int N;
+    private static int K;
+    private static Set<Integer> vals;
+    private static boolean[] visited = new boolean[10001];
+    private static int[] dp = new int[10001];
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        N = Integer.parseInt(st.nextToken());
+        K = Integer.parseInt(st.nextToken());
+        vals = new HashSet<>();
+
+        for (int i = 0; i < N; i++) {
+            vals.add(Integer.parseInt(br.readLine()));
+        }
+
+//        int res = bfs();
+//        bw.write(res + "");
+
+        bw.write(dp() + "");
+        bw.flush();
+
+    }
+
+    //dp 풀이
+    public static int dp() {
+
+
+        Arrays.fill(dp, Integer.MAX_VALUE);
+        dp[0] = 0;
+        for (int val : vals) {
+            for (int i = val; i <= K; i++) {
+                int prev = dp[i - val];
+                if (prev == Integer.MAX_VALUE) {
+                    continue;
+                }
+                dp[i] = Math.min(dp[i], prev + 1);
+            }
+        }
+        if (dp[K] == Integer.MAX_VALUE) {
+            return -1;
+        }
+        return dp[K];
+    }
+    //bfs 풀이
+    public static int bfs() {
+
+        Queue<Integer> q = new LinkedList<>();
+        int level = 0;
+        q.add(0);
+
+        while (!q.isEmpty()) {
+            int len = q.size();
+            for (int i = 0; i < len; i++) {
+                Integer cur = q.poll();
+                if (cur == K) {
+                    return level;
+                }
+                for (int val : vals) {
+                    int next = val + cur;
+                    if (0 <= next && next <= K && !visited[next]) {
+                        q.add(next);
+                        visited[next] = true;
+                    }
+                }
+            }
+            level++;
+        }
+        return -1;
+    }
+}
+
+```
+</div>
+</details>
+
+<details>
 <summary>next</summary>
 <div markdown="1">
 
