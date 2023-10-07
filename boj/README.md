@@ -5606,6 +5606,67 @@ public class Q11051 {
 </details>
 
 <details>
+<summary>2293</summary>
+<div markdown="1">
+
+### 2293
+#### 배수관계가 아닌 동전문제
+- 동전이 있을 때 K원을 만들 수 있는 경우의 수를 구하라
+- 배수관계가 아니기에 dp가 필요하다
+- 풀이 참고 : https://velog.io/@jxlhe46/%EB%B0%B1%EC%A4%80-2293%EB%B2%88.-%EB%8F%99%EC%A0%84-1-bfi120m5
+
+```java
+import java.io.*;
+import java.util.*;
+
+public class Q2293 {
+
+    private static int N;
+    private static int K;
+    private static List<Integer> vals;
+    private static int dp[] = new int[10001];
+    private static int count;
+
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        N = Integer.parseInt(st.nextToken());
+        K = Integer.parseInt(st.nextToken());
+        vals = new ArrayList<>();
+
+        for (int i = 0; i < N; i++) {
+            int val = Integer.parseInt(br.readLine());
+            vals.add(val);
+        }
+        Collections.sort(vals);
+
+        dp[0] = 1;
+        for (int val : vals) {
+            for (int i = val; i <= K; i++) {
+                if (i - val >= 0 && dp[i - val] > 0) {
+                    dp[i] += dp[i - val];
+                }
+            }
+        }
+
+
+        bw.write(dp[K] + "");
+        bw.flush();
+
+    }
+
+
+
+}
+
+```
+</div>
+</details>
+
+<details>
 <summary>next</summary>
 <div markdown="1">
 
