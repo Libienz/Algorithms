@@ -5775,11 +5775,66 @@ public class Q2294 {
 </details>
 
 <details>
+<summary>1699</summary>
+<div markdown="1">
+
+### 1699
+#### 제곱수의 합으로 N을 표시할 때 최소의 항 구하기
+
+- 동전 문제와 똑같다.
+- 1의 제곱, 2의 제곱, 3의 제곱, ..., 루트 N까지 동전의 가치가 주어질 때 N을 만드는 최소 동전 개수 문제와 똑같다.
+- dp도 어느정도 유형이 정해져 있는 것 같다.
+
+```java
+import java.io.*;
+import java.util.*;
+
+public class Q1699 {
+
+    private static int N;
+    private static int[] dp /*= new int[100001]*/;
+    private static ArrayList<Integer> vals = new ArrayList<>();
+
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        N = Integer.parseInt(br.readLine());
+        dp = new int[N + 1];
+
+        //제곱수의 덧셈으로 N을 만들고자 하는 문제는 동전을 가지고 N을 만들기 위해 필요한 최소 항의 개수문제와 비슷하다
+        //동전의 값들이 1^2, 2^2, 3^3 ... N^(1/2)이라고 주어졌을 때를 따지면 된다.
+        int sqrt = (int) Math.sqrt(N);
+        for (int i = 1; i <= sqrt; i++) {
+            int num = (int) Math.pow(i, 2);
+            vals.add(num);
+        }
+
+        Arrays.fill(dp, Integer.MAX_VALUE);
+        dp[0] = 0;
+        for (int val : vals) {
+            for (int i = val; i <= N; i++) {
+                dp[i] = Math.min(dp[i], dp[i - val] + 1);
+            }
+        }
+
+        bw.write(dp[N] + "");
+        bw.flush();
+    }
+}
+
+```
+</div>
+</details>
+
+<details>
 <summary>next</summary>
 <div markdown="1">
 
 </div>
 </details>
+
 
 </div>
 </details>
