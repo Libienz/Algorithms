@@ -5836,11 +5836,9 @@ public class Q1699 {
 #### 가장 큰 증가하는 부분 수열
 - dp로 풀어야 함
 - 1 100 2 50 60 3 5 6 7 8
-- 첫번째 항까지만 따졌을 때 가장 큰 부분 수열은 첫번째 항 dp[1] = 1
-- 두번째 항까지만 따졌을 때 가장 큰 부분 수열은 dp[1] + arr[2] = 101
-- 세번째 항까지만 따졌을 때 가장 큰 부분 수열은 dp[1] + arr[3] or dp[2] + arr[3]
-- 네번째 항까지만 따졌을 때 가장 큰 부분 수열은 dp[1] + arr[4] or dp[2] + arr[4] or dp[3] + arr[4]
-- 이런식으로 나가면 된다.
+- dp[1]은 첫번째 수열의 값이 끝으로 오는 부분 수열의 합이다.
+- dp[2]는 두번째 수열의 값이 끝으로 오는 부분 수열의 합이다.
+- 따라서 dp[i]는 이전 수열의 값 중 자신보다 작은 값으로 끝나는 수열에 i번째 수열의 값을 더한 것 중 최대가 된다.
 
 ```java
 import java.io.*;
@@ -5897,11 +5895,90 @@ public class Q11055 {
 </details>
 
 <details>
+<summary>4811</summary>
+<div markdown="1">
+
+### 4811
+#### 할아버지 알약 문제
+- 할아버지는 N개의 알약이 들어있는 통에서 하루에 반개씩 먹어야 함
+- 한개를 쪼개서 반알 먹고 반알을 약통에 넣든지 반알짜리가 있으면 반알을 먹든지 한다.
+- 할아버지가 알약을 먹는 경우의 수를 구하라
+- dp를 이차원 배열로 세우겠다는 발상의 도약 필요
+- dp[i][j]는 한알짜리가 i개, 반알 짜리가 j개 들어있을 때 먹는 경우의 수를 담고 있는 것이다.
+- 그렇다면 dp[i][j] = dp[i-1][j+1] + dp[i][j-1] 이라는 점화식이 생겨난다.
+- 한알 먹고 시작하는 경우, 반알 먹고 시작하는 경우를 합친 것이다
+
+```java
+import java.io.*;
+
+public class Q4811 {
+
+    private static int N; //남아있는 알약 개수
+    private static int dfsCount;
+    private static long[][] dp = new long[31][31];
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        N = Integer.parseInt(br.readLine());
+
+        while (N != 0) {
+//            countByDFS(0, N);
+//            bw.write(dfsCount + "");
+            long res = countByDP();
+            bw.write(res + "");
+            bw.newLine();
+            N = Integer.parseInt(br.readLine());
+        }
+
+        bw.flush();
+    }
+
+    public static long countByDP() {
+
+        for (int i = 1; i <= 30; i++) {
+            dp[0][i] = 1;
+        }
+        for (int i = 1; i <= N; i++) {
+            for (int j = 0; j < 30; j++) {
+                if (j == 0) {
+                    dp[i][j] = dp[i - 1][1];
+                    continue;
+                }
+                dp[i][j] = dp[i - 1][j + 1] + dp[i][j - 1];
+            }
+        }
+        return dp[N][0];
+    }
+
+    public static void countByDFS(int half, int total) {
+        if (half == 0 && total == 0) {
+            dfsCount++;
+            return;
+        }
+        //반알 먹기
+        if (half > 0) {
+            countByDFS(half - 1, total);
+        }
+        //한알 쪼개 먹기
+        if (total > 0) {
+            countByDFS(half + 1, total - 1);
+        }
+    }
+}
+
+```
+</div>
+</details>
+
+<details>
 <summary>next</summary>
 <div markdown="1">
 
 </div>
 </details>
+
 
 
 </div>
