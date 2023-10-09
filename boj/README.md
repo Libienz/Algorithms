@@ -6042,12 +6042,130 @@ public class Q11503 {
 </details>
 
 <details>
+<summary>2240</summary>
+<div markdown="1">
+
+### 2240
+#### 자두나무
+- 개어렵다.. 
+- 우선 이문제가 dfs로 안되는 이유를 찾아야 함 
+- 매번 dfs 들렸다가 시간초과 나서 돌아오는 풀이를 반복하고 있는데 dfs가 안될 것 같다는 감을 잡을 수 있도록 하자
+- dfs로 안되는 이유는 T번의 턴 중에서 W번 움직이는 시간을 정하기 위해서 TCombW 만큼 연산이 들어가기 때문 
+- 1000C30 = 2429608192173745103270389838576750719302222606198631438800
+- 빡세지 ..?
+- 그래서 dp 풀이가 필요함
+- dp로 풀려면 다음과 같이 케이스를 나눠야 한다.
+- 현재 자리로 오기위해서 지금 자리를 옮긴 경우하고 이전에 있던 자리를 유지하는 경우로 나눠야 한다.
+- 지금 자리로 오기위해서 현재 자리를 옮긴 것은 다시 말해 이전에 반대편에 있었어야 한다는 말이고
+- 지금 자리로 오기 위해서 현재 자리를 옮기지 않았다는 것은 다시 말해 이전에 현재 위치와 같은 위치에 있었다는 말이다.
+- 그럼 dp를 설계해보자
+- dp[i][j]는 i번째 time에서 지금까지 j번 자리를 옮겼을 때 담을 수 있는 자두의 최대 개수를 뜻함
+- 그렇다면 점화식은 dp[i][j] = dp[i-1][j-1], dp[i-1][j] 중 max를 구하는 것이 된다.
+  - 거기에 추가로 현재 내가 있는 위치에 떨어진다면 dp[i][j] += 1을 해주면 되고
+- dp[i][j]의 경우 현재 내가 있는 자리는 j%2 + 1이 된다. 짝수번 옮겼다면 1번 자리에 있을 것이고 홀수번 옮겼다면 2번 자리에 있게될 것이다.
+- 현재 나의 자리로 오기 위해서는 두가지의 방법이 있었을 것이다
+  - dp[i-1][j-1] : 이전에 반대편에 있다가 옮긴 경우다 
+  - dp[i-1][j] : 이전에 같은 자리에 있다가 옮기지 않은 경우다
+- 점화식이 위와 같은 이유는 각 경우에 최대 자두의 개수를 따지면 되기 때문이다. 
+```java
+import java.util.*;
+import java.io.*;
+
+public class Q2240 {
+
+  private static int T;
+  private static int W;
+  private static int res = Integer.MIN_VALUE;
+  private static int[] pos = new int[1001];
+
+  private static int[][] dp = new int[1001][31];
+
+
+
+  public static void main(String[] args) throws IOException {
+
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+    StringTokenizer st = new StringTokenizer(br.readLine());
+
+    T = Integer.parseInt(st.nextToken()); //자두는 T초 동안 떨어진다.
+    W = Integer.parseInt(st.nextToken()); //최대 W번 만큼만 움직인다.
+
+    for (int i = 0; i < T; i++) {
+      //i초에 자두는 pos[i] 위치에 떨어진다.
+      pos[i] = Integer.parseInt(br.readLine());
+    }
+
+    for (int i = 0; i <= W; i++) {
+      //짝수번 움직여서 제자리로 왔을 때
+      if (i % 2 == 0) {
+        if (pos[0] == 1) {
+          dp[0][i] = 1;
+
+        } else {
+          dp[0][i] = 0;
+        }
+      }
+      //홀수번 움직여서 2번 나무 위치로 갔을 대
+      else {
+        if (pos[0] != 1) {
+          dp[0][i] = 1;
+        } else {
+          dp[0][i] = 0;
+        }
+      }
+    }
+
+    for (int t = 1; t < T; t++) {
+      int dropPos = pos[t];
+      for (int w = 0; w <= W; w++) {
+        if (w == 0) {
+          dp[t][w] = dp[t - 1][0];
+          if (dropPos == 1) {
+            dp[t][w] += 1;
+          }
+          continue;
+        }
+        //현재 위치 는 1
+        if (w % 2 == 0) {
+          dp[t][w] = Math.max(dp[t - 1][w - 1], dp[t - 1][w]);
+          if (dropPos == 1) {
+            dp[t][w] += 1;
+          }
+        }
+        //현재 위치는 2
+        else {
+          dp[t][w] = Math.max(dp[t - 1][w - 1], dp[t - 1][w]);
+          if (dropPos == 2) {
+            dp[t][w] += 1;
+          }
+        }
+      }
+    }
+
+    for (int i = 0; i <= W; i++) {
+      res = Math.max(res, dp[T - 1][i]);
+    }
+    bw.write(res + "");
+    bw.newLine();
+    bw.flush();
+
+
+  }
+
+
+}
+ 
+```
+</div>
+</details>
+
+<details>
 <summary>next</summary>
 <div markdown="1">
 
 </div>
 </details>
-
 
 
 </div>
