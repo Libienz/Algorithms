@@ -5829,6 +5829,74 @@ public class Q1699 {
 </details>
 
 <details>
+<summary>11055</summary>
+<div markdown="1">
+
+### 11055
+#### 가장 큰 증가하는 부분 수열
+- dp로 풀어야 함
+- 1 100 2 50 60 3 5 6 7 8
+- 첫번째 항까지만 따졌을 때 가장 큰 부분 수열은 첫번째 항 dp[1] = 1
+- 두번째 항까지만 따졌을 때 가장 큰 부분 수열은 dp[1] + arr[2] = 101
+- 세번째 항까지만 따졌을 때 가장 큰 부분 수열은 dp[1] + arr[3] or dp[2] + arr[3]
+- 네번째 항까지만 따졌을 때 가장 큰 부분 수열은 dp[1] + arr[4] or dp[2] + arr[4] or dp[3] + arr[4]
+- 이런식으로 나가면 된다.
+
+```java
+import java.io.*;
+import java.util.*;
+
+public class Q11055 {
+
+    private static int N;
+
+    private static int[] arr = new int[1001];
+    private static int[] dp = new int[1001];
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        N = Integer.parseInt(br.readLine());
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        for (int i = 0; i < N; i++) {
+            int num = Integer.parseInt(st.nextToken());
+            arr[i] = num;
+            dp[i] = num;
+        }
+
+        dp[0] = arr[0];
+
+        for (int i = 1; i <= N; i++) {
+
+            for (int j = 0; j < i; j++) {
+                if (arr[j] < arr[i]) {
+                    dp[i] = Math.max(dp[i], dp[j] + arr[i]);
+                }
+            }
+
+        }
+
+//        for (int i = 0; i <= N; i++) {
+//            System.out.print(dp[i] + " ");
+//        }
+//        System.out.println();
+
+        int max = Integer.MIN_VALUE;
+        for (int i = 0; i <= N; i++) {
+            max = Math.max(dp[i], max);
+        }
+        bw.write(max + "");
+        bw.flush();
+    }
+
+}
+
+```
+</div>
+</details>
+
+<details>
 <summary>next</summary>
 <div markdown="1">
 
