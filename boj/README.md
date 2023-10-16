@@ -6165,7 +6165,8 @@ public class Q2240 {
 <div markdown="1">
 
 ### 12865
-- 물건을 분리할 수 없는 Knapsack 알고리즘
+#### 0-1 Knapsack
+- 물건을 분리할 수 없는 Knapsack 알고리즘 물건을 분리할 수 있으면 비율을 따지면 된다!
 - dp[i][j] 는 i번째 물건까지 살펴봤을 때 j크기의 가방으로 챙길 수 있는 가치의 최댓 값을 의미한다.
 - 맨 처음 물건이 w=6, v=13이라면 표는 다음과 같다.
 - ![img_6.png](img_6.png)
@@ -6178,7 +6179,11 @@ public class Q2240 {
 - ![img_8.png](img_8.png)
 - 여기에서 무게가 7일 경우는 3번째 물건도 담은 후 무게가 4만큼이 남게 된다.
 - 무게가 4일 때 이전 아이템까지 담은 경우의 값이 dp[2][4]에 저장되어 있음으로 3번 아이템의 가치 + 2번 아이템까지 저장된 가치들 중 무게가 4일 때의 가치의 결과가 저장된다.
-
+- dp[i][j] 는 현재 보고 있는 물건을 배낭에 넣었을 때의 경우와 넣지 않았을 때의 경우 중 최대를 구하면 된다.
+  - 현재를 배낭에 넣지 않는 경우 최대 경우의 수는 이미 구해져 있는 dp[i-1][j]이다.
+  - 현재를 배낭에 넣는 경우는 배낭에 현재 물건의 무게 만큼을 확보해야 한다.
+  - 그 말인 즉슨 현재 물건의 무게 만큼을 뺀 dp배열에서의 값과 현재 가치를 더해주면 된다는 뜻!
+  - dp[i-1][j-curW] + curV가 되는 것이다.
 ```java
 import java.io.*;
 import java.util.*;
@@ -6235,6 +6240,75 @@ public class Q12865 {
 ```
 </div>
 </details>
+
+<details>
+<summary>9465</summary>
+<div markdown="1">
+
+### 9465
+#### 스티커 문제
+- 맨 왼쪽에서 스티커를 시작할 때 오른쪽으로 선택해나갈 수 있다.
+- 다만 선택한 스티커의 상하좌우는 사라짐으로 대각선으로 이동해나가야 하는데 1칸 대각선으로 이동하거나 두칸 대각선으로 이동할 수 있다.
+- 이를 알아내는 것이 주요한 문제
+- dp[i][j] = max(dp[i반전][j-1], dp[i반전][j-2]가 되는 것이다.
+
+```java
+import java.io.*;
+import java.util.*;
+
+public class Q9465 {
+
+    private static int T; //Test case 개수
+    private static int n; //2n = 스티커의 개수
+    private static int[][] dp;
+    private static int[][] stickers;
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        T = Integer.parseInt(br.readLine());
+        for (int i = 0; i < T; i++) {
+            n = Integer.parseInt(br.readLine());
+            dp = new int[2][n];
+            stickers = new int[2][n];
+            for (int j = 0; j < 2; j++) {
+                StringTokenizer st = new StringTokenizer(br.readLine());
+                for (int k = 0; k < n; k++) {
+                    stickers[j][k] = Integer.parseInt(st.nextToken());
+//                    System.out.println("stickers[" + j + "][" + k + "]=" + stickers[j][k]);
+                }
+            }
+
+            int res = getMaxValue(stickers);
+            bw.write(res + "");
+            bw.newLine();
+        }
+        bw.flush();
+        return;
+    }
+
+    public static int getMaxValue(int[][] stickers) {
+        dp[0][0] = stickers[0][0];
+        dp[1][0] = stickers[1][0];
+        if (n > 1) {
+            dp[0][1] = stickers[1][0] + stickers[0][1];
+            dp[1][1] = stickers[0][0] + stickers[1][1];
+        }
+        for (int i = 2; i < n; i++) {
+            dp[0][i] = Math.max(dp[1][i - 1], dp[1][i - 2]) + stickers[0][i];
+            dp[1][i] = Math.max(dp[0][i - 1], dp[0][i - 2]) + stickers[1][i];
+        }
+
+        return Math.max(dp[0][n - 1], dp[1][n - 1]);
+    }
+}
+
+```
+</div>
+</details>
+
+
 
 <details>
 <summary>next</summary>
