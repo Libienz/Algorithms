@@ -6161,11 +6161,88 @@ public class Q2240 {
 </details>
 
 <details>
+<summary>12865</summary>
+<div markdown="1">
+
+### 12865
+- 물건을 분리할 수 없는 Knapsack 알고리즘
+- dp[i][j] 는 i번째 물건까지 살펴봤을 때 j크기의 가방으로 챙길 수 있는 가치의 최댓 값을 의미한다.
+- 맨 처음 물건이 w=6, v=13이라면 표는 다음과 같다.
+- ![img_6.png](img_6.png)
+- 가방의 무게가 6이 넘어갈 때부터 첫번째 물건을 담을 수 있다.
+- 2번째 물건이 w=4, v=8이라면 표는 다음과 같다.
+- ![img_7.png](img_7.png)
+- 무게가 4일 때 부터는 2번을 담을 수 있게 된다. 
+- 가방의 용량이 6일 때부터는 1번도 담을 수 있고, 2번 물건도 담을 수 있는데 더 큰쪽을 담게 된다.
+- 3번째 물건이 w=3, v=6인 경우 표는 다음과 같다. 
+- ![img_8.png](img_8.png)
+- 여기에서 무게가 7일 경우는 3번째 물건도 담은 후 무게가 4만큼이 남게 된다.
+- 무게가 4일 때 이전 아이템까지 담은 경우의 값이 dp[2][4]에 저장되어 있음으로 3번 아이템의 가치 + 2번 아이템까지 저장된 가치들 중 무게가 4일 때의 가치의 결과가 저장된다.
+
+```java
+import java.io.*;
+import java.util.*;
+
+public class Q12865 {
+
+    private static int[][] dp;
+    private static int N;
+    private static int K;
+    private static int weights[];
+    private static int values[];
+
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        N = Integer.parseInt(st.nextToken());
+        K = Integer.parseInt(st.nextToken());
+        weights = new int[N + 1];
+        values = new int[N + 1];
+        // dp[n][k] 는 N번째 물건까지 살펴 보았을 때 무게가 K인 배낭의 최대 가치
+        dp = new int[N + 1][K + 1];
+
+        for (int i = 1; i <= N; i++) {
+            st = new StringTokenizer(br.readLine());
+            int W = Integer.parseInt(st.nextToken());
+            int V = Integer.parseInt(st.nextToken());
+            weights[i] = W;
+            values[i] = V;
+        }
+
+        for (int i = 1; i <= N; i++) {
+            int curW = weights[i];
+            int curV = values[i];
+
+            for (int j = 1; j <= K; j++) {
+                dp[i][j] = dp[i - 1][j];
+                if (j - curW >= 0) {
+                    dp[i][j] = Math.max(dp[i][j], dp[i - 1][j - curW] + curV);
+                }
+            }
+        }
+
+        bw.write(dp[N][K] + "");
+        bw.flush();
+        bw.flush();
+    }
+
+
+}
+
+```
+</div>
+</details>
+
+<details>
 <summary>next</summary>
 <div markdown="1">
 
 </div>
 </details>
+
 
 
 </div>
