@@ -6311,11 +6311,82 @@ public class Q9465 {
 
 
 <details>
+<summary>16500</summary>
+<div markdown="1">
+
+### 16500
+#### 주어진 word로 obj를 조합할 수 있는 지 알아보자
+- 완탐은 시간 초과 dp 설계를 강제하는 문제
+- 그렇다면 처음부터 오른쪽으로 범위를 넓혀 나가며 hit하면 그 다음부터 또 hit하는 것이 있는지 따져가면서 풀면 될까? -> NO
+  - abce, abc, efg로 abcefg를 조합하고 싶다고 해보자
+  - abce까지 보았을 때 abce는 words에 있음으로 히트
+  - 그 후 fg를 보면 없음으로 fail
+  - 하지만 abc를 먼저 보고 efg를 보면 success..
+- 따라서 이차원으로 루프를 돌며 체크해야 함
+  - i에서 시작하고 j에서 끝나는 substring을 봐야 하는 것 
+- dp[i]는 obj의 부분 문자열 중 0,i 까지를 만들 수 있는지 없는지 여부가 달린다.
+- 만약 obj.substring(i,j)가 words에 들어있고 obj.substring(0,i-1)또한 words 에 들어있으면 dp[j]는 1이 된다
+- 
+
+```java
+import java.util.*;
+import java.io.*;
+
+public class Q16500 {
+
+    private static String obj;
+    private static int[] dp;
+    private static Set<String> words = new HashSet<>();
+
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        obj = br.readLine();
+        dp = new int[obj.length()];
+
+        int N = Integer.parseInt(br.readLine());
+        for (int i = 0; i < N; i++) {
+            words.add(br.readLine());
+        }
+
+
+        for (int i = 0; i < obj.length(); i++) {
+            for (int j = i + 1; j <= obj.length(); j++) {
+                String substring = obj.substring(i, j);
+//                System.out.println("substring = " + substring);
+//                System.out.println("i = " + i);
+//                System.out.println("j = " + j);
+                if (words.contains(obj.substring(i, j)) && (i == 0 || dp[i - 1] == 1)) {
+                    dp[j - 1] = 1;
+                }
+            }
+        }
+
+//        for (int i = 0; i < dp.length; i++) {
+//            System.out.println("dp[" + i + "] = " + dp[i]);
+//        }
+        bw.write(dp[obj.length() - 1] + "");
+        bw.flush();
+
+    }
+
+
+
+}
+
+```
+</div>
+</details>
+
+<details>
 <summary>next</summary>
 <div markdown="1">
 
 </div>
 </details>
+
 
 
 
