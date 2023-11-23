@@ -8,63 +8,31 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        List<Word> words = new ArrayList<>();
+        List<String> words = new ArrayList<>();
         int wordCount = Integer.parseInt(br.readLine());
 
         for (int i = 0; i < wordCount; i++) {
-            String wordString = br.readLine();
-            Word word = new Word(wordString);
+            String word = br.readLine();
             if (words.contains(word)) {
                 continue;
             }
             words.add(word);
         }
 
-        Collections.sort(words);
-        for (Word word : words) {
-            bw.write(word.getWord() + "\n");
+        Collections.sort(words, new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                if (o1.length() == o2.length()) {
+                    return o1.compareTo(o2);
+                }
+                return o1.length() - o2.length();
+            }
+        });
+
+        for (String word : words) {
+            bw.write(word + "\n");
         }
         bw.flush();
-    }
-
-    static class Word implements Comparable<Word> {
-
-        private String word;
-
-        public Word(String word) {
-            this.word = word;
-        }
-
-        public String getWord() {
-            return word;
-        }
-
-        @Override
-        public int compareTo(Word o) {
-            if (word.length() == o.word.length()) {
-                //알파벳 순 정렬
-                return word.compareTo(o.word);
-            }
-            return this.word.length() - o.word.length();
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) {
-                return true;
-            }
-            if (o == null || getClass() != o.getClass()) {
-                return false;
-            }
-            Word word1 = (Word) o;
-            return Objects.equals(word, word1.word);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(word);
-        }
-
     }
 
 }
