@@ -4,6 +4,7 @@ import java.io.*;
 public class Main {
 
     private static char[][] board;
+    private static int minCount = Integer.MAX_VALUE;
     public static void main(String[] args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -13,8 +14,8 @@ public class Main {
         int rowSize = Integer.parseInt(st.nextToken());
         int colSize = Integer.parseInt(st.nextToken());
 
+        // 보드 초기화
         board = new char[rowSize][colSize];
-
         for (int i = 0; i < rowSize; i++) {
             String row = br.readLine();
             for (int j = 0; j < colSize; j++) {
@@ -22,21 +23,14 @@ public class Main {
             }
         }
 
-        int minCount = Integer.MAX_VALUE;
 
-        List<char[][]> subBoards = getSubBoards(board, 8);
-//        System.out.println("subBoards = " + subBoards.size());
-        for (char[][] subBoard : subBoards) {
-            int count = calcCount(subBoard);
-//            for (int i = 0; i < subBoard.length; i++) {
-//                for (int j = 0; j < subBoard[0].length; j++) {
-//                    System.out.print(subBoard[i][j] + " ");
-//                }
-//                System.out.println();
-//            }
-//            System.out.println("count = " + count);
-            if (count < minCount) {
-                minCount = count;
+        //i,j에서 시작하는 8사이즈의 정사각형 부분 배열에서 몇개를 바꾸면 체스판의 조건을 만족하는지 체크
+        for (int i = 0; i <= rowSize - 8; i++) {
+            for (int j = 0; j <= colSize - 8; j++) {
+                int count = calcCount(i, j);
+                if (count < minCount) {
+                    minCount = count;
+                }
             }
         }
 
@@ -45,94 +39,31 @@ public class Main {
 
     }
 
-    public static List<char[][]> getSubBoards(char[][] board, int size) {
-        List<char[][]> res = new ArrayList<>();
-        int sr = 0;
-        int sc = 0;
-        for (int i = 0; i <= board.length - 8; i++) {
-            for (int j = 0; j <= board[0].length - 8; j++) {
-                char[][] subBoard = new char[size][size];
-                //왼쪽 시작지점이 i,j일때
-                sr = i;
-                sc = j;
-
-                for (int k = 0; k < size; k++) {
-                    for (int l = 0; l < size; l++) {
-                        subBoard[k][l] = board[sr + k][sc + l];
-                    }
+    private static int calcCount(int sr, int sc) {
+        char prev = 'W';
+        int count = 0;
+        //검은색으로 시작하는 경우 몇개를 고쳐 색칠해야 하는지 계산
+        for (int i = sr; i < sr + 8; i++) {
+            for (int j = sc; j < sc + 8; j++) {
+                char currentColor = board[i][j];
+                //이전과 현재의 색깔이 같다면 다시 색칠
+                if (prev == currentColor) {
+                    count++;
                 }
-                res.add(subBoard);
+                prev = reverseColor(prev);
             }
+            //줄이 바뀌는 경우는 한번 이전 색깔 반전 필요
+            prev = reverseColor(prev);
         }
-
-        return res;
+        //검은색으로 시작하는 경우 색칠해야 하는 개수 : count
+        //하얀색으로 시작하는 경우 색칠해야 하는 개수 : 64 - count
+        return Math.min(count, 64 - count);
     }
 
-    public static int calcCount(char[][] board) {
-        int minCount = Integer.MAX_VALUE;
-
-        //W로 시작하게 할 경우
-        int count = 0;
-        char prev = 'W';
-        if (board[0][0] != 'W') {
-            count++;
+    public static char reverseColor(char color) {
+        if (color == 'B') {
+            return 'W';
         }
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[0].length; j++) {
-                if (i == 0 && j == 0) {
-                    continue;
-                }
-
-//                System.out.println("board[" + i + "][" + j + "] = " + board[i][j]);
-//                System.out.println("prev = " + prev);
-                if (board[i][j] == prev) {
-                    count++;
-                }
-                if (prev == 'W') {
-                    prev = 'B';
-                } else {
-                    prev = 'W';
-                }
-            }
-            if (prev == 'W') {
-                prev = 'B';
-            } else {
-                prev = 'W';
-            }
-        }
-        if (count < minCount) {
-            minCount = count;
-        }
-
-        //B로 시작하게 할 경우
-        count = 0;
-        prev = 'B';
-        if (board[0][0] != 'B') {
-            count++;
-        }
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[0].length; j++) {
-                if (i == 0 && j == 0) {
-                    continue;
-                }
-                if (board[i][j] == prev) {
-                    count++;
-                }
-                if (prev == 'W') {
-                    prev = 'B';
-                } else {
-                    prev = 'W';
-                }
-            }
-            if (prev == 'W') {
-                prev = 'B';
-            } else {
-                prev = 'W';
-            }
-        }
-        if (count < minCount) {
-            minCount = count;
-        }
-        return minCount;
+        return 'B';
     }
 }
