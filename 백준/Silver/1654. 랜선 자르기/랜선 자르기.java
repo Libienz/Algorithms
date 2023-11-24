@@ -2,7 +2,6 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
-
     private static int K;
     private static int N;
     public static void main(String[] args) throws IOException {
@@ -20,31 +19,20 @@ public class Main {
             cables.add(Integer.parseInt(br.readLine()));
         }
 
-        Long cutLengthMin = 0L;
-        Long cutLengthMax = (long) Integer.MAX_VALUE;
-        Long cutLength = 0L;
-        while ((cutLengthMax - cutLengthMin) > 1) {
-
-
-            cutLength = (cutLengthMax + cutLengthMin) / 2;
-            if (affordableLength(cutLength, cables)) {
-                cutLengthMin = cutLength;
+        Long min = 0L;
+        Long max = (long) Integer.MAX_VALUE;
+        Long mid;
+        while (min <= max) {
+            mid = (max + min) / 2;
+            if (affordableLength(mid, cables)) {
+                min = mid + 1;
             } else {
-                cutLengthMax = cutLength;
+                max = mid-1;
             }
         }
-
-        if (cutLengthMin != cutLengthMax) {
-            if (affordableLength(cutLengthMax, cables)) {
-                bw.write(cutLengthMax + "");
-            } else {
-                bw.write(cutLengthMin + "");
-            }
-        }
+        bw.write(String.valueOf(max));
         bw.flush();
-
     }
-
 
     public static boolean affordableLength(Long cutLength, List<Integer> cables) {
         Long count = 0L;
