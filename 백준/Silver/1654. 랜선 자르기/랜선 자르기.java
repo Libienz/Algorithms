@@ -27,7 +27,7 @@ public class Main {
             if (affordableLength(mid, cables)) {
                 min = mid + 1;
             } else {
-                max = mid-1;
+                max = mid - 1;
             }
         }
         bw.write(String.valueOf(max));
