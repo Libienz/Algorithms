@@ -1,33 +1,23 @@
-import java.util.*;
-import java.io.*;
-
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+ 
 public class Main {
-
-    private static final int R = 31;
-    private static final int M = 1234567891;
-
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-
-        int L = Integer.parseInt(br.readLine());
-        String str = br.readLine();
-
-        bw.write(String.valueOf(calcHash(str)));
-        bw.flush();
-    }
-
-    public static long calcHash(String str) {
-        char[] cs = str.toCharArray();
-        List<Integer> arr = new ArrayList<>();
-        for (char c : cs) {
-            arr.add(c - 96);
-        }
-
-        long hash = 0;
-        for (int i = 0; i < arr.size(); i++) {
-            hash += (long) (arr.get(i) * Math.pow(R, i));
-        }
-        return hash % M;
-    }
+	static final int M = 1234567891;
+	
+	public static void main(String[] args) throws IOException {
+		BufferedReader bw = new BufferedReader(new InputStreamReader(System.in));
+		int L = Integer.parseInt(bw.readLine());
+		String str = new String(bw.readLine());
+		long sum = 0;
+		long pow = 1;
+		char[] arr = str.toCharArray();
+		for(int i = 0; i < L; i++)
+		{
+			sum += (arr[i] - 'a' + 1) * pow % M; //분배법칙
+			pow = pow * 31 % M; //분배법칙
+		}
+		long hash = sum % M;
+		System.out.println(hash);
+	}
 }
