@@ -1,62 +1,69 @@
+import java.io.*;
 import java.util.*;
 
 public class Main {
-
-    private static ArrayList<int[][]> cases = new ArrayList<>();
+    private static int[][] map;
     private static boolean[][] visited;
-    private static int[][] curCaseMap;
     private static int[] moveR = {-1, 1, 0, 0};
-    private static int[] moveC = {0, 0, -1, 1};
-    private static int res = 0;
+    private static int[] moveC = {0, 0, 1, -1};
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        Scanner sc = new Scanner(System.in);
-        int caseCount = sc.nextInt();
-        for (int i = 0; i < caseCount; i++) {
+        int T = Integer.parseInt(br.readLine());
 
-            int rowSize = sc.nextInt();
-            int colSize = sc.nextInt();
-            int[][] map = new int[rowSize][colSize];
-            int cabbageCount = sc.nextInt();
+        for (int i = 0; i < T; i++) {
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            int M = Integer.parseInt(st.nextToken());
+            int N = Integer.parseInt(st.nextToken());
+            int K = Integer.parseInt(st.nextToken());
 
-            for (int j = 0; j < cabbageCount; j++) {
-                int r = sc.nextInt();
-                int c = sc.nextInt();
+            map = new int[N][M];
+            visited = new boolean[N][M];
+            int count = 0;
+
+            for (int j = 0; j < K; j++) {
+                st = new StringTokenizer(br.readLine());
+                int c = Integer.parseInt(st.nextToken());
+                int r = Integer.parseInt(st.nextToken());
+
                 map[r][c] = 1;
             }
-            cases.add(map);
-        }
+            for (int j = 0; j < N; j++) {
+                for (int k = 0; k < M; k++) {
+//                    System.out.println("j = " + j);
+//                    System.out.println("k = " + k);
+//                    System.out.println("map[j][k] = " + map[j][k]);
 
-        for (int[][] map : cases) {
-            curCaseMap = map;
-            res = 0;
-            visited = new boolean[map.length][map[0].length];
-            for (int i = 0; i < map.length; i++) {
-                for (int j = 0; j < map[0].length; j++) {
-                    if (map[i][j] == 1 && !visited[i][j]) {
-                        res++;
-                        dfs(i, j);
+                    if (map[j][k] == 1 && !visited[j][k]) {
+                        dfs(j, k);
+                        count++;
                     }
                 }
             }
-            System.out.println(res);
+
+            bw.write(String.valueOf(count));
+            bw.newLine();
+
         }
+        bw.flush();
     }
 
-    public static void dfs(int row, int col) {
 
-        visited[row][col] = true;
-        //4방향 살펴보기
+    public static void dfs(int r, int c) {
+        if (visited[r][c]) {
+            return;
+        }
+
         for (int i = 0; i < 4; i++) {
-            int nr = row + moveR[i];
-            int nc = col + moveC[i];
-            //인덱스 벗어나면 다음 방향 살펴보기
-            if (nr < 0 || nc < 0 || nr >= curCaseMap.length || nc >= curCaseMap[0].length) {
+            int nr = r + moveR[i];
+            int nc = c + moveC[i];
+            if (nr < 0 || nc < 0 || nr >= map.length || nc >= map[0].length) {
                 continue;
             }
-            //주위에 배추가 있고 방문한 적이 없다면 dfs
-            if (curCaseMap[nr][nc] == 1 && !visited[nr][nc]) {
+            if (map[nr][nc] == 1) {
+                visited[r][c] = true;
                 dfs(nr, nc);
             }
         }
