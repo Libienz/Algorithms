@@ -3,91 +3,74 @@ import java.io.*;
 
 public class Main {
 
-    private static int[] dp = new int[1000001];
-    private static boolean[] visited;
-    public static void main(String[] args) throws IOException {
+    private static final int targetNumber = 1;
 
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
         int N = Integer.parseInt(br.readLine());
-        visited = new boolean[N + 1];
-
-//        int res = countHopBFS(N);
-        int res = countHopDP(N);
-        bw.write(res + "");
+        bw.write(String.valueOf(bfs(N)));
         bw.flush();
-
     }
 
-    //dp 풀이
-    public static int countHopDP(int N) {
-        dp[1] = 0;
-        dp[2] = 1;
-        dp[3] = 1;
-        dp[4] = 2;
-        dp[5] = 3;
-        for (int i = 6; i <= N; i++) {
-            dp[i] = Integer.MAX_VALUE;
-        }
+    public static int bfs(int number) {
 
-        for (int i = 6; i <= N; i++) {
-            int cand = 0;
-            if (i % 3 == 0) {
-                cand = 1 + dp[i / 3];
-                if (cand < dp[i]) {
-                    dp[i] = cand;
-                }
-            }
-            if (i % 2 == 0) {
-                cand = 1 + dp[i / 2];
-                if (cand < dp[i]) {
-                    dp[i] = cand;
-                }
-            }
-            cand = 1 + dp[i - 1];
-            if (cand < dp[i]) {
-                dp[i] = cand;
-            }
-        }
-        return dp[N];
-    }
-    //bfs 풀이
-    public static int countHopBFS(int N) {
-
-        int hop = 0;
         Queue<Integer> q = new LinkedList<>();
-        q.add(N);
-        visited[N] = true;
+        boolean[] visited = new boolean[number + 1];
+        int operationCount = 0;
+
+        q.add(number);
+        visited[number] = true;
 
         while (!q.isEmpty()) {
-            int len = q.size();
+            int size = q.size();
 
-            for (int i = 0; i < len; i++) {
-                Integer cur = q.poll();
-                if (cur == 1) {
-                    return hop;
+            for (int i = 0; i < size; i++) {
+                int cur = q.poll();
+                if (cur == targetNumber) {
+                    return operationCount;
                 }
-                int next = cur;
-                if (cur % 3 == 0) {
-                    next = cur / 3;
-                    if (!visited[next]) {
-                        q.add(next);
-                    }
+                int result = operation1(cur);
+                if (!visited[result]) {
+                    q.add(result);
+                    visited[result] = true;
                 }
-                if (cur % 2 == 0) {
-                    next = cur / 2;
-                    if (!visited[next]) {
-                        q.add(next);
-                    }
+                result = operation2(cur);
+                if (!visited[result]) {
+                    q.add(result);
+                    visited[result] = true;
                 }
-                next = cur - 1;
-                if (!visited[next]) {
-                    q.add(next);
+                result = operation3(cur);
+                if (!visited[result]) {
+                    q.add(result);
+                    visited[result] = true;
                 }
             }
-            hop++;
+
+            operationCount++;
         }
         return -1;
+    }
+
+    public static int operation1(int number) {
+        if (number % 3 == 0 || number < 1) {
+            return number / 3;
+        }
+        return number;
+    }
+
+    public static int operation2(int number) {
+        if (number % 2 == 0 || number < 1) {
+            return number / 2;
+        }
+        return number;
+    }
+
+    public static int operation3(int number) {
+        if (number < 1) {
+            return number;
+        }
+        return number - 1;
     }
 }
