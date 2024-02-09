@@ -16,7 +16,7 @@ public class Main {
 		for(int i = 1; i <= N; i++) {
 			arr[i] = in.nextInt();
 		}
-		
+		   
 		dp[0] = arr[0];	// 디폴트값이 null이므로 0으로 초기화 해주어야한다.
 		dp[1] = arr[1];
 		
