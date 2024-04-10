@@ -13,26 +13,24 @@ public class Main {
 
         int N = Integer.parseInt(br.readLine());
         int M = Integer.parseInt(br.readLine());
-        String Pn = resolvePn(N);
-
         String S = br.readLine();
-        int count = 0;
-        for (int i = 0; i <= S.length() - Pn.length(); i++) {
-            String substring = S.substring(i, i + Pn.length());
-            if (substring.equals(Pn)) {
-                count++;
+
+        int result = 0;
+        int patternCount = 0;
+        for (int i = 1; i < M - 1; i++) {
+            if (S.charAt(i - 1) == 'I' && S.charAt(i) == 'O' && S.charAt(i + 1) == 'I') {
+                patternCount++;
+                if (patternCount == N) {
+                    patternCount--;
+                    result++;
+                }
+                i++;
+            } else {
+                patternCount = 0;
             }
         }
-        bw.write(String.valueOf(count));
+        bw.write(String.valueOf(result));
         bw.newLine();
         bw.flush();
-    }
-
-    private static String resolvePn(int N) {
-        String result = "";
-        for (int i = 0; i < N; i++) {
-            result += "OI";
-        }
-        return "I" + result;
     }
 }
