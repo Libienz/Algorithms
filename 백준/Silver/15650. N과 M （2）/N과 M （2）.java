@@ -33,10 +33,12 @@ public class Main {
             return;
         }
 
-        for (int i = idx; i <= N; i++) {
-            choices.add(i);
-            dfs(i + 1, choices, bw);
-            choices.remove(choices.size() - 1);
+        if (idx > N) {
+            return;
         }
+        choices.add(idx);
+        dfs(idx + 1, choices, bw);
+        choices.remove(choices.size() - 1);
+        dfs(idx + 1, choices, bw);
     }
 }
