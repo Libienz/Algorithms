@@ -1,47 +1,55 @@
-import java.util.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.StringTokenizer;
 
 public class Main {
     private static int K;
     private static int N;
-    public static void main(String[] args) throws IOException {
+    private static List<Integer> lines = new ArrayList<>();
 
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st = new StringTokenizer(br.readLine());
 
-        K = Integer.parseInt(st.nextToken()); //가지고 있는 랜선 개수
-        N = Integer.parseInt(st.nextToken()); //필요한 랜선의 개수
-        List<Integer> cables = new ArrayList<>(); //초기 랜선 정보
-
+        K = Integer.parseInt(st.nextToken());
+        N = Integer.parseInt(st.nextToken());
 
         for (int i = 0; i < K; i++) {
-            cables.add(Integer.parseInt(br.readLine()));
+            int length = Integer.parseInt(br.readLine());
+            lines.add(length);
         }
 
-        Long min = 0L;
-        Long max = (long) Integer.MAX_VALUE;
-        Long mid;
-        while (min <= max) {
-            mid = (max + min) / 2;
-            if (affordableLength(mid, cables)) {
-                min = mid + 1;
+        Long start = 1L;
+        Long end = Collections.max(lines).longValue();
+
+        while (start <= end) {
+
+            Long mid = (start + end) / 2;
+            int count = count(mid);
+            if (count < N) {
+                end = mid - 1;
             } else {
-                max = mid - 1;
+                start = mid + 1;
             }
         }
-        bw.write(String.valueOf(max));
+        bw.write(String.valueOf(end));
         bw.flush();
+
     }
 
-    public static boolean affordableLength(Long cutLength, List<Integer> cables) {
-        Long count = 0L;
-        for (int cable : cables) {
-            count += cable / cutLength;
+    public static int count(Long cutLength) {
+        int sum = 0;
+        for (int lineLength : lines) {
+            sum += (lineLength / cutLength);
         }
-        if (count >= N) {
-            return true;
-        }
-        return false;
+        return sum;
     }
 }
+
