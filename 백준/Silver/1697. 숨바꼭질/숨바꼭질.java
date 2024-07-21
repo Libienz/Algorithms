@@ -1,62 +1,60 @@
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.StringTokenizer;
 
 public class Main {
-    private static final int MIN = 0;
-    private static final int MAX = 100000;
-    private static boolean[] visited = new boolean[MAX + 1];
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st = new StringTokenizer(br.readLine());
 
-        int start = Integer.parseInt(st.nextToken());
-        int target = Integer.parseInt(st.nextToken());
+        int tagger = Integer.parseInt(st.nextToken());
+        int hider = Integer.parseInt(st.nextToken());
 
-        int res = countHop(start, target);
-        bw.write(String.valueOf(res));
+        bw.write(String.valueOf(countSecondsForHideAndSeek(tagger, hider)));
         bw.flush();
     }
 
-    public static int countHop(int start, int target) {
+    public static int countSecondsForHideAndSeek(int taggerPosition, int hiderPosition) {
         Queue<Integer> q = new LinkedList<>();
-        int hop = 0;
-        q.add(start);
-        visited[start] = true;
+        int seconds = 0;
+        boolean[] visited = new boolean[100001];
+        q.add(taggerPosition);
+        visited[taggerPosition] = true;
 
         while (!q.isEmpty()) {
             int len = q.size();
+
             for (int i = 0; i < len; i++) {
                 Integer cur = q.poll();
-
-                if (cur == target) {
-                    return hop;
+                if (cur == hiderPosition) {
+                    return seconds;
                 }
 
-                int next = cur * 2;
-                if (validateNextLocation(next)) {
-                    q.add(next);
+                int np = cur + 1;
+                if (np >= 0 && np <= 100000 && !visited[np]) {
+                    q.add(np);
+                    visited[np] = true;
                 }
-                next = cur - 1;
-                if (validateNextLocation(next)) {
-                    q.add(next);
+                np = cur - 1;
+                if (np >= 0 && np <= 100000 && !visited[np]) {
+                    q.add(np);
+                    visited[np] = true;
                 }
-                next = cur + 1;
-                if (validateNextLocation(next)) {
-                    q.add(next);
+                np = cur * 2;
+                if (np >= 0 && np <= 100000 && !visited[np]) {
+                    q.add(np);
+                    visited[np] = true;
                 }
             }
-            hop++;
+            seconds++;
         }
         return -1;
-    }
-
-    private static boolean validateNextLocation(int next) {
-        if (next >= MIN && next <= MAX && !visited[next]) {
-            visited[next] = true;
-            return true;
-        }
-        return false;
     }
 }
