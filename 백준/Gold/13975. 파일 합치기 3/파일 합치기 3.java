@@ -1,44 +1,42 @@
-import java.util.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.IOException;
+import java.util.PriorityQueue;
+import java.util.StringTokenizer;
 
 public class Main {
-
-    private static List<PriorityQueue<Long>> tests = new ArrayList<>();
-
     public static void main(String[] args) throws IOException {
-
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        int T = Integer.parseInt(br.readLine());
+        int t = Integer.parseInt(br.readLine());
 
-        for (int i = 0; i < T; i++) {
+        for (int i = 0; i < t; i++) {
+            int n = Integer.parseInt(br.readLine());
 
-            Long K = Long.parseLong(br.readLine()); //chapter size
-            PriorityQueue<Long> sizes = new PriorityQueue<>();
+            PriorityQueue<Long> pq = new PriorityQueue<>();
+
             StringTokenizer st = new StringTokenizer(br.readLine());
-            for (int j = 0; j < K; j++) {
-                sizes.add(Long.parseLong(st.nextToken()));
+            for (int j = 0; j < n; j++) {
+                pq.add(Long.parseLong(st.nextToken()));
             }
-            tests.add(sizes);
-        }
 
-        for (PriorityQueue<Long> test : tests) {
-            Long res = calcCost(test);
-            bw.write(res + "");
+            long totalCost = 0;
+            while (pq.size() > 1) {
+                long first = pq.poll();
+                long second = pq.poll();
+
+                long mergeCost = first + second;
+                totalCost += mergeCost;
+
+                pq.add(mergeCost);
+            }
+
+            bw.write(String.valueOf(totalCost));
             bw.newLine();
         }
         bw.flush();
-    }
-
-    public static Long calcCost(PriorityQueue<Long> sizes) {
-        Long res = 0L;
-        while (sizes.size() != 1) {
-            Long c1 = sizes.poll();
-            Long c2 = sizes.poll();
-            sizes.add(c1 + c2);
-            res += (c1 + c2);
-        }
-        return res;
     }
 }
