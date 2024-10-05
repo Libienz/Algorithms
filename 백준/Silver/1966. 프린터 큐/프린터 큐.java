@@ -1,75 +1,56 @@
-import javax.print.Doc;
-import java.util.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.StringTokenizer;
 
 public class Main {
-
     public static void main(String[] args) throws IOException {
-
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        int caseCount = Integer.parseInt(br.readLine());
 
-        for (int i = 0; i < caseCount; i++) {
+        int testCases = Integer.parseInt(br.readLine());
+
+        for (int t = 0; t < testCases; t++) {
             StringTokenizer st = new StringTokenizer(br.readLine());
             int N = Integer.parseInt(st.nextToken());
             int M = Integer.parseInt(st.nextToken());
 
-            Queue<Document> q = new LinkedList<>();
-
+            Queue<Document> queue = new LinkedList<>();
             st = new StringTokenizer(br.readLine());
-            for (int j = 0; j < N; j++) {
-                q.add(new Document(j, Integer.parseInt(st.nextToken())));
+
+            for (int i = 0; i < N; i++) {
+                queue.add(new Document(i, Integer.parseInt(st.nextToken())));
             }
 
             int count = 0;
-            //진단
-            while (true) {
-                if (q.peek().weight >= maxWeight(q)) {
-                    Document poll = q.poll();
-                    if (poll.id == M) {
-                        bw.write(String.valueOf(count + 1) + "\n");
-                        bw.flush();
+            while (!queue.isEmpty()) {
+                Document current = queue.poll();
+                if (queue.stream().anyMatch(doc -> doc.priority > current.priority)) {
+                    queue.add(current);
+                } else {
+                    count++;
+                    if (current.index == M) {
+                        bw.write(count + "\n");
                         break;
                     }
-                    count++;
-                } else {
-                    q.add(q.poll());
                 }
             }
-
         }
+
+        bw.flush();
     }
 
-    static class Document implements Comparable<Document> {
+    static class Document {
+        int index;
+        int priority;
 
-        private int id;
-        private int weight;
-
-        public Document(int id, int weight) {
-            this.id = id;
-            this.weight = weight;
+        Document(int index, int priority) {
+            this.index = index;
+            this.priority = priority;
         }
-
-        @Override
-        public int compareTo(Document o) {
-            if (o.weight == this.weight) {
-                return o.id - this.id;
-            }
-            return o.weight - this.weight;
-        }
-    }
-
-    public static int maxWeight(Queue<Document> q) {
-
-        int maxWeight = Integer.MIN_VALUE;
-        for (int i = 0; i < q.size(); i++) {
-            Document cur = q.poll();
-            if (maxWeight < cur.weight) {
-                maxWeight = cur.weight;
-            }
-            q.add(cur);
-        }
-        return maxWeight;
     }
 }
