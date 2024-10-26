@@ -3,122 +3,68 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.ArrayDeque;
+import java.util.Iterator;
 
 public class Main {
-    private static int popFirst = 0;
-    private static int popRear = 0;
-
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-
         int T = Integer.parseInt(br.readLine());
-
-        for (int i = 0; i < T; i++) {
-            popFirst = 0;
-            popRear = 0;
-            List<String> functions = parseFunctions(br.readLine());
+        while (T-- > 0) {
+            String p = br.readLine();
             int n = Integer.parseInt(br.readLine());
-            if (countPopFunction(functions) > n) {
-                br.readLine();
-                bw.write("error");
-                bw.newLine();
-                continue;
+            String arr = br.readLine();
+            ArrayDeque<Integer> deque = new ArrayDeque<>();
+            if (n > 0) {
+                String[] nums = arr.substring(1, arr.length() - 1).split(",");
+                for (String num : nums) {
+                    deque.add(Integer.parseInt(num));
+                }
             }
-            List<Integer> numbers = parseNumbers(br.readLine());
-            setPopInstructions(functions);
-            applyPop(numbers);
-            if (reverse(functions)) {
-                Collections.reverse(numbers);
+            boolean reversed = false;
+            boolean error = false;
+            for (char c : p.toCharArray()) {
+                if (c == 'R') {
+                    reversed = !reversed;
+                } else {
+                    if (deque.isEmpty()) {
+                        error = true;
+                        break;
+                    }
+                    if (reversed) {
+                        deque.pollLast();
+                    } else {
+                        deque.pollFirst();
+                    }
+                }
             }
-            bw.write(toAnswer(numbers));
-            bw.newLine();
+            if (error) {
+                bw.write("error\n");
+            } else {
+                StringBuilder sb = new StringBuilder();
+                sb.append("[");
+                if (reversed) {
+                    Iterator<Integer> it = deque.descendingIterator();
+                    while (it.hasNext()) {
+                        sb.append(it.next());
+                        if (it.hasNext()) {
+                            sb.append(",");
+                        }
+                    }
+                } else {
+                    Iterator<Integer> it = deque.iterator();
+                    while (it.hasNext()) {
+                        sb.append(it.next());
+                        if (it.hasNext()) {
+                            sb.append(",");
+                        }
+                    }
+                }
+                sb.append("]\n");
+                bw.write(sb.toString());
+            }
         }
         bw.flush();
-    }
-
-    private static List<String> parseFunctions(String functions) {
-        List<String> functionList = new ArrayList<>();
-        for (int i = 0; i < functions.length(); i++) {
-            functionList.add(functions.charAt(i) + "");
-        }
-        return functionList;
-    }
-
-    private static List<Integer> parseNumbers(String numberString) {
-        String substring = numberString.substring(1, numberString.length() - 1);
-        List<Integer> res = new ArrayList<>();
-
-        if (substring.isEmpty()) {
-            return res;
-        }
-        for (String s : substring.split(",")) {
-            res.add(Integer.parseInt(s));
-        }
-        return res;
-    }
-
-    private static boolean reverse(List<String> functions) {
-        int reverseCount = 0;
-        for (String f : functions) {
-            if (f.equals("R")) {
-                reverseCount++;
-            }
-        }
-        if (reverseCount % 2 == 0) {
-            return false;
-        }
-        return true;
-    }
-
-    private static int countPopFunction(List<String> functions) {
-        int count = 0;
-        for (String f : functions) {
-            if (f.equals("D")) {
-                count++;
-            }
-        }
-        return count;
-    }
-
-    private static void setPopInstructions(List<String> functions) {
-        boolean popFront = true;
-        for (String f : functions) {
-            if (f.equals("R")) {
-                if (popFront) {
-                    popFront = false;
-                } else {
-                    popFront = true;
-                }
-            }
-            if (f.equals("D")) {
-                if (popFront) {
-                    popFirst++;
-                } else {
-                    popRear++;
-                }
-            }
-        }
-    }
-
-    private static void applyPop(List<Integer> numbers) {
-        while (popFirst > 0) {
-            numbers.remove(0);
-            popFirst--;
-        }
-        while (popRear > 0) {
-            numbers.remove(numbers.size() - 1);
-            popRear--;
-        }
-    }
-
-    private static String toAnswer(List<Integer> numbers) {
-        return "[" + numbers.stream()
-                .map(String::valueOf)
-                .collect(Collectors.joining(",")) + "]";
     }
 }
