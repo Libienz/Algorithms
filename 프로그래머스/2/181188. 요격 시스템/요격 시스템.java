@@ -2,31 +2,27 @@ import java.util.*;
 
 class Solution {
     public int solution(int[][] targets) {
-        
         List<AttackMissile> missiles = new ArrayList<>();
-        for (int[] target : targets) {
-            int start = target[0];
-            int end = target[1];
-            missiles.add(new AttackMissile(start, end));
+        for (int[] missile : targets) {
+            missiles.add(new AttackMissile(missile[0], missile[1]));
         }
         
-        Collections.sort(missiles);
+        Collections.sort(missiles); 
         
-        int point = 0;
         int count = 0;
-        for (AttackMissile missile : missiles) {
-            if (missile.start >= point) {
+        int point = 0;
+        for (AttackMissile am : missiles) {
+            if (am.start >= point) {
+                point = am.end;
                 count++;
-                point = missile.end;
-            } 
+            }
         }
-        
         return count;
     }
     
     private static class AttackMissile implements Comparable<AttackMissile> {
-        int start;
-        int end;
+        private final int start;
+        private final int end;
         
         public AttackMissile(int start, int end) {
             this.start = start;
@@ -36,14 +32,9 @@ class Solution {
         @Override
         public int compareTo(AttackMissile other) {
             if (this.end == other.end) {
-                return this.start - other.start;    
+                return this.start - other.start;
             }
             return this.end - other.end;
-        }
-        
-        @Override
-        public String toString() {
-            return "start: " + start + " end: " + end;
         }
     }
 }
