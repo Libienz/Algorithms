@@ -1,57 +1,49 @@
 import java.util.*;
 
 class Solution {
-    private List<Dungeon> dungeonList = new ArrayList<>();
-    private boolean[] checked;
-    private int maxCount = Integer.MIN_VALUE;
+    private static int answer = Integer.MIN_VALUE;
+    private static int cheapest = Integer.MAX_VALUE;
     
     public int solution(int k, int[][] dungeons) {
-        for (int[] dungeon : dungeons) {
-            dungeonList.add(new Dungeon(dungeon[0], dungeon[1]));
+        List<Dungeon> dungeonList = new ArrayList<>();
+        for (int [] d : dungeons) {
+            cheapest = Math.min(d[0], cheapest);
+            dungeonList.add(new Dungeon(d[0], d[1]));
         }
         
-        checked = new boolean[dungeonList.size()];
-        dfs(k, 0);
-        return maxCount;
+        dfs(k, dungeonList, new ArrayList<>());    
+        
+        if (answer == Integer.MIN_VALUE) {
+            return 0;
+        }
+        return answer;
     }
     
-    private void dfs(int k, int count) {
+    public void dfs (int fatigue, List<Dungeon> dungeons, List<Integer> chosen) {
+        answer = Math.max(chosen.size(), answer);
+        
+        for (int i = 0; i < dungeons.size(); i++) {
+            Dungeon d = dungeons.get(i);
+            if (d.canExplore(fatigue) && !chosen.contains(i)) {
+                chosen.add(i);
+                dfs(fatigue - d.cost, dungeons, chosen);
+                chosen.remove(chosen.size() - 1);
+            }
+        }
 
-        if (isAllChecked(checked)) {
-            maxCount = Math.max(maxCount, count);
-            return;
-        }
-        
-        for (int i = 0 ; i < dungeonList.size(); i++) {
-            Dungeon cur = dungeonList.get(i);
-            if (checked[i] == true) {
-                continue;
-            }
-            checked[i] = true;
-            if (k >= cur.mf) {
-                dfs(k-cur.cf, count+1);
-            } else {
-                dfs(k, count);
-            }
-            checked[i] = false;
-        }
     }
     
-    private boolean isAllChecked(boolean[] isChecked) {
-        for (boolean c : isChecked) {
-            if (!c) {
-                return false;
-            }
-        }
-        return true;
-    }
     private static class Dungeon {
-        int mf;
-        int cf; 
+        int minFatigue;
+        int cost;
         
-        public Dungeon(int mf, int cf) {
-            this.mf = mf;
-            this.cf = cf;
+        public Dungeon(int minFatigue, int cost) {
+            this.minFatigue = minFatigue;
+            this.cost = cost;
+        }
+        
+        public boolean canExplore(int fatigue) {
+            return fatigue >= minFatigue;
         }
     }
 }
